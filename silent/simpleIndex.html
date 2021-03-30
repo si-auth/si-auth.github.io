@@ -34,6 +34,10 @@
       prompt=none&
       redirect_uri=https://tools.ietf.org/rfc/rfc6750&nonce=nonce1
       (リダイレクト先はiframeが変な反応を出さないようにシステム共通のエラー画面などがよさそう
+
+      応答としては以下(iframeの中、いずれもhashなので飛ばない)
+　      すでに認証済みの場合：location:https://tools.ietf.org/rfc/rfc6750#id_token=eyJhbGciO…
+ 　     未認証の場合：https://tools.ietf.org/rfc/rfc6750#error=login_required&error_description=Login%20required
     --> 
 
     <iframe src="https://design-test-j.us.auth0.com/authorize?client_id=Pzk6fkImfAHHX5xZqRU7TsCQqsPu7lTI&scope=openid&response_type=id_token&prompt=none&redirect_uri=https://tools.ietf.org/rfc/rfc6750&nonce=nonce1" width="0" height="0" display='none'></iframe>    

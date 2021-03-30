@@ -34,13 +34,17 @@
       prompt=none&
       redirect_uri=https://tools.ietf.org/rfc/rfc6750&nonce=nonce1
       (リダイレクト先はiframeが変な反応を出さないようにシステム共通のエラー画面などがよさそう
+
+      応答としては以下(iframeの中、いずれもhashなのでサーバまでは飛ばない)
+　      すでに認証済みの場合：location:https://tools.ietf.org/rfc/rfc6750#id_token=eyJhbGciO…
+ 　     未認証の場合：https://tools.ietf.org/rfc/rfc6750#error=login_required&error_description=Login%20required
     --> 
     <script>
       const auth0frame = window.document.createElement('iframe');
       auth0frame.setAttribute('width', '0');
       auth0frame.setAttribute('height', '0');
       auth0frame.style.display = 'none';
-      window.document.body.appendChild(auth0frame);
+      // window.document.body.appendChild(auth0frame);
       auth0frame.setAttribute('src','https://design-test-j.us.auth0.com/authorize?client_id=Pzk6fkImfAHHX5xZqRU7TsCQqsPu7lTI&scope=openid&response_type=id_token&prompt=none&redirect_uri=https://tools.ietf.org/rfc/rfc6750&nonce=nonce1');
     </script>
   </body>
