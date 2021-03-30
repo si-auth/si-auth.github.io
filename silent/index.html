@@ -4,6 +4,10 @@
     <meta charset="UTF-8" />
     <title>Silent Authentication TEST</title>
     <script src="https://cdn.auth0.com/js/auth0/9.11/auth0.min.js"></script>
+  </head>
+  <body>
+    <h2>Silent Authentication TEST</h2>
+    <p>BackendでAuth0と通信し、Auth0側のセッションを延長する</p>
     <script type="text/javascript">
       var auth0Client = new auth0.WebAuth({
           clientID: 'design-test-j.us.auth0.com',
@@ -11,10 +15,6 @@
         });
       auth0Client.crossOriginVerification();
     </script>
-  </head>
-  <body>
-    <h2>Silent Authentication TEST</h2>
-    <p>BackendでAuth0と通信し、Auth0側のセッションを延長する</p>
       <!--
      https://github.com/auth0/lock/blob/master/support/callback-cross-auth.html
      https://auth0.com/docs/login/embedded-login/cross-origin-authentication#error-codes-and-descriptions
