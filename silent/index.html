@@ -3,6 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <title>Silent Authentication TEST</title>
+    <!--
     <script src="https://cdn.auth0.com/js/auth0/9.11/auth0.min.js"></script>
     <script type="text/javascript">
       var auth0Client = new auth0.WebAuth({
@@ -12,6 +13,7 @@
         });
       auth0Client.crossOriginVerification();
     </script>
+    -->
   </head>
   <body>
     <h2>Silent Authentication TEST</h2>
@@ -20,5 +22,12 @@
      https://github.com/auth0/lock/blob/master/support/callback-cross-auth.html
      https://auth0.com/docs/login/embedded-login/cross-origin-authentication#error-codes-and-descriptions
       -->
+
+    <!--
+      iframeでSameSiteCookieがあることを前提に投げつける
+      https://github.com/auth0/auth0-spa-js/blob/041ce0aff5c94beff6d10b98c32441cfbc5c905a/src/utils.ts#L35
+    --> 
+
+    <iframe src="https://design-test-j.us.auth0.com/authorize" width="500" height="300" display = 'none'></iframe>    
   </body>
 </html>
