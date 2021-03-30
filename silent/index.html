@@ -40,6 +40,7 @@
       auth0frame.setAttribute('width', '0');
       auth0frame.setAttribute('height', '0');
       auth0frame.style.display = 'none';
+      window.document.body.appendChild(auth0frame);
       auth0frame.setAttribute('src','https://design-test-j.us.auth0.com/authorize?client_id=Pzk6fkImfAHHX5xZqRU7TsCQqsPu7lTI&scope=openid&response_type=id_token&prompt=none&redirect_uri=https://tools.ietf.org/rfc/rfc6750&nonce=nonce1');
     </script>
   </body>
