@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Silent Authentication TEST</title>
+    <!--
+    <script src="https://cdn.auth0.com/js/auth0/9.11/auth0.min.js"></script>
+    <script type="text/javascript">
+      var auth0Client = new auth0.WebAuth({
+          clientID: 'Pzk6fkImfAHHX5xZqRU7TsCQqsPu7lTI',
+          redirectUri: 'https://si-auth.github.io/silent/',
+          domain: 'design-test-j.us.auth0.com'
+        });
+      auth0Client.crossOriginVerification();
+    </script>
+    -->
+  </head>
+  <body>
+    <h2>Silent Authentication TEST</h2>
+    <p>BackendでAuth0と通信し、Auth0側のセッションを延長する</p>
+      <!--
+     https://github.com/auth0/lock/blob/master/support/callback-cross-auth.html
+     https://auth0.com/docs/login/embedded-login/cross-origin-authentication#error-codes-and-descriptions
+      -->
+
+    <!--
+      iframeでSameSiteCookieがあることを前提に投げつける
+      https://github.com/auth0/auth0-spa-js/blob/041ce0aff5c94beff6d10b98c32441cfbc5c905a/src/utils.ts#L35
+
+      飛ばし先は以下
+      https://design-test-j.us.auth0.com/authorize?
+      client_id=Pzk6fkImfAHHX5xZqRU7TsCQqsPu7lTI&
+      scope=openid&response_type=id_token&
+      prompt=none&
+      redirect_uri=https://tools.ietf.org/rfc/rfc6750&nonce=nonce1
+      (リダイレクト先はiframeが変な反応を出さないようにシステム共通のエラー画面などがよさそう
+    --> 
+
+    <iframe src="https://design-test-j.us.auth0.com/authorize?client_id=Pzk6fkImfAHHX5xZqRU7TsCQqsPu7lTI&scope=openid&response_type=id_token&prompt=none&redirect_uri=https://tools.ietf.org/rfc/rfc6750&nonce=nonce1" width="0" height="0" display='none'></iframe>    
+  </body>
+</html>
