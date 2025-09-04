@@ -36,7 +36,7 @@ The Dry Run feature is now available in Early Access. Update to the latest versi
                    <guid>https://auth0.com/changelog#0W4ZIHyeQvtNGT9q2TDKU</guid>
                </item><item>
                    <title>Non-Unique Emails Now in Open Early Access</title>
-                   <pubDate>Fri, 22 Aug 2025 00:00:00 GMT</pubDate>
+                   <pubDate>Thu, 04 Sep 2025 04:06:31 GMT</pubDate>
                    <description>**What&amp;apos;s new:**\
 **Non-Unique Emails** is now in **Open Early Access** and rolling out to all environments. With this feature, multiple user accounts can share the same email address within a database connection. This enables support for real-world scenarios like:
 
