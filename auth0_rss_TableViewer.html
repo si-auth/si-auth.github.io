@@ -9,29 +9,57 @@
   4) 互換性: RSS/Atom 双方に対応。リンクは guid/link@href を切替可能（RSS差異に配慮）。
   5) 生産性: 行の3点メニュー（タイトル/概要コピー、Google検索）とショートカット t/d/g を提供。印刷最適化HTML/CSV エクスポートに対応。
   6) 画像体験: 画像は lazy/async 読込。ライトボックス（Esc閉・前/次ナビ）を備え、記事閲覧を妨げない設計。
-  7) 状態保持: localStorage(auth0_rss_viewer_settings_v4) に検索語/日付/HTML表示/ホワイトリスト/リンク種別/折りたたみ状態を保存し復元。
-  8) 実装方針: Vanilla JS + CSS のみ。関数を小さく分割し、DOM構築/フィルタ/エクスポート/サニタイズを責務別に実装。
+  7) 状態保持: localStorage(auth0_rss_viewer_settings_v4) に検索語/日付/HTML表示/ホワイトリスト/リンク種別/折りたたみ状態/テーマを保存し復元。
+  8) 実装方針: Vanilla JS + CSS のみ。関数を小さく分割し、DOM構築/フィルタ/エクスポート/サニタイズ/テーマ適用を責務別に実装。
   9) 配布/実行: localhost（推奨）または file:// で動作。外部画像は localhost からの表示を推奨。Changelog: https://auth0.com/changelog
-  Last-Updated: 2025-10-02 10:55:48Z (UTC)
+  Last-Updated: 2025-10-02 11:12:27Z (UTC)
 -->
 
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="color-scheme" content="light dark" />
   <title>Auth0 RSS ビューア（ローカルXML対応 / CSV・HTMLエクスポート付）</title>
   <style>
-    :root{
-      --bg:#0b0c10; --card:#12151a; --txt:#e6e6e6; --muted:#a8b0bd; --accent:#3aa0ff; --border:#263141; --danger:#ff6464; --ok:#2ecc71; --blocked:#ffb74d; --hl:#ffe08a;
+    /* ===============================
+       THEME TOKENS (Light / Dark / Auto)
+       =============================== */
+    :root{ /* Light theme as base */
+      --bg:#f7f9fc; --card:#ffffff; --txt:#1e293b; --muted:#5b677a; --accent:#0b6bcb; --border:#d7e0ea;
+      --danger:#d62323; --ok:#17803d; --blocked:#b36b00; --hl:#fff1a6;
+      --row:#ffffff; --rowAlt:#f2f6fb; --hover:#eef3fb; --link:#0b6bcb;
     }
+    /* Force Light */
+    body.theme-light{
+      --bg:#f7f9fc; --card:#ffffff; --txt:#1e293b; --muted:#5b677a; --accent:#0b6bcb; --border:#d7e0ea;
+      --danger:#d62323; --ok:#17803d; --blocked:#b36b00; --hl:#fff1a6;
+      --row:#ffffff; --rowAlt:#f2f6fb; --hover:#eef3fb; --link:#0b6bcb;
+    }
+    /* Force Dark */
+    body.theme-dark{
+      --bg:#0b0c10; --card:#12151a; --txt:#e6e6e6; --muted:#a8b0bd; --accent:#3aa0ff; --border:#263141;
+      --danger:#ff6464; --ok:#2ecc71; --blocked:#ffb74d; --hl:#ffe08a;
+      --row:#12151a; --rowAlt:#0f141f; --hover:#121826; --link:#6bb8ff;
+    }
+    /* Auto (follow OS): override tokens under dark mode */
+    @media (prefers-color-scheme: dark){
+      body.theme-auto{ /* same as theme-dark */
+        --bg:#0b0c10; --card:#12151a; --txt:#e6e6e6; --muted:#a8b0bd; --accent:#3aa0ff; --border:#263141;
+        --danger:#ff6464; --ok:#2ecc71; --blocked:#ffb74d; --hl:#ffe08a;
+        --row:#12151a; --rowAlt:#0f141f; --hover:#121826; --link:#6bb8ff;
+      }
+    }
+
     html,body{margin:0;background:var(--bg);color:var(--txt);font-family:system-ui,Segoe UI,Roboto,Helvetica,Arial,"Noto Sans JP",sans-serif}
-    header{position:sticky;top:0;z-index:10;background:linear-gradient(180deg,var(--bg),rgba(11,12,16,.95));backdrop-filter:blur(4px);}
+    a{color:var(--link)}
+    header{position:sticky;top:0;z-index:10;background:linear-gradient(180deg,var(--bg),rgba(0,0,0,.02));backdrop-filter:blur(4px);}
     .wrap{max-width:min(1800px,98vw);margin:0 auto;padding:12px 16px}
     h1{margin:.2rem 0 .4rem 0;font-size:1.1rem;color:var(--muted);font-weight:600}
 
     /* Collapsible header bar */
     .hdrbar{position:relative;display:flex;align-items:center;gap:8px;min-height:40px}
-    .hdrbar h1{padding-right:150px} /* avoid overlap with the button */
-    .collapse-btn{position:absolute;right:0;top:0;appearance:none;border:1px solid var(--border);background:#0f2033;color:#e9f2ff;padding:6px 10px;border-radius:8px;cursor:pointer;font-size:.9rem}
-    .collapse-btn:hover{border-color:#2a4b6f;background:#113252}
+    .hdrbar h1{padding-right:180px} /* avoid overlap with right-side controls */
+    .collapse-btn{position:absolute;right:0;top:0;appearance:none;border:1px solid var(--border);background:color-mix(in oklab, var(--card), var(--bg));color:var(--txt);padding:6px 10px;border-radius:8px;cursor:pointer;font-size:.9rem}
+    .collapse-btn:hover{border-color:color-mix(in oklab, var(--border), var(--accent) 45%);background:color-mix(in oklab, var(--card), var(--accent) 8%)}
     .collapse-btn .ico{margin-right:.35em}
 
     .controls{display:grid;grid-template-columns:1fr;gap:12px;margin-top:8px}
@@ -44,7 +72,7 @@
     header.collapsed .wrap{padding:8px 16px}
 
     label{font-size:.9rem;color:var(--muted)}
-    input[type="file"],input[type="text"],input[type="date"],textarea,select{width:100%;padding:10px;border-radius:8px;border:1px solid var(--border);background:#0f131a;color:var(--txt)}
+    input[type="file"],input[type="text"],input[type="date"],textarea,select{width:100%;padding:10px;border-radius:8px;border:1px solid var(--border);background:color-mix(in oklab, var(--card), var(--bg) 10%);color:var(--txt)}
     textarea{min-height:68px;resize:vertical}
     input[type="checkbox"]{transform:scale(1.1);margin-right:6px}
     .hint{font-size:.85rem;color:var(--muted)}
@@ -52,8 +80,9 @@
 
     table{width:100%;border-collapse:separate;border-spacing:0;table-layout:fixed}
     thead th{position:sticky;top:0;background:var(--card);border-bottom:1px solid var(--border);text-align:left;padding:10px;font-size:.9rem;color:var(--muted)}
-    tbody td{vertical-align:top;border-bottom:1px solid var(--border);padding:12px 10px}
-    tbody tr:hover{background:#121826}
+    tbody td{vertical-align:top;border-bottom:1px solid var(--border);padding:12px 10px;background:var(--row)}
+    tbody tr:nth-child(odd) td{background:var(--rowAlt)}
+    tbody tr:hover td{background:var(--hover)}
 
     col.c-title{width:16%}
     col.c-date{width:9%}
@@ -64,17 +93,17 @@
     .col-date{white-space:nowrap; overflow:hidden; text-overflow:ellipsis}
     .desc{white-space:pre-wrap;word-wrap:break-word;overflow-wrap:anywhere}
     .desc img{max-width:100%;height:auto;border-radius:6px;border:1px solid var(--border);cursor:zoom-in}
-    .badge{display:inline-block;padding:2px 8px;border-radius:999px;background:#0f2033;color:var(--accent);border:1px solid #224868;font-size:.75rem}
+    .badge{display:inline-block;padding:2px 8px;border-radius:999px;background:color-mix(in oklab, var(--accent), #000 86%);color:#fff;border:1px solid color-mix(in oklab, var(--accent), #000 60%);font-size:.75rem}
     .warn{color:var(--danger)}
     .ok{color:var(--ok)}
-    .blocked{display:inline-block;padding:2px 6px;border-radius:6px;background:rgba(255,183,77,.12);border:1px dashed #7a5;color:#ffcf88;font-size:.8rem}
+    .blocked{display:inline-block;padding:2px 6px;border-radius:6px;background:color-mix(in oklab, var(--blocked), var(--bg) 85%);border:1px dashed color-mix(in oklab, var(--blocked), #000 50%);color:color-mix(in oklab, var(--blocked), #000 35%);font-size:.8rem}
     .footer{color:var(--muted);font-size:.85rem;margin:20px 0}
 
     .btnrow{display:flex;flex-wrap:wrap;gap:8px;margin-top:8px}
-    .btn{appearance:none;border:1px solid var(--border);background:#0f2033;color:#e9f2ff;padding:8px 12px;border-radius:8px;cursor:pointer}
-    .btn:hover{border-color:#2a4b6f;background:#113252}
+    .btn{appearance:none;border:1px solid var(--border);background:color-mix(in oklab, var(--card), var(--bg));color:var(--txt);padding:8px 12px;border-radius:8px;cursor:pointer}
+    .btn:hover{border-color:color-mix(in oklab, var(--border), var(--accent) 45%);background:color-mix(in oklab, var(--card), var(--accent) 8%)}
     .btn:active{transform:translateY(1px)}
-    .btn.secondary{background:#191e27;color:#dbe7ff}
+    .btn.secondary{background:color-mix(in oklab, var(--card), var(--bg) 5%);color:var(--txt)}
 
     .row{display:grid;grid-template-columns:1fr;gap:8px;margin-top:8px}
     @media(min-width:520px){.row.cols-2{grid-template-columns:1fr 1fr}}
@@ -84,20 +113,20 @@
 
     /* Kebab menu for row actions */
     .kebab-wrap{position:relative;display:inline-block;margin-left:6px}
-    .kebab-btn{appearance:none;border:1px solid var(--border);background:#0f2033;color:#d8e7ff;border-radius:6px;cursor:pointer;padding:2px 8px;line-height:1}
-    .kebab-btn:hover{background:#18314d;border-color:#2a4b6f}
-    .kebab-btn[aria-expanded="true"]{background:#1a2a42}
-    .menu{position:absolute;right:0;top:120%;min-width:180px;background:#141a23;border:1px solid #2a3a52;border-radius:8px;box-shadow:0 10px 30px rgba(0,0,0,.35);padding:6px;display:none;z-index:5}
+    .kebab-btn{appearance:none;border:1px solid var(--border);background:color-mix(in oklab, var(--card), var(--bg));color:var(--txt);border-radius:6px;cursor:pointer;padding:2px 8px;line-height:1}
+    .kebab-btn:hover{background:color-mix(in oklab, var(--card), var(--accent) 8%);border-color:color-mix(in oklab, var(--border), var(--accent) 45%)}
+    .kebab-btn[aria-expanded="true"]{background:color-mix(in oklab, var(--card), var(--accent) 14%)}
+    .menu{position:absolute;right:0;top:120%;min-width:180px;background:color-mix(in oklab, var(--card), var(--bg) 6%);border:1px solid color-mix(in oklab, var(--border), #000 10%);border-radius:8px;box-shadow:0 10px 30px rgba(0,0,0,.15);padding:6px;display:none;z-index:5}
     .menu.open{display:block}
-    .menu .mi{display:flex;gap:8px;align-items:center;width:100%;padding:8px 10px;background:transparent;border:none;color:#dbe7ff;border-radius:6px;text-align:left;cursor:pointer}
-    .menu .mi:hover{background:#1b2533}
+    .menu .mi{display:flex;gap:8px;align-items:center;width:100%;padding:8px 10px;background:transparent;border:none;color:var(--txt);border-radius:6px;text-align:left;cursor:pointer}
+    .menu .mi:hover{background:color-mix(in oklab, var(--card), var(--accent) 8%)}
     .menu .mi .ico{font-size:1rem;opacity:.9}
 
     /* Lightbox */
-    .lightbox{position:fixed;inset:0;background:rgba(0,0,0,.85);display:none;align-items:center;justify-content:center;z-index:999}
+    .lightbox{position:fixed;inset:0;background:rgba(0,0,0,.75);display:none;align-items:center;justify-content:center;z-index:999}
     .lightbox.open{display:flex}
     .lb-inner{position:relative;max-width:95vw;max-height:95vh}
-    .lb-img{max-width:95vw;max-height:95vh;display:block;border-radius:8px;box-shadow:0 8px 40px rgba(0,0,0,.5)}
+    .lb-img{max-width:95vw;max-height:95vh;display:block;border-radius:8px;box-shadow:0 8px 40px rgba(0,0,0,.3)}
     .lb-close{position:absolute;top:-42px;right:0;background:#222a;backdrop-filter:blur(3px);border:1px solid #444;color:#fff;border-radius:6px;padding:6px 10px;cursor:pointer}
     .lb-nav{position:absolute;top:50%;transform:translateY(-50%);display:flex;justify-content:space-between;align-items:center;width:100%}
     .lb-btn{background:#222a;border:1px solid #444;color:#fff;border-radius:999px;width:40px;height:40px;display:grid;place-items:center;cursor:pointer}
@@ -105,10 +134,14 @@
     .lb-next{position:absolute;right:-52px}
     @media(max-width:720px){.lb-prev{left:4px}.lb-next{right:4px}.lb-close{top:8px;right:8px}}
 
+    /* Density presets */
+    body.density-comfortable tbody td{padding:14px 12px}
+    body.density-compact tbody td{padding:8px 8px}
+
     @media print{ .kebab-wrap{display:none !important} }
   </style>
 </head>
-<body>
+<body class="theme-auto density-comfortable">
   <header id="hdr">
     <div class="wrap">
       <div class="hdrbar">
@@ -148,10 +181,12 @@
         <div class="card">
           <label>③ 表示オプション</label>
           <div class="row">
-            <label style="display:flex;align-items:center;gap:.4rem">
-              <input id="trustHtml" type="checkbox"> <!-- 既定 OFF -->
-              <span>概要(<code>description</code>)を <b>HTMLとして表示</b>（<span class="warn">XSS注意</span>）</span>
-            </label>
+            <div class="inline-row">
+              <label style="display:flex;align-items:center;gap:.4rem">
+                <input id="trustHtml" type="checkbox"> <!-- 既定 OFF -->
+                <span>概要(<code>description</code>)を <b>HTMLとして表示</b>（<span class="warn">XSS注意</span>）</span>
+              </label>
+            </div>
             <div>
               <label style="display:flex;align-items:center;gap:.4rem">
                 <input id="enableWhitelist" type="checkbox" checked>
@@ -168,6 +203,24 @@
                 <option value="link">link@href（存在する場合）</option>
               </select>
               <div class="hint">RSSにより <code>guid</code> がURLでない場合があります。その場合は <code>link@href</code> を選択してください。</div>
+            </div>
+            <div class="row cols-2">
+              <div>
+                <label for="theme">テーマ</label>
+                <select id="theme">
+                  <option value="auto" selected>自動（OSに追従）</option>
+                  <option value="light">ライト（白背景）</option>
+                  <option value="dark">ダーク（黒背景）</option>
+                </select>
+                <div class="hint">見やすさ重視：白背景が見やすい場合は「ライト」、暗所では「ダーク」、環境に合わせるなら「自動」。</div>
+              </div>
+              <div>
+                <label for="density">表示密度</label>
+                <select id="density">
+                  <option value="comfortable" selected>標準（読みやすさ優先）</option>
+                  <option value="compact">コンパクト（情報量優先）</option>
+                </select>
+              </div>
             </div>
             <div class="inline-row">
               <button id="btnPrintFiltered" class="btn secondary">印刷（フィルタ後）</button>
@@ -238,11 +291,12 @@
       btnPreset7d: $('#btnPreset7d'), btnPreset30d: $('#btnPreset30d'), btnPreset6m: $('#btnPreset6m'), btnPreset1y: $('#btnPreset1y'), btnClearDates: $('#btnClearDates'),
       enableWhitelist: $('#enableWhitelist'), whitelist: $('#whitelist'), linkSource: $('#linkSource'),
       lb: $('#lightbox'), lbImg: $('#lbImg'), lbClose: $('#lbClose'), lbPrev: $('#lbPrev'), lbNext: $('#lbNext'),
-      btnPrintFiltered: $('#btnPrintFiltered')
+      btnPrintFiltered: $('#btnPrintFiltered'),
+      theme: $('#theme'), density: $('#density')
     };
 
     // ===== Settings persistence =====
-    const LS_KEY = 'auth0_rss_viewer_settings_v4';
+    const LS_KEY = 'auth0_rss_viewer_settings_v5';
     function saveSettings(){
       const obj = {
         trust: els.trust.checked,
@@ -252,9 +306,21 @@
         q: els.q.value,
         dateFrom: els.dateFrom.value,
         dateTo: els.dateTo.value,
-        collapsed: els.header.classList.contains('collapsed')
+        collapsed: els.header.classList.contains('collapsed'),
+        theme: els.theme.value,
+        density: els.density.value
       };
       localStorage.setItem(LS_KEY, JSON.stringify(obj));
+    }
+    function applyTheme(val){
+      const cls = ['theme-auto','theme-light','theme-dark'];
+      document.body.classList.remove(...cls);
+      document.body.classList.add('theme-'+(val||'auto'));
+    }
+    function applyDensity(val){
+      const cls=['density-comfortable','density-compact'];
+      document.body.classList.remove(...cls);
+      document.body.classList.add('density-'+(val||'comfortable'));
     }
     function loadSettings(){
       try{
@@ -267,6 +333,8 @@
         if(typeof obj.q === 'string') els.q.value = obj.q;
         if(typeof obj.dateFrom === 'string') els.dateFrom.value = obj.dateFrom;
         if(typeof obj.dateTo === 'string') els.dateTo.value = obj.dateTo;
+        if(obj.theme){ els.theme.value=obj.theme; applyTheme(obj.theme); }
+        if(obj.density){ els.density.value=obj.density; applyDensity(obj.density); }
         if(obj.collapsed){ setCollapsed(true, false); }
       }catch{}
     }
@@ -317,8 +385,6 @@
     function descToPlainText(descRaw){ const div=document.createElement('div'); const looksHtml=/<\w+[^>]*>/.test(descRaw||''); div.innerHTML = looksHtml ? (descRaw||'') : toHtmlFromPlain(descRaw||''); return div.textContent || ''; }
     function highlightText(text, needle){ if(!needle) return esc(text||''); const safe=esc(text||''); try{ const re=new RegExp('('+needle.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')+')','ig'); return safe.replace(re,'<mark class="h">$1</mark>'); }catch{ return safe; } }
 
-    let lastActiveRow = null;
-
     function buildRow(item){
       const tr=document.createElement('tr');
       const tdTitle=document.createElement('td'); tdTitle.className='col-title';
@@ -334,7 +400,7 @@
       tr.dataset.title = item.title || '';
       tr.dataset.desc = descPlain;
 
-      // Title + badge
+      // Title + badge (チャンネル名はそのまま表示)
       tdTitle.innerHTML = `<strong>${highlightText(titleBase, q)}</strong>` + (item.channelTitle? ` <span class="badge" title="channel">${esc(item.channelTitle)}</span>`: '');
 
       // Kebab menu
@@ -363,10 +429,6 @@
       const href = getLinkUrl(item);
       if(href){ if(isAllowedUrl(href)){ const a=document.createElement('a'); a.href=href; a.target='_blank'; a.rel='noopener noreferrer'; a.textContent=href; tdLink.appendChild(a); } else { const span=document.createElement('span'); span.className='blocked'; span.title=`ドメイン許可外: ${hostFromUrl(href)}`; span.textContent=href; tdLink.appendChild(span);} }
 
-      // Row activation tracking
-      tr.addEventListener('mouseenter', ()=>{ lastActiveRow = tr; });
-      tr.addEventListener('focusin', ()=>{ lastActiveRow = tr; });
-
       // Kebab events
       kebabBtn.addEventListener('click', (e)=>{
         e.stopPropagation();
@@ -374,7 +436,6 @@
         menu.classList.toggle('open');
         const expanded = menu.classList.contains('open');
         kebabBtn.setAttribute('aria-expanded', expanded?'true':'false');
-        lastActiveRow = tr;
       });
       menu.addEventListener('click', (e)=>{
         const btn = e.target.closest('[data-act]'); if(!btn) return;
@@ -414,36 +475,29 @@
 
     function sanitizeHtmlString(html){ const div=document.createElement('div'); div.innerHTML=html; sanitizeDescElement(div); return div.innerHTML; }
     function buildRowsHTML(items){ let html=''; const q=(els.q.value||'').trim(); for(const it of items){ const dateText=formatYYYYMMDD(it._ts,it.pubDate); const dateTitle=it.pubDate?` title=\"${esc(it.pubDate)}\"`:''; const raw=decodeEntitiesDeep(it.description||''); let descHtml=''; if(els.trust.checked){ const looksHtml=/<\w+[^>]*>/.test(raw); descHtml=sanitizeHtmlString(looksHtml? raw : toHtmlFromPlain(raw)); } else { descHtml=esc(raw); if(q){ const re=new RegExp('('+q.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')+')','ig'); descHtml = descHtml.replace(re,'<mark class=\"h\">$1</mark>'); } } const titleHtml = `<strong>${highlightText(it.title||'(no title)', q)}</strong>` + (it.channelTitle? ` <span class=\"badge\" title=\"channel\">${esc(it.channelTitle)}</span>`: ''); const href=(els.linkSource.value==='link' && it.linkHref)? it.linkHref : (it.guid||it.linkHref||''); let linkCell=''; if(href){ if(isAllowedUrl(href)){ linkCell=`<a href=\"${esc(href)}\" target=\"_blank\" rel=\"noopener noreferrer\">${esc(href)}</a>`; } else { linkCell=`<span class=\"blocked\" title=\"ドメイン許可外: ${esc(hostFromUrl(href))}\">${esc(href)}</span>`; } } html += `\n<tr>\n  <td class=\"col-title\">${titleHtml}</td>\n  <td class=\"col-date\"${dateTitle}>${esc(dateText)}</td>\n  <td><div class=\"desc\">${descHtml}</div></td>\n  <td>${linkCell}</td>\n</tr>`; } return html; }
-    function buildExportHTML(items, kind){ const ch=(window.__CHANNEL||'rss'); const q=(els.q.value||'').trim(); const df=els.dateFrom.value||''; const dt=els.dateTo.value||''; const gen=new Date(); const pad=n=>String(n).padStart(2,'0'); const genLocal=`${gen.getFullYear()}/${pad(gen.getMonth()+1)}/${pad(gen.getDate())} ${pad(gen.getHours())}:${pad(gen.getMinutes())}:${pad(gen.getSeconds())}`; const style=`:root{--bg:#0b0c10;--card:#12151a;--txt:#e6e6e6;--muted:#a8b0bd;--border:#263141;--hl:#ffe08a}
-        body{margin:0;background:#0b0c10;color:#e6e6e6;font-family:system-ui,Segoe UI,Roboto,Helvetica,Arial,'Noto Sans JP',sans-serif}
+    function buildExportHTML(items, kind){ const ch=(window.__CHANNEL||'rss'); const q=(els.q.value||'').trim(); const df=els.dateFrom.value||''; const dt=els.dateTo.value||''; const gen=new Date(); const pad=n=>String(n).padStart(2,'0'); const genLocal=`${gen.getFullYear()}/${pad(gen.getMonth()+1)}/${pad(gen.getDate())} ${pad(gen.getHours())}:${pad(gen.getMinutes())}:${pad(gen.getSeconds())}`; const style=`:root{--bg:#f7f9fc;--card:#fff;--txt:#1e293b;--muted:#5b677a;--border:#d7e0ea;--hl:#fff1a6}
+        body{margin:0;background:var(--bg);color:var(--txt);font-family:system-ui,Segoe UI,Roboto,Helvetica,Arial,'Noto Sans JP',sans-serif}
         .wrap{max-width:1200px;margin:0 auto;padding:16px}
-        h1{margin:0 0 8px 0;font-size:1.1rem;color:#a8b0bd}
-        .meta{color:#a8b0bd;font-size:.9rem;margin-bottom:12px}
-        table{width:100%;border-collapse:separate;border-spacing:0;table-layout:fixed;background:#12151a;border:1px solid var(--border);border-radius:10px;overflow:hidden}
-        thead th{position:sticky;top:0;background:#151922;border-bottom:1px solid var(--border);text-align:left;padding:10px;font-size:.9rem;color:#a8b0bd}
-        tbody td{vertical-align:top;border-bottom:1px solid var(--border);padding:12px 10px}
+        h1{margin:0 0 8px 0;font-size:1.1rem;color:#5b677a}
+        .meta{color:#5b677a;font-size:.9rem;margin-bottom:12px}
+        table{width:100%;border-collapse:separate;border-spacing:0;table-layout:fixed;background:#fff;border:1px solid var(--border);border-radius:10px;overflow:hidden}
+        thead th{position:sticky;top:0;background:#f9fbfe;border-bottom:1px solid var(--border);text-align:left;padding:10px;font-size:.9rem;color:#5b677a}
+        tbody td{vertical-align:top;border-bottom:1px solid var(--border);padding:12px 10px;}
+        tbody tr:nth-child(odd) td{background:#f6f9fe}
         col.c-title{width:16%} col.c-date{width:9%} col.c-desc{width:65%} col.c-link{width:10%}
         .col-title{min-width:200px}
         .col-date{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
         .desc{white-space:pre-wrap;word-wrap:break-word;overflow-wrap:anywhere}
-        .desc img{max-width:100%;height:auto;border-radius:6px;border:1px solid #263141}
-        .badge{display:inline-block;padding:2px 8px;border-radius:999px;background:#0f2033;color:#3aa0ff;border:1px solid #224868;font-size:.75rem}
+        .desc img{max-width:100%;height:auto;border-radius:6px;border:1px solid #d7e0ea}
+        .badge{display:inline-block;padding:2px 8px;border-radius:999px;background:#0b6bcb;color:#fff;border:1px solid #06519a;font-size:.75rem}
         mark.h{background:var(--hl);color:#222;padding:0 .15em;border-radius:3px}
         @page{size:A4;margin:15mm 12mm}
-        @media print{ html,body{background:#fff;color:#000;-webkit-print-color-adjust:exact;print-color-adjust:exact} a[href]::after{content:\" (\" attr(href) \")\";font-size:.9em;color:#555} thead{display:table-header-group} tfoot{display:table-footer-group} tr, img{page-break-inside:avoid;break-inside:avoid} .desc{orphans:3;widows:3} .badge{background:#eee;color:#000;border-color:#999} }";
+        @media print{ html,body{background:#fff;color:#000;-webkit-print-color-adjust:exact;print-color-adjust:exact} a[href]::after{content:" (" attr(href) ")";font-size:.9em;color:#555} thead{display:table-header-group} tfoot{display:table-footer-group} tr, img{page-break-inside:avoid;break-inside:avoid} .desc{orphans:3;widows:3} .badge{background:#0b6bcb;color:#fff;border-color:#06519a} }`;
       const rows=buildRowsHTML(items);
-      return `<!DOCTYPE html>\n<html lang=\"ja\">\n<head>\n<meta charset=\"utf-8\">\n<meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\n<title>${esc(ch)} – 表エクスポート (${kind})</title>\n<style>${style}</style>\n</head>\n<body>\n<div class=\"wrap\">\n  <h1>${esc(ch)} – 表エクスポート (${kind})</h1>\n  <div class=\"meta\">生成: ${esc(genLocal)} / 条件: ${q?`キーワード=\"${esc(q)}\" `:''}${df||dt?`日付(UTC)=${esc(df||'')}${(df||dt)&&'〜'}${esc(dt||'')}`:''}</div>\n  <table>\n    <colgroup>\n      <col class=\"c-title\"><col class=\"c-date\"><col class=\"c-desc\"><col class=\"c-link\">\n    </colgroup>\n    <thead><tr><th>タイトル</th><th>日付</th><th>概要</th><th>リンク</th></tr></thead>\n    <tbody>${rows || '<tr><td colspan=4 style=\'color:#a8b0bd;padding:16px\'>データがありません。</td></tr>'}</tbody>\n  </table>\n</div>\n</body>\n</html>`; }
+      return `<!DOCTYPE html>\n<html lang=\"ja\">\n<head>\n<meta charset=\"utf-8\">\n<meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\n<title>${esc(ch)} – 表エクスポート (${kind})</title>\n<style>${style}</style>\n</head>\n<body>\n<div class=\"wrap\">\n  <h1>${esc(ch)} – 表エクスポート (${kind})</h1>\n  <div class=\"meta\">生成: ${esc(genLocal)} / 条件: ${q?`キーワード=\"${esc(q)}\" `:''}${df||dt?`日付(UTC)=${esc(df||'')}${(df||dt)&&'〜'}${esc(dt||'')}`:''}</div>\n  <table>\n    <colgroup>\n      <col class=\"c-title\"><col class=\"c-date\"><col class=\"c-desc\"><col class=\"c-link\">\n    </colgroup>\n    <thead><tr><th>タイトル</th><th>日付</th><th>概要</th><th>リンク</th></tr></thead>\n    <tbody>${rows || '<tr><td colspan=4 style=\'color:#5b677a;padding:16px\'>データがありません。</td></tr>'}</tbody>\n  </table>\n</div>\n</body>\n</html>`; }
     function downloadHtml(items, kind){ if(!items||!items.length){ els.expMsg.textContent='エクスポート対象がありません。'; return; } const html=buildExportHTML(items, kind); const blob=new Blob([html],{type:'text/html;charset=utf-8;'}); const ch=(window.__CHANNEL||'rss').replace(/[^\w\-]+/g,'_').slice(0,40)||'rss'; const fname=`${ch}_table_${kind}_${timestampUTC()}.html`; const a=document.createElement('a'); a.href=URL.createObjectURL(blob); a.download=fname; document.body.appendChild(a); a.click(); setTimeout(()=>{URL.revokeObjectURL(a.href); a.remove();},0); els.expMsg.innerHTML=`<span class=\"ok\">HTMLを保存しました：</span> ${fname}`; }
 
     function printFiltered(){ const items=filterItems(window.__ITEMS||[]); const html=buildExportHTML(items,'filtered'); const w=window.open('','_blank'); if(!w) return; w.document.open(); w.document.write(html + '<script>window.onload=()=>window.print()<\/script>'); w.document.close(); }
-
-    // Lightbox
-    let currentImages=[]; let currentIndex=-1;
-    function collectImages(){ currentImages = $$('.desc img').map(img=>img.src); }
-    function openLightbox(src){ collectImages(); currentIndex=currentImages.indexOf(src); if(currentIndex<0){ currentImages.push(src); currentIndex=currentImages.length-1; } els.lbImg.src=src; els.lb.classList.add('open'); els.lb.setAttribute('aria-hidden','false'); document.body.style.overflow='hidden'; }
-    function closeLightbox(){ els.lb.classList.remove('open'); els.lb.setAttribute('aria-hidden','true'); els.lbImg.src=''; document.body.style.overflow=''; }
-    function showPrev(){ if(currentImages.length<2) return; currentIndex=(currentIndex-1+currentImages.length)%currentImages.length; els.lbImg.src=currentImages[currentIndex]; }
-    function showNext(){ if(currentImages.length<2) return; currentIndex=(currentIndex+1)%currentImages.length; els.lbImg.src=currentImages[currentIndex]; }
 
     // Collapse header controls
     function setCollapsed(on, save=true){
@@ -455,11 +509,17 @@
 
     document.addEventListener('click', (e)=>{
       const t=e.target;
-      // close kebab menus on outside click
       if(!t.closest('.kebab-wrap')) closeAllMenus();
-      // Lightbox background
       if(t===els.lb){ closeLightbox(); }
     });
+
+    // Lightbox
+    let currentImages=[]; let currentIndex=-1;
+    function collectImages(){ currentImages = $$('.desc img').map(img=>img.src); }
+    function openLightbox(src){ collectImages(); currentIndex=currentImages.indexOf(src); if(currentIndex<0){ currentImages.push(src); currentIndex=currentImages.length-1; } els.lbImg.src=src; els.lb.classList.add('open'); els.lb.setAttribute('aria-hidden','false'); document.body.style.overflow='hidden'; }
+    function closeLightbox(){ els.lb.classList.remove('open'); els.lb.setAttribute('aria-hidden','true'); els.lbImg.src=''; document.body.style.overflow=''; }
+    function showPrev(){ if(currentImages.length<2) return; currentIndex=(currentIndex-1+currentImages.length)%currentImages.length; els.lbImg.src=currentImages[currentIndex]; }
+    function showNext(){ if(currentImages.length<2) return; currentIndex=(currentIndex+1)%currentImages.length; els.lbImg.src=currentImages[currentIndex]; }
 
     els.lbClose.addEventListener('click', closeLightbox);
     els.lbPrev.addEventListener('click', showPrev);
@@ -497,6 +557,10 @@
     els.btnHtmlAll?.addEventListener('click', ()=>{ if(window.__ITEMS) downloadHtml(window.__ITEMS,'all'); });
     els.btnHtmlFiltered?.addEventListener('click', ()=>{ if(window.__ITEMS) downloadHtml(filterItems(window.__ITEMS),'filtered'); });
     els.btnPrintFiltered?.addEventListener('click', ()=>{ if(window.__ITEMS) printFiltered(); });
+
+    // Theme/Density events
+    els.theme.addEventListener('change', ()=>{ applyTheme(els.theme.value); saveSettings(); });
+    els.density.addEventListener('change', ()=>{ applyDensity(els.density.value); saveSettings(); });
   </script>
 </body>
 </html>
