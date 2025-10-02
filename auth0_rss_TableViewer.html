@@ -14,8 +14,9 @@
     h1{margin:.2rem 0 .4rem 0;font-size:1.1rem;color:var(--muted);font-weight:600}
 
     /* Collapsible header bar */
-    .hdrbar{display:flex;align-items:center;justify-content:space-between;gap:8px}
-    .collapse-btn{appearance:none;border:1px solid var(--border);background:#0f2033;color:#e9f2ff;padding:6px 10px;border-radius:8px;cursor:pointer;font-size:.9rem}
+    .hdrbar{position:relative;display:flex;align-items:center;gap:8px;min-height:40px}
+    .hdrbar h1{padding-right:150px} /* avoid overlap with the button */
+    .collapse-btn{position:absolute;right:0;top:0;appearance:none;border:1px solid var(--border);background:#0f2033;color:#e9f2ff;padding:6px 10px;border-radius:8px;cursor:pointer;font-size:.9rem}
     .collapse-btn:hover{border-color:#2a4b6f;background:#113252}
     .collapse-btn .ico{margin-right:.35em}
 
@@ -142,7 +143,8 @@
                 <input id="enableWhitelist" type="checkbox" checked>
                 <span>画像/リンクの <b>ドメイン制限（ホワイトリスト）</b>を有効化</span>
               </label>
-              <textarea id="whitelist" placeholder="例）cdn.auth0.com\nサブドメインを許可する場合は *.auth0.com">cdn.auth0.com</textarea>
+              <textarea id="whitelist" placeholder="例）cdn.auth0.com
+サブドメインを許可する場合は *.auth0.com">cdn.auth0.com</textarea>
               <div class="hint">許可ドメインのみ <b>画像の表示</b>や <b>リンク遷移</b>を許可（<code>*.example.com</code> でサブドメイン含む）。無効化で全ドメイン許可。</div>
             </div>
             <div>
@@ -226,7 +228,7 @@
     };
 
     // ===== Settings persistence =====
-    const LS_KEY = 'auth0_rss_viewer_settings_v3';
+    const LS_KEY = 'auth0_rss_viewer_settings_v4';
     function saveSettings(){
       const obj = {
         trust: els.trust.checked,
@@ -394,7 +396,7 @@
     function csvEscape(val){ if(val===null||val===undefined) return '""'; const s=String(val).replace(/\r\n|\r|\n/g,'\n').replace(/"/g,'""'); return '"'+s+'"'; }
     function toCsv(items){ const header=['title','pubDate','description','guid','channel']; const lines=[header.map(csvEscape).join(',')]; for(const it of items){ lines.push([csvEscape(it.title||''),csvEscape(it.pubDate||''),csvEscape(it.description||''),csvEscape(it.guid||''),csvEscape(it.channelTitle||'')].join(',')); } return lines.join('\r\n')+'\r\n'; }
     function timestampUTC(){ const d=new Date(); const pad=n=>String(n).padStart(2,'0'); return d.getUTCFullYear()+pad(d.getUTCMonth()+1)+pad(d.getUTCDate())+'_'+pad(d.getUTCHours())+pad(d.getUTCMinutes())+pad(d.getUTCSeconds())+'UTC'; }
-    function downloadCsv(items, kind){ if(!items||!items.length){ els.expMsg.textContent='エクスポート対象がありません。'; return; } const csv=toCsv(items); const bom=new Uint8Array([0xEF,0xBB,0xBF]); const blob=new Blob([bom,csv],{type:'text/csv;charset=utf-8;'}); const ch=(window.__CHANNEL||'rss').replace(/[^\w\-]+/g,'_').slice(0,40)||'rss'; const fname=`${ch}_${kind}_${timestampUTC()}.csv`; const a=document.createElement('a'); a.href=URL.createObjectURL(blob); a.download=fname; document.body.appendChild(a); a.click(); setTimeout(()=>{URL.revokeObjectURL(a.href); a.remove();},0); els.expMsg.innerHTML=`<span class=\"ok\">CSVを保存しました：</span> ${fname}`; }
+    function downloadCsv(items, kind){ if(!items||!items.length){ els.expMsg.textContent='エクスポート対象がありません。'; return; } const csv=toCsv(items); const bom=new Uint8Array([0xEF,0xBB,0xBF]); const blob=new Blob([bom,csv],{type:'text/csv;charset=utf-8;'}); const ch=(window.__CHANNEL||'rss').replace(/[^\w\-]+/g,'_').slice(0,40)||'rss'; const fname=`${ch}_${kind}_${timestampUTC()}.csv`; const a=document.createElement('a'); a.href=URL.createObjectURL(blob); a.download=fname; document.body.appendChild(a); a.click(); setTimeout(()=>{URL.revokeObjectURL(a.href); a.remove();},0); els.expMsg.innerHTML=`<span class="ok">CSVを保存しました：</span> ${fname}`; }
 
     function sanitizeHtmlString(html){ const div=document.createElement('div'); div.innerHTML=html; sanitizeDescElement(div); return div.innerHTML; }
     function buildRowsHTML(items){ let html=''; const q=(els.q.value||'').trim(); for(const it of items){ const dateText=formatYYYYMMDD(it._ts,it.pubDate); const dateTitle=it.pubDate?` title="${esc(it.pubDate)}"`:''; const raw=decodeEntitiesDeep(it.description||''); let descHtml=''; if(els.trust.checked){ const looksHtml=/<\w+[^>]*>/.test(raw); descHtml=sanitizeHtmlString(looksHtml? raw : toHtmlFromPlain(raw)); } else { descHtml=esc(raw); if(q){ const re=new RegExp('('+q.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')+')','ig'); descHtml = descHtml.replace(re,'<mark class="h">$1</mark>'); } } const titleHtml = `<strong>${highlightText(it.title||'(no title)', q)}</strong>` + (it.channelTitle? ` <span class="badge" title="channel">${esc(it.channelTitle)}</span>`: ''); const href=(els.linkSource.value==='link' && it.linkHref)? it.linkHref : (it.guid||it.linkHref||''); let linkCell=''; if(href){ if(isAllowedUrl(href)){ linkCell=`<a href="${esc(href)}" target="_blank" rel="noopener noreferrer">${esc(href)}</a>`; } else { linkCell=`<span class="blocked" title="ドメイン許可外: ${esc(hostFromUrl(href))}">${esc(href)}</span>`; } } html += `\n<tr>\n  <td class="col-title">${titleHtml}</td>\n  <td class="col-date"${dateTitle}>${esc(dateText)}</td>\n  <td><div class="desc">${descHtml}</div></td>\n  <td>${linkCell}</td>\n</tr>`; } return html; }
