@@ -2,8 +2,8 @@
 <html lang="ja">
 <head>
   <!--
-  Auth0 RSS ビューア – サニタイザ強化・バッジ非表示・Lightbox修正（未定義関数エラー解消）
-  Last-Updated: 2025-10-02 11:46:16Z (UTC)
+  Auth0 RSS ビューア – サニタイザ強化・バッジ非表示・Lightbox修正・印刷機能修正（ポップアップ対策＆未定義対策）
+  Last-Updated: 2025-10-02 11:54:14Z (UTC)
 -->
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -256,7 +256,7 @@
       btnPrintFiltered: $('#btnPrintFiltered'), theme: $('#theme'), density: $('#density')
     };
 
-    const LS_KEY = 'auth0_rss_viewer_settings_v6b';
+    const LS_KEY = 'auth0_rss_viewer_settings_v6c';
     function saveSettings(){ const obj={ trust:els.trust.checked, enableWhitelist:els.enableWhitelist.checked, whitelist:els.whitelist.value, linkSource:els.linkSource.value, q:els.q.value, dateFrom:els.dateFrom.value, dateTo:els.dateTo.value, collapsed:els.header.classList.contains('collapsed'), theme:els.theme?.value, density:els.density?.value }; localStorage.setItem(LS_KEY, JSON.stringify(obj)); }
     function applyTheme(val){ const cls=['theme-auto','theme-light','theme-dark']; document.body.classList.remove(...cls); document.body.classList.add('theme-'+(val||'auto')); }
     function applyDensity(val){ const cls=['density-comfortable','density-compact']; document.body.classList.remove(...cls); document.body.classList.add('density-'+(val||'comfortable')); }
@@ -295,7 +295,7 @@
     function highlightText(text, needle){ if(!needle) return esc(text||''); const safe=esc(text||''); try{ const re=new RegExp('('+needle.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')+')','ig'); return safe.replace(re,'<mark class="h">$1</mark>'); }catch{ return safe; } }
 
     function buildRow(item){ const tr=document.createElement('tr'); const tdTitle=document.createElement('td'); tdTitle.className='col-title'; const tdDate=document.createElement('td'); tdDate.className='col-date'; const tdDesc=document.createElement('td'); const tdLink=document.createElement('td'); const q=(els.q.value||'').trim(); const titleBase=item.title||'(no title)'; const raw=decodeEntitiesDeep(item.description||''); const descPlain=descToPlainText(raw); tr.dataset.title=item.title||''; tr.dataset.desc=descPlain; tdTitle.innerHTML=`<strong>${highlightText(titleBase, q)}</strong>`;
-      const kebabWrap=document.createElement('span'); kebabWrap.className='kebab-wrap'; const kebabBtn=document.createElement('button'); kebabBtn.type='button'; kebabBtn.className='kebab-btn'; kebabBtn.setAttribute('aria-haspopup','menu'); kebabBtn.setAttribute('aria-expanded','false'); kebabBtn.title='行アクション'; kebabBtn.textContent='⋯'; const menu=document.createElement('div'); menu.className='menu'; menu.setAttribute('role','menu'); menu.innerHTML=`\n        <button class="mi" role="menuitem" data-act="copy-title"><span class="ico">📋</span><span>題名をコピー (t)</span></button>\n        <button class="mi" role="menuitem" data-act="copy-desc"><span class="ico">📝</span><span>概要をコピー (d)</span></button>\n        <button class="mi" role="menuitem" data-act="search-g"><span class="ico">🔎</span><span>Google で検索 (g)</span></button>\n      `; kebabWrap.append(kebabBtn, menu); tdTitle.appendChild(kebabWrap);
+      const kebabWrap=document.createElement('span'); kebabWrap.className='kebab-wrap'; const kebabBtn=document.createElement('button'); kebabBtn.type='button'; kebabBtn.className='kebab-btn'; kebabBtn.setAttribute('aria-haspopup','menu'); kebabBtn.setAttribute('aria-expanded','false'); kebabBtn.title='行アクション'; kebabBtn.textContent='⋯'; const menu=document.createElement('div'); menu.className='menu'; menu.setAttribute('role','menu'); menu.innerHTML=`\n        <button class=\"mi\" role=\"menuitem\" data-act=\"copy-title\"><span class=\"ico\">📋</span><span>題名をコピー (t)</span></button>\n        <button class=\"mi\" role=\"menuitem\" data-act=\"copy-desc\"><span class=\"ico\">📝</span><span>概要をコピー (d)</span></button>\n        <button class=\"mi\" role=\"menuitem\" data-act=\"search-g\"><span class=\"ico\">🔎</span><span>Google で検索 (g)</span></button>\n      `; kebabWrap.append(kebabBtn, menu); tdTitle.appendChild(kebabWrap);
       tdDate.textContent=formatYYYYMMDD(item._ts,item.pubDate); if(item.pubDate) tdDate.title=item.pubDate;
       const descDiv=document.createElement('div'); descDiv.className='desc'; if(els.trust.checked){ const looksHtml=/<\w+[^>]*>/.test(raw); descDiv.innerHTML=looksHtml?raw:toHtmlFromPlain(raw); sanitizeDescElement(descDiv); } else { const descText=raw; descDiv.innerHTML=highlightText(descText, q); } tdDesc.appendChild(descDiv);
       const href=getLinkUrl(item); if(href){ if(!isMalformedUrlAttr(href) && isAllowedUrl(href)){ const a=document.createElement('a'); a.href=href; a.target='_blank'; a.rel='noopener noreferrer'; a.textContent=href; tdLink.appendChild(a);} else { const span=document.createElement('span'); span.className='blocked'; span.title=isMalformedUrlAttr(href)?'不正なリンクURL（HTML断片）':`ドメイン許可外: ${hostFromUrl(href)}`; span.textContent=href; tdLink.appendChild(span);} }
@@ -350,9 +350,36 @@
         @media print{ html,body{background:#fff;color:#000;-webkit-print-color-adjust:exact;print-color-adjust:exact} a[href]::after{content:" (" attr(href) ")";font-size:.9em;color:#555} thead{display:table-header-group} tfoot{display:table-footer-group} tr, img{page-break-inside:avoid;break-inside:avoid} .desc{orphans:3;widows:3} }`;
       const rows=buildRowsHTML(items);
       return `<!DOCTYPE html>\n<html lang=\"ja\">\n<head>\n<meta charset=\"utf-8\">\n<meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\n<title>${esc(ch)} – 表エクスポート (${kind})</title>\n<style>${style}</style>\n</head>\n<body>\n<div class=\"wrap\">\n  <h1>${esc(ch)} – 表エクスポート (${kind})</h1>\n  <div class=\"meta\">生成: ${esc(genLocal)} / 条件: ${q?`キーワード=\"${esc(q)}\" `:''}${df||dt?`日付(UTC)=${esc(df||'')}${(df||dt)&&'〜'}${esc(dt||'')}`:''}</div>\n  <table>\n    <colgroup>\n      <col class=\"c-title\"><col class=\"c-date\"><col class=\"c-desc\"><col class=\"c-link\">\n    </colgroup>\n    <thead><tr><th>タイトル</th><th>日付</th><th>概要</th><th>リンク</th></tr></thead>\n    <tbody>${rows || '<tr><td colspan=4 style=\'color:#5b677a;padding:16px\'>データがありません。</td></tr>'}</tbody>\n  </table>\n</div>\n</body>\n</html>`; }
-    function downloadHtml(items, kind){ if(!items||!items.length){ els.expMsg.textContent='エクスポート対象がありません。'; return; } const html=buildExportHTML(items, kind); const blob=new Blob([html],{type:'text/html;charset=utf-8;'}); const ch=(window.__CHANNEL||'rss').replace(/[^\w\-]+/g,'_').slice(0,40)||'rss'; const fname=`${ch}_table_${kind}_${timestampUTC()}.html`; const a=document.createElement('a'); a.href=URL.createObjectURL(blob); a.download=fname; document.body.appendChild(a); a.click(); setTimeout(()=>{URL.revokeObjectURL(a.href); a.remove();},0); els.expMsg.innerHTML=`<span class=\"ok\">HTMLを保存しました：</span> ${fname}`; }
 
-    // ========== Lightbox functions (FIX: ensure defined before event listeners) ==========
+    // 印刷（フィルタ後）: ポップアップブロック対策付き
+    function printFiltered(){
+      const items = filterItems(window.__ITEMS||[]);
+      if(!items.length){ els.expMsg.textContent='印刷対象がありません。'; return; }
+      const html = buildExportHTML(items,'filtered');
+
+      // 1) 新規タブ/ウィンドウで印刷（ユーザー操作直後であれば許可されやすい）
+      let w = null;
+      try { w = window.open('', '_blank', 'noopener'); } catch {}
+      if (w && typeof w.document !== 'undefined'){
+        try {
+          w.document.open();
+          w.document.write(html + '<script>window.onload=()=>{setTimeout(()=>{window.focus(); window.print();}, 50)}<\/script>');
+          w.document.close();
+          return;
+        } catch {}
+      }
+
+      // 2) フォールバック：非表示iframe + srcdoc で印刷
+      const iframe = document.createElement('iframe');
+      iframe.style.position='fixed'; iframe.style.right='0'; iframe.style.bottom='0'; iframe.style.width='0'; iframe.style.height='0'; iframe.style.border='0';
+      iframe.setAttribute('sandbox','allow-same-origin allow-modals allow-scripts');
+      iframe.srcdoc = html + '<script>window.onload=()=>{setTimeout(()=>{window.focus(); window.print();}, 50)}<\/script>';
+      document.body.appendChild(iframe);
+      // 後片付け（ある程度時間が経ったら削除）
+      setTimeout(()=>{ try{ document.body.removeChild(iframe); }catch{} }, 10000);
+    }
+
+    // ===== Lightbox functions =====
     let currentImages=[]; let currentIndex=-1;
     function collectImages(){ currentImages = $$('.desc img').map(img=>img.src); }
     function openLightbox(src){ collectImages(); currentIndex=currentImages.indexOf(src); if(currentIndex<0){ currentImages.push(src); currentIndex=currentImages.length-1; } els.lbImg.src=src; els.lb.classList.add('open'); els.lb.setAttribute('aria-hidden','false'); document.body.style.overflow='hidden'; }
@@ -360,7 +387,7 @@
     function showPrev(){ if(currentImages.length<2) return; currentIndex=(currentIndex-1+currentImages.length)%currentImages.length; els.lbImg.src=currentImages[currentIndex]; }
     function showNext(){ if(currentImages.length<2) return; currentIndex=(currentIndex+1)%currentImages.length; els.lbImg.src=currentImages[currentIndex]; }
 
-    // ========== Global event handlers ==========
+    // ===== Global event handlers =====
     function setCollapsed(on, save=true){ if(on){ els.header.classList.add('collapsed'); els.btnCollapse.setAttribute('aria-expanded','false'); els.btnCollapse.innerHTML='<span class="ico">▼</span>コントロールをひらく'; } else { els.header.classList.remove('collapsed'); els.btnCollapse.setAttribute('aria-expanded','true'); els.btnCollapse.innerHTML='<span class="ico">▲</span>コントロールをたたむ'; } if(save) saveSettings(); }
     els.btnCollapse.addEventListener('click', ()=>{ setCollapsed(!els.header.classList.contains('collapsed')); });
 
