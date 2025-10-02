@@ -10,11 +10,24 @@
     }
     html,body{margin:0;background:var(--bg);color:var(--txt);font-family:system-ui,Segoe UI,Roboto,Helvetica,Arial,"Noto Sans JP",sans-serif}
     header{position:sticky;top:0;z-index:10;background:linear-gradient(180deg,var(--bg),rgba(11,12,16,.95));backdrop-filter:blur(4px);}
-    .wrap{max-width:min(1800px,98vw);margin:0 auto;padding:16px}
-    h1{margin:.2rem 0;font-size:1.2rem;color:var(--muted);font-weight:600}
+    .wrap{max-width:min(1800px,98vw);margin:0 auto;padding:12px 16px}
+    h1{margin:.2rem 0 .4rem 0;font-size:1.1rem;color:var(--muted);font-weight:600}
+
+    /* Collapsible header bar */
+    .hdrbar{display:flex;align-items:center;justify-content:space-between;gap:8px}
+    .collapse-btn{appearance:none;border:1px solid var(--border);background:#0f2033;color:#e9f2ff;padding:6px 10px;border-radius:8px;cursor:pointer;font-size:.9rem}
+    .collapse-btn:hover{border-color:#2a4b6f;background:#113252}
+    .collapse-btn .ico{margin-right:.35em}
+
     .controls{display:grid;grid-template-columns:1fr;gap:12px;margin-top:8px}
     @media(min-width:1200px){.controls{grid-template-columns:1.2fr 1.2fr 1fr 1fr}}
     .card{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:12px}
+
+    /* Collapsed state */
+    header.collapsed h1{display:none}
+    header.collapsed .controls{display:none}
+    header.collapsed .wrap{padding:8px 16px}
+
     label{font-size:.9rem;color:var(--muted)}
     input[type="file"],input[type="text"],input[type="date"],textarea,select{width:100%;padding:10px;border-radius:8px;border:1px solid var(--border);background:#0f131a;color:var(--txt)}
     textarea{min-height:68px;resize:vertical}
@@ -27,7 +40,6 @@
     tbody td{vertical-align:top;border-bottom:1px solid var(--border);padding:12px 10px}
     tbody tr:hover{background:#121826}
 
-    /* Column widths */
     col.c-title{width:16%}
     col.c-date{width:9%}
     col.c-desc{width:65%}
@@ -53,8 +65,18 @@
     @media(min-width:520px){.row.cols-2{grid-template-columns:1fr 1fr}}
     .inline-row{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px}
 
-    /* Highlight */
     mark.h{background:var(--hl);color:#222;padding:0 .15em;border-radius:3px}
+
+    /* Kebab menu for row actions */
+    .kebab-wrap{position:relative;display:inline-block;margin-left:6px}
+    .kebab-btn{appearance:none;border:1px solid var(--border);background:#0f2033;color:#d8e7ff;border-radius:6px;cursor:pointer;padding:2px 8px;line-height:1}
+    .kebab-btn:hover{background:#18314d;border-color:#2a4b6f}
+    .kebab-btn[aria-expanded="true"]{background:#1a2a42}
+    .menu{position:absolute;right:0;top:120%;min-width:180px;background:#141a23;border:1px solid #2a3a52;border-radius:8px;box-shadow:0 10px 30px rgba(0,0,0,.35);padding:6px;display:none;z-index:5}
+    .menu.open{display:block}
+    .menu .mi{display:flex;gap:8px;align-items:center;width:100%;padding:8px 10px;background:transparent;border:none;color:#dbe7ff;border-radius:6px;text-align:left;cursor:pointer}
+    .menu .mi:hover{background:#1b2533}
+    .menu .mi .ico{font-size:1rem;opacity:.9}
 
     /* Lightbox */
     .lightbox{position:fixed;inset:0;background:rgba(0,0,0,.85);display:none;align-items:center;justify-content:center;z-index:999}
@@ -67,17 +89,24 @@
     .lb-prev{position:absolute;left:-52px}
     .lb-next{position:absolute;right:-52px}
     @media(max-width:720px){.lb-prev{left:4px}.lb-next{right:4px}.lb-close{top:8px;right:8px}}
+
+    @media print{ .kebab-wrap{display:none !important} }
   </style>
 </head>
 <body>
-  <header>
+  <header id="hdr">
     <div class="wrap">
-      <h1>Auth0 RSS ビューア（ローカルXML読込・表表示・CSV/HTMLエクスポート）</h1>
-      <div class="controls">
+      <div class="hdrbar">
+        <h1>Auth0 RSS ビューア（ローカルXML読込・表表示・CSV/HTMLエクスポート）</h1>
+        <button id="btnCollapse" class="collapse-btn" aria-expanded="true" aria-controls="controls"><span class="ico">▲</span>コントロールをたたむ</button>
+      </div>
+      <div id="controls" class="controls" role="region" aria-label="操作パネル">
         <div class="card">
           <label for="file">① XMLファイルを選択（例: Auth0_rss.xml）</label>
           <input id="file" type="file" accept=".xml, text/xml, application/xml" />
-          <div class="hint">このHTMLは <b>localhost</b>（推奨）や <b>file://</b> で開けます。外部画像は <b>localhost</b> からの表示を推奨。</div>
+          <div class="hint">このHTMLは <b>localhost</b>（推奨）や <b>file://</b> で開けます。外部画像は <b>localhost</b> からの表示を推奨。<br>
+            Auth0 の Changelog は <a href="https://auth0.com/changelog" target="_blank" rel="noopener noreferrer">https://auth0.com/changelog</a> にあります。
+          </div>
         </div>
         <div class="card">
           <label for="q">② 絞り込み</label>
@@ -186,6 +215,7 @@
     const $$ = (sel, root=document) => Array.from(root.querySelectorAll(sel));
 
     const els = {
+      header: $('#hdr'), btnCollapse: $('#btnCollapse'),
       file: $('#file'), q: $('#q'), trust: $('#trustHtml'), stats: $('#stats'), tbody: $('#tbody'),
       btnCsvAll: $('#btnCsvAll'), btnCsvFiltered: $('#btnCsvFiltered'), btnHtmlAll: $('#btnHtmlAll'), btnHtmlFiltered: $('#btnHtmlFiltered'),
       expMsg: $('#expMsg'), dateFrom: $('#dateFrom'), dateTo: $('#dateTo'),
@@ -195,8 +225,8 @@
       btnPrintFiltered: $('#btnPrintFiltered')
     };
 
-    // ===== Persistence (localStorage) =====
-    const LS_KEY = 'auth0_rss_viewer_settings_v2';
+    // ===== Settings persistence =====
+    const LS_KEY = 'auth0_rss_viewer_settings_v3';
     function saveSettings(){
       const obj = {
         trust: els.trust.checked,
@@ -206,6 +236,7 @@
         q: els.q.value,
         dateFrom: els.dateFrom.value,
         dateTo: els.dateTo.value,
+        collapsed: els.header.classList.contains('collapsed')
       };
       localStorage.setItem(LS_KEY, JSON.stringify(obj));
     }
@@ -220,52 +251,44 @@
         if(typeof obj.q === 'string') els.q.value = obj.q;
         if(typeof obj.dateFrom === 'string') els.dateFrom.value = obj.dateFrom;
         if(typeof obj.dateTo === 'string') els.dateTo.value = obj.dateTo;
+        if(obj.collapsed){ setCollapsed(true, false); }
       }catch{}
     }
 
-    /** Escape HTML for safe text rendering */
+    // ===== Utilities =====
     const esc = (s='') => s.replace(/[&<>\"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','\"':'&quot;','\'':'&#39;'}[c]));
-
-    /** decode HTML entities once using textarea */
     function decodeHtmlEntitiesOnce(str=''){ const ta=document.createElement('textarea'); ta.innerHTML=str; return ta.value; }
-    /** decode entities repeatedly up to maxRounds (handle &amp;amp;apos; etc.) */
     function decodeEntitiesDeep(str='', maxRounds=3){ let prev=str, cur=decodeHtmlEntitiesOnce(str), rounds=1; while(cur!==prev && rounds<maxRounds){ prev=cur; cur=decodeHtmlEntitiesOnce(prev); rounds++; } return cur; }
 
-    /** Whitelist helpers */
     function normHost(h){ return (h||'').trim().toLowerCase().replace(/^\*\./,'*.').replace(/^\.+/,''); }
     function parseWhitelist(){ const raw=(els.whitelist.value||'').split(/[\n,\s]+/).filter(Boolean).map(normHost); return raw; }
     function hostFromUrl(url){ try{ return new URL(url, location.origin).hostname.toLowerCase(); }catch{ return ''; } }
     function isAllowedUrl(url){ if(!els.enableWhitelist.checked) return true; const host=hostFromUrl(url); if(!host) return false; const wl=parseWhitelist(); if(wl.length===0) return false; return wl.some(p=>{ if(p.startsWith('*.')){ const base=p.slice(2); return host===base || host.endsWith('.'+base); } return host===p; }); }
 
-    /** markdown-ish -> HTML + url autolink + line breaks */
     function toHtmlFromPlain(text){
       if(!text) return '';
       let t = decodeEntitiesDeep(text);
-      // Images
       t = t.replace(/!\[([^\]]*)\]\(([^)\s]+)(?:\s+\"([^\"]+)\")?\)/g, (m, alt, url, title) => {
         if(!isAllowedUrl(url)) return `<span class="blocked" title="ドメイン許可外: ${esc(hostFromUrl(url))}">[画像ブロック]</span>`;
         const a = esc(alt||''); const u = esc(url); const ti = title? ` title="${esc(title)}"` : '';
         return `<img src="${u}" alt="${a}" loading="lazy" decoding="async"${ti}>`;
       });
-      // Links [text](url)
       t = t.replace(/\[([^\]]+)\]\(([^)\s]+)(?:\s+\"([^\"]+)\")?\)/g, (m, txt, url, title) => {
         if(!isAllowedUrl(url)) return `<span class="blocked" title="ドメイン許可外: ${esc(hostFromUrl(url))}">${esc(txt)}</span>`;
         const u = esc(url); const ti = title? ` title="${esc(title)}"` : '';
         return `<a href="${u}" target="_blank" rel="noopener noreferrer"${ti}>${esc(txt)}</a>`;
       });
-      // Bare URLs
       t = t.replace(/(https?:\/\/[\w./#?=&%\-+,:;~!@()\[\]]+)/g, (m) => {
         if(!isAllowedUrl(m)) return `<span class="blocked" title="ドメイン許可外: ${esc(hostFromUrl(m))}">${esc(m)}</span>`;
         return `<a href="${esc(m)}" target="_blank" rel="noopener noreferrer">${esc(m)}</a>`;
       });
-      // Preserve line breaks
       t = t.replace(/\n/g, '<br>');
       return t;
     }
 
     function parseDate(s){ const d=new Date(s); const n=d.getTime(); return Number.isFinite(n)?n:0; }
     function pick(node, tag){ const el=node.querySelector(tag); if(!el) return ''; if(tag==='description') return el.innerHTML.trim(); return (el.textContent||'').trim(); }
-    const pad2 = n=>String(n).padStart(2,'0');
+    const pad2=n=>String(n).padStart(2,'0');
     function formatYYYYMMDD(ts, original){ if(Number.isFinite(ts)&&ts>0){ const d=new Date(ts); return `${d.getUTCFullYear()}/${pad2(d.getUTCMonth()+1)}/${pad2(d.getUTCDate())}`; } return original||''; }
 
     function sanitizeDescElement(root){
@@ -274,21 +297,11 @@
       root.querySelectorAll('img[src]').forEach(img=>{ const src=img.getAttribute('src')||''; if(isAllowedUrl(src)){ img.loading='lazy'; img.decoding='async'; img.style.cursor='zoom-in'; } else { const host=hostFromUrl(src); const span=document.createElement('span'); span.className='blocked'; span.title=`ドメイン許可外: ${host}`; span.textContent='[画像ブロック]'; img.replaceWith(span);} });
     }
 
-    function getLinkUrl(item){
-      if(els.linkSource.value==='link' && item.linkHref) return item.linkHref;
-      return item.guid || item.linkHref || '';
-    }
+    function getLinkUrl(item){ if(els.linkSource.value==='link' && item.linkHref) return item.linkHref; return item.guid || item.linkHref || ''; }
+    function descToPlainText(descRaw){ const div=document.createElement('div'); const looksHtml=/<\w+[^>]*>/.test(descRaw||''); div.innerHTML = looksHtml ? (descRaw||'') : toHtmlFromPlain(descRaw||''); return div.textContent || ''; }
+    function highlightText(text, needle){ if(!needle) return esc(text||''); const safe=esc(text||''); try{ const re=new RegExp('('+needle.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')+')','ig'); return safe.replace(re,'<mark class="h">$1</mark>'); }catch{ return safe; } }
 
-    // highlight helper (safe on plain text only)
-    function highlightText(htmlOrText, needle){
-      if(!needle) return htmlOrText;
-      // assume plain text, escape first
-      const safe = esc(htmlOrText);
-      try{
-        const re = new RegExp('('+needle.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')+')','ig');
-        return safe.replace(re, '<mark class="h">$1</mark>');
-      }catch{ return safe; }
-    }
+    let lastActiveRow = null;
 
     function buildRow(item){
       const tr=document.createElement('tr');
@@ -297,67 +310,80 @@
       const tdDesc=document.createElement('td');
       const tdLink=document.createElement('td');
 
-      // title (with highlight)
-      const q = (els.q.value||'').trim();
-      const titleBase = item.title||'(no title)';
+      const q=(els.q.value||'').trim();
+      const titleBase=item.title||'(no title)';
+      const raw=decodeEntitiesDeep(item.description||'');
+      const descPlain = descToPlainText(raw);
+
+      tr.dataset.title = item.title || '';
+      tr.dataset.desc = descPlain;
+
+      // Title + badge
       tdTitle.innerHTML = `<strong>${highlightText(titleBase, q)}</strong>` + (item.channelTitle? ` <span class="badge" title="channel">${esc(item.channelTitle)}</span>`: '');
 
-      // date
-      tdDate.textContent = formatYYYYMMDD(item._ts, item.pubDate);
-      if(item.pubDate) tdDate.title = item.pubDate;
+      // Kebab menu
+      const kebabWrap=document.createElement('span'); kebabWrap.className='kebab-wrap';
+      const kebabBtn=document.createElement('button'); kebabBtn.type='button'; kebabBtn.className='kebab-btn'; kebabBtn.setAttribute('aria-haspopup','menu'); kebabBtn.setAttribute('aria-expanded','false'); kebabBtn.title='行アクション'; kebabBtn.textContent='⋯';
+      const menu=document.createElement('div'); menu.className='menu'; menu.setAttribute('role','menu');
+      menu.innerHTML = `
+        <button class="mi" role="menuitem" data-act="copy-title"><span class="ico">📋</span><span>題名をコピー (t)</span></button>
+        <button class="mi" role="menuitem" data-act="copy-desc"><span class="ico">📝</span><span>概要をコピー (d)</span></button>
+        <button class="mi" role="menuitem" data-act="search-g"><span class="ico">🔎</span><span>Google で検索 (g)</span></button>
+      `;
+      kebabWrap.append(kebabBtn, menu);
+      tdTitle.appendChild(kebabWrap);
 
-      // description (with whitelist + decode)
+      // Date
+      tdDate.textContent = formatYYYYMMDD(item._ts, item.pubDate);
+      if(item.pubDate) tdDate.title=item.pubDate;
+
+      // Description
       const descDiv=document.createElement('div'); descDiv.className='desc';
-      const raw = decodeEntitiesDeep(item.description||'');
       if(els.trust.checked){ const looksHtml=/<\w+[^>]*>/.test(raw); descDiv.innerHTML = looksHtml? raw : toHtmlFromPlain(raw); sanitizeDescElement(descDiv); }
-      else{
-        // when HTML OFF, also highlight in description (safe)
-        const descText = raw;
-        descDiv.innerHTML = highlightText(descText, q);
-      }
+      else{ const descText = raw; descDiv.innerHTML = highlightText(descText, q); }
       tdDesc.appendChild(descDiv);
 
-      // link uses selected source
+      // Link
       const href = getLinkUrl(item);
       if(href){ if(isAllowedUrl(href)){ const a=document.createElement('a'); a.href=href; a.target='_blank'; a.rel='noopener noreferrer'; a.textContent=href; tdLink.appendChild(a); } else { const span=document.createElement('span'); span.className='blocked'; span.title=`ドメイン許可外: ${hostFromUrl(href)}`; span.textContent=href; tdLink.appendChild(span);} }
+
+      // Row activation tracking
+      tr.addEventListener('mouseenter', ()=>{ lastActiveRow = tr; });
+      tr.addEventListener('focusin', ()=>{ lastActiveRow = tr; });
+
+      // Kebab events
+      kebabBtn.addEventListener('click', (e)=>{
+        e.stopPropagation();
+        closeAllMenus();
+        menu.classList.toggle('open');
+        const expanded = menu.classList.contains('open');
+        kebabBtn.setAttribute('aria-expanded', expanded?'true':'false');
+        lastActiveRow = tr;
+      });
+      menu.addEventListener('click', (e)=>{
+        const btn = e.target.closest('[data-act]'); if(!btn) return;
+        performAction(btn.dataset.act, tr);
+        closeAllMenus();
+      });
 
       tr.append(tdTitle, tdDate, tdDesc, tdLink);
       return tr;
     }
+
+    function closeAllMenus(){ $$('.menu.open').forEach(m=>{ m.classList.remove('open'); m.previousElementSibling?.setAttribute('aria-expanded','false'); }); }
+
+    function copyText(text, okMsg){ if(!text){ els.expMsg.textContent='コピー対象がありません。'; return; } navigator.clipboard?.writeText(text).then(()=>{ els.expMsg.textContent = okMsg; setTimeout(()=>els.expMsg.textContent='',1500); }); }
+    function performAction(act, row){ if(!row){ row = els.tbody.querySelector('tr'); } if(!row) return; if(act==='copy-title'){ copyText(row.dataset.title||'', 'タイトルをコピーしました。'); } else if(act==='copy-desc'){ copyText(row.dataset.desc||'', '概要をコピーしました。'); } else if(act==='search-g'){ const title=row.dataset.title||''; const q=encodeURIComponent(title); window.open(`https://www.google.com/search?q=${q}`,'_blank','noopener'); } }
 
     function parseUTCBoundary(dateStr, end=false){ if(!dateStr) return null; const t=end?'T23:59:59.999Z':'T00:00:00.000Z'; const d=new Date(dateStr+t); const n=d.getTime(); return Number.isFinite(n)?n:null; }
     function toDateInputValueUTC(date){ const y=date.getUTCFullYear(); const m=String(date.getUTCMonth()+1).padStart(2,'0'); const d=String(date.getUTCDate()).padStart(2,'0'); return `${y}-${m}-${d}`; }
 
     function filterItems(items){ const q=(els.q.value||'').toLowerCase(); const fromMs=parseUTCBoundary(els.dateFrom.value,false); const toMs=parseUTCBoundary(els.dateTo.value,true); const out=[]; for(const it of items){ if(q){ const hay=`${it.title}\n${it.description}`.toLowerCase(); if(!hay.includes(q)) continue; } if(fromMs!==null && it._ts<fromMs) continue; if(toMs!==null && it._ts>toMs) continue; out.push(it);} return out; }
 
-    function render(items){
-      els.tbody.innerHTML='';
-      const filtered=filterItems(items);
-      let count=0;
-      for(const it of filtered){ els.tbody.appendChild(buildRow(it)); count++; }
-      els.stats.textContent = `${items.length.toLocaleString()}件 読込済み / フィルタ後 ${count.toLocaleString()}件`;
-      if(count===0){ const tr=document.createElement('tr'); const td=document.createElement('td'); td.colSpan=4; td.style.color='var(--muted)'; td.style.padding='16px'; const q=(els.q.value||''); td.textContent = q? '条件に一致する項目がありません。' : 'データがありません。'; tr.appendChild(td); els.tbody.appendChild(tr);} 
-      saveSettings();
-    }
+    function render(items){ els.tbody.innerHTML=''; const filtered=filterItems(items); let count=0; for(const it of filtered){ els.tbody.appendChild(buildRow(it)); count++; } els.stats.textContent = `${items.length.toLocaleString()}件 読込済み / フィルタ後 ${count.toLocaleString()}件`; if(count===0){ const tr=document.createElement('tr'); const td=document.createElement('td'); td.colSpan=4; td.style.color='var(--muted)'; td.style.padding='16px'; const q=(els.q.value||''); td.textContent = q? '条件に一致する項目がありません。' : 'データがありません。'; tr.appendChild(td); els.tbody.appendChild(tr);} saveSettings(); }
 
-    async function handleFile(file){
-      if(!file) return; const text = await file.text(); const xml=new DOMParser().parseFromString(text,'text/xml');
-      const err=xml.querySelector('parsererror'); if(err){ els.stats.textContent='XMLの解析に失敗しました。ファイル内容をご確認ください。'; els.tbody.innerHTML=`<tr><td colspan="4" style="color:var(--danger);padding:16px">${esc(err.textContent)}</td></tr>`; return; }
-      let items=Array.from(xml.getElementsByTagName('item')); if(items.length===0) items=Array.from(xml.getElementsByTagName('entry'));
-      const channelTitle=(xml.querySelector('channel>title')||xml.querySelector('feed>title'))?.textContent?.trim();
+    async function handleFile(file){ if(!file) return; const text=await file.text(); const xml=new DOMParser().parseFromString(text,'text/xml'); const err=xml.querySelector('parsererror'); if(err){ els.stats.textContent='XMLの解析に失敗しました。ファイル内容をご確認ください。'; els.tbody.innerHTML=`<tr><td colspan="4" style="color:var(--danger);padding:16px">${esc(err.textContent)}</td></tr>`; return; } let items=Array.from(xml.getElementsByTagName('item')); if(items.length===0) items=Array.from(xml.getElementsByTagName('entry')); const channelTitle=(xml.querySelector('channel>title')||xml.querySelector('feed>title'))?.textContent?.trim(); const mapped = items.map(node=>{ const title=pick(node,'title'); const pubDate=pick(node,'pubDate')||pick(node,'updated')||pick(node,'published'); const description=pick(node,'description')||pick(node,'content')||pick(node,'summary'); let guid=pick(node,'guid'); let linkHref=''; const linkEl=node.querySelector('link[href]'); if(linkEl) linkHref=(linkEl.getAttribute('href')||'').trim(); if(!guid) guid=pick(node,'id'); return { title, pubDate, description, guid, linkHref, channelTitle, _ts: parseDate(pubDate) }; }); mapped.sort((a,b)=>b._ts - a._ts); window.__ITEMS=mapped; window.__CHANNEL=channelTitle||'rss'; render(mapped); els.expMsg.textContent=''; }
 
-      const mapped = items.map(node=>{
-        const title=pick(node,'title'); const pubDate=pick(node,'pubDate')||pick(node,'updated')||pick(node,'published'); const description=pick(node,'description')||pick(node,'content')||pick(node,'summary');
-        let guid=pick(node,'guid'); let linkHref=''; const linkEl=node.querySelector('link[href]'); if(linkEl) linkHref=(linkEl.getAttribute('href')||'').trim(); if(!guid) guid=pick(node,'id');
-        return { title, pubDate, description, guid, linkHref, channelTitle, _ts: parseDate(pubDate) };
-      });
-      mapped.sort((a,b)=>b._ts - a._ts);
-      window.__ITEMS = mapped; window.__CHANNEL = channelTitle || 'rss';
-      render(mapped);
-      els.expMsg.textContent='';
-    }
-
-    // Presets & helpers
     function todayUTC(){ const t=new Date(); return new Date(Date.UTC(t.getUTCFullYear(), t.getUTCMonth(), t.getUTCDate())); }
     function setRange(fromDate,toDate){ els.dateFrom.value=toDateInputValueUTC(fromDate); els.dateTo.value=toDateInputValueUTC(toDate); if(window.__ITEMS) render(window.__ITEMS); }
     function applyLastNDays(n){ const to=todayUTC(); const from=new Date(to.getTime()); from.setUTCDate(from.getUTCDate() - (n-1)); setRange(from,to); }
@@ -365,20 +391,13 @@
     function applyLastYears(y){ const to=todayUTC(); const from=new Date(to.getTime()); from.setUTCFullYear(from.getUTCFullYear() - y); setRange(from,to); }
     function clearDates(){ els.dateFrom.value=''; els.dateTo.value=''; if(window.__ITEMS) render(window.__ITEMS); }
 
-    // CSV Export
     function csvEscape(val){ if(val===null||val===undefined) return '""'; const s=String(val).replace(/\r\n|\r|\n/g,'\n').replace(/"/g,'""'); return '"'+s+'"'; }
     function toCsv(items){ const header=['title','pubDate','description','guid','channel']; const lines=[header.map(csvEscape).join(',')]; for(const it of items){ lines.push([csvEscape(it.title||''),csvEscape(it.pubDate||''),csvEscape(it.description||''),csvEscape(it.guid||''),csvEscape(it.channelTitle||'')].join(',')); } return lines.join('\r\n')+'\r\n'; }
     function timestampUTC(){ const d=new Date(); const pad=n=>String(n).padStart(2,'0'); return d.getUTCFullYear()+pad(d.getUTCMonth()+1)+pad(d.getUTCDate())+'_'+pad(d.getUTCHours())+pad(d.getUTCMinutes())+pad(d.getUTCSeconds())+'UTC'; }
-    function downloadCsv(items, kind){ if(!items||!items.length){ els.expMsg.textContent='エクスポート対象がありません。'; return; } const csv=toCsv(items); const bom=new Uint8Array([0xEF,0xBB,0xBF]); const blob=new Blob([bom,csv],{type:'text/csv;charset=utf-8;'}); const ch=(window.__CHANNEL||'rss').replace(/[^\w\-]+/g,'_').slice(0,40)||'rss'; const fname=`${ch}_${kind}_${timestampUTC()}.csv`; const a=document.createElement('a'); a.href=URL.createObjectURL(blob); a.download=fname; document.body.appendChild(a); a.click(); setTimeout(()=>{URL.revokeObjectURL(a.href); a.remove();},0); els.expMsg.innerHTML=`<span class="ok">CSVを保存しました：</span> ${fname}`; }
+    function downloadCsv(items, kind){ if(!items||!items.length){ els.expMsg.textContent='エクスポート対象がありません。'; return; } const csv=toCsv(items); const bom=new Uint8Array([0xEF,0xBB,0xBF]); const blob=new Blob([bom,csv],{type:'text/csv;charset=utf-8;'}); const ch=(window.__CHANNEL||'rss').replace(/[^\w\-]+/g,'_').slice(0,40)||'rss'; const fname=`${ch}_${kind}_${timestampUTC()}.csv`; const a=document.createElement('a'); a.href=URL.createObjectURL(blob); a.download=fname; document.body.appendChild(a); a.click(); setTimeout(()=>{URL.revokeObjectURL(a.href); a.remove();},0); els.expMsg.innerHTML=`<span class=\"ok\">CSVを保存しました：</span> ${fname}`; }
 
-    // HTML Export (whitelist applied)
     function sanitizeHtmlString(html){ const div=document.createElement('div'); div.innerHTML=html; sanitizeDescElement(div); return div.innerHTML; }
-    function buildRowsHTML(items){ let html=''; const q=(els.q.value||'').trim(); for(const it of items){ const dateText=formatYYYYMMDD(it._ts,it.pubDate); const dateTitle=it.pubDate?` title="${esc(it.pubDate)}"`:''; const raw=decodeEntitiesDeep(it.description||''); let descHtml=''; if(els.trust.checked){ const looksHtml=/<\w+[^>]*>/.test(raw); descHtml=sanitizeHtmlString(looksHtml? raw : toHtmlFromPlain(raw)); } else { descHtml=esc(raw); if(q){ const re=new RegExp('('+q.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')+')','ig'); descHtml = descHtml.replace(re,'<mark class="h">$1</mark>'); } }
-        const titleHtml = `<strong>${highlightText(it.title||'(no title)', q)}</strong>` + (it.channelTitle? ` <span class="badge" title="channel">${esc(it.channelTitle)}</span>`: '');
-        const href = (els.linkSource.value==='link' && it.linkHref)? it.linkHref : (it.guid||it.linkHref||'');
-        let linkCell=''; if(href){ if(isAllowedUrl(href)){ linkCell=`<a href="${esc(href)}" target="_blank" rel="noopener noreferrer">${esc(href)}</a>`; } else { linkCell=`<span class="blocked" title="ドメイン許可外: ${esc(hostFromUrl(href))}">${esc(href)}</span>`; } }
-        html += `\n<tr>\n  <td class="col-title">${titleHtml}</td>\n  <td class="col-date"${dateTitle}>${esc(dateText)}</td>\n  <td><div class="desc">${descHtml}</div></td>\n  <td>${linkCell}</td>\n</tr>`; }
-      return html; }
+    function buildRowsHTML(items){ let html=''; const q=(els.q.value||'').trim(); for(const it of items){ const dateText=formatYYYYMMDD(it._ts,it.pubDate); const dateTitle=it.pubDate?` title="${esc(it.pubDate)}"`:''; const raw=decodeEntitiesDeep(it.description||''); let descHtml=''; if(els.trust.checked){ const looksHtml=/<\w+[^>]*>/.test(raw); descHtml=sanitizeHtmlString(looksHtml? raw : toHtmlFromPlain(raw)); } else { descHtml=esc(raw); if(q){ const re=new RegExp('('+q.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')+')','ig'); descHtml = descHtml.replace(re,'<mark class="h">$1</mark>'); } } const titleHtml = `<strong>${highlightText(it.title||'(no title)', q)}</strong>` + (it.channelTitle? ` <span class="badge" title="channel">${esc(it.channelTitle)}</span>`: ''); const href=(els.linkSource.value==='link' && it.linkHref)? it.linkHref : (it.guid||it.linkHref||''); let linkCell=''; if(href){ if(isAllowedUrl(href)){ linkCell=`<a href="${esc(href)}" target="_blank" rel="noopener noreferrer">${esc(href)}</a>`; } else { linkCell=`<span class="blocked" title="ドメイン許可外: ${esc(hostFromUrl(href))}">${esc(href)}</span>`; } } html += `\n<tr>\n  <td class="col-title">${titleHtml}</td>\n  <td class="col-date"${dateTitle}>${esc(dateText)}</td>\n  <td><div class="desc">${descHtml}</div></td>\n  <td>${linkCell}</td>\n</tr>`; } return html; }
     function buildExportHTML(items, kind){ const ch=(window.__CHANNEL||'rss'); const q=(els.q.value||'').trim(); const df=els.dateFrom.value||''; const dt=els.dateTo.value||''; const gen=new Date(); const pad=n=>String(n).padStart(2,'0'); const genLocal=`${gen.getFullYear()}/${pad(gen.getMonth()+1)}/${pad(gen.getDate())} ${pad(gen.getHours())}:${pad(gen.getMinutes())}:${pad(gen.getSeconds())}`; const style=`:root{--bg:#0b0c10;--card:#12151a;--txt:#e6e6e6;--muted:#a8b0bd;--border:#263141;--hl:#ffe08a}
         body{margin:0;background:#0b0c10;color:#e6e6e6;font-family:system-ui,Segoe UI,Roboto,Helvetica,Arial,'Noto Sans JP',sans-serif}
         .wrap{max-width:1200px;margin:0 auto;padding:16px}
@@ -393,13 +412,14 @@
         .desc{white-space:pre-wrap;word-wrap:break-word;overflow-wrap:anywhere}
         .desc img{max-width:100%;height:auto;border-radius:6px;border:1px solid #263141}
         .badge{display:inline-block;padding:2px 8px;border-radius:999px;background:#0f2033;color:#3aa0ff;border:1px solid #224868;font-size:.75rem}
-        mark.h{background:var(--hl);color:#222;padding:0 .15em;border-radius:3px}`;
+        mark.h{background:var(--hl);color:#222;padding:0 .15em;border-radius:3px}
+        @page{size:A4;margin:15mm 12mm}
+        @media print{ html,body{background:#fff;color:#000;-webkit-print-color-adjust:exact;print-color-adjust:exact} a[href]::after{content:" (" attr(href) ")";font-size:.9em;color:#555} thead{display:table-header-group} tfoot{display:table-footer-group} tr, img{page-break-inside:avoid;break-inside:avoid} .desc{orphans:3;widows:3} .badge{background:#eee;color:#000;border-color:#999} }`;
       const rows=buildRowsHTML(items);
       return `<!DOCTYPE html>\n<html lang=\"ja\">\n<head>\n<meta charset=\"utf-8\">\n<meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\n<title>${esc(ch)} – 表エクスポート (${kind})</title>\n<style>${style}</style>\n</head>\n<body>\n<div class=\"wrap\">\n  <h1>${esc(ch)} – 表エクスポート (${kind})</h1>\n  <div class=\"meta\">生成: ${esc(genLocal)} / 条件: ${q?`キーワード=\"${esc(q)}\" `:''}${df||dt?`日付(UTC)=${esc(df||'')}${(df||dt)&&'〜'}${esc(dt||'')}`:''}</div>\n  <table>\n    <colgroup>\n      <col class=\"c-title\"><col class=\"c-date\"><col class=\"c-desc\"><col class=\"c-link\">\n    </colgroup>\n    <thead><tr><th>タイトル</th><th>日付</th><th>概要</th><th>リンク</th></tr></thead>\n    <tbody>${rows || '<tr><td colspan=4 style=\'color:#a8b0bd;padding:16px\'>データがありません。</td></tr>'}</tbody>\n  </table>\n</div>\n</body>\n</html>`; }
     function downloadHtml(items, kind){ if(!items||!items.length){ els.expMsg.textContent='エクスポート対象がありません。'; return; } const html=buildExportHTML(items, kind); const blob=new Blob([html],{type:'text/html;charset=utf-8;'}); const ch=(window.__CHANNEL||'rss').replace(/[^\w\-]+/g,'_').slice(0,40)||'rss'; const fname=`${ch}_table_${kind}_${timestampUTC()}.html`; const a=document.createElement('a'); a.href=URL.createObjectURL(blob); a.download=fname; document.body.appendChild(a); a.click(); setTimeout(()=>{URL.revokeObjectURL(a.href); a.remove();},0); els.expMsg.innerHTML=`<span class=\"ok\">HTMLを保存しました：</span> ${fname}`; }
 
-    // Print (filtered)
-    function printFiltered(){ const items = filterItems(window.__ITEMS||[]); const html = buildExportHTML(items, 'filtered'); const w = window.open('', '_blank'); if(!w) return; w.document.open(); w.document.write(html + '<script>window.onload=()=>window.print()<\/script>'); w.document.close(); }
+    function printFiltered(){ const items=filterItems(window.__ITEMS||[]); const html=buildExportHTML(items,'filtered'); const w=window.open('','_blank'); if(!w) return; w.document.open(); w.document.write(html + '<script>window.onload=()=>window.print()<\/script>'); w.document.close(); }
 
     // Lightbox
     let currentImages=[]; let currentIndex=-1;
@@ -409,13 +429,39 @@
     function showPrev(){ if(currentImages.length<2) return; currentIndex=(currentIndex-1+currentImages.length)%currentImages.length; els.lbImg.src=currentImages[currentIndex]; }
     function showNext(){ if(currentImages.length<2) return; currentIndex=(currentIndex+1)%currentImages.length; els.lbImg.src=currentImages[currentIndex]; }
 
-    document.addEventListener('click', (e)=>{ const t=e.target; if(t && t.matches('.desc img')){ e.preventDefault(); openLightbox(t.src); } if(t===els.lb) closeLightbox(); });
+    // Collapse header controls
+    function setCollapsed(on, save=true){
+      if(on){ els.header.classList.add('collapsed'); els.btnCollapse.setAttribute('aria-expanded','false'); els.btnCollapse.innerHTML='<span class="ico">▼</span>コントロールをひらく'; }
+      else{ els.header.classList.remove('collapsed'); els.btnCollapse.setAttribute('aria-expanded','true'); els.btnCollapse.innerHTML='<span class="ico">▲</span>コントロールをたたむ'; }
+      if(save) saveSettings();
+    }
+    els.btnCollapse.addEventListener('click', ()=>{ setCollapsed(!els.header.classList.contains('collapsed')); });
+
+    document.addEventListener('click', (e)=>{
+      const t=e.target;
+      // close kebab menus on outside click
+      if(!t.closest('.kebab-wrap')) closeAllMenus();
+      // Lightbox background
+      if(t===els.lb){ closeLightbox(); }
+    });
+
     els.lbClose.addEventListener('click', closeLightbox);
     els.lbPrev.addEventListener('click', showPrev);
     els.lbNext.addEventListener('click', showNext);
-    document.addEventListener('keydown', (e)=>{ if(!els.lb.classList.contains('open')) return; if(e.key==='Escape') closeLightbox(); if(e.key==='ArrowLeft') showPrev(); if(e.key==='ArrowRight') showNext(); });
 
-    // events + load settings
+    document.addEventListener('keydown', (e)=>{
+      if(e.key==='Escape'){ closeAllMenus(); if(els.lb.classList.contains('open')) closeLightbox(); }
+      const tag=(e.target.tagName||'').toLowerCase();
+      if(['input','textarea','select'].includes(tag)) return;
+      if(['t','d','g','T','D','G'].includes(e.key)){
+        const act = (e.key.toLowerCase()==='t')? 'copy-title' : (e.key.toLowerCase()==='d' ? 'copy-desc' : (e.key.toLowerCase()==='g' ? 'search-g' : ''));
+        if(!act) return; e.preventDefault();
+        const row = document.querySelector('tbody tr:hover') || document.activeElement?.closest('tr') || els.tbody.querySelector('tr');
+        if(row) performAction(act, row);
+      }
+    });
+
+    // init
     loadSettings();
     els.file.addEventListener('change', () => handleFile(els.file.files[0]));
     els.q.addEventListener('input', () => window.__ITEMS && render(window.__ITEMS));
