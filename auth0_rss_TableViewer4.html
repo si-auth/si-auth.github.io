@@ -2,14 +2,14 @@
 <html lang="ja">
 <head>
   <!--
-  Auth0 RSS ビューア v4.1.15 – 起動時自動読み込みの信頼性向上＋印刷iframe方式のまま
-  Last-Updated: 2025-10-03 10:42:29Z (UTC)
+  Auth0 RSS ビューア v4.1.16 – 起動時自動読み込みの信頼性向上＋印刷iframe方式＋processXmlText欠落を修正
+  Last-Updated: 2025-10-03 10:55:22Z (UTC)
   Default feed: https://si-auth.github.io/rss/auth0-changelog/rss.xml
 -->
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="color-scheme" content="light dark" />
-  <title>Auth0 RSS ビューア v4.1.15</title>
+  <title>Auth0 RSS ビューア v4.1.16</title>
   <style>
     :root{ --bg:#f7f9fc; --card:#ffffff; --txt:#1e293b; --muted:#5b677a; --accent:#0b6bcb; --border:#d7e0ea; --danger:#d62323; --ok:#17803d; --blocked:#b36b00; --hl:#fff1a6; --row:#ffffff; --rowAlt:#f2f6fb; --hover:#eef3fb; --link:#0b6bcb; }
     body.theme-light{ --bg:#f7f9fc; --card:#ffffff; --txt:#1e293b; --muted:#5b677a; --accent:#0b6bcb; --border:#d7e0ea; --danger:#d62323; --ok:#17803d; --blocked:#b36b00; --hl:#fff1a6; --row:#ffffff; --rowAlt:#f2f6fb; --hover:#eef3fb; --link:#0b6bcb; }
@@ -119,7 +119,7 @@
   <header id="hdr">
     <div class="wrap">
       <div class="hdrbar">
-        <h1>Auth0 RSS ビューア v4.1.15</h1>
+        <h1>Auth0 RSS ビューア v4.1.16</h1>
         <button id="btnCollapse" class="collapse-btn" aria-expanded="true" aria-controls="controls"><span class="ico">▲</span>コントロールをたたむ</button>
       </div>
       <div id="controls" class="controls" role="region" aria-label="操作パネル">
@@ -303,7 +303,7 @@
     };
 
     const DEFAULT_FEED = 'https://si-auth.github.io/rss/auth0-changelog/rss.xml';
-    const LS_KEY = 'auth0_rss_viewer_settings_v18';
+    const LS_KEY = 'auth0_rss_viewer_settings_v19';
 
     function saveSettings(){
       const obj = {
@@ -381,6 +381,43 @@
     function descToPlainText(descRaw){ const div=document.createElement('div'); const looksHtml=/<\w+[^>]*>/.test(descRaw||''); div.innerHTML = looksHtml ? (descRaw||'') : toHtmlFromPlain(descRaw||''); return div.textContent || ''; }
     function highlightText(text, needle){ if(!needle) return esc(text||''); const safe=esc(text||''); try{ const re=new RegExp('('+needle.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')+')','ig'); return safe.replace(re,'<mark class="h">$1</mark>'); }catch{ return safe; } }
 
+    // ====== MISSING in previous build: processXmlText (restored) ======
+    function processXmlText(text){
+      let xml;
+      try{
+        xml = new DOMParser().parseFromString(text,'text/xml');
+      }catch(err){
+        els.stats.textContent='XMLの解析に失敗しました。';
+        els.tbody.innerHTML = `<tr><td colspan="4" style="color:var(--danger);padding:16px">${esc(String(err))}</td></tr>`;
+        return false;
+      }
+      const errNode = xml.querySelector('parsererror');
+      if(errNode){
+        els.stats.textContent='XMLの解析に失敗しました。';
+        els.tbody.innerHTML = `<tr><td colspan="4" style="color:var(--danger);padding:16px">${esc(errNode.textContent||'parsererror')}</td></tr>`;
+        return false;
+      }
+      let items = Array.from(xml.getElementsByTagName('item'));
+      if(items.length===0) items = Array.from(xml.getElementsByTagName('entry'));
+      const channelTitle=(xml.querySelector('channel>title')||xml.querySelector('feed>title'))?.textContent?.trim();
+      const mapped = items.map(node=>{
+        const title = pick(node,'title');
+        const pubDate = pick(node,'pubDate') || pick(node,'updated') || pick(node,'published');
+        const description = pick(node,'description') || pick(node,'content') || pick(node,'summary');
+        let guid = pick(node,'guid');
+        let linkHref='';
+        const linkEl = node.querySelector('link[href]');
+        if(linkEl) linkHref = (linkEl.getAttribute('href')||'').trim();
+        if(!guid) guid = pick(node,'id');
+        return { title, pubDate, description, guid, linkHref, channelTitle, _ts: parseDate(pubDate) };
+      });
+      mapped.sort((a,b)=> b._ts - a._ts);
+      window.__ITEMS = mapped; window.__CHANNEL = channelTitle||'rss';
+      render(mapped);
+      els.expMsg.textContent='';
+      return true;
+    }
+
     function buildRow(item){ const tr=document.createElement('tr'); const tdTitle=document.createElement('td'); tdTitle.className='col-title'; const tdDate=document.createElement('td'); tdDate.className='col-date'; const tdDesc=document.createElement('td'); const tdLink=document.createElement('td'); const q=(els.q.value||'').trim(); const titleBase=item.title||'(no title)'; const raw=decodeEntitiesDeep(item.description||''); const descPlain=descToPlainText(raw); tr.dataset.title=item.title||''; tr.dataset.desc=descPlain; tdTitle.innerHTML=`<strong>${highlightText(titleBase, q)}</strong>`;
       const kebabWrap=document.createElement('span'); kebabWrap.className='kebab-wrap'; const kebabBtn=document.createElement('button'); kebabBtn.type='button'; kebabBtn.className='kebab-btn'; kebabBtn.setAttribute('aria-haspopup','menu'); kebabBtn.setAttribute('aria-expanded','false'); kebabBtn.title='行アクション'; kebabBtn.textContent='⋯'; const menu=document.createElement('div'); menu.className='menu'; menu.setAttribute('role','menu'); menu.innerHTML=`\n        <button class=\"mi\" role=\"menuitem\" data-act=\"copy-title\"><span class=\"ico\">📋</span><span>題名をコピー (t)</span></button>\n        <button class=\"mi\" role=\"menuitem\" data-act=\"copy-desc\"><span class=\"ico\">📝</span><span>概要をコピー (d)</span></button>\n        <button class=\"mi\" role=\"menuitem\" data-act=\"search-g\"><span class=\"ico\">🔎</span><span>Google で検索 (g)</span></button>\n      `; kebabWrap.append(kebabBtn, menu); tdTitle.appendChild(kebabWrap);
       tdDate.textContent=formatYYYYMMDD(item._ts,item.pubDate); if(item.pubDate) tdDate.title=item.pubDate;
@@ -417,7 +454,7 @@
         .col-date{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
         .desc{white-space:pre-wrap;word-wrap:break-word;overflow-wrap:anywhere}
         .desc img{max-width:100%;height:auto;border-radius:6px;border:1px solid #d7e0ea}
-        .badge{display:none !important}
+        .badge{display:none !重要}
         mark.h{background:var(--hl);color:#222;padding:0 .15em;border-radius:3px}
         @page{size:A4;margin:15mm 12mm}
         @media print{ html,body{background:#fff;color:#000;-webkit-print-color-adjust:exact;print-color-adjust:exact} a[href]::after{content:" (" attr(href) ")";font-size:.9em;color:#555} thead{display:table-header-group} tfoot{display:table-footer-group} tr, img{page-break-inside:avoid;break-inside:avoid} .desc{orphans:3;widows:3} }`;
@@ -460,7 +497,7 @@
 
     function timestampUTC(){ const d=new Date(); const pad=n=>String(n).padStart(2,'0'); return d.getUTCFullYear()+pad(d.getUTCMonth()+1)+pad(d.getUTCDate())+'_'+pad(d.getUTCHours())+pad(d.getUTCMinutes())+pad(d.getUTCSeconds())+'UTC'; }
 
-    // ===== 起動時自動読み込みの信頼性を上げる（二重防止ガードつき） =====
+    // ===== 起動時自動読み込み（二重防止ガードつき） =====
     let __AUTOLOADED = false;
     function autoLoadIfEnabled(){
       if(__AUTOLOADED) return;
@@ -468,10 +505,9 @@
       if(els.autoLoad?.checked && url){ __AUTOLOADED = true; loadFromUrl(url); }
     }
 
-    // 実行順：設定読込後に即試行し、念のため window.load でも再試行（ガードで一度だけ）
+    // 設定読込 → 即時試行 → window.loadで再試行
     loadSettings();
 
-    // file:// でのCORS注意表示
     if(location.protocol === 'file:' && els.envBanner){ els.envBanner.innerHTML = '現在 <code>file://</code> で開いています。<b>クロスオリジンのフィード取得はCORSで失敗</b>する場合があります。<br>同一オリジン（例：同じ GitHub Pages）で開くか、許可ヘッダー(Access-Control-Allow-Origin)がある配信元をご利用ください。'; }
 
     const renderDebounced = debounce(()=> window.__ITEMS && render(window.__ITEMS), 200);
@@ -521,7 +557,6 @@
         const isAbort = err && err.name==='AbortError';
         const msg = isAbort? 'タイムアウト' : ((err && err.message) || String(err));
         els.stats.textContent = `取得に失敗しました: ${msg}`;
-        // file:// + CORS ヒント
         if(location.protocol === 'file:'){
           els.envBanner?.classList.add('error');
           els.envBanner && (els.envBanner.innerHTML = '取得に失敗しました（CORSの可能性）。このHTMLとフィードを<b>同じドメイン</b>でホストするか、配信元に <code>Access-Control-Allow-Origin</code> を付与してください。');
@@ -529,7 +564,6 @@
       }
     }
 
-    // 即時＆window.loadの両方で試行（ガードで一度のみ）
     autoLoadIfEnabled();
     window.addEventListener('load', autoLoadIfEnabled, { once:true });
 
