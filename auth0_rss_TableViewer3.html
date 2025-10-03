@@ -2,17 +2,14 @@
 <html lang="ja">
 <head>
   <!--
-  Auth0 RSS ビューア v4 – 自動取得(ネットワーク) + サニタイザ強化 + バッジ非表示 + 印刷/Lightbox修正
-  - 起動時に https://auth0.com/changelog/rss.xml を自動取得（設定でON/OFF）
-  - 手動「今すぐ取得」ボタン
-  - ホワイトリスト初期値を *.auth0.com に変更
-  - 既存: バッジ非表示・危険URL/HTML断片ブロック・印刷フォールバック・Lightbox
-  Last-Updated: 2025-10-02 12:17:21Z (UTC)
+  Auth0 RSS ビューア v4.1.13 – タイトル簡略版（<title>/見出しは製品名+バージョンのみ）
+  Last-Updated: 2025-10-03 10:27:17Z (UTC)
+  Default feed: https://si-auth.github.io/rss/auth0-changelog/rss.xml
 -->
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="color-scheme" content="light dark" />
-  <title>Auth0 RSS ビューア v4（ローカルXML/ネットワーク取得・CSV/HTMLエクスポート）</title>
+  <title>Auth0 RSS ビューア v4.1.13</title>
   <style>
     :root{
       --bg:#f7f9fc; --card:#ffffff; --txt:#1e293b; --muted:#5b677a; --accent:#0b6bcb; --border:#d7e0ea;
@@ -25,30 +22,45 @@
 
     html,body{margin:0;background:var(--bg);color:var(--txt);font-family:system-ui,Segoe UI,Roboto,Helvetica,Arial,"Noto Sans JP",sans-serif}
     a{color:var(--link)}
-    header{position:sticky;top:0;z-index:10;background:linear-gradient(180deg,var(--bg),rgba(0,0,0,.02));backdrop-filter:blur(4px);}
+    header{position:sticky;top:0;z-index:10;background:linear-gradient(180deg,var(--bg),rgba(0,0,0,.02));backdrop-filter:blur(4px)}
     .wrap{max-width:min(1800px,98vw);margin:0 auto;padding:12px 16px}
-    h1{margin:.2rem 0 .4rem 0;font-size:1.1rem;color:var(--muted);font-weight:600}
+    h1{margin:.2rem 0 .4rem 0;font-size:1.05rem;color:var(--muted);font-weight:600}
 
-    .hdrbar{position:relative;display:flex;align-items:center;gap:8px;min-height:40px}
+    .hdrbar{position:relative;display:flex;align-items:center;gap:8px;min-height:38px}
     .hdrbar h1{padding-right:200px}
-    .collapse-btn{position:absolute;right:0;top:0;appearance:none;border:1px solid var(--border);background:color-mix(in oklab, var(--card), var(--bg));color:var(--txt);padding:6px 10px;border-radius:8px;cursor:pointer;font-size:.9rem}
+    .collapse-btn{position:absolute;right:0;top:0;appearance:none;border:1px solid var(--border);background:color-mix(in oklab, var(--card), var(--bg));color:var(--txt);padding:5px 9px;border-radius:8px;cursor:pointer;font-size:.85rem}
     .collapse-btn:hover{border-color:color-mix(in oklab, var(--border), var(--accent) 45%);background:color-mix(in oklab, var(--card), var(--accent) 8%)}
     .collapse-btn .ico{margin-right:.35em}
-
-    .controls{display:grid;grid-template-columns:1fr;gap:12px;margin-top:8px}
-    @media(min-width:1200px){.controls{grid-template-columns:1.2fr 1.2fr 1fr 1fr}}
-    .card{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:12px}
 
     header.collapsed h1{display:none}
     header.collapsed .controls{display:none}
     header.collapsed .wrap{padding:8px 16px}
 
-    label{font-size:.9rem;color:var(--muted)}
-    input[type="file"],input[type="text"],input[type="date"],textarea,select{width:100%;padding:10px;border-radius:8px;border:1px solid var(--border);background:color-mix(in oklab, var(--card), var(--bg) 10%);color:var(--txt)}
+    .controls{display:grid;grid-template-columns:1fr;gap:10px;margin-top:6px}
+    @media(min-width:1200px){.controls{grid-template-columns:1.15fr 1.15fr 1fr 1fr}}
+
+    .card{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:10px}
+
+    /* details 折りたたみ（①と③） */
+    details.card{padding:0}
+    details.card > summary{list-style:none; cursor:pointer; padding:8px; border-bottom:1px solid var(--border); display:flex; align-items:center; gap:12px; flex-wrap:wrap}
+    details.card > summary::-webkit-details-marker{display:none}
+    details.card > summary .sum-title{font-size:.9rem;color:var(--muted);font-weight:600;margin-right:auto}
+    details.card > .content{padding:10px}
+
+    /* ①RSSフィード取得 内部（小さめ固定） */
+    .source-grid{display:grid;grid-template-columns:1fr;gap:8px}
+    .source-box{border:1px dashed var(--border);border-radius:8px;padding:8px}
+    .source-title{font-weight:600;color:var(--muted);margin-bottom:6px;font-size:.9rem}
+    .pill{display:inline-block;background:color-mix(in oklab, var(--card), var(--bg) 20%);border:1px solid var(--border);border-radius:999px;padding:3px 8px;font-size:.8rem;color:var(--muted)}
+    .sum-inline{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+
+    label{font-size:.85rem;color:var(--muted)}
+    input[type="file"],input[type="text"],input[type="date"],textarea,select{width:100%;padding:7px;border-radius:8px;border:1px solid var(--border);background:color-mix(in oklab, var(--card), var(--bg) 10%);color:var(--txt);font-size:.9rem}
     textarea{min-height:68px;resize:vertical}
-    input[type="checkbox"]{transform:scale(1.1);margin-right:6px}
-    .hint{font-size:.85rem;color:var(--muted)}
-    .stats{margin-top:6px;font-size:.9rem;color:var(--muted)}
+    input[type="checkbox"]{transform:scale(1.05);margin-right:6px}
+    .hint{font-size:.8rem;color:var(--muted)}
+    .stats{margin-top:4px;font-size:.85rem;color:var(--muted)}
 
     table{width:100%;border-collapse:separate;border-spacing:0;table-layout:fixed}
     thead th{position:sticky;top:0;background:var(--card);border-bottom:1px solid var(--border);text-align:left;padding:10px;font-size:.9rem;color:var(--muted)}
@@ -66,25 +78,26 @@
     .desc{white-space:pre-wrap;word-wrap:break-word;overflow-wrap:anywhere}
     .desc img{max-width:100%;height:auto;border-radius:6px;border:1px solid var(--border);cursor:zoom-in}
 
-    .badge{display:none !important} /* チャンネル・バッジ全面OFF */
+    .badge{display:none !important}
     .warn{color:var(--danger)}
     .ok{color:var(--ok)}
     .blocked{display:inline-block;padding:2px 6px;border-radius:6px;background:color-mix(in oklab, var(--blocked), var(--bg) 85%);border:1px dashed color-mix(in oklab, var(--blocked), #000 50%);color:color-mix(in oklab, var(--blocked), #000 35%);font-size:.8rem}
-    .footer{color:var(--muted);font-size:.85rem;margin:20px 0}
+    .footer{color:var(--muted);font-size:.85rem;margin:16px 0}
 
     .btnrow{display:flex;flex-wrap:wrap;gap:8px;margin-top:8px}
-    .btn{appearance:none;border:1px solid var(--border);background:color-mix(in oklab, var(--card), var(--bg));color:var(--txt);padding:8px 12px;border-radius:8px;cursor:pointer}
+
+    /* ▼ 全ボタン共通（コンパクト） */
+    .btn{appearance:none;border:1px solid var(--border);background:color-mix(in oklab, var(--card), var(--bg));color:var(--txt);padding:4px 8px;border-radius:8px;cursor:pointer;font-size:.85rem}
     .btn:hover{border-color:color-mix(in oklab, var(--border), var(--accent) 45%);background:color-mix(in oklab, var(--card), var(--accent) 8%)}
     .btn:active{transform:translateY(1px)}
     .btn.secondary{background:color-mix(in oklab, var(--card), var(--bg) 5%);color:var(--txt)}
 
     .row{display:grid;grid-template-columns:1fr;gap:8px;margin-top:8px}
     @media(min-width:520px){.row.cols-2{grid-template-columns:1fr 1fr}}
-    .inline-row{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px}
+    .inline-row{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}
 
     mark.h{background:var(--hl);color:#222;padding:0 .15em;border-radius:3px}
 
-    /* Kebab menu */
     .kebab-wrap{position:relative;display:inline-block;margin-left:6px}
     .kebab-btn{appearance:none;border:1px solid var(--border);background:color-mix(in oklab, var(--card), var(--bg));color:var(--txt);border-radius:6px;cursor:pointer;padding:2px 8px;line-height:1}
     .kebab-btn:hover{background:color-mix(in oklab, var(--card), var(--accent) 8%);border-color:color-mix(in oklab, var(--border), var(--accent) 45%)}
@@ -95,39 +108,62 @@
     .menu .mi:hover{background:color-mix(in oklab, var(--card), var(--accent) 8%)}
     .menu .mi .ico{font-size:1rem;opacity:.9}
 
-    /* Lightbox */
-    .lightbox{position:fixed;inset:0;background:rgba(0,0,0,.75);display:none;align-items:center;justify-content:center;z-index:999}
-    .lightbox.open{display:flex}
-    .lb-inner{position:relative;max-width:95vw;max-height:95vh}
-    .lb-img{max-width:95vw;max-height:95vh;display:block;border-radius:8px;box-shadow:0 8px 40px rgba(0,0,0,.3)}
-    .lb-close{position:absolute;top:-42px;right:0;background:#222a;backdrop-filter:blur(3px);border:1px solid #444;color:#fff;border-radius:6px;padding:6px 10px;cursor:pointer}
-    .lb-nav{position:absolute;top:50%;transform:translateY(-50%);display:flex;justify-content:space-between;align-items:center;width:100%}
-    .lb-btn{background:#222a;border:1px solid #444;color:#fff;border-radius:999px;width:40px;height:40px;display:grid;place-items:center;cursor:pointer}
-    .lb-prev{position:absolute;left:-52px}
-    .lb-next{position:absolute;right:-52px}
-    @media(max-width:720px){.lb-prev{left:4px}.lb-next{right:4px}.lb-close{top:8px;right:8px}}
-
     body.density-comfortable tbody td{padding:14px 12px}
     body.density-compact tbody td{padding:8px 8px}
 
     @media print{ .kebab-wrap{display:none !important} }
+
+    /* ====== ② 絞り込み：日付フォーム 横並び & 入力幅2/3 ====== */
+    #filterCard .row.cols-2 > div{ display:flex; justify-content:space-between; align-items:center; gap:8px }
+    #filterCard .row.cols-2 > div label{ flex:1 1 auto }
+    #filterCard .row.cols-2 > div input[type="date"]{ flex:0 0 66%; max-width:66% }
   </style>
 </head>
 <body class="theme-auto density-comfortable">
   <header id="hdr">
     <div class="wrap">
       <div class="hdrbar">
-        <h1>Auth0 RSS ビューア v4（ローカルXML/ネットワーク取得・CSV/HTMLエクスポート）</h1>
+        <h1>Auth0 RSS ビューア v4.1.13</h1>
         <button id="btnCollapse" class="collapse-btn" aria-expanded="true" aria-controls="controls"><span class="ico">▲</span>コントロールをたたむ</button>
       </div>
       <div id="controls" class="controls" role="region" aria-label="操作パネル">
-        <div class="card">
-          <label for="file">① XMLファイルを選択（例: Auth0_rss.xml）</label>
-          <input id="file" type="file" accept=".xml, text/xml, application/xml" />
-          <div class="hint">このHTMLは <b>localhost</b>（推奨）や <b>file://</b> でも開けます。ネットワーク取得はCORSの制約を受ける場合があります。</div>
-        </div>
 
-        <div class="card">
+        <!-- ① RSSフィード取得（折りたたみ可：既定で開） -->
+        <details class="card" open>
+          <summary>
+            <span class="sum-title">① RSSフィード取得</span>
+            <span class="sum-inline">
+              <span class="pill" id="fileNameStatus" title="選択されたファイル名">ローカルXML: 未選択</span>
+              <button id="btnFilePicker" class="btn secondary" type="button">XMLを選択…</button>
+            </span>
+          </summary>
+          <div class="content">
+            <div class="source-grid">
+              <div class="source-box">
+                <div class="source-title">ローカルファイルから</div>
+                <label for="file">XMLファイルを選択</label>
+                <input id="file" type="file" accept=".xml, text/xml, application/xml" />
+                <div class="hint">ファイルはブラウザ外へ送信されません。</div>
+              </div>
+              <div class="source-box">
+                <div class="source-title">ネットワークから</div>
+                <label for="feedUrl">フィードURL（同一オリジン推奨）</label>
+                <input id="feedUrl" type="text" value="https://si-auth.github.io/rss/auth0-changelog/rss.xml" placeholder="https://example.com/feed.xml" />
+                <div class="inline-row" style="margin-top:6px">
+                  <label style="display:flex;align-items:center;gap:.4rem">
+                    <input id="autoLoad" type="checkbox" checked>
+                    <span>起動時に <code>feedUrl</code> を自動で読み込む</span>
+                  </label>
+                  <button id="btnFetchNow" class="btn">今すぐ取得</button>
+                </div>
+                <div class="hint">同一オリジンならCORS不要で安定します。GitHub Pages に配置するのが簡単です。</div>
+              </div>
+            </div>
+          </div>
+        </details>
+
+        <!-- ② 絞り込み -->
+        <div id="filterCard" class="card">
           <label for="q">② 絞り込み</label>
           <input id="q" type="text" placeholder="キーワード（タイトル・概要）…" />
           <div class="row cols-2">
@@ -150,56 +186,60 @@
           <div class="hint">キーワードはタイトルにハイライト（HTML表示OFF時は概要も）。</div>
         </div>
 
-        <div class="card">
-          <label>③ 表示オプション</label>
-          <div class="row">
-            <div class="inline-row">
-              <label style="display:flex;align-items:center;gap:.4rem">
-                <input id="trustHtml" type="checkbox"> <!-- 既定 OFF -->
-                <span>概要(<code>description</code>)を <b>HTMLとして表示</b>（<span class="warn">XSS注意</span>）</span>
+        <!-- ③ 表示オプション（折りたたみ可：既定で閉） -->
+        <details class="card">
+          <summary>
+            <span class="sum-title">③ 表示オプション</span>
+            <span class="sum-inline">
+              <label style="display:flex;align-items:center;gap:.35rem" title="概要(description)をHTMLとして表示（XSS注意）">
+                <input id="trustHtml" type="checkbox">
+                <span>HTML表示</span>
               </label>
-            </div>
-            <div>
-              <label style="display:flex;align-items:center;gap:.4rem">
+              <label style="display:flex;align-items:center;gap:.35rem" title="画像/リンクのドメイン制限（ホワイトリスト）を有効化">
                 <input id="enableWhitelist" type="checkbox" checked>
-                <span>画像/リンクの <b>ドメイン制限（ホワイトリスト）</b>を有効化</span>
+                <span>ホワイトリスト</span>
               </label>
-              <textarea id="whitelist" placeholder="例）*.auth0.com
+            </span>
+          </summary>
+          <div class="content">
+            <div class="row">
+              <div>
+                <label for="whitelist">許可ドメイン（ホワイトリスト）</label>
+                <textarea id="whitelist" placeholder="例）*.auth0.com
 サブドメインを許可する場合は *.example.com">*.auth0.com</textarea>
-              <div class="hint">許可ドメインのみ <b>画像の表示</b>や <b>リンク遷移</b>を許可（<code>*.example.com</code> でサブドメイン含む）。無効化で全ドメイン許可。</div>
-            </div>
-            <div>
-              <label for="linkSource">リンクURLに使用する要素</label>
-              <select id="linkSource">
-                <option value="guid" selected>guid（既定）</option>
-                <option value="link">link@href（存在する場合）</option>
-              </select>
-              <div class="hint">RSSにより <code>guid</code> がURLでない場合があります。その場合は <code>link@href</code> を選択してください。</div>
-            </div>
-            <div class="row cols-2">
-              <div>
-                <label for="theme">テーマ</label>
-                <select id="theme">
-                  <option value="auto" selected>自動（OSに追従）</option>
-                  <option value="light">ライト（白背景）</option>
-                  <option value="dark">ダーク（黒背景）</option>
-                </select>
+                <div class="hint">許可ドメインのみ <b>画像の表示</b>や <b>リンク遷移</b>を許可（<code>*.example.com</code> でサブドメイン含む）。無効化で全ドメイン許可。</div>
               </div>
               <div>
-                <label for="density">表示密度</label>
-                <select id="density">
-                  <option value="comfortable" selected>標準（読みやすさ優先）</option>
-                  <option value="compact">コンパクト（情報量優先）</option>
+                <label for="linkSource">リンクURLに使用する要素</label>
+                <select id="linkSource">
+                  <option value="guid" selected>guid（既定）</option>
+                  <option value="link">link@href（存在する場合）</option>
                 </select>
+                <div class="hint">RSSにより <code>guid</code> がURLでない場合があります。その場合は <code>link@href</code> を選択してください。</div>
               </div>
+              <div class="row cols-2">
+                <div>
+                  <label for="theme">テーマ</label>
+                  <select id="theme">
+                    <option value="auto" selected>自動（OSに追従）</option>
+                    <option value="light">ライト（白背景）</option>
+                    <option value="dark">ダーク（黒背景）</option>
+                  </select>
+                </div>
+                <div>
+                  <label for="density">表示密度（表）</label>
+                  <select id="density">
+                    <option value="comfortable" selected>標準（読みやすさ優先）</option>
+                    <option value="compact">コンパクト（情報量優先）</option>
+                  </select>
+                </div>
+              </div>
+              <div class="hint">並び順は <b>pubDate 降順</b>（既定）・全件表示。日付はUTC解釈、表示は YYYY/MM/DD。</div>
             </div>
-            <div class="inline-row">
-              <button id="btnPrintFiltered" class="btn secondary">印刷（フィルタ後）</button>
-            </div>
-            <div class="hint">並び順は <b>pubDate 降順</b>（既定）・全件表示。日付はUTC解釈、表示は YYYY/MM/DD。</div>
           </div>
-        </div>
+        </details>
 
+        <!-- ④ エクスポート（折りたたみ不可：常時展開） -->
         <div class="card">
           <label>④ エクスポート</label>
           <div class="btnrow">
@@ -207,27 +247,10 @@
             <button id="btnCsvFiltered" class="btn secondary">CSV（フィルタ後）</button>
             <button id="btnHtmlAll" class="btn">HTML（全件）</button>
             <button id="btnHtmlFiltered" class="btn secondary">HTML（フィルタ後）</button>
+            <button id="btnPrintFiltered" class="btn secondary">印刷（フィルタ後）</button>
           </div>
           <div class="hint">CSV: UTF-8（BOM付）/ CRLF / 列: <code>title, pubDate, description, guid, channel</code>｜HTML: 単一ファイル（インラインCSS）で表を保存</div>
           <div id="expMsg" class="hint" aria-live="polite"></div>
-        </div>
-
-        <div class="card">
-          <label>⑤ フィード取得（ネットワーク）</label>
-          <div class="row">
-            <div>
-              <label for="feedUrl">フィードURL</label>
-              <input id="feedUrl" type="text" value="https://auth0.com/changelog/rss.xml" placeholder="https://example.com/feed.xml" />
-              <div class="hint">起動時に自動取得する場合は下のチェックON。CORSで失敗する場合はローカルXMLを使用、またはプロキシ経由をご検討ください。</div>
-            </div>
-            <div class="inline-row">
-              <label style="display:flex;align-items:center;gap:.4rem">
-                <input id="autoLoad" type="checkbox" checked>
-                <span>起動時に <code>feedUrl</code> を自動で読み込む</span>
-              </label>
-              <button id="btnFetchNow" class="btn">今すぐ取得</button>
-            </div>
-          </div>
         </div>
 
       </div>
@@ -282,10 +305,13 @@
       enableWhitelist: $('#enableWhitelist'), whitelist: $('#whitelist'), linkSource: $('#linkSource'),
       lb: $('#lightbox'), lbImg: $('#lbImg'), lbClose: $('#lbClose'), lbPrev: $('#lbPrev'), lbNext: $('#lbNext'),
       btnPrintFiltered: $('#btnPrintFiltered'), theme: $('#theme'), density: $('#density'),
-      feedUrl: $('#feedUrl'), autoLoad: $('#autoLoad'), btnFetchNow: $('#btnFetchNow')
+      feedUrl: $('#feedUrl'), autoLoad: $('#autoLoad'), btnFetchNow: $('#btnFetchNow'),
+      btnFilePicker: $('#btnFilePicker'), fileNameStatus: $('#fileNameStatus')
     };
 
-    const LS_KEY = 'auth0_rss_viewer_settings_v7';
+    const DEFAULT_FEED = 'https://si-auth.github.io/rss/auth0-changelog/rss.xml';
+    const LS_KEY = 'auth0_rss_viewer_settings_v16';
+
     function saveSettings(){
       const obj = {
         trust: els.trust.checked,
@@ -305,19 +331,30 @@
     }
     function applyTheme(val){ const cls=['theme-auto','theme-light','theme-dark']; document.body.classList.remove(...cls); document.body.classList.add('theme-'+(val||'auto')); }
     function applyDensity(val){ const cls=['density-comfortable','density-compact']; document.body.classList.remove(...cls); document.body.classList.add('density-'+(val||'comfortable')); }
-    function loadSettings(){ try{ const obj=JSON.parse(localStorage.getItem(LS_KEY)||'null'); if(!obj) return; els.trust.checked=!!obj.trust; els.enableWhitelist.checked=obj.enableWhitelist!==false; if(typeof obj.whitelist==='string') els.whitelist.value=obj.whitelist; if(obj.linkSource) els.linkSource.value=obj.linkSource; if(typeof obj.q==='string') els.q.value=obj.q; if(typeof obj.dateFrom==='string') els.dateFrom.value=obj.dateFrom; if(typeof obj.dateTo==='string') els.dateTo.value=obj.dateTo; if(obj.theme){ els.theme.value=obj.theme; applyTheme(obj.theme);} if(obj.density){ els.density.value=obj.density; applyDensity(obj.density);} if(typeof obj.feedUrl==='string') els.feedUrl.value=obj.feedUrl; if(typeof obj.autoLoad==='boolean') els.autoLoad.checked=obj.autoLoad; if(obj.collapsed){ setCollapsed(true,false);} }catch{} }
+    function loadSettings(){
+      try{
+        const obj=JSON.parse(localStorage.getItem(LS_KEY)||'null');
+        if(obj){
+          els.trust.checked=!!obj.trust; els.enableWhitelist.checked=obj.enableWhitelist!==false; if(typeof obj.whitelist==='string') els.whitelist.value=obj.whitelist; if(obj.linkSource) els.linkSource.value=obj.linkSource; if(typeof obj.q==='string') els.q.value=obj.q; if(typeof obj.dateFrom==='string') els.dateFrom.value=obj.dateFrom; if(typeof obj.dateTo==='string') els.dateTo.value=obj.dateTo; if(obj.theme){ els.theme.value=obj.theme; applyTheme(obj.theme);} if(obj.density){ els.density.value=obj.density; applyDensity(obj.density);} if(typeof obj.feedUrl==='string'){ els.feedUrl.value=obj.feedUrl; } else { els.feedUrl.value = DEFAULT_FEED; } if(typeof obj.autoLoad==='boolean') els.autoLoad.checked=obj.autoLoad;
+          if(obj.collapsed){ setCollapsed(true,false);} 
+        } else {
+          els.feedUrl.value = DEFAULT_FEED; els.autoLoad.checked = true;
+        }
+      }catch{ els.feedUrl.value = DEFAULT_FEED; }
+    }
 
     // ===== Utilities =====
     const esc = (s='') => s.replace(/[&<>\"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','\"':'&quot;','\'':'&#39;'}[c]));
     function decodeHtmlEntitiesOnce(str=''){ const ta=document.createElement('textarea'); ta.innerHTML=str; return ta.value; }
     function decodeEntitiesDeep(str='', maxRounds=3){ let prev=str, cur=decodeHtmlEntitiesOnce(str), rounds=1; while(cur!==prev && rounds<maxRounds){ prev=cur; cur=decodeHtmlEntitiesOnce(prev); rounds++; } return cur; }
 
+    function debounce(fn, ms=200){ let t; return (...args)=>{ clearTimeout(t); t = setTimeout(()=> fn(...args), ms); }; }
+
     function normHost(h){ return (h||'').trim().toLowerCase().replace(/^\*\./,'*.').replace(/^\.+/,''); }
     function parseWhitelist(){ const raw=(els.whitelist.value||'').split(/[\n,\s]+/).filter(Boolean).map(normHost); return raw; }
     function hostFromUrl(url){ try{ return new URL(url, location.origin).hostname.toLowerCase(); }catch{ return ''; } }
     function isAllowedUrl(url){ if(!els.enableWhitelist.checked) return true; const host=hostFromUrl(url); if(!host) return false; const wl=parseWhitelist(); if(wl.length===0) return false; return wl.some(p=>{ if(p.startsWith('*.')){ const base=p.slice(2); return host===base || host.endsWith('.'+base); } return host===p; }); }
 
-    // 属性値に HTML 断片が混入しているかを検出
     function isMalformedUrlAttr(val){ const v=(val||'').trim(); return v.startsWith('<a ') || /[<>]/.test(v); }
 
     function toHtmlFromPlain(text){ if(!text) return ''; let t=decodeEntitiesDeep(text);
@@ -333,9 +370,7 @@
 
     function sanitizeDescElement(root){
       root.querySelectorAll('script, iframe, object, embed, link, style').forEach(n=>n.remove());
-      // a[href]
       root.querySelectorAll('a[href]').forEach(a=>{ const href=a.getAttribute('href')||''; if(isMalformedUrlAttr(href)){ const span=document.createElement('span'); span.className='blocked'; span.title='不正なURL属性（HTML断片）'; span.textContent=a.textContent||href; a.replaceWith(span); return; } if(isAllowedUrl(href)){ a.target='_blank'; a.rel='noopener noreferrer'; } else { const host=hostFromUrl(href); const span=document.createElement('span'); span.className='blocked'; span.title=`ドメイン許可外: ${host}`; span.textContent=a.textContent||href; a.replaceWith(span);} });
-      // img[src]
       root.querySelectorAll('img[src]').forEach(img=>{ const src=img.getAttribute('src')||''; if(isMalformedUrlAttr(src)){ const span=document.createElement('span'); span.className='blocked'; span.title='不正な画像src（HTML断片）'; span.textContent='[画像ブロック]'; img.replaceWith(span); return; } if(isAllowedUrl(src)){ img.loading='lazy'; img.decoding='async'; img.style.cursor='zoom-in'; img.addEventListener('click', ()=>openLightbox(img.src)); } else { const host=hostFromUrl(src); const span=document.createElement('span'); span.className='blocked'; span.title=`ドメイン許可外: ${host}`; span.textContent='[画像ブロック]'; img.replaceWith(span);} });
     }
 
@@ -343,7 +378,6 @@
     function descToPlainText(descRaw){ const div=document.createElement('div'); const looksHtml=/<\w+[^>]*>/.test(descRaw||''); div.innerHTML = looksHtml ? (descRaw||'') : toHtmlFromPlain(descRaw||''); return div.textContent || ''; }
     function highlightText(text, needle){ if(!needle) return esc(text||''); const safe=esc(text||''); try{ const re=new RegExp('('+needle.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')+')','ig'); return safe.replace(re,'<mark class="h">$1</mark>'); }catch{ return safe; } }
 
-    // ===== Row build/render =====
     function buildRow(item){ const tr=document.createElement('tr'); const tdTitle=document.createElement('td'); tdTitle.className='col-title'; const tdDate=document.createElement('td'); tdDate.className='col-date'; const tdDesc=document.createElement('td'); const tdLink=document.createElement('td'); const q=(els.q.value||'').trim(); const titleBase=item.title||'(no title)'; const raw=decodeEntitiesDeep(item.description||''); const descPlain=descToPlainText(raw); tr.dataset.title=item.title||''; tr.dataset.desc=descPlain; tdTitle.innerHTML=`<strong>${highlightText(titleBase, q)}</strong>`;
       const kebabWrap=document.createElement('span'); kebabWrap.className='kebab-wrap'; const kebabBtn=document.createElement('button'); kebabBtn.type='button'; kebabBtn.className='kebab-btn'; kebabBtn.setAttribute('aria-haspopup','menu'); kebabBtn.setAttribute('aria-expanded','false'); kebabBtn.title='行アクション'; kebabBtn.textContent='⋯'; const menu=document.createElement('div'); menu.className='menu'; menu.setAttribute('role','menu'); menu.innerHTML=`\n        <button class=\"mi\" role=\"menuitem\" data-act=\"copy-title\"><span class=\"ico\">📋</span><span>題名をコピー (t)</span></button>\n        <button class=\"mi\" role=\"menuitem\" data-act=\"copy-desc\"><span class=\"ico\">📝</span><span>概要をコピー (d)</span></button>\n        <button class=\"mi\" role=\"menuitem\" data-act=\"search-g\"><span class=\"ico\">🔎</span><span>Google で検索 (g)</span></button>\n      `; kebabWrap.append(kebabBtn, menu); tdTitle.appendChild(kebabWrap);
       tdDate.textContent=formatYYYYMMDD(item._ts,item.pubDate); if(item.pubDate) tdDate.title=item.pubDate;
@@ -359,47 +393,40 @@
     function performAction(act, row){ if(!row){ row=els.tbody.querySelector('tr'); } if(!row) return; if(act==='copy-title'){ copyText(row.dataset.title||'','タイトルをコピーしました。'); } else if(act==='copy-desc'){ copyText(row.dataset.desc||'','概要をコピーしました。'); } else if(act==='search-g'){ const title=row.dataset.title||''; const q=encodeURIComponent(title); window.open(`https://www.google.com/search?q=${q}`,'_blank','noopener'); } }
 
     function parseUTCBoundary(dateStr,end=false){ if(!dateStr) return null; const t=end?'T23:59:59.999Z':'T00:00:00.000Z'; const d=new Date(dateStr+t); const n=d.getTime(); return Number.isFinite(n)?n:null; }
-    function toDateInputValueUTC(date){ const y=date.getUTCFullYear(); const m=String(date.getUTCMonth()+1).padStart(2,'0'); const d=String(date.getUTCDate()).padStart(2,'0'); return `${y}-${m}-${d}`; }
 
     function filterItems(items){ const q=(els.q.value||'').toLowerCase(); const fromMs=parseUTCBoundary(els.dateFrom.value,false); const toMs=parseUTCBoundary(els.dateTo.value,true); const out=[]; for(const it of items){ if(q){ const hay=`${it.title}\n${it.description}`.toLowerCase(); if(!hay.includes(q)) continue; } if(fromMs!==null && it._ts<fromMs) continue; if(toMs!==null && it._ts>toMs) continue; out.push(it);} return out; }
 
     function render(items){ els.tbody.innerHTML=''; const filtered=filterItems(items); let count=0; const frag=document.createDocumentFragment(); for(const it of filtered){ frag.appendChild(buildRow(it)); count++; } els.tbody.appendChild(frag); els.stats.textContent=`${items.length.toLocaleString()}件 読込済み / フィルタ後 ${count.toLocaleString()}件`; if(count===0){ const tr=document.createElement('tr'); const td=document.createElement('td'); td.colSpan=4; td.style.color='var(--muted)'; td.style.padding='16px'; const q=(els.q.value||''); td.textContent=q?'条件に一致する項目がありません。':'データがありません。'; tr.appendChild(td); els.tbody.appendChild(tr);} saveSettings(); }
 
-    // ===== XML処理の共通化 =====
     function processXmlText(text){
       const xml=new DOMParser().parseFromString(text,'text/xml');
       const err=xml.querySelector('parsererror');
-      if(err){ els.stats.textContent='XMLの解析に失敗しました。'; els.tbody.innerHTML=`<tr><td colspan=\"4\" style=\"color:var(--danger);padding:16px\">${esc(err.textContent)}</td></tr>`; return; }
+      if(err){ els.stats.textContent='XMLの解析に失敗しました。'; els.tbody.innerHTML=`<tr><td colspan=\"4\" style=\"color:var(--danger);padding:16px\">${esc(err.textContent)}</td></tr>`; return false; }
       let items=Array.from(xml.getElementsByTagName('item'));
       if(items.length===0) items=Array.from(xml.getElementsByTagName('entry'));
       const channelTitle=(xml.querySelector('channel>title')||xml.querySelector('feed>title'))?.textContent?.trim();
       const mapped=items.map(node=>{ const title=pick(node,'title'); const pubDate=pick(node,'pubDate')||pick(node,'updated')||pick(node,'published'); const description=pick(node,'description')||pick(node,'content')||pick(node,'summary'); let guid=pick(node,'guid'); let linkHref=''; const linkEl=node.querySelector('link[href]'); if(linkEl) linkHref=(linkEl.getAttribute('href')||'').trim(); if(!guid) guid=pick(node,'id'); return { title, pubDate, description, guid, linkHref, channelTitle, _ts: parseDate(pubDate) }; });
-      mapped.sort((a,b)=>b._ts - a._ts); window.__ITEMS=mapped; window.__CHANNEL=channelTitle||'rss'; render(mapped); els.expMsg.textContent='';
+      mapped.sort((a,b)=>b._ts - a._ts); window.__ITEMS=mapped; window.__CHANNEL=channelTitle||'rss'; render(mapped); els.expMsg.textContent=''; return true;
     }
 
-    // ===== ローカルファイル読込 =====
-    async function handleFile(file){ if(!file) return; const text=await file.text(); processXmlText(text); }
+    async function fetchText(url, signal){ const res = await fetch(url, { signal, headers: { 'Accept': 'application/xml,text/xml;q=0.9,*/*;q=0.8' } }); if(!res.ok) throw new Error(`HTTP ${res.status}`); return await res.text(); }
 
-    // ===== ネットワーク取得 =====
     async function loadFromUrl(url){
       if(!url){ els.stats.textContent='URLが空です。'; return; }
-      els.stats.textContent='ネットワークから取得中…';
+      els.stats.textContent = 'ネットワークから取得中…';
       try{
         const controller=new AbortController();
-        const timer=setTimeout(()=>controller.abort(), 15000);
-        const res=await fetch(url, { signal: controller.signal, headers: { 'Accept': 'application/xml,text/xml;q=0.9,*/*;q=0.8' } });
+        const timer=setTimeout(()=>controller.abort(), 20000);
+        const text = await fetchText(url, controller.signal);
         clearTimeout(timer);
-        if(!res.ok) throw new Error(`HTTP ${res.status}`);
-        const text=await res.text();
-        processXmlText(text);
+        if(!processXmlText(text)) return; 
+        els.stats.textContent='取得完了';
       }catch(err){
-        const msg = (err && err.message) || String(err);
+        const msg=(err && err.name==='AbortError')? 'タイムアウト' : ((err && err.message) || String(err));
         els.stats.textContent = `取得に失敗しました: ${msg}`;
-        els.expMsg.innerHTML = `<span class=\"warn\">ヒント：</span> CORS制約やネットワークで失敗した可能性があります。<br>1) ローカルXMLを読み込む　2) <a href=\"https://developers.cloudflare.com/workers/\" target=\"_blank\" rel=\"noopener noreferrer\">Cloudflare Workers</a>等で簡易CORSプロキシを用意し、プロキシ経由URLを設定してください。`;
       }
     }
 
-    // ===== Export（CSV/HTML/印刷） =====
     function csvEscape(val){ if(val===null||val===undefined) return '""'; const s=String(val).replace(/\r\n|\r|\n/g,'\n').replace(/"/g,'""'); return '"'+s+'"'; }
     function toCsv(items){ const header=['title','pubDate','description','guid','channel']; const lines=[header.map(csvEscape).join(',')]; for(const it of items){ lines.push([csvEscape(it.title||''),csvEscape(it.pubDate||''),csvEscape(it.description||''),csvEscape(it.guid||''),csvEscape(it.channelTitle||'')].join(',')); } return lines.join('\r\n')+'\r\n'; }
     function timestampUTC(){ const d=new Date(); const pad=n=>String(n).padStart(2,'0'); return d.getUTCFullYear()+pad(d.getUTCMonth()+1)+pad(d.getUTCDate())+'_'+pad(d.getUTCHours())+pad(d.getUTCMinutes())+pad(d.getUTCSeconds())+'UTC'; }
@@ -410,7 +437,7 @@
     function buildExportHTML(items, kind){ const ch=(window.__CHANNEL||'rss'); const q=(els.q.value||'').trim(); const df=els.dateFrom.value||''; const dt=els.dateTo.value||''; const gen=new Date(); const pad=n=>String(n).padStart(2,'0'); const genLocal=`${gen.getFullYear()}/${pad(gen.getMonth()+1)}/${pad(gen.getDate())} ${pad(gen.getHours())}:${pad(gen.getMinutes())}:${pad(gen.getSeconds())}`; const style=`:root{--bg:#f7f9fc;--card:#fff;--txt:#1e293b;--muted:#5b677a;--border:#d7e0ea;--hl:#fff1a6}
         body{margin:0;background:var(--bg);color:var(--txt);font-family:system-ui,Segoe UI,Roboto,Helvetica,Arial,'Noto Sans JP',sans-serif}
         .wrap{max-width:1200px;margin:0 auto;padding:16px}
-        h1{margin:0 0 8px 0;font-size:1.1rem;color:#5b677a}
+        h1{margin:0 0 8px 0;font-size:1.05rem;color:#5b677a}
         .meta{color:#5b677a;font-size:.9rem;margin-bottom:12px}
         table{width:100%;border-collapse:separate;border-spacing:0;table-layout:fixed;background:#fff;border:1px solid var(--border);border-radius:10px;overflow:hidden}
         thead th{position:sticky;top:0;background:#f9fbfe;border-bottom:1px solid var(--border);text-align:left;padding:10px;font-size:.9rem;color:#5b677a}
@@ -445,6 +472,27 @@
       setTimeout(()=>{ try{ document.body.removeChild(iframe); }catch{} }, 10000);
     }
 
+    function setCollapsed(on, save=true){
+      if(on){
+        els.header.classList.add('collapsed');
+        els.btnCollapse.setAttribute('aria-expanded','false');
+        els.btnCollapse.innerHTML='<span class="ico">▼</span>コントロールをひらく';
+      } else {
+        els.header.classList.remove('collapsed');
+        els.btnCollapse.setAttribute('aria-expanded','true');
+        els.btnCollapse.innerHTML='<span class="ico">▲</span>コントロールをたたむ';
+      }
+      if(save) saveSettings();
+    }
+    els.btnCollapse.addEventListener('click', ()=>{ setCollapsed(!els.header.classList.contains('collapsed')); });
+
+    document.addEventListener('click', (e)=>{ const t=e.target; if(!t.closest('.kebab-wrap')) closeAllMenus(); if(t===els.lb){ closeLightbox(); } });
+
+    // ===== ファイル読み込み =====
+    function handleFile(f){ if(!f) return; const r=new FileReader(); r.onload=()=>{ processXmlText(r.result); els.stats.textContent='ファイルから読込み完了'; }; r.onerror=()=>{ els.stats.textContent='ファイル読み込みに失敗しました。'; }; r.readAsText(f, 'utf-8'); if(els.fileNameStatus){ els.fileNameStatus.textContent = 'ローカルXML: ' + (f.name || '未選択'); } }
+    els.file.addEventListener('change', ()=> handleFile(els.file.files[0]));
+    els.btnFilePicker?.addEventListener('click', ()=>{ els.file?.click(); });
+
     // ===== Lightbox =====
     let currentImages=[]; let currentIndex=-1; let lastFocusedEl=null;
     function collectImages(){ currentImages = $$('.desc img').map(img=>img.src); }
@@ -453,43 +501,21 @@
     function showPrev(){ if(currentImages.length<2) return; currentIndex=(currentIndex-1+currentImages.length)%currentImages.length; els.lbImg.src=currentImages[currentIndex]; }
     function showNext(){ if(currentImages.length<2) return; currentIndex=(currentIndex+1)%currentImages.length; els.lbImg.src=currentImages[currentIndex]; }
 
-    // ===== Global events =====
-    function setCollapsed(on, save=true){ if(on){ els.header.classList.add('collapsed'); els.btnCollapse.setAttribute('aria-expanded','false'); els.btnCollapse.innerHTML='<span class="ico">▼</span>コントロールをひらく'; } else { els.header.classList.remove('collapsed'); els.btnCollapse.setAttribute('aria-expanded','true'); els.btnCollapse.innerHTML='<span class="ico">▲</span>コントロールをたたむ'; } if(save) saveSettings(); }
-    els.btnCollapse.addEventListener('click', ()=>{ setCollapsed(!els.header.classList.contains('collapsed')); });
+    // ===== init & bindings =====
+    function bindReRender(id, ev='change'){ const el=els[id]; if(!el) return; el.addEventListener(ev, ()=> window.__ITEMS && render(window.__ITEMS)); }
 
-    document.addEventListener('click', (e)=>{ const t=e.target; if(!t.closest('.kebab-wrap')) closeAllMenus(); if(t===els.lb){ closeLightbox(); } });
-    els.lbClose.addEventListener('click', closeLightbox);
-    els.lbPrev.addEventListener('click', showPrev);
-    els.lbNext.addEventListener('click', showNext);
-
-    document.addEventListener('keydown', (e)=>{
-      if(e.key==='Escape'){ closeAllMenus(); if(els.lb.classList.contains('open')) closeLightbox(); }
-      if(els.lb.classList.contains('open')){
-        if(e.key==='ArrowLeft'){ e.preventDefault(); showPrev(); }
-        if(e.key==='ArrowRight'){ e.preventDefault(); showNext(); }
-        if(e.key==='Tab'){
-          const focusables = els.lb.querySelectorAll('button, [href], [tabindex]:not([tabindex="-1"])');
-          if(focusables.length){ const first=focusables[0], last=focusables[focusables.length-1]; const back=e.shiftKey; if(back && document.activeElement===first){ e.preventDefault(); last.focus(); } else if(!back && document.activeElement===last){ e.preventDefault(); first.focus(); } }
-      }
-      const tag=(e.target.tagName||'').toLowerCase(); if(['input','textarea','select'].includes(tag)) return;
-      if(['t','d','g','T','D','G'].includes(e.key)){ const act=(e.key.toLowerCase()==='t')?'copy-title':(e.key.toLowerCase()==='d'?'copy-desc':(e.key.toLowerCase()==='g'?'search-g':'')); if(!act) return; e.preventDefault(); const row=document.querySelector('tbody tr:hover') || document.activeElement?.closest('tr') || els.tbody.querySelector('tr'); if(row) performAction(act, row); }
-    });
-
-    // init
     loadSettings();
-    els.file.addEventListener('change', ()=> handleFile(els.file.files[0]));
-    els.q.addEventListener('input', ()=> window.__ITEMS && render(window.__ITEMS));
-    els.trust.addEventListener('change', ()=> window.__ITEMS && render(window.__ITEMS));
-    els.enableWhitelist.addEventListener('change', ()=> window.__ITEMS && render(window.__ITEMS));
-    els.whitelist.addEventListener('input', ()=> window.__ITEMS && render(window.__ITEMS));
-    els.linkSource.addEventListener('change', ()=> window.__ITEMS && render(window.__ITEMS));
-    els.dateFrom.addEventListener('change', ()=> window.__ITEMS && render(window.__ITEMS));
-    els.dateTo.addEventListener('change', ()=> window.__ITEMS && render(window.__ITEMS));
-    els.btnPreset7d.addEventListener('click', (e)=>{ e.preventDefault(); const to=new Date(); const from=new Date(Date.UTC(to.getUTCFullYear(),to.getUTCMonth(),to.getUTCDate())); from.setUTCDate(from.getUTCDate()-(7-1)); els.dateFrom.value=`${from.getUTCFullYear()}-${String(from.getUTCMonth()+1).padStart(2,'0')}-${String(from.getUTCDate()).padStart(2,'0')}`; els.dateTo.value=`${from.getUTCFullYear()}-${String(from.getUTCMonth()+1).padStart(2,'0')}-${String(from.getUTCDate()).padStart(2,'0')}`; render(window.__ITEMS||[]); });
-    els.btnPreset30d.addEventListener('click', (e)=>{ e.preventDefault(); const to=new Date(); const from=new Date(Date.UTC(to.getUTCFullYear(),to.getUTCMonth(),to.getUTCDate())); from.setUTCDate(from.getUTCDate()-(30-1)); els.dateFrom.value=`${from.getUTCFullYear()}-${String(from.getUTCMonth()+1).padStart(2,'0')}-${String(from.getUTCDate()).padStart(2,'0')}`; els.dateTo.value=`${from.getUTCFullYear()}-${String(from.getUTCMonth()+1).padStart(2,'0')}-${String(from.getUTCDate()).padStart(2,'0')}`; render(window.__ITEMS||[]); });
-    els.btnPreset6m.addEventListener('click', (e)=>{ e.preventDefault(); const to=new Date(); const from=new Date(Date.UTC(to.getUTCFullYear(),to.getUTCMonth(),to.getUTCDate())); from.setUTCMonth(from.getUTCMonth()-6); els.dateFrom.value=`${from.getUTCFullYear()}-${String(from.getUTCMonth()+1).padStart(2,'0')}-${String(from.getUTCDate()).padStart(2,'0')}`; els.dateTo.value=`${from.getUTCFullYear()}-${String(from.getUTCMonth()+1).padStart(2,'0')}-${String(from.getUTCDate()).padStart(2,'0')}`; render(window.__ITEMS||[]); });
-    els.btnPreset1y.addEventListener('click', (e)=>{ e.preventDefault(); const to=new Date(); const from=new Date(Date.UTC(to.getUTCFullYear(),to.getUTCMonth(),to.getUTCDate())); from.setUTCFullYear(from.getUTCFullYear()-1); els.dateFrom.value=`${from.getUTCFullYear()}-${String(from.getUTCMonth()+1).padStart(2,'0')}-${String(from.getUTCDate()).padStart(2,'0')}`; els.dateTo.value=`${from.getUTCFullYear()}-${String(from.getUTCMonth()+1).padStart(2,'0')}-${String(from.getUTCDate()).padStart(2,'0')}`; render(window.__ITEMS||[]); });
-    els.btnClearDates.addEventListener('click', (e)=>{ e.preventDefault(); els.dateFrom.value=''; els.dateTo.value=''; render(window.__ITEMS||[]); });
+
+    const renderDebounced = debounce(()=> window.__ITEMS && render(window.__ITEMS), 200);
+    els.q.addEventListener('input', renderDebounced);
+
+    bindReRender('trust'); bindReRender('enableWhitelist'); bindReRender('whitelist','input'); bindReRender('linkSource'); bindReRender('dateFrom'); bindReRender('dateTo');
+
+    $('#btnPreset7d').addEventListener('click', (e)=>{ e.preventDefault(); const now=new Date(); const to=new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate())); const from=new Date(to.getTime()); from.setUTCDate(from.getUTCDate()-(7-1)); els.dateFrom.value=`${from.getUTCFullYear()}-${String(from.getUTCMonth()+1).padStart(2,'0')}-${String(from.getUTCDate()).padStart(2,'0')}`; els.dateTo.value=`${to.getUTCFullYear()}-${String(to.getUTCMonth()+1).padStart(2,'0')}-${String(to.getUTCDate()).padStart(2,'0')}`; render(window.__ITEMS||[]); });
+    $('#btnPreset30d').addEventListener('click', (e)=>{ e.preventDefault(); const now=new Date(); const to=new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate())); const from=new Date(to.getTime()); from.setUTCDate(from.getUTCDate()-(30-1)); els.dateFrom.value=`${from.getUTCFullYear()}-${String(from.getUTCMonth()+1).padStart(2,'0')}-${String(from.getUTCDate()).padStart(2,'0')}`; els.dateTo.value=`${to.getUTCFullYear()}-${String(to.getUTCMonth()+1).padStart(2,'0')}-${String(to.getUTCDate()).padStart(2,'0')}`; render(window.__ITEMS||[]); });
+    $('#btnPreset6m').addEventListener('click', (e)=>{ e.preventDefault(); const now=new Date(); const to=new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate())); const from=new Date(to.getTime()); from.setUTCMonth(from.getUTCMonth()-6); els.dateFrom.value=`${from.getUTCFullYear()}-${String(from.getUTCMonth()+1).padStart(2,'0')}-${String(from.getUTCDate()).padStart(2,'0')}`; els.dateTo.value=`${to.getUTCFullYear()}-${String(to.getUTCMonth()+1).padStart(2,'0')}-${String(to.getUTCDate())}-${''}`; render(window.__ITEMS||[]); });
+    $('#btnPreset1y').addEventListener('click', (e)=>{ e.preventDefault(); const now=new Date(); const to=new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate())); const from=new Date(to.getTime()); from.setUTCFullYear(from.getUTCFullYear()-1); els.dateFrom.value=`${from.getUTCFullYear()}-${String(from.getUTCMonth()+1).padStart(2,'0')}-${String(from.getUTCDate()).padStart(2,'0')}`; els.dateTo.value=`${to.getUTCFullYear()}-${String(to.getUTCMonth()+1).padStart(2,'0')}-${String(to.getUTCDate()).padStart(2,'0')}`; render(window.__ITEMS||[]); });
+    $('#btnClearDates').addEventListener('click', (e)=>{ e.preventDefault(); els.dateFrom.value=''; els.dateTo.value=''; render(window.__ITEMS||[]); });
 
     els.btnCsvAll?.addEventListener('click', ()=>{ if(window.__ITEMS) downloadCsv(window.__ITEMS,'all'); });
     els.btnCsvFiltered?.addEventListener('click', ()=>{ if(window.__ITEMS) downloadCsv(filterItems(window.__ITEMS),'filtered'); });
@@ -503,7 +529,9 @@
 
     els.btnFetchNow?.addEventListener('click', ()=> loadFromUrl(els.feedUrl.value));
 
-    // 起動時自動取得
+    ['trust','enableWhitelist','whitelist','linkSource','dateFrom','dateTo','theme','density','feedUrl','autoLoad']
+      .forEach(id=>{ const el=els[id]; if(!el) return; const ev=(id==='whitelist'||id==='feedUrl')?'input':'change'; el.addEventListener(ev, saveSettings); });
+
     if(els.autoLoad?.checked){ loadFromUrl(els.feedUrl.value); }
   </script>
 </body>
