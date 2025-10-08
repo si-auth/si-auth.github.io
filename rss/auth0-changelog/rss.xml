@@ -5,7 +5,7 @@
            <link>https://auth0.com/changelog/rss.xml</link>
            <description>Auth0 Changelog</description>
            <language>en-US</language>
-           <lastBuildDate>Wed, 08 Oct 2025 19:41:13 GMT</lastBuildDate>
+           <lastBuildDate>Wed, 08 Oct 2025 20:41:16 GMT</lastBuildDate>
            <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
            <image>
                <title>Auth0 Changelog</title>
@@ -24,19 +24,19 @@ With this integration, you can enrich your authentication flows with supplementa
 
 ### Key Benefits
 
-**Combined Risk Context:** Leverage Akamai’s bot and user risk signals together with Auth0’s risk assessment for a more complete view of login risk.  
+- **Combined Risk Context:** Leverage Akamai’s bot and user risk signals together with Auth0’s risk assessment for a more complete view of login risk.  
 
-**Adaptive Security Controls:** Combine Akamai and Auth0 risk signals to trigger MFA, deny sessions, or revoke access based on risk indicators.  
+- **Adaptive Security Controls:** Combine Akamai and Auth0 risk signals to trigger MFA, deny sessions, or revoke access based on risk indicators.  
 
-**Seamless Integration:** Configure Akamai to forward signals and use them immediately in post-login Actions and tenant logs.  
+- **Seamless Integration:** Configure Akamai to forward signals and use them immediately in post-login Actions and tenant logs.  
 
 ---
 
 ### Availability
 
-Available to all **Enterprise customers using Akamai as a reverse proxy** in front of Auth0.  
+- Available to all **Enterprise customers using Akamai as a reverse proxy** in front of Auth0.  
 
-Currently in **Early Access**.  
+- Currently in **Early Access**.  
 
 ---
 
