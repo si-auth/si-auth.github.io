@@ -1,0 +1,640 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>原文 × 日本語：二画面比較ビューア（自動ヘッダ隠し・コンパクト・Zen・言語タブTOC・ハイライト・Zenショートカット）</title>
+  <!-- 検索よけメタ（検索エンジンのインデックス回避） -->
+  <meta name="robots" content="noindex,nofollow,noarchive,nosnippet" />
+  <meta name="googlebot" content="noindex,nofollow,noarchive,nosnippet" />
+  <meta name="bingbot" content="noindex,nofollow" />
+  <meta name="referrer" content="no-referrer" />
+  <style>
+    :root {
+      --gap: 8px;               /* default gap */
+      --pane-bg: #ffffff;
+      --chrome-bg: #0f172a;     /* slate-900 */
+      --chrome-fg: #e5e7eb;     /* gray-200 */
+      --accent: #2563eb;        /* blue-600 */
+      --border: #e5e7eb;        /* gray-200 */
+      --muted: #6b7280;         /* gray-500 */
+      --shadow: 0 6px 18px rgba(0,0,0,.08);
+      --header-h: 60px;         /* header height (can be 0 when hidden) */
+    }
+    * { box-sizing: border-box; }
+    html, body { height: 100%; }
+    body { margin: 0; background: #f8fafc; color: #0f172a; font-family: system-ui, -apple-system, Segoe UI, Roboto, "Noto Sans JP", sans-serif; }
+
+    /* Header */
+    header {
+      position: sticky; top: 0; z-index: 60; display: flex; align-items: center; gap: 14px;
+      padding: 12px 16px; background: var(--chrome-bg); color: var(--chrome-fg);
+      box-shadow: var(--shadow);
+      height: var(--header-h);
+      transition: transform .22s ease-in-out, height .22s ease-in-out, padding .22s ease-in-out;
+    }
+    header h1 { font-size: 16px; margin: 0; font-weight: 700; letter-spacing: .02em; }
+    .controls { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin-left: auto; }
+    .btn { background: #1f2937; color: #e5e7eb; border: 1px solid #334155; padding: 8px 10px; border-radius: 8px; cursor: pointer; }
+    .btn:hover { background: #111827; }
+    .btn.secondary { background: transparent; border-color: #475569; }
+    .sep { width: 1px; height: 28px; background: #334155; margin: 0 4px; }
+    label.switch { display: inline-flex; align-items: center; gap: 8px; cursor: pointer; font-size: 12px; color: #cbd5e1; }
+    label.switch input { accent-color: var(--accent); }
+    select#docSelect { background: #1f2937; color: #e5e7eb; border: 1px solid #334155; padding: 8px 10px; border-radius: 8px; }
+
+    /* Header auto-hide styles */
+    body.autoHide header { will-change: transform; }
+    body.headerHidden { --header-h: 0px; }
+    body.headerHidden header { transform: translateY(-100%); height: 0; padding-top: 0; padding-bottom: 0; }
+
+    /* Warn bar for file:// */
+    .warnbar { display:none; position: sticky; top: var(--header-h); z-index: 55; background: #fef3c7; color: #92400e; border-top: 1px solid #f59e0b; border-bottom: 1px solid #f59e0b; padding: 10px 16px; }
+    .warnbar.show { display:block; }
+    .warnbar code { background: #fde68a; padding: 2px 4px; border-radius: 4px; }
+
+    /* Workspace */
+    .workspace { display: grid; grid-template-columns: 1fr 1fr; gap: var(--gap); padding: var(--gap); height: calc(100vh - var(--header-h)); }
+    body.headerHidden .workspace { height: 100vh; }
+    .pane { display: flex; flex-direction: column; border: 1px solid var(--border); border-radius: 12px; background: var(--pane-bg); overflow: hidden; min-height: 320px; }
+    .pane .titlebar { display: flex; align-items: center; gap: 8px; padding: 8px 10px; border-bottom: 1px solid var(--border); background: #f1f5f9; }
+    .pane .titlebar .title { font-weight: 600; color: #0f172a; font-size: 14px; }
+    .pane .titlebar .fileinfo { margin-left: auto; font-size: 12px; color: var(--muted); }
+
+    iframe.viewer { width: 100%; height: 100%; border: 0; background: #fff; }
+
+    /* Collapsible hints */
+    details.hint { padding: 0; background: #f8fafc; border-top: 1px solid #e5e7eb; }
+    details.hint summary { list-style: none; cursor: pointer; padding: 10px 14px; color: #334155; font-size: 13px; }
+    details.hint[open] summary { background: #eef2f7; }
+    details.hint .content { padding: 0 14px 12px; color: #334155; font-size: 13px; }
+    details.hint code { background: #e2e8f0; padding: 2px 4px; border-radius: 4px; }
+
+    .footer-note { text-align: center; color: #94a3b8; font-size: 12px; padding: 10px; }
+
+    /* Compact UI (余白最小化) */
+    body.compact { --gap: 4px; }
+    body.compact .pane { border: 0; border-radius: 0; }
+    body.compact .pane .titlebar { padding: 6px 8px; }
+
+    /* Zen mode (全画面・最大化) */
+    body.zen header, body.zen .warnbar, body.zen .footer-note, body.zen details.hint, body.zen .pane .titlebar { display: none !important; }
+    body.zen .workspace { height: 100vh; padding: 0; gap: 4px; }
+    #zenExitBtn { display: none; position: fixed; top: 8px; left: 8px; z-index: 100; background: #0f172a; color: #e5e7eb; border: 1px solid #334155; padding: 6px 10px; border-radius: 8px; cursor: pointer; opacity: 0.85; }
+    body.zen #zenExitBtn { display: block; }
+
+    /* Auto-show hotspot at top (for auto-hide header) */
+    #topHotspot { position: fixed; top: 0; left: 0; right: 0; height: 10px; z-index: 70; background: transparent; }
+
+    /* TOC overlay with language tabs */
+    #tocOverlay { display:none; position: fixed; inset: 0; z-index: 90; background: rgba(2,6,23,.55); backdrop-filter: blur(2px); }
+    #tocPanel { position: absolute; top: 8%; left: 50%; transform: translateX(-50%); width: min(880px, calc(100% - 32px)); background: #ffffff; border-radius: 14px; box-shadow: 0 20px 60px rgba(0,0,0,.25); overflow: hidden; }
+    #tocPanel header { display: grid; grid-template-columns: 1fr auto auto auto; align-items: center; gap: 8px; padding: 10px 12px; background: #0f172a; color: #e5e7eb; }
+    #tocPanel header h2 { font-size: 14px; margin: 0; font-weight: 700; }
+    #tocClose { background: transparent; color: #e5e7eb; border: 1px solid #334155; padding: 6px 10px; border-radius: 8px; cursor: pointer; }
+    #tocSearch { width: 300px; max-width: 50%; background: #111827; color: #e5e7eb; border: 1px solid #334155; padding: 6px 8px; border-radius: 8px; }
+    .tabs { display: inline-flex; gap: 6px; }
+    .tab { background: #111827; color: #e5e7eb; border: 1px solid #334155; padding: 6px 12px; border-radius: 999px; cursor: pointer; font-weight: 700; }
+    .tab.active { background: #2563eb; border-color: #1d4ed8; }
+
+    #tocList { max-height: 70vh; overflow: auto; padding: 8px 12px 14px; display: grid; gap: 6px; }
+    .toc-item { display: grid; grid-template-columns: auto 1fr; align-items: baseline; gap: 8px; padding: 8px 10px; border-radius: 10px; cursor: pointer; border: 1px solid #e5e7eb; }
+    .toc-item:hover { background: #f8fafc; }
+    .toc-key { font-weight: 700; color: #1f2937; min-width: 4.5em; }
+    .toc-text { color: #334155; }
+    .toc-level-1 { margin-left: 0; }
+    .toc-level-2 { margin-left: 10px; }
+    .toc-level-3 { margin-left: 20px; }
+    .toc-level-4 { margin-left: 30px; }
+    .toc-empty { color: #6b7280; padding: 12px; }
+    #tocHint { padding: 8px 12px; color: #475569; font-size: 12px; border-top: 1px solid #e5e7eb; background: #f8fafc; }
+
+    /* Responsive */
+    @media (max-width: 900px) {
+      .workspace { grid-template-columns: 1fr; height: auto; }
+      iframe.viewer { min-height: 60vh; }
+      #tocPanel { width: calc(100% - 16px); }
+      #tocSearch { max-width: 100%; width: auto; }
+      #tocPanel header { grid-template-columns: 1fr auto auto auto; }
+    }
+  </style>
+</head>
+<body class="compact autoHide">
+  <header>
+    <h1>原文 × 日本語：二画面比較ビューア</h1>
+    <div class="controls">
+      <label>文書選択：</label>
+      <select id="docSelect" title="表示する文書を選択">
+        <option value="sp800-63">SP 800‑63（ベース）</option>
+        <option value="sp800-63a">SP 800‑63A（登録・身元確認）</option>
+        <option value="sp800-63b">SP 800‑63B（認証）</option>
+        <option value="sp800-63c">SP 800‑63C（フェデレーション）</option>
+      </select>
+      <label class="switch" title="左右のスクロールを同期">
+        <input type="checkbox" id="syncScroll" checked /> 同期スクロール
+      </label>
+      <label class="switch" title="ヒント領域の表示/非表示">
+        <input type="checkbox" id="toggleHints" checked /> ヒント非表示
+      </label>
+      <label class="switch" title="コンパクトUI（余白最小化）">
+        <input type="checkbox" id="toggleCompact" checked /> コンパクトUI
+      </label>
+      <label class="switch" title="自動ヘッダ隠しを有効化/無効化">
+        <input type="checkbox" id="toggleAutoHide" checked /> 自動ヘッダ隠し
+      </label>
+      <button class="btn" id="tocBtn" title="TOC（目次）を開く / ショートカット：T">TOC</button>
+      <button class="btn" id="zenBtn" title="Zenモード（最大化）">Zenモード</button>
+      <button class="btn secondary" id="swapBtn" title="左右の内容を入れ替え">左右入れ替え</button>
+      <div class="sep"></div>
+      <button class="btn" id="fontMinus" title="本文を小さく">A−</button>
+      <button class="btn" id="fontPlus" title="本文を大きく">A＋</button>
+      <div class="sep"></div>
+      <button class="btn secondary" id="resetBtn" title="内容をクリア">リセット</button>
+    </div>
+  </header>
+
+  <button id="zenExitBtn" title="Zenモードを終了">UIを戻す</button>
+  <div id="topHotspot"></div>
+
+  <!-- TOC Overlay (language tabs EN/JA) -->
+  <div id="tocOverlay" aria-hidden="true">
+    <div id="tocPanel" role="dialog" aria-modal="true" aria-labelledby="tocTitle">
+      <header>
+        <h2 id="tocTitle">目次（言語タブで EN / JA を切替）</h2>
+        <input type="search" id="tocSearch" placeholder="見出しをフィルタ（例: 1.2 認証 / authentication）" />
+        <div id="tocTabs" class="tabs" role="tablist" aria-label="TOC language tabs">
+          <button class="tab active" id="tabEN" role="tab" aria-selected="true" data-lang="EN" title="原文（English）">EN</button>
+          <button class="tab" id="tabJA" role="tab" aria-selected="false" data-lang="JA" title="日本語（Translation）">JA</button>
+        </div>
+        <button id="tocClose" title="閉じる (Esc)">閉じる</button>
+      </header>
+      <div id="tocList" role="list"></div>
+      <div id="tocHint">ショートカット：<strong>T</strong> で開閉、<strong>Esc</strong> で閉じる。タブで EN/JA を切替、項目クリックで選択言語側を起点に左右へ相互ジャンプ＆ハイライト。<br>Zenモード：<strong>Z</strong>（切替）、<strong>Shift+Z</strong>（Zenへ）、<strong>Shift+Esc</strong>（Zen解除）。<span style="color:#6b7280">※<strong>Ctrl/⌘</strong>押下中の操作（例：<code>Ctrl+Z</code>）には反応しません。</span></div>
+    </div>
+  </div>
+
+  <div id="warnbar" class="warnbar">
+    同期スクロールが無効化されています。ブラウザのセキュリティ制約（<code>file://</code>）により <code>iframe</code> 内容へアクセスできない可能性があります。以下のいずれかをご利用ください：
+    <ul>
+      <li>このフォルダで <code>python -m http.server 8000</code> を実行し、<code>http://localhost:8000/nist-compare-viewer.html</code> を開く</li>
+      <li>または <code>npx serve</code> / VS Code の Live Server など簡易サーバーを利用</li>
+    </ul>
+  </div>
+
+  <main class="workspace" id="workspace">
+    <!-- Left / Original -->
+    <section class="pane" data-role="left">
+      <div class="titlebar">
+        <div class="title">左：原文（content/en/*.html より）</div>
+        <div class="fileinfo" id="fileInfoLeft">未読込</div>
+      </div>
+      <iframe class="viewer" id="iframeLeft" sandbox="allow-same-origin"></iframe>
+      <details class="hint" id="hintLeft">
+        <summary>ヒント（クリックで開閉）</summary>
+        <div class="content">
+          原文HTMLは <code>content/en</code> に配置：
+          <code>sp800-63.html</code>, <code>sp800-63a.html</code>, <code>sp800-63b.html</code>, <code>sp800-63c.html</code>
+          <hr>
+          ショートカット：<br>
+          ・<strong>T</strong> … TOC表示/非表示（Escで閉じる）<br>
+          ・<strong>Z</strong> … Zenモード切替 / <strong>Shift+Z</strong> … Zenへ / <strong>Shift+Esc</strong> … Zen解除<br>
+          ・<strong>※Ctrl/⌘ 押下中</strong>の操作（例：<code>Ctrl+Z</code>）には反応しません。
+        </div>
+      </details>
+    </section>
+
+    <!-- Right / Translation -->
+    <section class="pane" data-role="right">
+      <div class="titlebar">
+        <div class="title">右：日本語訳（content/ja/*.html より）</div>
+        <div class="fileinfo" id="fileInfoRight">未読込</div>
+      </div>
+      <iframe class="viewer" id="iframeRight" sandbox="allow-same-origin"></iframe>
+      <details class="hint" id="hintRight">
+        <summary>ヒント（クリックで開閉）</summary>
+        <div class="content">
+          翻訳HTMLは <code>content/ja</code> に原文と同名で配置してください。
+          <hr>
+          ショートカット：<br>
+          ・<strong>T</strong> … TOC表示/非表示（Escで閉じる）<br>
+          ・<strong>Z</strong> … Zenモード切替 / <strong>Shift+Z</strong> … Zenへ / <strong>Shift+Esc</strong> … Zen解除<br>
+          ・<strong>※Ctrl/⌘ 押下中</strong>の操作（例：<code>Ctrl+Z</code>）には反応しません。
+        </div>
+      </details>
+    </section>
+  </main>
+
+  <div class="footer-note">Tip: 見出し（h1〜h4）クリック/TOCで反対側も対応セクションへジャンプ＋ハイライト。同期スクロールはチェックでON/OFF。Zenモードで本文に集中。ショートカット：T=TOC、Z=Zen切替、Shift+Z=Zenへ、Shift+Esc=Zen解除、Esc=TOC閉じる。</div>
+
+  <script>
+    const $ = (sel, root=document) => root.querySelector(sel);
+
+    const MAP = {
+      'sp800-63':  { en: 'content/en/sp800-63.html',  ja: 'content/ja/sp800-63.html'  },
+      'sp800-63a': { en: 'content/en/sp800-63a.html', ja: 'content/ja/sp800-63a.html' },
+      'sp800-63b': { en: 'content/en/sp800-63b.html', ja: 'content/ja/sp800-63b.html' },
+      'sp800-63c': { en: 'content/en/sp800-63c.html', ja: 'content/ja/sp800-63c.html' }
+    };
+
+    const state = {
+      left:  { font: 100, idx: null, doc: null, lastTop: 0 },
+      right: { font: 100, idx: null, doc: null, lastTop: 0 },
+      syncing: false,
+      jumping: false,
+      accessOK: true,
+      autoHide: true,
+      headerHidden: false,
+      lastHideTS: 0,
+      tocLang: 'EN' // EN or JA
+    };
+
+    // ===== UI Toggles =====
+    function applyHintVisibility() {
+      const hide = $('#toggleHints').checked; // checked = 非表示
+      const hints = [$('#hintLeft'), $('#hintRight')];
+      hints.forEach(h => { if (h) h.style.display = hide ? 'none' : ''; });
+    }
+    function applyCompactUI() {
+      document.body.classList.toggle('compact', $('#toggleCompact').checked);
+    }
+    function applyAutoHideHeader() {
+      state.autoHide = $('#toggleAutoHide').checked;
+      document.body.classList.toggle('autoHide', state.autoHide);
+      if (!state.autoHide) showHeader();
+    }
+    function enterZenMode() { document.body.classList.add('zen'); }
+    function exitZenMode() { document.body.classList.remove('zen'); }
+    function toggleZenMode() { document.body.classList.toggle('zen'); }
+
+    // ===== Header show/hide =====
+    function hideHeader() {
+      if (document.body.classList.contains('zen')) return; // no auto-hide in Zen
+      if (!state.autoHide) return;
+      if (state.headerHidden) return;
+      state.headerHidden = true;
+      state.lastHideTS = Date.now();
+      document.body.classList.add('headerHidden');
+    }
+    function showHeader() {
+      if (!state.headerHidden) return;
+      state.headerHidden = false;
+      document.body.classList.remove('headerHidden');
+    }
+
+    // top hotspot to reveal header when mouse hits the top edge
+    function setupTopHotspot() {
+      const hotspot = $('#topHotspot');
+      hotspot.addEventListener('mousemove', () => { showHeader(); });
+      window.addEventListener('mousemove', (e) => { if (e.clientY < 10) showHeader(); }, { passive: true });
+      window.addEventListener('wheel', (e) => { if (e.deltaY < 0) showHeader(); }, { passive: true });
+    }
+
+    // ===== Enhance loaded docs =====
+    function enhanceDoc(doc, baseFontPercent) {
+      try {
+        const style = doc.createElement('style');
+        style.textContent = `
+          :root{ --base-font:${baseFontPercent}% }
+          html,body { margin:0; padding:0; }
+          body { font-family: system-ui, -apple-system, Segoe UI, Roboto, "Noto Sans JP", sans-serif; line-height: 1.6; font-size: calc(16px * var(--base-font) / 100); padding: 12px; }
+          img{ max-width:100%; height:auto }
+          table{ border-collapse: collapse; max-width:100%; }
+          table, th, td{ border:1px solid #e5e7eb; }
+          th, td{ padding: 6px 8px; }
+          pre{ background:#0b1021; color:#e5e7eb; padding:10px; border-radius:8px; overflow:auto }
+          code{ background:#f1f5f9; padding: 2px 4px; border-radius:4px }
+          h1, h2, h3, h4 { scroll-margin-top: 12px; }
+          .xjumpable { cursor: pointer; position: relative; }
+          .xjumpable:hover { text-decoration: underline; color: #1d4ed8; }
+          .xjumpable::after { content: " ↔"; opacity: .3; font-weight: 600; }
+          /* jump highlight */
+          @keyframes xflash { 0% { background: #fff3bf; } 100% { background: transparent; } }
+          .xflash { animation: xflash 1.1s ease-out; }
+          .xflash-outline { box-shadow: 0 0 0 2px #fde68a inset; }
+        `;
+        (doc.head || doc.documentElement).appendChild(style);
+        let id = 0;
+        doc.querySelectorAll('h1,h2,h3,h4').forEach(h => { if (!h.id) h.id = 'h-auto-' + (++id); });
+        doc.querySelectorAll('script').forEach(s => s.remove());
+      } catch (e) { console.warn('enhance error', e); }
+    }
+
+    // ===== Mutual jump (headings) =====
+    function extractSectionKey(text) {
+      if (!text) return '';
+      let t = text.replace(/\s+/g, ' ').trim();
+      t = t.replace(/\([^\)]*\)/g, '').trim();
+      let m = t.match(/^([A-Za-z]?[0-9]+(?:\.[0-9A-Za-z]+)*)/);
+      if (m) return m[1].toUpperCase();
+      m = t.match(/([A-Za-z]?[0-9]+(?:\.[0-9A-Za-z]+)*)/);
+      if (m) return m[1].toUpperCase();
+      return '';
+    }
+    function buildHeadingIndex(doc) {
+      const list = Array.from(doc.querySelectorAll('h1,h2,h3,h4'));
+      const byLevel = {1:[],2:[],3:[],4:[]};
+      const map = new Map();
+      list.forEach((el) => {
+        const level = parseInt(el.tagName[1], 10);
+        const key = extractSectionKey(el.textContent || '') || '';
+        const item = { el, level, key };
+        byLevel[level].push(item);
+      });
+      [1,2,3,4].forEach(lvl => {
+        byLevel[lvl].forEach(it => { if (it.key) map.set(`${lvl}|${it.key}`, it.el); });
+      });
+      return { list: list.map(x=>x), byLevel, map };
+    }
+
+    function findMatchElement(fromEl, otherIdx, otherDoc, meIdx) {
+      const level = parseInt(fromEl.tagName[1], 10);
+      const key = extractSectionKey(fromEl.textContent || '') || '';
+      if (key) {
+        const hit = otherIdx.map.get(`${level}|${key}`);
+        if (hit) return hit;
+      }
+      const arrFrom = meIdx.byLevel[level];
+      const idx = arrFrom.findIndex(it => it.el === fromEl);
+      if (idx >= 0) {
+        const arrOther = otherIdx.byLevel[level];
+        if (idx < arrOther.length) return arrOther[idx].el;
+      }
+      return otherDoc?.body || otherDoc?.documentElement;
+    }
+
+    function flash(el) {
+      if (!el) return;
+      try {
+        el.classList.add('xflash','xflash-outline');
+        setTimeout(() => { el.classList.remove('xflash','xflash-outline'); }, 1200);
+      } catch (e) {}
+    }
+
+    function mutualJumpByElement(fromSide, fromEl) {
+      const toSide = fromSide === 'left' ? 'right' : 'left';
+      const other = state[toSide];
+      const me = state[fromSide];
+      if (!me?.idx || !other?.idx) return;
+      const target = findMatchElement(fromEl, other.idx, other.doc, me.idx);
+      if (!target) return;
+      state.jumping = true;
+      fromEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      flash(fromEl); flash(target);
+      setTimeout(() => { state.jumping = false; }, 450);
+    }
+
+    function wireHeadingClicks(side) {
+      const me = state[side];
+      if (!me?.idx) return;
+      me.idx.list.forEach(h => {
+        h.classList.add('xjumpable');
+        h.addEventListener('click', () => mutualJumpByElement(side, h));
+      });
+    }
+
+    // ===== Load & prepare panes =====
+    function preparePane(side) {
+      const iframe = side === 'left' ? $('#iframeLeft') : $('#iframeRight');
+      let doc = null;
+      try { doc = iframe.contentDocument; } catch (e) { state.accessOK = false; return; }
+      if (!doc) { state.accessOK = false; return; }
+      enhanceDoc(doc, state[side].font || 100);
+      const idx = buildHeadingIndex(doc);
+      state[side].doc = doc;
+      state[side].idx = idx;
+      wireHeadingClicks(side);
+    }
+    function refreshMutualJumpIfReady() {
+      if (state.left?.idx && state.right?.idx) {
+        wireHeadingClicks('left');
+        wireHeadingClicks('right');
+        buildAndRenderTOC();
+      }
+    }
+    function updateWarnbar() { $('#warnbar').classList.toggle('show', !state.accessOK); }
+    function loadIframe(side, url) {
+      const iframe = side === 'left' ? $('#iframeLeft') : $('#iframeRight');
+      const info = side === 'left' ? $('#fileInfoLeft') : $('#fileInfoRight');
+      info.textContent = url;
+      iframe.src = url;
+      iframe.addEventListener('load', () => {
+        preparePane(side);
+        refreshMutualJumpIfReady();
+        updateWarnbar();
+      }, { once: true });
+    }
+    function loadPair(key) {
+      const pair = MAP[key];
+      if (!pair) return;
+      state.left.idx = null; state.right.idx = null; state.accessOK = true;
+      loadIframe('left', pair.en);
+      loadIframe('right', pair.ja);
+    }
+
+    // ===== Scroll sync & auto-hide =====
+    function setupScrollSyncAndAutoHide() {
+      const l = $('#iframeLeft');
+      const r = $('#iframeRight');
+      function sync(from, to) {
+        if (!$('#syncScroll').checked) return;
+        if (state.syncing || state.jumping) return;
+        try {
+          state.syncing = true;
+          const fd = from.contentDocument;
+          const td = to.contentDocument;
+          if (!fd || !td) return;
+          const fe = fd.scrollingElement || fd.documentElement;
+          const te = td.scrollingElement || td.documentElement;
+          const ratio = fe.scrollTop / (fe.scrollHeight - fe.clientHeight || 1);
+          te.scrollTop = ratio * (te.scrollHeight - te.clientHeight);
+        } catch (e) { state.accessOK = false; updateWarnbar(); }
+        finally { state.syncing = false; }
+      }
+      function autoHideOnScroll(iframe, sideKey) {
+        try {
+          const doc = iframe.contentDocument; if (!doc) return;
+          const el = doc.scrollingElement || doc.documentElement;
+          const current = el.scrollTop;
+          const last = state[sideKey].lastTop || 0;
+          const delta = current - last;
+          state[sideKey].lastTop = current;
+          const nearTop = current < 80;
+          const now = Date.now();
+          if (!nearTop && delta > 2 && (now - state.lastHideTS) > 150) { hideHeader(); }
+          else if (delta < -2 || nearTop) { showHeader(); }
+        } catch (e) { /* ignore */ }
+      }
+      l.addEventListener('load', () => {
+        try {
+          const cw = l.contentWindow;
+          cw?.addEventListener('scroll', () => { sync(l, r); autoHideOnScroll(l, 'left'); }, { passive: true });
+        } catch (e) { state.accessOK = false; updateWarnbar(); }
+      });
+      r.addEventListener('load', () => {
+        try {
+          const cw = r.contentWindow;
+          cw?.addEventListener('scroll', () => { sync(r, l); autoHideOnScroll(r, 'right'); }, { passive: true });
+        } catch (e) { state.accessOK = false; updateWarnbar(); }
+      });
+    }
+
+    // ===== TOC (language tabs EN/JA) =====
+    function toggleTOC(force) {
+      const ov = $('#tocOverlay');
+      const show = (typeof force === 'boolean') ? force : (ov.style.display !== 'block');
+      ov.style.display = show ? 'block' : 'none';
+      ov.setAttribute('aria-hidden', show ? 'false' : 'true');
+      if (show) { $('#tocSearch').focus(); buildAndRenderTOC(); }
+    }
+
+    function setTocLang(lang) {
+      state.tocLang = lang; // 'EN' or 'JA'
+      // tab UI
+      const tabEN = $('#tabEN'), tabJA = $('#tabJA');
+      [tabEN, tabJA].forEach(t => { t.classList.remove('active'); t.setAttribute('aria-selected','false'); });
+      const active = (lang === 'EN') ? tabEN : tabJA;
+      active.classList.add('active');
+      active.setAttribute('aria-selected','true');
+      buildAndRenderTOC();
+    }
+
+    function collectItemsFromSide(side) {
+      const idx = state[side]?.idx; if (!idx) return [];
+      const items = [];
+      [1,2,3,4].forEach(lvl => {
+        idx.byLevel[lvl].forEach(it => {
+          const key = it.key || '';
+          const text = (it.el.textContent || '').replace(/\s+/g,' ').trim();
+          items.push({ level: lvl, key, text, el: it.el, side });
+        });
+      });
+      return items;
+    }
+
+    function buildAndRenderTOC() {
+      const target = $('#tocList');
+      target.innerHTML = '';
+      const side = (state.tocLang === 'EN') ? 'left' : 'right';
+      const items = collectItemsFromSide(side);
+      if (!items.length) { target.innerHTML = '<div class="toc-empty">目次を構築できません（文書を読み込み中）。</div>'; return; }
+      const q = ($('#tocSearch').value || '').trim().toLowerCase();
+      const filtered = items.filter(it => {
+        if (!q) return true;
+        return (it.key.toLowerCase().includes(q) || it.text.toLowerCase().includes(q));
+      });
+      if (!filtered.length) { target.innerHTML = '<div class="toc-empty">該当する見出しがありません。</div>'; return; }
+      const frag = document.createDocumentFragment();
+      filtered.forEach((it) => {
+        const div = document.createElement('div');
+        div.className = `toc-item toc-level-${it.level}`;
+        div.innerHTML = `
+          <div class="toc-key">${it.key || ''}</div>
+          <div class="toc-text">${it.text}</div>
+        `;
+        div.addEventListener('click', () => {
+          toggleTOC(false);
+          mutualJumpByElement(side, it.el);
+        });
+        frag.appendChild(div);
+      });
+      target.appendChild(frag);
+    }
+
+    function setupTOC() {
+      $('#tocBtn').addEventListener('click', () => toggleTOC());
+      $('#tocClose').addEventListener('click', () => toggleTOC(false));
+      $('#tocOverlay').addEventListener('click', (e) => { if (e.target.id === 'tocOverlay') toggleTOC(false); });
+      $('#tocSearch').addEventListener('input', buildAndRenderTOC);
+      // Tabs
+      $('#tabEN').addEventListener('click', () => setTocLang('EN'));
+      $('#tabJA').addEventListener('click', () => setTocLang('JA'));
+      // Keyboard
+      window.addEventListener('keydown', (e) => {
+        // Esc: close TOC
+        if (e.key === 'Escape') { toggleTOC(false); return; }
+        // T: toggle TOC (ignore when typing or Ctrl/Meta/Alt pressed)
+        if (e.key.toLowerCase() === 't' && !e.ctrlKey && !e.metaKey && !e.altKey) {
+          const tag = (document.activeElement?.tagName || '').toLowerCase();
+          if (tag === 'input' || tag === 'textarea') return;
+          toggleTOC();
+        }
+      });
+    }
+
+    // ===== Global keyboard (Zen shortcuts) =====
+    function setupGlobalShortcuts() {
+      window.addEventListener('keydown', (e) => {
+        const tag = (document.activeElement?.tagName || '').toLowerCase();
+        // 念のため、入力中は無効化（テキスト入力・テキストエリア）
+        if (tag === 'input' || tag === 'textarea') return;
+        // Ctrl/Meta 押下中はショートカット無効（例：Ctrl+Z などに反応しない）
+        if (e.ctrlKey || e.metaKey) return;
+        // Alt 押下中も無効化（誤爆防止）
+        if (e.altKey) return;
+
+        // Shift+Esc : Zen解除（Zen時のみ）
+        if (e.shiftKey && e.key === 'Escape') {
+          if (document.body.classList.contains('zen')) exitZenMode();
+          return;
+        }
+        // Shift+Z : Zenへ（常時）
+        if (e.shiftKey && e.key.toLowerCase() === 'z') { enterZenMode(); return; }
+        // Z : Zen切替（トグル）
+        if (!e.shiftKey && e.key.toLowerCase() === 'z') { toggleZenMode(); return; }
+      }, { passive: true });
+    }
+
+    // ===== Controls =====
+    function swapPanes() {
+      const l = $('#iframeLeft');
+      const r = $('#iframeRight');
+      const lInfo = $('#fileInfoLeft');
+      const rInfo = $('#fileInfoRight');
+      const lSrc = l.src; const rSrc = r.src;
+      const lName = lInfo.textContent; const rName = rInfo.textContent;
+      l.src = rSrc; r.src = lSrc;
+      lInfo.textContent = rName; rInfo.textContent = lName;
+    }
+    function adjustFont(side, delta) {
+      state[side].font = Math.max(60, Math.min(180, (state[side].font || 100) + delta));
+      const pane = side === 'left' ? $('#iframeLeft') : $('#iframeRight');
+      try { const doc = pane.contentDocument; if (!doc) return; doc.documentElement.style.setProperty('--base-font', state[side].font + '%'); } catch (e) {}
+    }
+    function resetAll() {
+      $('#iframeLeft').src = ''; $('#fileInfoLeft').textContent = '未読込'; state.left.font = 100; state.left.idx = null; state.left.lastTop = 0;
+      $('#iframeRight').src = ''; $('#fileInfoRight').textContent = '未読込'; state.right.font = 100; state.right.idx = null; state.right.lastTop = 0;
+      state.accessOK = true; updateWarnbar(); showHeader();
+    }
+
+    // ===== Boot =====
+    window.addEventListener('DOMContentLoaded', () => {
+      // Defaults: ヒント非表示/コンパクト/自動ヘッダ隠し ON
+      applyHintVisibility();
+      applyCompactUI();
+      applyAutoHideHeader();
+
+      setupScrollSyncAndAutoHide();
+      loadPair($('#docSelect').value);
+      setupTopHotspot();
+      setupTOC();
+      setupGlobalShortcuts();
+      setTocLang('EN'); // default tab
+
+      // UI toggles
+      $('#toggleHints').addEventListener('change', applyHintVisibility);
+      $('#toggleCompact').addEventListener('change', applyCompactUI);
+      $('#toggleAutoHide').addEventListener('change', applyAutoHideHeader);
+      $('#zenBtn').addEventListener('click', () => toggleZenMode());
+      $('#zenExitBtn').addEventListener('click', () => exitZenMode());
+
+      // Controls
+      $('#docSelect').addEventListener('change', (e) => loadPair(e.target.value));
+      $('#swapBtn').addEventListener('click', swapPanes);
+      $('#fontMinus').addEventListener('click', () => { adjustFont('left', -10); adjustFont('right', -10); });
+      $('#fontPlus').addEventListener('click', () => { adjustFont('left', +10); adjustFont('right', +10); });
+      $('#resetBtn').addEventListener('click', resetAll);
+    });
+  </script>
+</body>
+</html>
