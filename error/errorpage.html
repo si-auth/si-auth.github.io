@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>エラーページ</title>
+  <style>
+    body { font-family: Arial, sans-serif; padding: 20px; background-color: #f8f8f8; }
+    h1 { color: #d9534f; }
+    table { border-collapse: collapse; width: 100%; margin-top: 20px; }
+    th, td { border: 1px solid #ccc; padding: 8px; text-align: left; }
+    th { background-color: #eee; }
+  </style>
+</head>
+<body>
+  <h1>エラーが発生しました</h1>
+  <p>以下の情報をご確認ください。</p>
+
+  <h2>URLクエリパラメータ</h2>
+  <table id="queryTable">
+    <tr><th>キー</th><th>値</th></tr>
+  </table>
+
+  <h2>遷移元</h2>
+  <p id="refererInfo">取得中...</p>
+
+  <script>
+    // クエリパラメータの取得と表示
+    const params = new URLSearchParams(window.location.search);
+    const table = document.getElementById('queryTable');
+    for (const [key, value] of params.entries()) {
+      const row = document.createElement('tr');
+      row.innerHTML = `<td>${key}</td><td>${value}</td>`;
+      table.appendChild(row);
+    }
+
+    // 遷移元の取得と表示
+    document.getElementById('refererInfo').textContent = document.referrer || '情報なし';
+  </script>
+</body>
+</html>
