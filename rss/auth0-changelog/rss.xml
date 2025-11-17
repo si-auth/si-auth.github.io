@@ -5,7 +5,7 @@
            <link>https://auth0.com/changelog/rss.xml</link>
            <description>Auth0 Changelog</description>
            <language>en-US</language>
-           <lastBuildDate>Mon, 17 Nov 2025 13:41:37 GMT</lastBuildDate>
+           <lastBuildDate>Mon, 17 Nov 2025 14:41:43 GMT</lastBuildDate>
            <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
            <image>
                <title>Auth0 Changelog</title>
@@ -42,7 +42,8 @@ __Challenge Policies:__ Programmatically control CAPTCHA enforcement for passwor
 
 __CAPTCHA Management:__ Fully manage your CAPTCHA provider selection and configuration, including Auth0’s native challenge or third-party solutions.
 
-To learn more about Auth0&amp;apos;s Bot Detection check out our online documentation found [here](&amp;quot;https://auth0.com/docs/secure/attack-protection/bot-detection&amp;quot;)</description>
+To learn more about the new Bot Detection API endpoints check out our online documentation [here](&amp;quot;https://auth0.com/docs/api/management/v2/attack-protection/get-bot-detection&amp;quot;)
+</description>
                    <guid>https://auth0.com/changelog#4IIvynXfhRzUq01YELrRg4</guid>
                </item><item>
                    <title>New Dynamic Client Registration (DCR) Scope Added to Tenant ACL</title>
