@@ -5,7 +5,7 @@
            <link>https://auth0.com/changelog/rss.xml</link>
            <description>Auth0 Changelog</description>
            <language>en-US</language>
-           <lastBuildDate>Fri, 05 Dec 2025 09:11:10 GMT</lastBuildDate>
+           <lastBuildDate>Fri, 05 Dec 2025 10:11:20 GMT</lastBuildDate>
            <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
            <image>
                <title>Auth0 Changelog</title>
@@ -14,6 +14,21 @@
            </image>
            <atom:link href="https://auth0.com/changelog/rss.xml" rel="self" type="application/rss+xml"/>
            <item>
+                   <title>Introducing the New ASP.NET Core API SDK </title>
+                   <pubDate>Fri, 05 Dec 2025 00:00:00 GMT</pubDate>
+                   <description>We are excited to announce the release of __Auth0.Aspnetcore.Authentication.Api__, a new official SDK designed to streamline authentication and security for ASP.NET Core backend applications.
+
+__Key Benefits:__
+- __Supports .NET 8.0+__ and built for the modern &amp;quot;middleware&amp;quot; pattern. Developers can now secure an API with a single line: builder.Services.AddAuth0ApiAuthentication(...).
+- __Abstracts the complexity of JWT validation__. Developers no longer need to write fragile boilerplate code to check Audiences or Issuers. The SDK enforces security best practices out of the box.
+- __Supports DPoP__ with flexible enforcement modes (Allowed, Required, Disabled). Enterprise customers can now enforce a higher level of security with minimal code changes.
+
+__Getting Started:__
+- [Quickstart](https://auth0.com/docs/quickstart/backend/aspnet-core-webapi)
+- [Official Repo](https://github.com/auth0/aspnetcore-api)
+- [Examples](https://github.com/auth0/aspnetcore-api/blob/master/EXAMPLES.md)</description>
+                   <guid>https://auth0.com/changelog#T06vwxUfZAHLuFWYhR3AM</guid>
+               </item><item>
                    <title>Adaptive MFA: Customizable Device Remembrance</title>
                    <pubDate>Thu, 04 Dec 2025 00:00:00 GMT</pubDate>
                    <description>**Adaptive MFA** now allows administrators to configure **device remembrance durations (TTL)** for the **New Device assessor**. The **default remains at 30 days**, but can now be customized to any value between **1–365 days**.  
@@ -28,22 +43,6 @@ Learn more about configuration options in our [Adaptive MFA documentation](https
 For details on the new Adaptive MFA Management API endpoints, visit the [Risk Assessment API documentation](https://auth0.com/docs/api/management/v2/risk-assessments/get-risk-assessments-settings).
 </description>
                    <guid>https://auth0.com/changelog#13WwjMh6BIBKhKU4GsbFBu</guid>
-               </item><item>
-                   <title>Introducing the New ASP.NET Core API SDK </title>
-                   <pubDate>Wed, 03 Dec 2025 00:00:00 GMT</pubDate>
-                   <description>We are excited to announce the release of __Auth0.Aspnetcore.Authentication.Api__, a new official SDK designed to streamline authentication and security for ASP.NET Core backend applications.
-
-__Key Benefits:__
-- __Simplified Configuration:__ We have introduced Auth0WebApiOptions to provide a strongly-typed, Auth0-centric configuration model, removing the guesswork involved in mapping generic JWT settings.
-- __Future-Proof Security:__ This SDK lays the architectural foundation for advanced security features, including DPoP and Multiple Custom Domains, ensuring your API security posture can evolve alongside industry standards.
-- __Enhanced Developer Experience:__ The SDK includes a JwtBearerEventsFactory to simplify hooking into authentication events for custom validation and debugging.
-- __Seamless Migration:__ The package mirrors properties from JwtBearerOptions, ensuring a low-friction migration path for existing applications.
-
-__Getting Started:__
-- [Quickstart](https://auth0.com/docs/quickstart/backend/aspnet-core-webapi)
-- [Official Repo](https://github.com/auth0/aspnetcore-api)
-- [Examples](https://github.com/auth0/aspnetcore-api/blob/master/EXAMPLES.md)</description>
-                   <guid>https://auth0.com/changelog#T06vwxUfZAHLuFWYhR3AM</guid>
                </item><item>
                    <title>Express Configuration is now Generally Available for Auth0 SaaS apps in the Okta Integration Network</title>
                    <pubDate>Mon, 24 Nov 2025 00:00:00 GMT</pubDate>
