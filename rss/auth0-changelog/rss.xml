@@ -5,7 +5,7 @@
            <link>https://auth0.com/changelog/rss.xml</link>
            <description>Auth0 Changelog</description>
            <language>en-US</language>
-           <lastBuildDate>Mon, 08 Dec 2025 20:30:29 GMT</lastBuildDate>
+           <lastBuildDate>Mon, 08 Dec 2025 22:05:48 GMT</lastBuildDate>
            <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
            <image>
                <title>Auth0 Changelog</title>
@@ -144,7 +144,7 @@ To learn more about the new Bot Detection API endpoints check out our online doc
 </description>
                    <guid>https://auth0.com/changelog#4IIvynXfhRzUq01YELrRg4</guid>
                </item><item>
-                   <title>Actions Types in NPM</title>
+                   <title>Actions - TypeScript Definitions in NPM</title>
                    <pubDate>Wed, 12 Nov 2025 00:00:00 GMT</pubDate>
                    <description>We are excited to announce that __Actions Types__ is now available at [__npmjs @auth0/actions__](https://www.npmjs.com/package/@auth0/actions &amp;quot;Actions NPM package&amp;quot;).
 
