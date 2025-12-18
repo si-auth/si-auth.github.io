@@ -5,7 +5,7 @@
            <link>https://auth0.com/changelog/rss.xml</link>
            <description>Auth0 Changelog</description>
            <language>en-US</language>
-           <lastBuildDate>Thu, 18 Dec 2025 03:00:53 GMT</lastBuildDate>
+           <lastBuildDate>Thu, 18 Dec 2025 04:00:57 GMT</lastBuildDate>
            <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
            <image>
                <title>Auth0 Changelog</title>
@@ -46,6 +46,27 @@ Navigate to: https://auth0.com/docs/api/myaccount to try it out!</description>
                    <title>Deprecation of Weak TLS 1.2 Cipher Suites</title>
                    <pubDate>Mon, 15 Dec 2025 00:00:00 GMT</pubDate>
                    <description>To ensure the highest security standards for your identity infrastructure, we are retiring specific weak TLS 1.2 cipher suites. This change affects all connections to Auth0 service endpoints and web applications, specifically:
+- __Tenant Domains__: All default (e.g., [tenant].auth0.com) and Custom Domains for both Public and Private Cloud.
+- __Auth0 Tools__: The Dashboard (manage.auth0.com), Marketplace, and Support Center.
+- __Infrastructure__: The Auth0 CDN.
+
+__Cipher Suites Scheduled for Removal__: The following ciphers are being deprecated. For cross-reference, we have provided the unique Hex Code, IANA name, and a link to the OpenSSL equivalent.
+
+* `0xC0,0x09` - TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA (https://ciphersuite.info/cs/TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA/)
+* `0xC0,0x0A` - TLS_ECDHE_ECDSA_WITH_AES_256_CBC_SHA (https://ciphersuite.info/cs/TLS_ECDHE_ECDSA_WITH_AES_256_CBC_SHA/)
+* `0xC0,0x23` - TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA256 (https://ciphersuite.info/cs/TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA256/)
+* `0xC0,0x24` - TLS_ECDHE_ECDSA_WITH_AES_256_CBC_SHA384 (https://ciphersuite.info/cs/TLS_ECDHE_ECDSA_WITH_AES_256_CBC_SHA384/)
+* `0xC0,0x13` - TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA https://ciphersuite.info/cs/TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA/)
+* `0xC0,0x14` - TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA (https://ciphersuite.info/cs/TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA/)
+* `0xC0,0x27` - TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256 (https://ciphersuite.info/cs/TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256/)
+* `0xC0,0x28` - TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384 (https://ciphersuite.info/cs/TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384/)
+* `0x00,0x9C` - TLS_RSA_WITH_AES_128_GCM_SHA256 (https://ciphersuite.info/cs/TLS_RSA_WITH_AES_128_GCM_SHA256/)
+* `0x00,0x2F` - TLS_RSA_WITH_AES_128_CBC_SHA (https://ciphersuite.info/cs/TLS_RSA_WITH_AES_128_CBC_SHA/)
+* `0x00,0x9D` - TLS_RSA_WITH_AES_256_GCM_SHA384 (https://ciphersuite.info/cs/TLS_RSA_WITH_AES_256_GCM_SHA384/)
+* `0x00,0x35` - TLS_RSA_WITH_AES_256_CBC_SHA (https://ciphersuite.info/cs/TLS_RSA_WITH_AES_256_CBC_SHA/)
+* `0x00,0x3C` - TLS_RSA_WITH_AES_128_CBC_SHA256 (https://ciphersuite.info/cs/TLS_RSA_WITH_AES_128_CBC_SHA256/)
+* `0x00,0x3D` - TLS_RSA_WITH_AES_256_CBC_SHA256 (https://ciphersuite.info/cs/TLS_RSA_WITH_AES_256_CBC_SHA256/)
+
 Additional information is available through the Auth0 dashboard and Support Center [notification](https://support.auth0.com/notifications/6939a866455870ad4537976d). </description>
                    <guid>https://auth0.com/changelog#71HvvdfH0QUOTJB9ZzrpLc</guid>
                </item><item>
