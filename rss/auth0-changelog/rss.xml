@@ -5,7 +5,7 @@
            <link>https://auth0.com/changelog/rss.xml</link>
            <description>Auth0 Changelog</description>
            <language>en-US</language>
-           <lastBuildDate>Wed, 21 Jan 2026 13:32:20 GMT</lastBuildDate>
+           <lastBuildDate>Wed, 21 Jan 2026 15:32:29 GMT</lastBuildDate>
            <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
            <image>
                <title>Auth0 Changelog</title>
@@ -109,7 +109,7 @@ Navigate to: https://auth0.com/docs/api/myaccount to try it out!</description>
 
 This new feature allows you to send emails from Flows using the customized Email Provider at your Auth0 Tenant.
 
-![auth0-notifications-send-email-preview](//images.ctfassets.net/kbkgmx9upatd/2S9f31dj0Zc9wain4LDBWu/9863a3559ff48d7bb4d5b1d012fffef4/auth0-notifications-send-email.png)
+![auth0-notifications-send-email-preview](//images.ctfassets.net/kbkgmx9upatd/2S9f31dj0Zc9wain4LDBWu/868ef042c9f74542eecf9915243787d1/Changelog.svg)
 
 What&amp;apos;s new:
 - __Email Providers:__ take advantage of the [supported email providers](https://auth0.com/docs/customize/email/smtp-email-providers) that can be configured at your Auth0 Tenant.
