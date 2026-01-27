@@ -5,7 +5,7 @@
            <link>https://auth0.com/changelog/rss.xml</link>
            <description>Auth0 Changelog</description>
            <language>en-US</language>
-           <lastBuildDate>Tue, 27 Jan 2026 11:09:12 GMT</lastBuildDate>
+           <lastBuildDate>Tue, 27 Jan 2026 12:09:13 GMT</lastBuildDate>
            <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
            <image>
                <title>Auth0 Changelog</title>
@@ -45,7 +45,7 @@ This feature, previously in Early Access, is now in **General Availability** and
 
 **Learn more:**
 
-*   [Set Session Persistence with Actions](https://auth0.com/docs/manage-users/sessions/sessions-with-actions#set-session-persistence-with-actions)
+*   [Set Session Persistence with Actions](https://auth0.com/docs/manage-users/sessions/manage-sessions-actions#set-session-cookie-persistence-with-actions)
 *   [Session Lifecycle](https://auth0.com/docs/manage-users/sessions/session-lifecycle)
 *   [Use Ephemeral Sessions with Actions to configure Keep Me Signed In](https://auth0.com/docs/manage-users/sessions/configure-keep-me-signed-in-sessions)</description>
                    <guid>https://auth0.com/changelog#WzmksMvHw7MYfW42pVsBb</guid>
