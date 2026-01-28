@@ -1,0 +1,4095 @@
+<!DOCTYPE html>
+<!-- saved from url=(0330)https://sei.caveon.com/feedback/eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJTRUkiLCJzdWIiOiIzMThmY2ViMS0wM2Y1LTQ4OWMtYTQ2MS1hMjdhOWIzYzA2MGQiLCJpYXQiOjE3Njk0MjYyNjEsImJsb2NrX2lkeCI6LTF9.VFnA7mZ4E0gEPWcYhM6O8atQVx2PoH5TTV8fw0TVoVE?navigation_color=%233C6683&button_color=%235384A3&background_color=%23DEDEDE&font=&button_style= -->
+<html oncontextmenu="return false;" style="direction: ltr;"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      <title>Feedback</title>
+      <meta name="robots" content="noindex,nofollow">
+      <link rel="stylesheet" href="./katex.min.css">
+  <style>
+    @font-face {
+        font-family: 'Adobe Clean';
+        src: url("https://caveon-public.s3.us-west-2.amazonaws.com/fonts/AdobeClean-Regular.otf") format('opentype');
+        font-weight: normal;
+        font-style: normal;
+    }
+
+    .adobe-clean {
+        font-family: 'Adobe Clean';
+    }
+    .arial {
+        font-family: Arial, sans-serif;
+    }
+    .courier-new {
+        font-family: 'Courier New', Courier, monospace;
+    }
+    .georgia {
+        font-family: Georgia, serif;
+    }
+    .times-new-roman {
+        font-family: 'Times New Roman', Times, serif;
+    }
+    .verdana {
+        font-family: Verdana, Geneva, sans-serif;
+    }
+
+    .rounded {
+        border-radius: 100px !important;
+    }
+
+    input, label, select, textarea, button, fieldset, legend, datalist, output, option, optgroup {
+        font-family: inherit !important;
+    }
+</style><style>
+  html {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    background: #dedede;
+  }
+  body {
+    font-family: Arial, sans-serif;
+    color: rgba(0, 0, 0, 0.87);
+    width: 100%;
+    max-width: 1200px;
+    margin: 50px 0px;
+    box-shadow: 0px 1px 5px 0px rgba(0,0,0,0.2), 0px 2px 2px 0px rgba(0,0,0,0.14), 0px 3px 1px -2px rgba(0,0,0,0.12);
+    position: relative;
+    background: white;
+
+    /* disable select */
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    /* end disable select */
+  }
+  img {
+    max-width:100%;
+    max-height:100%;
+  }
+
+  .feedbackWrapper {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    margin-top: -50px;
+  }
+
+  .feedbackHeader {
+    width: 100%;
+    max-width: 1200px;
+    height: 50px;
+    position: fixed;
+    border-bottom: 1px solid rgb(204, 204, 204);
+    background: white;
+    z-index: 4;
+    display: flex;
+    align-items: center;
+    font-size: 18px;
+    padding: 0px 10px;
+    box-sizing: border-box;
+  }
+
+  .feedbackBody {
+    margin: 30px 10px 0px 10px;
+  }
+
+  .scroll {
+    width: 100%;
+    height: calc(100% - 50px);
+    margin-top: 50px;
+    overflow-y: scroll;
+  }
+
+  .notVisible {
+    display: none;
+  }
+
+  .neverVisible {
+    display: none !important;
+  }
+
+  .prettyButton {
+    background-color: #5384a3;
+    border: 0;
+    border-radius: 2px;
+    box-shadow: rgba(0, 0, 0, 0.117647) 0px 1px 6px, rgba(0, 0, 0, 0.117647) 0px 1px 4px;
+    box-sizing: border-box;
+    color: #fff;
+    cursor: pointer;
+    display: inline-block;
+    font-size: 12px;
+    font-weight: 500;
+    height: 36px;
+    line-height: 36px;
+    margin: 0px;
+    min-width: 88px;
+    outline: none;
+    padding-left: 16px;
+    padding-right: 16px;
+    position: relative;
+    text-align: center;
+    text-decoration: none;
+    text-transform: uppercase;
+    transform: translate(0px, 0px);
+    transition: all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms;
+    margin: 10px 0px;
+  }
+
+  .prettyButton:hover {
+    background-color: rgba(83, 132, 163, 0.93);
+  }
+
+  .container {
+    box-shadow: 0px 1px 5px 0px rgba(0,0,0,0.2), 0px 2px 2px 0px rgba(0,0,0,0.14), 0px 3px 1px -2px rgba(0,0,0,0.12);
+    padding: 10px 10px 10px 40px;
+    position: relative;
+  }
+
+  .questionNumber {
+    position: absolute;
+    top: 25px;
+    left: 18px;
+  }
+
+  .row {
+    padding: 5px 8px;
+    border-bottom: 1px solid rgb(240, 240, 240);
+    max-width: 100%;
+  }
+
+  .row:last-child {
+    border-bottom: none;
+  }
+
+  .row>ul {
+    margin: 0px;
+    padding: 5px 0px 5px 18px;
+  }
+
+  .subrow {
+    display: flex;
+    border-bottom: 1px solid rgb(240, 240, 240);
+    padding: 10px 8px;
+  }
+
+  .subrow>div,
+  .subrow>small {
+    flex: 1;
+    overflow: auto;
+    margin-right: 15px;
+  }
+
+  .subrow>textarea {
+    width: 100%;
+    height: 200px;
+    resize: none;
+    border: none;
+    font-size: 14px;
+  }
+
+  .build {
+    position: relative;
+    padding: 10px 10px 10px 0px;
+  }
+
+  .build:first-child {
+    border: none;
+  }
+
+  .build>div {
+    padding: 15px;
+    box-shadow: 0px 1px 5px 0px rgba(0,0,0,0.2), 0px 2px 2px 0px rgba(0,0,0,0.14), 0px 3px 1px -2px rgba(0,0,0,0.12);
+    border-radius: 4px;
+    margin: 0px 20px 10px 0px;
+  }
+
+  .markdown>p {
+    margin: 0;
+  }
+
+  .lessPadding {
+    padding: 5px 8px;
+  }
+
+  .box {
+    width: 15px;
+    height: 15px;
+    margin-right: 5px;
+    border: 1px solid rgb(240, 240, 240);
+  }
+
+  .checked {
+    background: rgb(168, 168, 168);
+    color: white;
+    font-size: 12px;
+    text-align: center;
+  }
+
+  .markdown h1,
+  .markdown h2,
+  .markdown h3,
+  .markdown h4,
+  .markdown h5,
+  .markdown h6 {
+    margin-bottom:15px;
+    background: none;
+    color: #000;
+    text-align: left;
+    padding: 0;
+    margin: 0 0 15px;
+  }
+
+  .markdown h1 {
+    font-size:2em;
+  }
+
+  .markdown h2 {
+    font-size: 1.75em;
+  }
+
+  .markdown h3 {
+    font-size: 1.5em;
+  }
+
+  .markdown h4 {
+    font-size: 1em;
+  }
+
+  .markdown h5 {
+    font-size: 1.9em;
+  }
+
+  .markdown ul,
+  .markdown ol {
+    margin:10px 0 10px 20px;
+    list-style: disc;
+  }
+
+  .markdown ul li {
+    list-style: disc;
+    padding-bottom:5px;
+  }
+
+  .markdown ol li {
+    list-style: decimal;
+    padding-bottom:5px;
+  }
+
+  .markdown p {
+    margin: 0 0 10px 0;
+    line-height:150%;
+  }
+
+  .markdown img {
+    max-width:100%;
+  }
+
+  .markdown table {
+    border-collapse: collapse;
+    border:1px solid #ddd;
+  }
+
+  .markdown table th,
+  .markdown table td {
+    padding:4px;
+    border: 1px solid #ddd;
+  }
+
+  .markdown blockquote {
+    border-left: 3px solid #ccc;
+    padding: 10px 20px 5px;
+    font-size: 1.5em;
+    margin-bottom: 20px;
+  }
+
+  .markdown .audioBlock,
+  .markdown .videoBlock {
+    margin:15px 0;
+  }
+
+  .markdown pre {
+    font-size: 14px;
+    background: #eee;
+    padding: 5px 10px;
+    border-radius: 4px;
+    overflow: auto;
+    margin-bottom: 15px;
+  }
+
+  .markdown .clickToZoom {
+    cursor: zoom-in;
+  }
+
+  .markdown hr{
+    border-top: 1px dashed #ddd;
+    border-bottom:none;
+    margin: 25px 0;
+  }
+  </style><script>
+    document.addEventListener('DOMContentLoaded', function contentLoaded() {
+      function setLinksTargetBlank(element) {
+        var links = element.getElementsByTagName('a');
+        for (var i = 0; i < links.length; i++) {
+          links[i].setAttribute('target', 'blank');
+        }
+      }
+
+      function render() {
+        var mdElements = document.querySelectorAll('.markdown');
+        for (var i = 0; i < mdElements.length; i++) {
+          var element = mdElements[i];
+          element.innerHTML = cavMarkdown.render(element.innerHTML);
+          setLinksTargetBlank(element);
+        }
+      }
+
+      render();
+    });
+  </script></head>
+  
+  
+  
+  <body class="None">
+   <div class="feedbackWrapper">
+    <div class="feedbackHeader">
+      Your average score is&nbsp;81.25 / 100
+    </div>
+    <div class="scroll">
+    <div class="feedbackBody" style="direction: ltr;">
+      
+        
+          
+            <script>
+  document.addEventListener('DOMContentLoaded', function contentLoaded() {
+    function toggleVisible(classSelector) {
+      var thingsToToggle = document.getElementById("a05e8de4-1fd5-4c26-a7b0-cebfd0ce8792").querySelectorAll(classSelector);
+
+      for (var i = 0; i < thingsToToggle.length; i++) {
+        if (thingsToToggle[i].className.indexOf('notVisible') !== -1) {
+          thingsToToggle[i].className = thingsToToggle[i].className.replace('notVisible', '').trim();
+        } else {
+          thingsToToggle[i].className += ' notVisible';
+        }
+      }
+    }
+
+    document.getElementById("a05e8de4-1fd5-4c26-a7b0-cebfd0ce8792_toggleCorrectBtn").addEventListener('click', function showCorrectHandler() {
+      return toggleVisible('.toggleCorrect');
+    });
+
+    document.getElementById("a05e8de4-1fd5-4c26-a7b0-cebfd0ce8792_toggleFeedbackBtn").addEventListener('click', function showFeedbackHandler() {
+      return toggleVisible('.toggleFeedback');
+    });
+  });
+</script>
+<div id="a05e8de4-1fd5-4c26-a7b0-cebfd0ce8792" class="container">
+  <span class="questionNumber">1.</span>
+  <div>
+    <div class="row">
+      <small>Question</small>
+      <div class="markdown"><p>A SaaS vendor would like to deploy their app using multi-tenancy architecture with Auth0.</p>
+<p>Is this the recommended method to implement a multi-tenant app?</p>
+</div>
+    </div>
+
+    <div>
+      <div class="subrow lessPadding">
+        <small>Option</small>
+        <small>Your Response</small>
+        <small class="toggleCorrect">Correct Response</small>
+        <small class="toggleFeedback">Feedback</small>
+      </div>
+      
+      <div class="subrow">
+        <div class="markdown"><p>Use the Auth0 organizations feature</p>
+</div>
+        <div>Yes</div>
+        <div class="toggleCorrect">Yes</div>
+        <div class="toggleFeedback  markdown"><p>Auth0 Organization is recommended to implement multi-tenant</p>
+</div>
+      </div>
+      
+      <div class="subrow">
+        <div class="markdown"><p>Using Auth0 APIs</p>
+</div>
+        <div>No</div>
+        <div class="toggleCorrect">No</div>
+        <div class="toggleFeedback  markdown"><p>APIs are not applicable to application integrations</p>
+</div>
+      </div>
+      
+    </div>
+
+    <div class="row">
+      <small>Score</small>
+      <div>100%</div>
+    </div>
+
+    <div class="toggleFeedback  row">
+      <small>Feedback</small>
+      
+      <div class="markdown"></div>
+      
+    </div>
+
+  </div>
+  <button class="prettyButton None " id="a05e8de4-1fd5-4c26-a7b0-cebfd0ce8792_toggleCorrectBtn" style="background-color: #5384A3">
+    <span class="toggleCorrect notVisible">Show Correct Answer</span>
+    <span class="toggleCorrect">Hide Correct Answer</span>
+  </button>
+  <button class="prettyButton None" id="a05e8de4-1fd5-4c26-a7b0-cebfd0ce8792_toggleFeedbackBtn" style="background-color: #5384A3">
+    <span class="toggleFeedback notVisible">Show Feedback</span>
+    <span class="toggleFeedback">Hide Feedback</span>
+  </button>
+</div>
+            <br>
+            <br>
+          
+        
+          
+            <script>
+  document.addEventListener('DOMContentLoaded', function contentLoaded() {
+    function toggleVisible(classSelector) {
+      var thingsToToggle = document.getElementById("3a3a6bb6-c5ed-4546-9beb-a61f85d7faae").querySelectorAll(classSelector);
+
+      for (var i = 0; i < thingsToToggle.length; i++) {
+        if (thingsToToggle[i].className.indexOf('notVisible') !== -1) {
+          thingsToToggle[i].className = thingsToToggle[i].className.replace('notVisible', '').trim();
+        } else {
+          thingsToToggle[i].className += ' notVisible';
+        }
+      }
+    }
+
+    document.getElementById("3a3a6bb6-c5ed-4546-9beb-a61f85d7faae_toggleCorrectBtn").addEventListener('click', function showCorrectHandler() {
+      return toggleVisible('.toggleCorrect');
+    });
+
+    document.getElementById("3a3a6bb6-c5ed-4546-9beb-a61f85d7faae_toggleFeedbackBtn").addEventListener('click', function showFeedbackHandler() {
+      return toggleVisible('.toggleFeedback');
+    });
+  });
+</script>
+<div id="3a3a6bb6-c5ed-4546-9beb-a61f85d7faae" class="container">
+  <span class="questionNumber">2.</span>
+  <div>
+    <div class="row">
+      <small>Question</small>
+      <div class="markdown"><p>An Auth0 developer is setting up a social connection and wants to prevent the name, gender, and email in this connection from saving to an Auth0 profile.</p>
+<p>Is this an appropriate approach?</p>
+</div>
+    </div>
+
+    <div>
+      <div class="subrow lessPadding">
+        <small>Option</small>
+        <small>Your Response</small>
+        <small class="toggleCorrect">Correct Response</small>
+        <small class="toggleFeedback">Feedback</small>
+      </div>
+      
+      <div class="subrow">
+        <div class="markdown"><p>Use Auth0 Management APIs to set the fields to null</p>
+</div>
+        <div>No</div>
+        <div class="toggleCorrect">Yes</div>
+        <div class="toggleFeedback  markdown"><p>Setting any value to null will remove the attribute for the user.<br>
+https://auth0.com/docs/manage-users/user-accounts/user-profiles/root-attributes/update-root-attributes-for-users#removing-attributes</p>
+</div>
+      </div>
+      
+      <div class="subrow">
+        <div class="markdown"><p>Use Auth0 Management APIs to delete the attributes</p>
+</div>
+        <div>No</div>
+        <div class="toggleCorrect">No</div>
+        <div class="toggleFeedback  markdown"><p>Deleting attributes is not an available option for the connection</p>
+</div>
+      </div>
+      
+    </div>
+
+    <div class="row">
+      <small>Score</small>
+      <div>0%</div>
+    </div>
+
+    <div class="toggleFeedback  row">
+      <small>Feedback</small>
+      
+      <div class="markdown"></div>
+      
+    </div>
+
+  </div>
+  <button class="prettyButton None " id="3a3a6bb6-c5ed-4546-9beb-a61f85d7faae_toggleCorrectBtn" style="background-color: #5384A3">
+    <span class="toggleCorrect notVisible">Show Correct Answer</span>
+    <span class="toggleCorrect">Hide Correct Answer</span>
+  </button>
+  <button class="prettyButton None" id="3a3a6bb6-c5ed-4546-9beb-a61f85d7faae_toggleFeedbackBtn" style="background-color: #5384A3">
+    <span class="toggleFeedback notVisible">Show Feedback</span>
+    <span class="toggleFeedback">Hide Feedback</span>
+  </button>
+</div>
+            <br>
+            <br>
+          
+        
+          
+            <script>
+  document.addEventListener('DOMContentLoaded', function contentLoaded() {
+    function toggleVisible(classSelector) {
+      var thingsToToggle = document.getElementById("089694cc-bdbd-4ed0-ae4e-5bdb0e071f2c").querySelectorAll(classSelector);
+
+      for (var i = 0; i < thingsToToggle.length; i++) {
+        if (thingsToToggle[i].className.indexOf('notVisible') !== -1) {
+          thingsToToggle[i].className = thingsToToggle[i].className.replace('notVisible', '').trim();
+        } else {
+          thingsToToggle[i].className += ' notVisible';
+        }
+      }
+    }
+
+    document.getElementById("089694cc-bdbd-4ed0-ae4e-5bdb0e071f2c_toggleCorrectBtn").addEventListener('click', function showCorrectHandler() {
+      return toggleVisible('.toggleCorrect');
+    });
+
+    document.getElementById("089694cc-bdbd-4ed0-ae4e-5bdb0e071f2c_toggleFeedbackBtn").addEventListener('click', function showFeedbackHandler() {
+      return toggleVisible('.toggleFeedback');
+    });
+  });
+</script>
+<div id="089694cc-bdbd-4ed0-ae4e-5bdb0e071f2c" class="container">
+  <span class="questionNumber">3.</span>
+  <div>
+    <div class="row">
+      <small>Question</small>
+      <div class="markdown"><p>Is this a valid behavior while redirecting users to an external custom error page in Auth0?</p>
+</div>
+    </div>
+
+    <div>
+      <div class="subrow lessPadding">
+        <small>Option</small>
+        <small>Your Response</small>
+        <small class="toggleCorrect">Correct Response</small>
+        <small class="toggleFeedback">Feedback</small>
+      </div>
+      
+      <div class="subrow">
+        <div class="markdown"><p>Auth0 passes error and error description to the custom error page as query parameters</p>
+</div>
+        <div>Yes</div>
+        <div class="toggleCorrect">Yes</div>
+        <div class="toggleFeedback  markdown"><p>With custom error page in Auth0, the Authorization Server will return parameters appended to the URL as a query string (client_id, connection, lang, error, error descriptions, tracking).</p>
+</div>
+      </div>
+      
+      <div class="subrow">
+        <div class="markdown"><p>Auth0 passes <strong>ONLY</strong> tracking identifier to the custom error page as post body</p>
+</div>
+        <div>No</div>
+        <div class="toggleCorrect">No</div>
+        <div class="toggleFeedback  markdown"><p>Auth0 will return parameters appended to the URL as a query string (client_id, connection, lang, error, error descriptions, tracking).</p>
+</div>
+      </div>
+      
+    </div>
+
+    <div class="row">
+      <small>Score</small>
+      <div>100%</div>
+    </div>
+
+    <div class="toggleFeedback  row">
+      <small>Feedback</small>
+      
+      <div class="markdown"></div>
+      
+    </div>
+
+  </div>
+  <button class="prettyButton None " id="089694cc-bdbd-4ed0-ae4e-5bdb0e071f2c_toggleCorrectBtn" style="background-color: #5384A3">
+    <span class="toggleCorrect notVisible">Show Correct Answer</span>
+    <span class="toggleCorrect">Hide Correct Answer</span>
+  </button>
+  <button class="prettyButton None" id="089694cc-bdbd-4ed0-ae4e-5bdb0e071f2c_toggleFeedbackBtn" style="background-color: #5384A3">
+    <span class="toggleFeedback notVisible">Show Feedback</span>
+    <span class="toggleFeedback">Hide Feedback</span>
+  </button>
+</div>
+            <br>
+            <br>
+          
+        
+          
+            <script>
+  document.addEventListener('DOMContentLoaded', function contentLoaded() {
+    function toggleVisible(classSelector) {
+      var thingsToToggle = document.getElementById("8279f39f-847e-4eac-9799-9fcd6fdb2d74").querySelectorAll(classSelector);
+
+      for (var i = 0; i < thingsToToggle.length; i++) {
+        if (thingsToToggle[i].className.indexOf('notVisible') !== -1) {
+          thingsToToggle[i].className = thingsToToggle[i].className.replace('notVisible', '').trim();
+        } else {
+          thingsToToggle[i].className += ' notVisible';
+        }
+      }
+    }
+
+    document.getElementById("8279f39f-847e-4eac-9799-9fcd6fdb2d74_toggleCorrectBtn").addEventListener('click', function showCorrectHandler() {
+      return toggleVisible('.toggleCorrect');
+    });
+
+    document.getElementById("8279f39f-847e-4eac-9799-9fcd6fdb2d74_toggleFeedbackBtn").addEventListener('click', function showFeedbackHandler() {
+      return toggleVisible('.toggleFeedback');
+    });
+  });
+</script>
+<div id="8279f39f-847e-4eac-9799-9fcd6fdb2d74" class="container">
+  <span class="questionNumber">4.</span>
+  <div>
+    <div class="row">
+      <small>Question</small>
+      <div class="markdown"><p>Is this the valid API call an application should make using the Auth0 Session Management API to remove a single refresh token for an application?</p>
+</div>
+    </div>
+
+    <div>
+      <div class="subrow lessPadding">
+        <small>Option</small>
+        <small>Your Response</small>
+        <small class="toggleCorrect">Correct Response</small>
+        <small class="toggleFeedback">Feedback</small>
+      </div>
+      
+      <div class="subrow">
+        <div class="markdown"><p>DELETE https://YOUR_AUTH0_DOMAIN/api/v2/refresh-tokens/{tokenid}</p>
+</div>
+        <div>Yes</div>
+        <div class="toggleCorrect">Yes</div>
+        <div class="toggleFeedback  markdown"><p>This is the correct API call to remove a single refresh token</p>
+</div>
+      </div>
+      
+    </div>
+
+    <div class="row">
+      <small>Score</small>
+      <div>100%</div>
+    </div>
+
+    <div class="toggleFeedback  row">
+      <small>Feedback</small>
+      
+      <div class="markdown"></div>
+      
+    </div>
+
+  </div>
+  <button class="prettyButton None " id="8279f39f-847e-4eac-9799-9fcd6fdb2d74_toggleCorrectBtn" style="background-color: #5384A3">
+    <span class="toggleCorrect notVisible">Show Correct Answer</span>
+    <span class="toggleCorrect">Hide Correct Answer</span>
+  </button>
+  <button class="prettyButton None" id="8279f39f-847e-4eac-9799-9fcd6fdb2d74_toggleFeedbackBtn" style="background-color: #5384A3">
+    <span class="toggleFeedback notVisible">Show Feedback</span>
+    <span class="toggleFeedback">Hide Feedback</span>
+  </button>
+</div>
+            <br>
+            <br>
+          
+        
+          
+            <script>
+  document.addEventListener('DOMContentLoaded', function contentLoaded() {
+    function toggleVisible(classSelector) {
+      var thingsToToggle = document.getElementById("fdffa1b5-a329-44fd-810a-5adfbd0c315f").querySelectorAll(classSelector);
+
+      for (var i = 0; i < thingsToToggle.length; i++) {
+        if (thingsToToggle[i].className.indexOf('notVisible') !== -1) {
+          thingsToToggle[i].className = thingsToToggle[i].className.replace('notVisible', '').trim();
+        } else {
+          thingsToToggle[i].className += ' notVisible';
+        }
+      }
+    }
+
+    document.getElementById("fdffa1b5-a329-44fd-810a-5adfbd0c315f_toggleCorrectBtn").addEventListener('click', function showCorrectHandler() {
+      return toggleVisible('.toggleCorrect');
+    });
+
+    document.getElementById("fdffa1b5-a329-44fd-810a-5adfbd0c315f_toggleFeedbackBtn").addEventListener('click', function showFeedbackHandler() {
+      return toggleVisible('.toggleFeedback');
+    });
+  });
+</script>
+<div id="fdffa1b5-a329-44fd-810a-5adfbd0c315f" class="container">
+  <span class="questionNumber">5.</span>
+  <div>
+    <div class="row">
+      <small>Question</small>
+      <div class="markdown"><p>Is this a required step when configuring Organizations for the Auth0 tenant?</p>
+</div>
+    </div>
+
+    <div>
+      <div class="subrow lessPadding">
+        <small>Option</small>
+        <small>Your Response</small>
+        <small class="toggleCorrect">Correct Response</small>
+        <small class="toggleFeedback">Feedback</small>
+      </div>
+      
+      <div class="subrow">
+        <div class="markdown"><p>For each organization, specify the list of Applications that the Organization Members can access</p>
+</div>
+        <div>Yes</div>
+        <div class="toggleCorrect">No</div>
+        <div class="toggleFeedback  markdown"><p>This is not a required step when configuring the Organization or the Application</p>
+</div>
+      </div>
+      
+      <div class="subrow">
+        <div class="markdown"><p>For each organization, configure the Organization Logo, Primary Color and Page Background Color</p>
+</div>
+        <div>Yes</div>
+        <div class="toggleCorrect">No</div>
+        <div class="toggleFeedback  markdown"><p>This is not a required step when configuring the Organization or the Application</p>
+</div>
+      </div>
+      
+    </div>
+
+    <div class="row">
+      <small>Score</small>
+      <div>0%</div>
+    </div>
+
+    <div class="toggleFeedback  row">
+      <small>Feedback</small>
+      
+      <div class="markdown"></div>
+      
+    </div>
+
+  </div>
+  <button class="prettyButton None " id="fdffa1b5-a329-44fd-810a-5adfbd0c315f_toggleCorrectBtn" style="background-color: #5384A3">
+    <span class="toggleCorrect notVisible">Show Correct Answer</span>
+    <span class="toggleCorrect">Hide Correct Answer</span>
+  </button>
+  <button class="prettyButton None" id="fdffa1b5-a329-44fd-810a-5adfbd0c315f_toggleFeedbackBtn" style="background-color: #5384A3">
+    <span class="toggleFeedback notVisible">Show Feedback</span>
+    <span class="toggleFeedback">Hide Feedback</span>
+  </button>
+</div>
+            <br>
+            <br>
+          
+        
+          
+            <script>
+  document.addEventListener('DOMContentLoaded', function contentLoaded() {
+    function toggleVisible(classSelector) {
+      var thingsToToggle = document.getElementById("aa3d9b6a-fb2d-44f4-a016-a2596bc0db95").querySelectorAll(classSelector);
+
+      for (var i = 0; i < thingsToToggle.length; i++) {
+        if (thingsToToggle[i].className.indexOf('notVisible') !== -1) {
+          thingsToToggle[i].className = thingsToToggle[i].className.replace('notVisible', '').trim();
+        } else {
+          thingsToToggle[i].className += ' notVisible';
+        }
+      }
+    }
+
+    document.getElementById("aa3d9b6a-fb2d-44f4-a016-a2596bc0db95_toggleCorrectBtn").addEventListener('click', function showCorrectHandler() {
+      return toggleVisible('.toggleCorrect');
+    });
+
+    document.getElementById("aa3d9b6a-fb2d-44f4-a016-a2596bc0db95_toggleFeedbackBtn").addEventListener('click', function showFeedbackHandler() {
+      return toggleVisible('.toggleFeedback');
+    });
+  });
+</script>
+<div id="aa3d9b6a-fb2d-44f4-a016-a2596bc0db95" class="container">
+  <span class="questionNumber">6.</span>
+  <div>
+    <div class="row">
+      <small>Question</small>
+      <div class="markdown"><p>An Auth0 developer is implementing an action for post-login trigger to block login, if impossible travel is detected.</p>
+<p>Is this a valid object within event to determine if user is logging in from impossible location?</p>
+</div>
+    </div>
+
+    <div>
+      <div class="subrow lessPadding">
+        <small>Option</small>
+        <small>Your Response</small>
+        <small class="toggleCorrect">Correct Response</small>
+        <small class="toggleFeedback">Feedback</small>
+      </div>
+      
+      <div class="subrow">
+        <div class="markdown"><p>connection</p>
+</div>
+        <div>No</div>
+        <div class="toggleCorrect">No</div>
+        <div class="toggleFeedback  markdown"><p>Details about the Connection that was used to authenticate the user.</p>
+</div>
+      </div>
+      
+      <div class="subrow">
+        <div class="markdown"><p>assessments</p>
+</div>
+        <div>Yes</div>
+        <div class="toggleCorrect">Yes</div>
+        <div class="toggleFeedback  markdown"><p>Use the assessments object to access the details for individual assessments, including the code property.<br>
+event.authentication.riskAssesment.assesments contains ImpossibleTravel assesment</p>
+</div>
+      </div>
+      
+      <div class="subrow">
+        <div class="markdown"><p>request</p>
+</div>
+        <div>No</div>
+        <div class="toggleCorrect">No</div>
+        <div class="toggleFeedback  markdown"><p>Details about the request that initiated the transaction. (asn, geoip, body, hostname, ip, user_agent, query, language, method)</p>
+</div>
+      </div>
+      
+    </div>
+
+    <div class="row">
+      <small>Score</small>
+      <div>100%</div>
+    </div>
+
+    <div class="toggleFeedback  row">
+      <small>Feedback</small>
+      
+      <div class="markdown"></div>
+      
+    </div>
+
+  </div>
+  <button class="prettyButton None " id="aa3d9b6a-fb2d-44f4-a016-a2596bc0db95_toggleCorrectBtn" style="background-color: #5384A3">
+    <span class="toggleCorrect notVisible">Show Correct Answer</span>
+    <span class="toggleCorrect">Hide Correct Answer</span>
+  </button>
+  <button class="prettyButton None" id="aa3d9b6a-fb2d-44f4-a016-a2596bc0db95_toggleFeedbackBtn" style="background-color: #5384A3">
+    <span class="toggleFeedback notVisible">Show Feedback</span>
+    <span class="toggleFeedback">Hide Feedback</span>
+  </button>
+</div>
+            <br>
+            <br>
+          
+        
+          
+            <script>
+  document.addEventListener('DOMContentLoaded', function contentLoaded() {
+    function toggleVisible(classSelector) {
+      var thingsToToggle = document.getElementById("7cc91037-957a-4bd0-82b6-034b9ef848eb").querySelectorAll(classSelector);
+
+      for (var i = 0; i < thingsToToggle.length; i++) {
+        if (thingsToToggle[i].className.indexOf('notVisible') !== -1) {
+          thingsToToggle[i].className = thingsToToggle[i].className.replace('notVisible', '').trim();
+        } else {
+          thingsToToggle[i].className += ' notVisible';
+        }
+      }
+    }
+
+    document.getElementById("7cc91037-957a-4bd0-82b6-034b9ef848eb_toggleCorrectBtn").addEventListener('click', function showCorrectHandler() {
+      return toggleVisible('.toggleCorrect');
+    });
+
+    document.getElementById("7cc91037-957a-4bd0-82b6-034b9ef848eb_toggleFeedbackBtn").addEventListener('click', function showFeedbackHandler() {
+      return toggleVisible('.toggleFeedback');
+    });
+  });
+</script>
+<div id="7cc91037-957a-4bd0-82b6-034b9ef848eb" class="container">
+  <span class="questionNumber">7.</span>
+  <div>
+    <div class="row">
+      <small>Question</small>
+      <div class="markdown"><p>Is this the Auth0 Authentication API endpoint used to trigger an interactive password reset flow in Auth0?</p>
+</div>
+    </div>
+
+    <div>
+      <div class="subrow lessPadding">
+        <small>Option</small>
+        <small>Your Response</small>
+        <small class="toggleCorrect">Correct Response</small>
+        <small class="toggleFeedback">Feedback</small>
+      </div>
+      
+      <div class="subrow">
+        <div class="markdown"><p>POST {base_url}/dbconnections/change_password</p>
+</div>
+        <div>Yes</div>
+        <div class="toggleCorrect">Yes</div>
+        <div class="toggleFeedback  markdown"><p>Correct endpoint</p>
+<p>https://auth0.com/docs/api/authentication#-post-dbconnections-change_password-<br>
+POST /dbconnections/change_password</p>
+</div>
+      </div>
+      
+    </div>
+
+    <div class="row">
+      <small>Score</small>
+      <div>100%</div>
+    </div>
+
+    <div class="toggleFeedback  row">
+      <small>Feedback</small>
+      
+      <div class="markdown"></div>
+      
+    </div>
+
+  </div>
+  <button class="prettyButton None " id="7cc91037-957a-4bd0-82b6-034b9ef848eb_toggleCorrectBtn" style="background-color: #5384A3">
+    <span class="toggleCorrect notVisible">Show Correct Answer</span>
+    <span class="toggleCorrect">Hide Correct Answer</span>
+  </button>
+  <button class="prettyButton None" id="7cc91037-957a-4bd0-82b6-034b9ef848eb_toggleFeedbackBtn" style="background-color: #5384A3">
+    <span class="toggleFeedback notVisible">Show Feedback</span>
+    <span class="toggleFeedback">Hide Feedback</span>
+  </button>
+</div>
+            <br>
+            <br>
+          
+        
+          
+            <script>
+  document.addEventListener('DOMContentLoaded', function contentLoaded() {
+    function toggleVisible(classSelector) {
+      var thingsToToggle = document.getElementById("b8f3341a-ded5-4536-bdc9-c6080592e635").querySelectorAll(classSelector);
+
+      for (var i = 0; i < thingsToToggle.length; i++) {
+        if (thingsToToggle[i].className.indexOf('notVisible') !== -1) {
+          thingsToToggle[i].className = thingsToToggle[i].className.replace('notVisible', '').trim();
+        } else {
+          thingsToToggle[i].className += ' notVisible';
+        }
+      }
+    }
+
+    document.getElementById("b8f3341a-ded5-4536-bdc9-c6080592e635_toggleCorrectBtn").addEventListener('click', function showCorrectHandler() {
+      return toggleVisible('.toggleCorrect');
+    });
+
+    document.getElementById("b8f3341a-ded5-4536-bdc9-c6080592e635_toggleFeedbackBtn").addEventListener('click', function showFeedbackHandler() {
+      return toggleVisible('.toggleFeedback');
+    });
+  });
+</script>
+<div id="b8f3341a-ded5-4536-bdc9-c6080592e635" class="container">
+  <span class="questionNumber">8.</span>
+  <div>
+    <div class="row">
+      <small>Question</small>
+      <div class="markdown"><p>An application requires embedded login.</p>
+<p>Is this a configuration step that an Auth0 developer must perform to meet the requirement?</p>
+</div>
+    </div>
+
+    <div>
+      <div class="subrow lessPadding">
+        <small>Option</small>
+        <small>Your Response</small>
+        <small class="toggleCorrect">Correct Response</small>
+        <small class="toggleFeedback">Feedback</small>
+      </div>
+      
+      <div class="subrow">
+        <div class="markdown"><p>Configure your application to use the auth0.com domain</p>
+</div>
+        <div>No</div>
+        <div class="toggleCorrect">No</div>
+        <div class="toggleFeedback  markdown"><p>This is not a required step as the application cannot be configured on the auth0.com domain</p>
+</div>
+      </div>
+      
+      <div class="subrow">
+        <div class="markdown"><p>Configure Universal Login for the application</p>
+</div>
+        <div>No</div>
+        <div class="toggleCorrect">No</div>
+        <div class="toggleFeedback  markdown"><p>This is not a required step as the developer wishes to use embedded login not Universal Logic</p>
+</div>
+      </div>
+      
+      <div class="subrow">
+        <div class="markdown"><p>Enable third-party cookies on the user’s browser</p>
+</div>
+        <div>No</div>
+        <div class="toggleCorrect">No</div>
+        <div class="toggleFeedback  markdown"><p>This is not a required step as the developer does not have control over the user's browser</p>
+</div>
+      </div>
+      
+      <div class="subrow">
+        <div class="markdown"><p>Enable Allow Cross-Origin Authentication</p>
+</div>
+        <div>Yes</div>
+        <div class="toggleCorrect">Yes</div>
+        <div class="toggleFeedback  markdown"><p>This is a required configuration step as documented in https://auth0.com/docs/authenticate/login/cross-origin-authentication</p>
+</div>
+      </div>
+      
+      <div class="subrow">
+        <div class="markdown"><p>Add the application URL domain to Allowed Origins (CORS) or Allowed Callback URLs</p>
+</div>
+        <div>Yes</div>
+        <div class="toggleCorrect">Yes</div>
+        <div class="toggleFeedback  markdown"><p>This is a required configuration step as documented in https://auth0.com/docs/authenticate/login/cross-origin-authentication</p>
+</div>
+      </div>
+      
+    </div>
+
+    <div class="row">
+      <small>Score</small>
+      <div>100%</div>
+    </div>
+
+    <div class="toggleFeedback  row">
+      <small>Feedback</small>
+      
+      <div class="markdown"></div>
+      
+    </div>
+
+  </div>
+  <button class="prettyButton None " id="b8f3341a-ded5-4536-bdc9-c6080592e635_toggleCorrectBtn" style="background-color: #5384A3">
+    <span class="toggleCorrect notVisible">Show Correct Answer</span>
+    <span class="toggleCorrect">Hide Correct Answer</span>
+  </button>
+  <button class="prettyButton None" id="b8f3341a-ded5-4536-bdc9-c6080592e635_toggleFeedbackBtn" style="background-color: #5384A3">
+    <span class="toggleFeedback notVisible">Show Feedback</span>
+    <span class="toggleFeedback">Hide Feedback</span>
+  </button>
+</div>
+            <br>
+            <br>
+          
+        
+          
+            <script>
+  document.addEventListener('DOMContentLoaded', function contentLoaded() {
+    function toggleVisible(classSelector) {
+      var thingsToToggle = document.getElementById("85db41a4-7f9f-4ba9-972d-8915f50322fb").querySelectorAll(classSelector);
+
+      for (var i = 0; i < thingsToToggle.length; i++) {
+        if (thingsToToggle[i].className.indexOf('notVisible') !== -1) {
+          thingsToToggle[i].className = thingsToToggle[i].className.replace('notVisible', '').trim();
+        } else {
+          thingsToToggle[i].className += ' notVisible';
+        }
+      }
+    }
+
+    document.getElementById("85db41a4-7f9f-4ba9-972d-8915f50322fb_toggleCorrectBtn").addEventListener('click', function showCorrectHandler() {
+      return toggleVisible('.toggleCorrect');
+    });
+
+    document.getElementById("85db41a4-7f9f-4ba9-972d-8915f50322fb_toggleFeedbackBtn").addEventListener('click', function showFeedbackHandler() {
+      return toggleVisible('.toggleFeedback');
+    });
+  });
+</script>
+<div id="85db41a4-7f9f-4ba9-972d-8915f50322fb" class="container">
+  <span class="questionNumber">9.</span>
+  <div>
+    <div class="row">
+      <small>Question</small>
+      <div class="markdown"><p>Is this where an Auth0 developer can view linked account information for an account?</p>
+</div>
+    </div>
+
+    <div>
+      <div class="subrow lessPadding">
+        <small>Option</small>
+        <small>Your Response</small>
+        <small class="toggleCorrect">Correct Response</small>
+        <small class="toggleFeedback">Feedback</small>
+      </div>
+      
+      <div class="subrow">
+        <div class="markdown"><p>On the secondary account's app metadata, linked account profile information is stored in the "parent_identity" object.</p>
+</div>
+        <div>No</div>
+        <div class="toggleCorrect">No</div>
+        <div class="toggleFeedback  markdown"><p>This is incorrect because linked identity information is always found on the parent account.</p>
+</div>
+      </div>
+      
+      <div class="subrow">
+        <div class="markdown"><p>Linked account profile information is obtained by making a GET call to the /&lt;user_id&gt;/identities management API.</p>
+</div>
+        <div>Yes</div>
+        <div class="toggleCorrect">No</div>
+        <div class="toggleFeedback  markdown"><p>This is incorrect because linked identity information is visible as part of the primary account's profile, and does not require a separate API call. The /&lt;user_id&gt;/identities API is available only via an HTTP POST call to link accounts, and does not support the GET method.</p>
+</div>
+      </div>
+      
+    </div>
+
+    <div class="row">
+      <small>Score</small>
+      <div>0%</div>
+    </div>
+
+    <div class="toggleFeedback  row">
+      <small>Feedback</small>
+      
+      <div class="markdown"></div>
+      
+    </div>
+
+  </div>
+  <button class="prettyButton None " id="85db41a4-7f9f-4ba9-972d-8915f50322fb_toggleCorrectBtn" style="background-color: #5384A3">
+    <span class="toggleCorrect notVisible">Show Correct Answer</span>
+    <span class="toggleCorrect">Hide Correct Answer</span>
+  </button>
+  <button class="prettyButton None" id="85db41a4-7f9f-4ba9-972d-8915f50322fb_toggleFeedbackBtn" style="background-color: #5384A3">
+    <span class="toggleFeedback notVisible">Show Feedback</span>
+    <span class="toggleFeedback">Hide Feedback</span>
+  </button>
+</div>
+            <br>
+            <br>
+          
+        
+          
+            <script>
+  document.addEventListener('DOMContentLoaded', function contentLoaded() {
+    function toggleVisible(classSelector) {
+      var thingsToToggle = document.getElementById("e4e12b6f-a441-48d3-8932-7af35b5fa011").querySelectorAll(classSelector);
+
+      for (var i = 0; i < thingsToToggle.length; i++) {
+        if (thingsToToggle[i].className.indexOf('notVisible') !== -1) {
+          thingsToToggle[i].className = thingsToToggle[i].className.replace('notVisible', '').trim();
+        } else {
+          thingsToToggle[i].className += ' notVisible';
+        }
+      }
+    }
+
+    document.getElementById("e4e12b6f-a441-48d3-8932-7af35b5fa011_toggleCorrectBtn").addEventListener('click', function showCorrectHandler() {
+      return toggleVisible('.toggleCorrect');
+    });
+
+    document.getElementById("e4e12b6f-a441-48d3-8932-7af35b5fa011_toggleFeedbackBtn").addEventListener('click', function showFeedbackHandler() {
+      return toggleVisible('.toggleFeedback');
+    });
+  });
+</script>
+<div id="e4e12b6f-a441-48d3-8932-7af35b5fa011" class="container">
+  <span class="questionNumber">10.</span>
+  <div>
+    <div class="row">
+      <small>Question</small>
+      <div class="markdown"><p>An Auth0 developer needs to use a custom Action to add a record to a CRM system after registration.</p>
+<p>Is this a valid trigger to use?</p>
+</div>
+    </div>
+
+    <div>
+      <div class="subrow lessPadding">
+        <small>Option</small>
+        <small>Your Response</small>
+        <small class="toggleCorrect">Correct Response</small>
+        <small class="toggleFeedback">Feedback</small>
+      </div>
+      
+      <div class="subrow">
+        <div class="markdown"><p>credentials-exchange</p>
+</div>
+        <div>No</div>
+        <div class="toggleCorrect">No</div>
+        <div class="toggleFeedback  markdown"><p>This is an incorrect trigger</p>
+</div>
+      </div>
+      
+      <div class="subrow">
+        <div class="markdown"><p>post-user-registration</p>
+</div>
+        <div>Yes</div>
+        <div class="toggleCorrect">Yes</div>
+        <div class="toggleFeedback  markdown"><p>This is the correct trigger</p>
+</div>
+      </div>
+      
+    </div>
+
+    <div class="row">
+      <small>Score</small>
+      <div>100%</div>
+    </div>
+
+    <div class="toggleFeedback  row">
+      <small>Feedback</small>
+      
+      <div class="markdown"></div>
+      
+    </div>
+
+  </div>
+  <button class="prettyButton None " id="e4e12b6f-a441-48d3-8932-7af35b5fa011_toggleCorrectBtn" style="background-color: #5384A3">
+    <span class="toggleCorrect notVisible">Show Correct Answer</span>
+    <span class="toggleCorrect">Hide Correct Answer</span>
+  </button>
+  <button class="prettyButton None" id="e4e12b6f-a441-48d3-8932-7af35b5fa011_toggleFeedbackBtn" style="background-color: #5384A3">
+    <span class="toggleFeedback notVisible">Show Feedback</span>
+    <span class="toggleFeedback">Hide Feedback</span>
+  </button>
+</div>
+            <br>
+            <br>
+          
+        
+          
+            <script>
+  document.addEventListener('DOMContentLoaded', function contentLoaded() {
+    function toggleVisible(classSelector) {
+      var thingsToToggle = document.getElementById("bf97d483-e166-4b94-aff5-523fd95107e2").querySelectorAll(classSelector);
+
+      for (var i = 0; i < thingsToToggle.length; i++) {
+        if (thingsToToggle[i].className.indexOf('notVisible') !== -1) {
+          thingsToToggle[i].className = thingsToToggle[i].className.replace('notVisible', '').trim();
+        } else {
+          thingsToToggle[i].className += ' notVisible';
+        }
+      }
+    }
+
+    document.getElementById("bf97d483-e166-4b94-aff5-523fd95107e2_toggleCorrectBtn").addEventListener('click', function showCorrectHandler() {
+      return toggleVisible('.toggleCorrect');
+    });
+
+    document.getElementById("bf97d483-e166-4b94-aff5-523fd95107e2_toggleFeedbackBtn").addEventListener('click', function showFeedbackHandler() {
+      return toggleVisible('.toggleFeedback');
+    });
+  });
+</script>
+<div id="bf97d483-e166-4b94-aff5-523fd95107e2" class="container">
+  <span class="questionNumber">11.</span>
+  <div>
+    <div class="row">
+      <small>Question</small>
+      <div class="markdown"><p>Is this the valid Auth0 Session Management API endpoint used to terminate all Auth0 sessions for a particular user?</p>
+</div>
+    </div>
+
+    <div>
+      <div class="subrow lessPadding">
+        <small>Option</small>
+        <small>Your Response</small>
+        <small class="toggleCorrect">Correct Response</small>
+        <small class="toggleFeedback">Feedback</small>
+      </div>
+      
+      <div class="subrow">
+        <div class="markdown"><p>DELETE https://YOUR_AUTH0_DOMAIN/api/v2/sessions/{sessionIId}</p>
+</div>
+        <div>No</div>
+        <div class="toggleCorrect">No</div>
+        <div class="toggleFeedback  markdown"><p>This is not the correct API call to terminate all sessions for a user. This call would delete a single session.</p>
+</div>
+      </div>
+      
+      <div class="subrow">
+        <div class="markdown"><p>DELETE https://YOUR_AUTH0_DOMAIN/api/v2/users/{userId}/sessions</p>
+</div>
+        <div>Yes</div>
+        <div class="toggleCorrect">Yes</div>
+        <div class="toggleFeedback  markdown"><p>This is the correct API call to terminate all sessions for a user</p>
+</div>
+      </div>
+      
+      <div class="subrow">
+        <div class="markdown"><p>GET https://YOUR_AUTH0_DOMAIN/api/v2/sessions/{sessionIId}</p>
+</div>
+        <div>No</div>
+        <div class="toggleCorrect">No</div>
+        <div class="toggleFeedback  markdown"><p>This is not the correct API call to terminate all sessions for a user. This call would return a single session.</p>
+</div>
+      </div>
+      
+    </div>
+
+    <div class="row">
+      <small>Score</small>
+      <div>100%</div>
+    </div>
+
+    <div class="toggleFeedback  row">
+      <small>Feedback</small>
+      
+      <div class="markdown"></div>
+      
+    </div>
+
+  </div>
+  <button class="prettyButton None " id="bf97d483-e166-4b94-aff5-523fd95107e2_toggleCorrectBtn" style="background-color: #5384A3">
+    <span class="toggleCorrect notVisible">Show Correct Answer</span>
+    <span class="toggleCorrect">Hide Correct Answer</span>
+  </button>
+  <button class="prettyButton None" id="bf97d483-e166-4b94-aff5-523fd95107e2_toggleFeedbackBtn" style="background-color: #5384A3">
+    <span class="toggleFeedback notVisible">Show Feedback</span>
+    <span class="toggleFeedback">Hide Feedback</span>
+  </button>
+</div>
+            <br>
+            <br>
+          
+        
+          
+            <script>
+  document.addEventListener('DOMContentLoaded', function contentLoaded() {
+    function toggleVisible(classSelector) {
+      var thingsToToggle = document.getElementById("9d4da8a3-74bc-41bc-ba9e-b5de787717fa").querySelectorAll(classSelector);
+
+      for (var i = 0; i < thingsToToggle.length; i++) {
+        if (thingsToToggle[i].className.indexOf('notVisible') !== -1) {
+          thingsToToggle[i].className = thingsToToggle[i].className.replace('notVisible', '').trim();
+        } else {
+          thingsToToggle[i].className += ' notVisible';
+        }
+      }
+    }
+
+    document.getElementById("9d4da8a3-74bc-41bc-ba9e-b5de787717fa_toggleCorrectBtn").addEventListener('click', function showCorrectHandler() {
+      return toggleVisible('.toggleCorrect');
+    });
+
+    document.getElementById("9d4da8a3-74bc-41bc-ba9e-b5de787717fa_toggleFeedbackBtn").addEventListener('click', function showFeedbackHandler() {
+      return toggleVisible('.toggleFeedback');
+    });
+  });
+</script>
+<div id="9d4da8a3-74bc-41bc-ba9e-b5de787717fa" class="container">
+  <span class="questionNumber">12.</span>
+  <div>
+    <div class="row">
+      <small>Question</small>
+      <div class="markdown"><p>An Auth0 developer needs to assign a large set of permissions to many users.</p>
+<p>Is this an effective method for assigning permissions?</p>
+</div>
+    </div>
+
+    <div>
+      <div class="subrow lessPadding">
+        <small>Option</small>
+        <small>Your Response</small>
+        <small class="toggleCorrect">Correct Response</small>
+        <small class="toggleFeedback">Feedback</small>
+      </div>
+      
+      <div class="subrow">
+        <div class="markdown"><p>Create an API, assign the permissions to the API and assign the API to the required users.</p>
+</div>
+        <div>No</div>
+        <div class="toggleCorrect">No</div>
+        <div class="toggleFeedback  markdown"><p>Using a Role is the correct option to assign multiple permissions to many users</p>
+</div>
+      </div>
+      
+      <div class="subrow">
+        <div class="markdown"><p>Create a Role and assign the permissions to the Role and assign the Role to the required users</p>
+</div>
+        <div>Yes</div>
+        <div class="toggleCorrect">Yes</div>
+        <div class="toggleFeedback  markdown"><p>Using a Role is the correct option to assign multiple permissions to many users</p>
+</div>
+      </div>
+      
+      <div class="subrow">
+        <div class="markdown"><p>Assign the individual permissions to each user using the Auth0 Dashboard</p>
+</div>
+        <div>No</div>
+        <div class="toggleCorrect">No</div>
+        <div class="toggleFeedback  markdown"><p>Using a Role is the correct option to assign multiple permissions to many users</p>
+</div>
+      </div>
+      
+    </div>
+
+    <div class="row">
+      <small>Score</small>
+      <div>100%</div>
+    </div>
+
+    <div class="toggleFeedback  row">
+      <small>Feedback</small>
+      
+      <div class="markdown"></div>
+      
+    </div>
+
+  </div>
+  <button class="prettyButton None " id="9d4da8a3-74bc-41bc-ba9e-b5de787717fa_toggleCorrectBtn" style="background-color: #5384A3">
+    <span class="toggleCorrect notVisible">Show Correct Answer</span>
+    <span class="toggleCorrect">Hide Correct Answer</span>
+  </button>
+  <button class="prettyButton None" id="9d4da8a3-74bc-41bc-ba9e-b5de787717fa_toggleFeedbackBtn" style="background-color: #5384A3">
+    <span class="toggleFeedback notVisible">Show Feedback</span>
+    <span class="toggleFeedback">Hide Feedback</span>
+  </button>
+</div>
+            <br>
+            <br>
+          
+        
+          
+            <script>
+  document.addEventListener('DOMContentLoaded', function contentLoaded() {
+    function toggleVisible(classSelector) {
+      var thingsToToggle = document.getElementById("a09879a6-5a39-4346-9524-7e9e68848f66").querySelectorAll(classSelector);
+
+      for (var i = 0; i < thingsToToggle.length; i++) {
+        if (thingsToToggle[i].className.indexOf('notVisible') !== -1) {
+          thingsToToggle[i].className = thingsToToggle[i].className.replace('notVisible', '').trim();
+        } else {
+          thingsToToggle[i].className += ' notVisible';
+        }
+      }
+    }
+
+    document.getElementById("a09879a6-5a39-4346-9524-7e9e68848f66_toggleCorrectBtn").addEventListener('click', function showCorrectHandler() {
+      return toggleVisible('.toggleCorrect');
+    });
+
+    document.getElementById("a09879a6-5a39-4346-9524-7e9e68848f66_toggleFeedbackBtn").addEventListener('click', function showFeedbackHandler() {
+      return toggleVisible('.toggleFeedback');
+    });
+  });
+</script>
+<div id="a09879a6-5a39-4346-9524-7e9e68848f66" class="container">
+  <span class="questionNumber">13.</span>
+  <div>
+    <div class="row">
+      <small>Question</small>
+      <div class="markdown"><p>Is this a recommended maximum total size of a custom database action script in Auth0?</p>
+</div>
+    </div>
+
+    <div>
+      <div class="subrow lessPadding">
+        <small>Option</small>
+        <small>Your Response</small>
+        <small class="toggleCorrect">Correct Response</small>
+        <small class="toggleFeedback">Feedback</small>
+      </div>
+      
+      <div class="subrow">
+        <div class="markdown"><p>500 Kb</p>
+</div>
+        <div>Yes</div>
+        <div class="toggleCorrect">No</div>
+        <div class="toggleFeedback  markdown"><p>This is above the recommended maximum size of 100 Kb</p>
+</div>
+      </div>
+      
+      <div class="subrow">
+        <div class="markdown"><p>100 Kb</p>
+</div>
+        <div>No</div>
+        <div class="toggleCorrect">Yes</div>
+        <div class="toggleFeedback  markdown"><p>This is the correct recommended maximum size</p>
+</div>
+      </div>
+      
+    </div>
+
+    <div class="row">
+      <small>Score</small>
+      <div>0%</div>
+    </div>
+
+    <div class="toggleFeedback  row">
+      <small>Feedback</small>
+      
+      <div class="markdown"></div>
+      
+    </div>
+
+  </div>
+  <button class="prettyButton None " id="a09879a6-5a39-4346-9524-7e9e68848f66_toggleCorrectBtn" style="background-color: #5384A3">
+    <span class="toggleCorrect notVisible">Show Correct Answer</span>
+    <span class="toggleCorrect">Hide Correct Answer</span>
+  </button>
+  <button class="prettyButton None" id="a09879a6-5a39-4346-9524-7e9e68848f66_toggleFeedbackBtn" style="background-color: #5384A3">
+    <span class="toggleFeedback notVisible">Show Feedback</span>
+    <span class="toggleFeedback">Hide Feedback</span>
+  </button>
+</div>
+            <br>
+            <br>
+          
+        
+          
+            <script>
+  document.addEventListener('DOMContentLoaded', function contentLoaded() {
+    function toggleVisible(classSelector) {
+      var thingsToToggle = document.getElementById("03f2627d-c08e-4275-aa25-e43ff4841968").querySelectorAll(classSelector);
+
+      for (var i = 0; i < thingsToToggle.length; i++) {
+        if (thingsToToggle[i].className.indexOf('notVisible') !== -1) {
+          thingsToToggle[i].className = thingsToToggle[i].className.replace('notVisible', '').trim();
+        } else {
+          thingsToToggle[i].className += ' notVisible';
+        }
+      }
+    }
+
+    document.getElementById("03f2627d-c08e-4275-aa25-e43ff4841968_toggleCorrectBtn").addEventListener('click', function showCorrectHandler() {
+      return toggleVisible('.toggleCorrect');
+    });
+
+    document.getElementById("03f2627d-c08e-4275-aa25-e43ff4841968_toggleFeedbackBtn").addEventListener('click', function showFeedbackHandler() {
+      return toggleVisible('.toggleFeedback');
+    });
+  });
+</script>
+<div id="03f2627d-c08e-4275-aa25-e43ff4841968" class="container">
+  <span class="questionNumber">14.</span>
+  <div>
+    <div class="row">
+      <small>Question</small>
+      <div class="markdown"><p>Is this an option for configuring Multi-Factor Authentication (MFA) for End Users in Auth0 Admin Interface?</p>
+</div>
+    </div>
+
+    <div>
+      <div class="subrow lessPadding">
+        <small>Option</small>
+        <small>Your Response</small>
+        <small class="toggleCorrect">Correct Response</small>
+        <small class="toggleFeedback">Feedback</small>
+      </div>
+      
+      <div class="subrow">
+        <div class="markdown"><p>Only when user logs in first time</p>
+</div>
+        <div>No</div>
+        <div class="toggleCorrect">No</div>
+        <div class="toggleFeedback  markdown"><p>Never, Always, and Use Adaptive MFA, are three options available while configuring MFA in Auth0</p>
+</div>
+      </div>
+      
+      <div class="subrow">
+        <div class="markdown"><p>When the application requires MFA</p>
+</div>
+        <div>No</div>
+        <div class="toggleCorrect">No</div>
+        <div class="toggleFeedback  markdown"><p>Never, Always, and Use Adaptive MFA, are three options available while configuring MFA in Auth0</p>
+</div>
+      </div>
+      
+      <div class="subrow">
+        <div class="markdown"><p>Never</p>
+</div>
+        <div>Yes</div>
+        <div class="toggleCorrect">Yes</div>
+        <div class="toggleFeedback  markdown"><p>Never, Always, and Use Adaptive MFA, are three options available while configuring MFA in Auth0</p>
+</div>
+      </div>
+      
+      <div class="subrow">
+        <div class="markdown"><p>Use Adaptive MFA</p>
+</div>
+        <div>Yes</div>
+        <div class="toggleCorrect">Yes</div>
+        <div class="toggleFeedback  markdown"><p>Never, Always, and Use Adaptive MFA, are three options available while configuring MFA in Auth0</p>
+</div>
+      </div>
+      
+    </div>
+
+    <div class="row">
+      <small>Score</small>
+      <div>100%</div>
+    </div>
+
+    <div class="toggleFeedback  row">
+      <small>Feedback</small>
+      
+      <div class="markdown"></div>
+      
+    </div>
+
+  </div>
+  <button class="prettyButton None " id="03f2627d-c08e-4275-aa25-e43ff4841968_toggleCorrectBtn" style="background-color: #5384A3">
+    <span class="toggleCorrect notVisible">Show Correct Answer</span>
+    <span class="toggleCorrect">Hide Correct Answer</span>
+  </button>
+  <button class="prettyButton None" id="03f2627d-c08e-4275-aa25-e43ff4841968_toggleFeedbackBtn" style="background-color: #5384A3">
+    <span class="toggleFeedback notVisible">Show Feedback</span>
+    <span class="toggleFeedback">Hide Feedback</span>
+  </button>
+</div>
+            <br>
+            <br>
+          
+        
+          
+            <script>
+  document.addEventListener('DOMContentLoaded', function contentLoaded() {
+    function toggleVisible(classSelector) {
+      var thingsToToggle = document.getElementById("35f9c271-78cb-4182-b417-011cdfc3f24a").querySelectorAll(classSelector);
+
+      for (var i = 0; i < thingsToToggle.length; i++) {
+        if (thingsToToggle[i].className.indexOf('notVisible') !== -1) {
+          thingsToToggle[i].className = thingsToToggle[i].className.replace('notVisible', '').trim();
+        } else {
+          thingsToToggle[i].className += ' notVisible';
+        }
+      }
+    }
+
+    document.getElementById("35f9c271-78cb-4182-b417-011cdfc3f24a_toggleCorrectBtn").addEventListener('click', function showCorrectHandler() {
+      return toggleVisible('.toggleCorrect');
+    });
+
+    document.getElementById("35f9c271-78cb-4182-b417-011cdfc3f24a_toggleFeedbackBtn").addEventListener('click', function showFeedbackHandler() {
+      return toggleVisible('.toggleFeedback');
+    });
+  });
+</script>
+<div id="35f9c271-78cb-4182-b417-011cdfc3f24a" class="container">
+  <span class="questionNumber">15.</span>
+  <div>
+    <div class="row">
+      <small>Question</small>
+      <div class="markdown"><p>An application requires embedded login.</p>
+<p>Is this a configuration step that an Auth0 developer must perform to meet the requirement?</p>
+</div>
+    </div>
+
+    <div>
+      <div class="subrow lessPadding">
+        <small>Option</small>
+        <small>Your Response</small>
+        <small class="toggleCorrect">Correct Response</small>
+        <small class="toggleFeedback">Feedback</small>
+      </div>
+      
+      <div class="subrow">
+        <div class="markdown"><p>Enable third-party cookies on the user’s browser</p>
+</div>
+        <div>No</div>
+        <div class="toggleCorrect">No</div>
+        <div class="toggleFeedback  markdown"><p>This step is not relevant as the CIC Developer will not have access to the user's browser</p>
+</div>
+      </div>
+      
+      <div class="subrow">
+        <div class="markdown"><p>Enable Allow Cross-Origin Authentication</p>
+</div>
+        <div>Yes</div>
+        <div class="toggleCorrect">Yes</div>
+        <div class="toggleFeedback  markdown"><p>This is a required configuration step as documented in https://auth0.com/docs/get-started/applications/set-up-cors</p>
+</div>
+      </div>
+      
+      <div class="subrow">
+        <div class="markdown"><p>Add the application URL domain to Allowed Origins (CORS) or Allowed Callback URLs</p>
+</div>
+        <div>Yes</div>
+        <div class="toggleCorrect">Yes</div>
+        <div class="toggleFeedback  markdown"><p>This is a required configuration step as documented in https://auth0.com/docs/get-started/applications/set-up-cors</p>
+</div>
+      </div>
+      
+    </div>
+
+    <div class="row">
+      <small>Score</small>
+      <div>100%</div>
+    </div>
+
+    <div class="toggleFeedback  row">
+      <small>Feedback</small>
+      
+      <div class="markdown"></div>
+      
+    </div>
+
+  </div>
+  <button class="prettyButton None " id="35f9c271-78cb-4182-b417-011cdfc3f24a_toggleCorrectBtn" style="background-color: #5384A3">
+    <span class="toggleCorrect notVisible">Show Correct Answer</span>
+    <span class="toggleCorrect">Hide Correct Answer</span>
+  </button>
+  <button class="prettyButton None" id="35f9c271-78cb-4182-b417-011cdfc3f24a_toggleFeedbackBtn" style="background-color: #5384A3">
+    <span class="toggleFeedback notVisible">Show Feedback</span>
+    <span class="toggleFeedback">Hide Feedback</span>
+  </button>
+</div>
+            <br>
+            <br>
+          
+        
+          
+            <script>
+  document.addEventListener('DOMContentLoaded', function contentLoaded() {
+    function toggleVisible(classSelector) {
+      var thingsToToggle = document.getElementById("a6cdbfc3-1385-45e0-89bc-53bfce405571").querySelectorAll(classSelector);
+
+      for (var i = 0; i < thingsToToggle.length; i++) {
+        if (thingsToToggle[i].className.indexOf('notVisible') !== -1) {
+          thingsToToggle[i].className = thingsToToggle[i].className.replace('notVisible', '').trim();
+        } else {
+          thingsToToggle[i].className += ' notVisible';
+        }
+      }
+    }
+
+    document.getElementById("a6cdbfc3-1385-45e0-89bc-53bfce405571_toggleCorrectBtn").addEventListener('click', function showCorrectHandler() {
+      return toggleVisible('.toggleCorrect');
+    });
+
+    document.getElementById("a6cdbfc3-1385-45e0-89bc-53bfce405571_toggleFeedbackBtn").addEventListener('click', function showFeedbackHandler() {
+      return toggleVisible('.toggleFeedback');
+    });
+  });
+</script>
+<div id="a6cdbfc3-1385-45e0-89bc-53bfce405571" class="container">
+  <span class="questionNumber">16.</span>
+  <div>
+    <div class="row">
+      <small>Question</small>
+      <div class="markdown"><p>Is this a required field when creating an API in Auth0?</p>
+</div>
+    </div>
+
+    <div>
+      <div class="subrow lessPadding">
+        <small>Option</small>
+        <small>Your Response</small>
+        <small class="toggleCorrect">Correct Response</small>
+        <small class="toggleFeedback">Feedback</small>
+      </div>
+      
+      <div class="subrow">
+        <div class="markdown"><p>Scopes</p>
+</div>
+        <div>No</div>
+        <div class="toggleCorrect">No</div>
+        <div class="toggleFeedback  markdown"><p>Scopes is not a required field when creating a new API</p>
+</div>
+      </div>
+      
+      <div class="subrow">
+        <div class="markdown"><p>Users</p>
+</div>
+        <div>No</div>
+        <div class="toggleCorrect">No</div>
+        <div class="toggleFeedback  markdown"><p>Users is not a required field when creating a new API</p>
+</div>
+      </div>
+      
+      <div class="subrow">
+        <div class="markdown"><p>Identifier</p>
+</div>
+        <div>No</div>
+        <div class="toggleCorrect">Yes</div>
+        <div class="toggleFeedback  markdown"><p>Identifier is a required field when creating a new API</p>
+</div>
+      </div>
+      
+    </div>
+
+    <div class="row">
+      <small>Score</small>
+      <div>0%</div>
+    </div>
+
+    <div class="toggleFeedback  row">
+      <small>Feedback</small>
+      
+      <div class="markdown"></div>
+      
+    </div>
+
+  </div>
+  <button class="prettyButton None " id="a6cdbfc3-1385-45e0-89bc-53bfce405571_toggleCorrectBtn" style="background-color: #5384A3">
+    <span class="toggleCorrect notVisible">Show Correct Answer</span>
+    <span class="toggleCorrect">Hide Correct Answer</span>
+  </button>
+  <button class="prettyButton None" id="a6cdbfc3-1385-45e0-89bc-53bfce405571_toggleFeedbackBtn" style="background-color: #5384A3">
+    <span class="toggleFeedback notVisible">Show Feedback</span>
+    <span class="toggleFeedback">Hide Feedback</span>
+  </button>
+</div>
+            <br>
+            <br>
+          
+        
+          
+            <script>
+  document.addEventListener('DOMContentLoaded', function contentLoaded() {
+    function toggleVisible(classSelector) {
+      var thingsToToggle = document.getElementById("71335b2e-ec8b-456d-9223-e9cd159b51c0").querySelectorAll(classSelector);
+
+      for (var i = 0; i < thingsToToggle.length; i++) {
+        if (thingsToToggle[i].className.indexOf('notVisible') !== -1) {
+          thingsToToggle[i].className = thingsToToggle[i].className.replace('notVisible', '').trim();
+        } else {
+          thingsToToggle[i].className += ' notVisible';
+        }
+      }
+    }
+
+    document.getElementById("71335b2e-ec8b-456d-9223-e9cd159b51c0_toggleCorrectBtn").addEventListener('click', function showCorrectHandler() {
+      return toggleVisible('.toggleCorrect');
+    });
+
+    document.getElementById("71335b2e-ec8b-456d-9223-e9cd159b51c0_toggleFeedbackBtn").addEventListener('click', function showFeedbackHandler() {
+      return toggleVisible('.toggleFeedback');
+    });
+  });
+</script>
+<div id="71335b2e-ec8b-456d-9223-e9cd159b51c0" class="container">
+  <span class="questionNumber">17.</span>
+  <div>
+    <div class="row">
+      <small>Question</small>
+      <div class="markdown"><p>Is this an appropriate Authentication Profile to select to allow users to authenticate using WebAuthn?</p>
+</div>
+    </div>
+
+    <div>
+      <div class="subrow lessPadding">
+        <small>Option</small>
+        <small>Your Response</small>
+        <small class="toggleCorrect">Correct Response</small>
+        <small class="toggleFeedback">Feedback</small>
+      </div>
+      
+      <div class="subrow">
+        <div class="markdown"><p>FIDO2 resident key</p>
+</div>
+        <div>No</div>
+        <div class="toggleCorrect">No</div>
+        <div class="toggleFeedback  markdown"><p>This is not an Authentication Profile</p>
+</div>
+      </div>
+      
+      <div class="subrow">
+        <div class="markdown"><p>Identifier First + Biometrics</p>
+</div>
+        <div>Yes</div>
+        <div class="toggleCorrect">Yes</div>
+        <div class="toggleFeedback  markdown"><p>This is the required Authenticaiton profile to use WebAuthn as documented in https://auth0.com/docs/secure/multi-factor-authentication/fido-authentication-with-webauthn/configure-webauthn-device-biometrics-for-mfa</p>
+</div>
+      </div>
+      
+    </div>
+
+    <div class="row">
+      <small>Score</small>
+      <div>100%</div>
+    </div>
+
+    <div class="toggleFeedback  row">
+      <small>Feedback</small>
+      
+      <div class="markdown"></div>
+      
+    </div>
+
+  </div>
+  <button class="prettyButton None " id="71335b2e-ec8b-456d-9223-e9cd159b51c0_toggleCorrectBtn" style="background-color: #5384A3">
+    <span class="toggleCorrect notVisible">Show Correct Answer</span>
+    <span class="toggleCorrect">Hide Correct Answer</span>
+  </button>
+  <button class="prettyButton None" id="71335b2e-ec8b-456d-9223-e9cd159b51c0_toggleFeedbackBtn" style="background-color: #5384A3">
+    <span class="toggleFeedback notVisible">Show Feedback</span>
+    <span class="toggleFeedback">Hide Feedback</span>
+  </button>
+</div>
+            <br>
+            <br>
+          
+        
+          
+            <script>
+  document.addEventListener('DOMContentLoaded', function contentLoaded() {
+    function toggleVisible(classSelector) {
+      var thingsToToggle = document.getElementById("18863572-7718-4c52-b66e-39b9a87f84f9").querySelectorAll(classSelector);
+
+      for (var i = 0; i < thingsToToggle.length; i++) {
+        if (thingsToToggle[i].className.indexOf('notVisible') !== -1) {
+          thingsToToggle[i].className = thingsToToggle[i].className.replace('notVisible', '').trim();
+        } else {
+          thingsToToggle[i].className += ' notVisible';
+        }
+      }
+    }
+
+    document.getElementById("18863572-7718-4c52-b66e-39b9a87f84f9_toggleCorrectBtn").addEventListener('click', function showCorrectHandler() {
+      return toggleVisible('.toggleCorrect');
+    });
+
+    document.getElementById("18863572-7718-4c52-b66e-39b9a87f84f9_toggleFeedbackBtn").addEventListener('click', function showFeedbackHandler() {
+      return toggleVisible('.toggleFeedback');
+    });
+  });
+</script>
+<div id="18863572-7718-4c52-b66e-39b9a87f84f9" class="container">
+  <span class="questionNumber">18.</span>
+  <div>
+    <div class="row">
+      <small>Question</small>
+      <div class="markdown"><p>Is this a characteristics of a “fair” password security strength in Auth0?</p>
+</div>
+    </div>
+
+    <div>
+      <div class="subrow lessPadding">
+        <small>Option</small>
+        <small>Your Response</small>
+        <small class="toggleCorrect">Correct Response</small>
+        <small class="toggleFeedback">Feedback</small>
+      </div>
+      
+      <div class="subrow">
+        <div class="markdown"><p>At least 8 characters including a lower-case letter, an upper-case letter, and a number</p>
+</div>
+        <div>Yes</div>
+        <div class="toggleCorrect">Yes</div>
+        <div class="toggleFeedback  markdown"><p>This is correct because, it is a characteristic of fair password policy</p>
+</div>
+      </div>
+      
+    </div>
+
+    <div class="row">
+      <small>Score</small>
+      <div>100%</div>
+    </div>
+
+    <div class="toggleFeedback  row">
+      <small>Feedback</small>
+      
+      <div class="markdown"></div>
+      
+    </div>
+
+  </div>
+  <button class="prettyButton None " id="18863572-7718-4c52-b66e-39b9a87f84f9_toggleCorrectBtn" style="background-color: #5384A3">
+    <span class="toggleCorrect notVisible">Show Correct Answer</span>
+    <span class="toggleCorrect">Hide Correct Answer</span>
+  </button>
+  <button class="prettyButton None" id="18863572-7718-4c52-b66e-39b9a87f84f9_toggleFeedbackBtn" style="background-color: #5384A3">
+    <span class="toggleFeedback notVisible">Show Feedback</span>
+    <span class="toggleFeedback">Hide Feedback</span>
+  </button>
+</div>
+            <br>
+            <br>
+          
+        
+          
+            <script>
+  document.addEventListener('DOMContentLoaded', function contentLoaded() {
+    function toggleVisible(classSelector) {
+      var thingsToToggle = document.getElementById("a4277159-9a23-4c1e-9094-78918e575396").querySelectorAll(classSelector);
+
+      for (var i = 0; i < thingsToToggle.length; i++) {
+        if (thingsToToggle[i].className.indexOf('notVisible') !== -1) {
+          thingsToToggle[i].className = thingsToToggle[i].className.replace('notVisible', '').trim();
+        } else {
+          thingsToToggle[i].className += ' notVisible';
+        }
+      }
+    }
+
+    document.getElementById("a4277159-9a23-4c1e-9094-78918e575396_toggleCorrectBtn").addEventListener('click', function showCorrectHandler() {
+      return toggleVisible('.toggleCorrect');
+    });
+
+    document.getElementById("a4277159-9a23-4c1e-9094-78918e575396_toggleFeedbackBtn").addEventListener('click', function showFeedbackHandler() {
+      return toggleVisible('.toggleFeedback');
+    });
+  });
+</script>
+<div id="a4277159-9a23-4c1e-9094-78918e575396" class="container">
+  <span class="questionNumber">19.</span>
+  <div>
+    <div class="row">
+      <small>Question</small>
+      <div class="markdown"><p>A customer needs to send emails using their own SMTP service.</p>
+<p>Is this the correct action an Auth0 developer should take?</p>
+</div>
+    </div>
+
+    <div>
+      <div class="subrow lessPadding">
+        <small>Option</small>
+        <small>Your Response</small>
+        <small class="toggleCorrect">Correct Response</small>
+        <small class="toggleFeedback">Feedback</small>
+      </div>
+      
+      <div class="subrow">
+        <div class="markdown"><p>Implement a Auth0 "Send email message" action to take full control of how Auth0 sends emails.</p>
+</div>
+        <div>No</div>
+        <div class="toggleCorrect">No</div>
+        <div class="toggleFeedback  markdown"><p>This is incorrect because email providers have explicit configuration. There is no concept of a "send email message" action.</p>
+</div>
+      </div>
+      
+      <div class="subrow">
+        <div class="markdown"><p>Configure a "Custom External SMTP" email provider within Auth0, and provide it with SMTP endpoint information and credentials.</p>
+</div>
+        <div>Yes</div>
+        <div class="toggleCorrect">Yes</div>
+        <div class="toggleFeedback  markdown"><p>This is correct because a custom external SMTP email provider is used to support this use case.</p>
+</div>
+      </div>
+      
+      <div class="subrow">
+        <div class="markdown"><p>Use the default Auth0 email service, and configure the customer's SMTP service as an SMTP relay.</p>
+</div>
+        <div>No</div>
+        <div class="toggleCorrect">No</div>
+        <div class="toggleFeedback  markdown"><p>This is incorrect because use of the default Auth0 email service is not supported for production purposes.</p>
+</div>
+      </div>
+      
+    </div>
+
+    <div class="row">
+      <small>Score</small>
+      <div>100%</div>
+    </div>
+
+    <div class="toggleFeedback  row">
+      <small>Feedback</small>
+      
+      <div class="markdown"></div>
+      
+    </div>
+
+  </div>
+  <button class="prettyButton None " id="a4277159-9a23-4c1e-9094-78918e575396_toggleCorrectBtn" style="background-color: #5384A3">
+    <span class="toggleCorrect notVisible">Show Correct Answer</span>
+    <span class="toggleCorrect">Hide Correct Answer</span>
+  </button>
+  <button class="prettyButton None" id="a4277159-9a23-4c1e-9094-78918e575396_toggleFeedbackBtn" style="background-color: #5384A3">
+    <span class="toggleFeedback notVisible">Show Feedback</span>
+    <span class="toggleFeedback">Hide Feedback</span>
+  </button>
+</div>
+            <br>
+            <br>
+          
+        
+          
+            <script>
+  document.addEventListener('DOMContentLoaded', function contentLoaded() {
+    function toggleVisible(classSelector) {
+      var thingsToToggle = document.getElementById("2bb1247d-4f2d-47d0-8dbb-7ee10ac48e7f").querySelectorAll(classSelector);
+
+      for (var i = 0; i < thingsToToggle.length; i++) {
+        if (thingsToToggle[i].className.indexOf('notVisible') !== -1) {
+          thingsToToggle[i].className = thingsToToggle[i].className.replace('notVisible', '').trim();
+        } else {
+          thingsToToggle[i].className += ' notVisible';
+        }
+      }
+    }
+
+    document.getElementById("2bb1247d-4f2d-47d0-8dbb-7ee10ac48e7f_toggleCorrectBtn").addEventListener('click', function showCorrectHandler() {
+      return toggleVisible('.toggleCorrect');
+    });
+
+    document.getElementById("2bb1247d-4f2d-47d0-8dbb-7ee10ac48e7f_toggleFeedbackBtn").addEventListener('click', function showFeedbackHandler() {
+      return toggleVisible('.toggleFeedback');
+    });
+  });
+</script>
+<div id="2bb1247d-4f2d-47d0-8dbb-7ee10ac48e7f" class="container">
+  <span class="questionNumber">20.</span>
+  <div>
+    <div class="row">
+      <small>Question</small>
+      <div class="markdown"><p>Is this a valid consideration when deciding whether to add a specific claim to an access token?</p>
+</div>
+    </div>
+
+    <div>
+      <div class="subrow lessPadding">
+        <small>Option</small>
+        <small>Your Response</small>
+        <small class="toggleCorrect">Correct Response</small>
+        <small class="toggleFeedback">Feedback</small>
+      </div>
+      
+      <div class="subrow">
+        <div class="markdown"><p>Whether the data exists in Auth0 or is retrieved from an external system</p>
+</div>
+        <div>Yes</div>
+        <div class="toggleCorrect">No</div>
+        <div class="toggleFeedback  markdown"><p>Regardless of the existence of the data in Auth0, it can be added to the claim</p>
+</div>
+      </div>
+      
+      <div class="subrow">
+        <div class="markdown"><p>Whether the claim is necessary for the resource server to perform the requested operation</p>
+</div>
+        <div>Yes</div>
+        <div class="toggleCorrect">Yes</div>
+        <div class="toggleFeedback  markdown"><p>It is not recommended to add unnecessary claim.</p>
+</div>
+      </div>
+      
+    </div>
+
+    <div class="row">
+      <small>Score</small>
+      <div>0%</div>
+    </div>
+
+    <div class="toggleFeedback  row">
+      <small>Feedback</small>
+      
+      <div class="markdown"></div>
+      
+    </div>
+
+  </div>
+  <button class="prettyButton None " id="2bb1247d-4f2d-47d0-8dbb-7ee10ac48e7f_toggleCorrectBtn" style="background-color: #5384A3">
+    <span class="toggleCorrect notVisible">Show Correct Answer</span>
+    <span class="toggleCorrect">Hide Correct Answer</span>
+  </button>
+  <button class="prettyButton None" id="2bb1247d-4f2d-47d0-8dbb-7ee10ac48e7f_toggleFeedbackBtn" style="background-color: #5384A3">
+    <span class="toggleFeedback notVisible">Show Feedback</span>
+    <span class="toggleFeedback">Hide Feedback</span>
+  </button>
+</div>
+            <br>
+            <br>
+          
+        
+          
+            <script>
+  document.addEventListener('DOMContentLoaded', function contentLoaded() {
+    function toggleVisible(classSelector) {
+      var thingsToToggle = document.getElementById("51f53aa8-8a74-4eb0-8eb9-c7540fe14bd6").querySelectorAll(classSelector);
+
+      for (var i = 0; i < thingsToToggle.length; i++) {
+        if (thingsToToggle[i].className.indexOf('notVisible') !== -1) {
+          thingsToToggle[i].className = thingsToToggle[i].className.replace('notVisible', '').trim();
+        } else {
+          thingsToToggle[i].className += ' notVisible';
+        }
+      }
+    }
+
+    document.getElementById("51f53aa8-8a74-4eb0-8eb9-c7540fe14bd6_toggleCorrectBtn").addEventListener('click', function showCorrectHandler() {
+      return toggleVisible('.toggleCorrect');
+    });
+
+    document.getElementById("51f53aa8-8a74-4eb0-8eb9-c7540fe14bd6_toggleFeedbackBtn").addEventListener('click', function showFeedbackHandler() {
+      return toggleVisible('.toggleFeedback');
+    });
+  });
+</script>
+<div id="51f53aa8-8a74-4eb0-8eb9-c7540fe14bd6" class="container">
+  <span class="questionNumber">21.</span>
+  <div>
+    <div class="row">
+      <small>Question</small>
+      <div class="markdown"><p>Is this a feature supported by Auth0 User Import/Export Extension?</p>
+</div>
+    </div>
+
+    <div>
+      <div class="subrow lessPadding">
+        <small>Option</small>
+        <small>Your Response</small>
+        <small class="toggleCorrect">Correct Response</small>
+        <small class="toggleFeedback">Feedback</small>
+      </div>
+      
+      <div class="subrow">
+        <div class="markdown"><p>Bulk Delete users in Auth0 database</p>
+</div>
+        <div>No</div>
+        <div class="toggleCorrect">No</div>
+        <div class="toggleFeedback  markdown"><p>The extension does not support bulk deletion</p>
+</div>
+      </div>
+      
+      <div class="subrow">
+        <div class="markdown"><p>Export the list of Autht0 administrators</p>
+</div>
+        <div>No</div>
+        <div class="toggleCorrect">No</div>
+        <div class="toggleFeedback  markdown"><p>The extension does not support exporting administrators list</p>
+</div>
+      </div>
+      
+      <div class="subrow">
+        <div class="markdown"><p>Create a new Auth0 database during user Import</p>
+</div>
+        <div>No</div>
+        <div class="toggleCorrect">No</div>
+        <div class="toggleFeedback  markdown"><p>The users will be imported to existing and selected database connection</p>
+</div>
+      </div>
+      
+      <div class="subrow">
+        <div class="markdown"><p>Search for and export specific users from Auth0 database</p>
+</div>
+        <div>Yes</div>
+        <div class="toggleCorrect">Yes</div>
+        <div class="toggleFeedback  markdown"><p>It supports searching for and exporting some (or all) of the Auth0 database users</p>
+</div>
+      </div>
+      
+    </div>
+
+    <div class="row">
+      <small>Score</small>
+      <div>100%</div>
+    </div>
+
+    <div class="toggleFeedback  row">
+      <small>Feedback</small>
+      
+      <div class="markdown"></div>
+      
+    </div>
+
+  </div>
+  <button class="prettyButton None " id="51f53aa8-8a74-4eb0-8eb9-c7540fe14bd6_toggleCorrectBtn" style="background-color: #5384A3">
+    <span class="toggleCorrect notVisible">Show Correct Answer</span>
+    <span class="toggleCorrect">Hide Correct Answer</span>
+  </button>
+  <button class="prettyButton None" id="51f53aa8-8a74-4eb0-8eb9-c7540fe14bd6_toggleFeedbackBtn" style="background-color: #5384A3">
+    <span class="toggleFeedback notVisible">Show Feedback</span>
+    <span class="toggleFeedback">Hide Feedback</span>
+  </button>
+</div>
+            <br>
+            <br>
+          
+        
+          
+            <script>
+  document.addEventListener('DOMContentLoaded', function contentLoaded() {
+    function toggleVisible(classSelector) {
+      var thingsToToggle = document.getElementById("581da097-e093-4579-a8d7-56005de551e8").querySelectorAll(classSelector);
+
+      for (var i = 0; i < thingsToToggle.length; i++) {
+        if (thingsToToggle[i].className.indexOf('notVisible') !== -1) {
+          thingsToToggle[i].className = thingsToToggle[i].className.replace('notVisible', '').trim();
+        } else {
+          thingsToToggle[i].className += ' notVisible';
+        }
+      }
+    }
+
+    document.getElementById("581da097-e093-4579-a8d7-56005de551e8_toggleCorrectBtn").addEventListener('click', function showCorrectHandler() {
+      return toggleVisible('.toggleCorrect');
+    });
+
+    document.getElementById("581da097-e093-4579-a8d7-56005de551e8_toggleFeedbackBtn").addEventListener('click', function showFeedbackHandler() {
+      return toggleVisible('.toggleFeedback');
+    });
+  });
+</script>
+<div id="581da097-e093-4579-a8d7-56005de551e8" class="container">
+  <span class="questionNumber">22.</span>
+  <div>
+    <div class="row">
+      <small>Question</small>
+      <div class="markdown"><p>An Auth0 developer needs to write a custom Action to add custom claims to ID and Access Tokens for an application.</p>
+<p>Is this a correct trigger to use?</p>
+</div>
+    </div>
+
+    <div>
+      <div class="subrow lessPadding">
+        <small>Option</small>
+        <small>Your Response</small>
+        <small class="toggleCorrect">Correct Response</small>
+        <small class="toggleFeedback">Feedback</small>
+      </div>
+      
+      <div class="subrow">
+        <div class="markdown"><p>post-login</p>
+</div>
+        <div>Yes</div>
+        <div class="toggleCorrect">Yes</div>
+        <div class="toggleFeedback  markdown"><p>This is the correct trigger</p>
+</div>
+      </div>
+      
+      <div class="subrow">
+        <div class="markdown"><p>credentials-exchange</p>
+</div>
+        <div>Yes</div>
+        <div class="toggleCorrect">No</div>
+        <div class="toggleFeedback  markdown"><p>This is an incorrect trigger</p>
+</div>
+      </div>
+      
+    </div>
+
+    <div class="row">
+      <small>Score</small>
+      <div>100%</div>
+    </div>
+
+    <div class="toggleFeedback  row">
+      <small>Feedback</small>
+      
+      <div class="markdown"></div>
+      
+    </div>
+
+  </div>
+  <button class="prettyButton None " id="581da097-e093-4579-a8d7-56005de551e8_toggleCorrectBtn" style="background-color: #5384A3">
+    <span class="toggleCorrect notVisible">Show Correct Answer</span>
+    <span class="toggleCorrect">Hide Correct Answer</span>
+  </button>
+  <button class="prettyButton None" id="581da097-e093-4579-a8d7-56005de551e8_toggleFeedbackBtn" style="background-color: #5384A3">
+    <span class="toggleFeedback notVisible">Show Feedback</span>
+    <span class="toggleFeedback">Hide Feedback</span>
+  </button>
+</div>
+            <br>
+            <br>
+          
+        
+          
+            <script>
+  document.addEventListener('DOMContentLoaded', function contentLoaded() {
+    function toggleVisible(classSelector) {
+      var thingsToToggle = document.getElementById("23134629-087c-4d95-9c66-2bee8ec57fa9").querySelectorAll(classSelector);
+
+      for (var i = 0; i < thingsToToggle.length; i++) {
+        if (thingsToToggle[i].className.indexOf('notVisible') !== -1) {
+          thingsToToggle[i].className = thingsToToggle[i].className.replace('notVisible', '').trim();
+        } else {
+          thingsToToggle[i].className += ' notVisible';
+        }
+      }
+    }
+
+    document.getElementById("23134629-087c-4d95-9c66-2bee8ec57fa9_toggleCorrectBtn").addEventListener('click', function showCorrectHandler() {
+      return toggleVisible('.toggleCorrect');
+    });
+
+    document.getElementById("23134629-087c-4d95-9c66-2bee8ec57fa9_toggleFeedbackBtn").addEventListener('click', function showFeedbackHandler() {
+      return toggleVisible('.toggleFeedback');
+    });
+  });
+</script>
+<div id="23134629-087c-4d95-9c66-2bee8ec57fa9" class="container">
+  <span class="questionNumber">23.</span>
+  <div>
+    <div class="row">
+      <small>Question</small>
+      <div class="markdown"><p>An Auth0 developer has implemented the resource owner password grant in their application, and the application server is sending token requests to Auth0. All IP-based controls are <strong>NOT</strong> working appropriately because visibility to the user's IP is lost. However, Auth0 identifies all users as coming from the application server's IP address.</p>
+<p>Is this an action the developer should take to resolve this issue?</p>
+</div>
+    </div>
+
+    <div>
+      <div class="subrow lessPadding">
+        <small>Option</small>
+        <small>Your Response</small>
+        <small class="toggleCorrect">Correct Response</small>
+        <small class="toggleFeedback">Feedback</small>
+      </div>
+      
+      <div class="subrow">
+        <div class="markdown"><p>There is no solution for this issue. Auth0 does <strong>NOT</strong> support any sort of client IP resolution.</p>
+</div>
+        <div>No</div>
+        <div class="toggleCorrect">No</div>
+        <div class="toggleFeedback  markdown"><p>This is incorrect because this issue may be solved using the auth0-forwarded-for header. Please see the referenced article for further detail.</p>
+</div>
+      </div>
+      
+      <div class="subrow">
+        <div class="markdown"><p>Configure the IP address of the application server as a "trusted gateway" within Auth0 network configuration, and then configure the application server to include the end user's IP address in the X-Forwarded-For HTTP header of the /token request.</p>
+</div>
+        <div>Yes</div>
+        <div class="toggleCorrect">No</div>
+        <div class="toggleFeedback  markdown"><p>This is incorrect because these are the steps to configure this use case in Okta Customer Identity and not in Auth0.</p>
+</div>
+      </div>
+      
+    </div>
+
+    <div class="row">
+      <small>Score</small>
+      <div>0%</div>
+    </div>
+
+    <div class="toggleFeedback  row">
+      <small>Feedback</small>
+      
+      <div class="markdown"></div>
+      
+    </div>
+
+  </div>
+  <button class="prettyButton None " id="23134629-087c-4d95-9c66-2bee8ec57fa9_toggleCorrectBtn" style="background-color: #5384A3">
+    <span class="toggleCorrect notVisible">Show Correct Answer</span>
+    <span class="toggleCorrect">Hide Correct Answer</span>
+  </button>
+  <button class="prettyButton None" id="23134629-087c-4d95-9c66-2bee8ec57fa9_toggleFeedbackBtn" style="background-color: #5384A3">
+    <span class="toggleFeedback notVisible">Show Feedback</span>
+    <span class="toggleFeedback">Hide Feedback</span>
+  </button>
+</div>
+            <br>
+            <br>
+          
+        
+          
+            <script>
+  document.addEventListener('DOMContentLoaded', function contentLoaded() {
+    function toggleVisible(classSelector) {
+      var thingsToToggle = document.getElementById("d592a56b-a403-47d2-ab30-f8b9fd986daf").querySelectorAll(classSelector);
+
+      for (var i = 0; i < thingsToToggle.length; i++) {
+        if (thingsToToggle[i].className.indexOf('notVisible') !== -1) {
+          thingsToToggle[i].className = thingsToToggle[i].className.replace('notVisible', '').trim();
+        } else {
+          thingsToToggle[i].className += ' notVisible';
+        }
+      }
+    }
+
+    document.getElementById("d592a56b-a403-47d2-ab30-f8b9fd986daf_toggleCorrectBtn").addEventListener('click', function showCorrectHandler() {
+      return toggleVisible('.toggleCorrect');
+    });
+
+    document.getElementById("d592a56b-a403-47d2-ab30-f8b9fd986daf_toggleFeedbackBtn").addEventListener('click', function showFeedbackHandler() {
+      return toggleVisible('.toggleFeedback');
+    });
+  });
+</script>
+<div id="d592a56b-a403-47d2-ab30-f8b9fd986daf" class="container">
+  <span class="questionNumber">24.</span>
+  <div>
+    <div class="row">
+      <small>Question</small>
+      <div class="markdown"><p>Can this requirement be satisfied by Progressive Profiling?</p>
+</div>
+    </div>
+
+    <div>
+      <div class="subrow lessPadding">
+        <small>Option</small>
+        <small>Your Response</small>
+        <small class="toggleCorrect">Correct Response</small>
+        <small class="toggleFeedback">Feedback</small>
+      </div>
+      
+      <div class="subrow">
+        <div class="markdown"><p>Provide assurance of the user's country of residence prior to opening a bank account, by progressively asking the user to provide their country of residence at login time.</p>
+</div>
+        <div>No</div>
+        <div class="toggleCorrect">No</div>
+        <div class="toggleFeedback  markdown"><p>Progressive profiling does not increase the assurance level of the information collected. Only identity proofing can increase the level of assurance of a given set of user information.</p>
+</div>
+      </div>
+      
+      <div class="subrow">
+        <div class="markdown"><p>Determine the user's favorite ice cream flavor so they may be offered a promotion on that flavor.</p>
+</div>
+        <div>No</div>
+        <div class="toggleCorrect">Yes</div>
+        <div class="toggleFeedback  markdown"><p>This is the correct answer. Progressive profiling is excellent for collecting preferential information about a user to be used to engage with that user.</p>
+</div>
+      </div>
+      
+    </div>
+
+    <div class="row">
+      <small>Score</small>
+      <div>0%</div>
+    </div>
+
+    <div class="toggleFeedback  row">
+      <small>Feedback</small>
+      
+      <div class="markdown"></div>
+      
+    </div>
+
+  </div>
+  <button class="prettyButton None " id="d592a56b-a403-47d2-ab30-f8b9fd986daf_toggleCorrectBtn" style="background-color: #5384A3">
+    <span class="toggleCorrect notVisible">Show Correct Answer</span>
+    <span class="toggleCorrect">Hide Correct Answer</span>
+  </button>
+  <button class="prettyButton None" id="d592a56b-a403-47d2-ab30-f8b9fd986daf_toggleFeedbackBtn" style="background-color: #5384A3">
+    <span class="toggleFeedback notVisible">Show Feedback</span>
+    <span class="toggleFeedback">Hide Feedback</span>
+  </button>
+</div>
+            <br>
+            <br>
+          
+        
+          
+            <script>
+  document.addEventListener('DOMContentLoaded', function contentLoaded() {
+    function toggleVisible(classSelector) {
+      var thingsToToggle = document.getElementById("b54cb4c3-341c-4e13-9b69-e44d7acc60c8").querySelectorAll(classSelector);
+
+      for (var i = 0; i < thingsToToggle.length; i++) {
+        if (thingsToToggle[i].className.indexOf('notVisible') !== -1) {
+          thingsToToggle[i].className = thingsToToggle[i].className.replace('notVisible', '').trim();
+        } else {
+          thingsToToggle[i].className += ' notVisible';
+        }
+      }
+    }
+
+    document.getElementById("b54cb4c3-341c-4e13-9b69-e44d7acc60c8_toggleCorrectBtn").addEventListener('click', function showCorrectHandler() {
+      return toggleVisible('.toggleCorrect');
+    });
+
+    document.getElementById("b54cb4c3-341c-4e13-9b69-e44d7acc60c8_toggleFeedbackBtn").addEventListener('click', function showFeedbackHandler() {
+      return toggleVisible('.toggleFeedback');
+    });
+  });
+</script>
+<div id="b54cb4c3-341c-4e13-9b69-e44d7acc60c8" class="container">
+  <span class="questionNumber">25.</span>
+  <div>
+    <div class="row">
+      <small>Question</small>
+      <div class="markdown"><p>Is this a configuration step that must be performed to integrate Auth0 with Active Directory (AD)?</p>
+</div>
+    </div>
+
+    <div>
+      <div class="subrow lessPadding">
+        <small>Option</small>
+        <small>Your Response</small>
+        <small class="toggleCorrect">Correct Response</small>
+        <small class="toggleFeedback">Feedback</small>
+      </div>
+      
+      <div class="subrow">
+        <div class="markdown"><p>Configure the firewall to allow the Auth0 tenant to open a connection to Active Directory</p>
+</div>
+        <div>Yes</div>
+        <div class="toggleCorrect">No</div>
+        <div class="toggleFeedback  markdown"><p>This configuration step is not required as there is no direct connection from the Auth0 tenant to AD</p>
+</div>
+      </div>
+      
+    </div>
+
+    <div class="row">
+      <small>Score</small>
+      <div>0%</div>
+    </div>
+
+    <div class="toggleFeedback  row">
+      <small>Feedback</small>
+      
+      <div class="markdown"></div>
+      
+    </div>
+
+  </div>
+  <button class="prettyButton None " id="b54cb4c3-341c-4e13-9b69-e44d7acc60c8_toggleCorrectBtn" style="background-color: #5384A3">
+    <span class="toggleCorrect notVisible">Show Correct Answer</span>
+    <span class="toggleCorrect">Hide Correct Answer</span>
+  </button>
+  <button class="prettyButton None" id="b54cb4c3-341c-4e13-9b69-e44d7acc60c8_toggleFeedbackBtn" style="background-color: #5384A3">
+    <span class="toggleFeedback notVisible">Show Feedback</span>
+    <span class="toggleFeedback">Hide Feedback</span>
+  </button>
+</div>
+            <br>
+            <br>
+          
+        
+          
+            <script>
+  document.addEventListener('DOMContentLoaded', function contentLoaded() {
+    function toggleVisible(classSelector) {
+      var thingsToToggle = document.getElementById("a7e2d481-c726-42f1-9756-caeb5a9c4c0b").querySelectorAll(classSelector);
+
+      for (var i = 0; i < thingsToToggle.length; i++) {
+        if (thingsToToggle[i].className.indexOf('notVisible') !== -1) {
+          thingsToToggle[i].className = thingsToToggle[i].className.replace('notVisible', '').trim();
+        } else {
+          thingsToToggle[i].className += ' notVisible';
+        }
+      }
+    }
+
+    document.getElementById("a7e2d481-c726-42f1-9756-caeb5a9c4c0b_toggleCorrectBtn").addEventListener('click', function showCorrectHandler() {
+      return toggleVisible('.toggleCorrect');
+    });
+
+    document.getElementById("a7e2d481-c726-42f1-9756-caeb5a9c4c0b_toggleFeedbackBtn").addEventListener('click', function showFeedbackHandler() {
+      return toggleVisible('.toggleFeedback');
+    });
+  });
+</script>
+<div id="a7e2d481-c726-42f1-9756-caeb5a9c4c0b" class="container">
+  <span class="questionNumber">26.</span>
+  <div>
+    <div class="row">
+      <small>Question</small>
+      <div class="markdown"><p>In the Auth0 tenant, the Identifier First + Biometrics flow has been enabled. A user has a WebAuthn/biometrics enrollment in his profile for a device (device_1).</p>
+<p>Is this the expected behavior when the user tries to log in from a new WebAuthn-capable device?</p>
+</div>
+    </div>
+
+    <div>
+      <div class="subrow lessPadding">
+        <small>Option</small>
+        <small>Your Response</small>
+        <small class="toggleCorrect">Correct Response</small>
+        <small class="toggleFeedback">Feedback</small>
+      </div>
+      
+      <div class="subrow">
+        <div class="markdown"><p>User will be prompted to login with WebAuthn first.</p>
+</div>
+        <div>Yes</div>
+        <div class="toggleCorrect">No</div>
+        <div class="toggleFeedback  markdown"><p>To avoid user enumeration attacks, Auth0 will only prompt users for biometrics as the first factor if users are logging in from a known device. If not, they'll need to login with the password.</p>
+</div>
+      </div>
+      
+      <div class="subrow">
+        <div class="markdown"><p>User is prompted to login with Password first.</p>
+</div>
+        <div>No</div>
+        <div class="toggleCorrect">Yes</div>
+        <div class="toggleFeedback  markdown"><p>To avoid user enumeration attacks, Auth0 will only prompt users for biometrics as the first factor if users are logging in from a known device. If not, they'll need to login with the password.</p>
+</div>
+      </div>
+      
+    </div>
+
+    <div class="row">
+      <small>Score</small>
+      <div>0%</div>
+    </div>
+
+    <div class="toggleFeedback  row">
+      <small>Feedback</small>
+      
+      <div class="markdown"></div>
+      
+    </div>
+
+  </div>
+  <button class="prettyButton None " id="a7e2d481-c726-42f1-9756-caeb5a9c4c0b_toggleCorrectBtn" style="background-color: #5384A3">
+    <span class="toggleCorrect notVisible">Show Correct Answer</span>
+    <span class="toggleCorrect">Hide Correct Answer</span>
+  </button>
+  <button class="prettyButton None" id="a7e2d481-c726-42f1-9756-caeb5a9c4c0b_toggleFeedbackBtn" style="background-color: #5384A3">
+    <span class="toggleFeedback notVisible">Show Feedback</span>
+    <span class="toggleFeedback">Hide Feedback</span>
+  </button>
+</div>
+            <br>
+            <br>
+          
+        
+          
+            <script>
+  document.addEventListener('DOMContentLoaded', function contentLoaded() {
+    function toggleVisible(classSelector) {
+      var thingsToToggle = document.getElementById("81530baa-9963-49e5-9e1c-652f43b0a06d").querySelectorAll(classSelector);
+
+      for (var i = 0; i < thingsToToggle.length; i++) {
+        if (thingsToToggle[i].className.indexOf('notVisible') !== -1) {
+          thingsToToggle[i].className = thingsToToggle[i].className.replace('notVisible', '').trim();
+        } else {
+          thingsToToggle[i].className += ' notVisible';
+        }
+      }
+    }
+
+    document.getElementById("81530baa-9963-49e5-9e1c-652f43b0a06d_toggleCorrectBtn").addEventListener('click', function showCorrectHandler() {
+      return toggleVisible('.toggleCorrect');
+    });
+
+    document.getElementById("81530baa-9963-49e5-9e1c-652f43b0a06d_toggleFeedbackBtn").addEventListener('click', function showFeedbackHandler() {
+      return toggleVisible('.toggleFeedback');
+    });
+  });
+</script>
+<div id="81530baa-9963-49e5-9e1c-652f43b0a06d" class="container">
+  <span class="questionNumber">27.</span>
+  <div>
+    <div class="row">
+      <small>Question</small>
+      <div class="markdown"><p>An Auth0 developer is implementing backchannel logout for an OIDC application.</p>
+<p>Is this statement accurate in relation to this scenario?</p>
+</div>
+    </div>
+
+    <div>
+      <div class="subrow lessPadding">
+        <small>Option</small>
+        <small>Your Response</small>
+        <small class="toggleCorrect">Correct Response</small>
+        <small class="toggleFeedback">Feedback</small>
+      </div>
+      
+      <div class="subrow">
+        <div class="markdown"><p>An Application in Auth0 dashboard can be configured to receive backchannel logout requests for specific Auth0 events</p>
+</div>
+        <div>Yes</div>
+        <div class="toggleCorrect">Yes</div>
+        <div class="toggleFeedback  markdown"><p>Initiators bind an OIDC Back-Channel Logout response to a session termination event. They capture the event and use it to trigger an OIDC logout token in all applications associated with the given session. Some of the currently supported initiators: rp-logout, idp-logout, password-changed, session-expired, session-revoked, account-deleted, email-identifier-changed</p>
+</div>
+      </div>
+      
+      <div class="subrow">
+        <div class="markdown"><p>An Application should rely on ID token and Logout token to implement backchannel logout</p>
+</div>
+        <div>Yes</div>
+        <div class="toggleCorrect">Yes</div>
+        <div class="toggleFeedback  markdown"><p>Auth0 sends ID token with shared session identifier(sid) for application during authentication, and along with Logout token to registered Logout URL based on events triggered by logout initiators.</p>
+</div>
+      </div>
+      
+      <div class="subrow">
+        <div class="markdown"><p>Application should rely on Access token and Logout token to implement backchannel logout</p>
+</div>
+        <div>No</div>
+        <div class="toggleCorrect">No</div>
+        <div class="toggleFeedback  markdown"><p>Auth0 sends ID token with shared session identifier(sid) for application during authentication, and along with Logout token to registered Logout URL based on events triggered by logout initiators.</p>
+</div>
+      </div>
+      
+    </div>
+
+    <div class="row">
+      <small>Score</small>
+      <div>100%</div>
+    </div>
+
+    <div class="toggleFeedback  row">
+      <small>Feedback</small>
+      
+      <div class="markdown"><p>Backchannel logout is an important feature to implement single logout when there are OIDC apps configured with Auth0.</p>
+</div>
+      
+    </div>
+
+  </div>
+  <button class="prettyButton None " id="81530baa-9963-49e5-9e1c-652f43b0a06d_toggleCorrectBtn" style="background-color: #5384A3">
+    <span class="toggleCorrect notVisible">Show Correct Answer</span>
+    <span class="toggleCorrect">Hide Correct Answer</span>
+  </button>
+  <button class="prettyButton None" id="81530baa-9963-49e5-9e1c-652f43b0a06d_toggleFeedbackBtn" style="background-color: #5384A3">
+    <span class="toggleFeedback notVisible">Show Feedback</span>
+    <span class="toggleFeedback">Hide Feedback</span>
+  </button>
+</div>
+            <br>
+            <br>
+          
+        
+          
+            <script>
+  document.addEventListener('DOMContentLoaded', function contentLoaded() {
+    function toggleVisible(classSelector) {
+      var thingsToToggle = document.getElementById("ff8eef2a-f6b8-43b5-94dc-389413d93eb5").querySelectorAll(classSelector);
+
+      for (var i = 0; i < thingsToToggle.length; i++) {
+        if (thingsToToggle[i].className.indexOf('notVisible') !== -1) {
+          thingsToToggle[i].className = thingsToToggle[i].className.replace('notVisible', '').trim();
+        } else {
+          thingsToToggle[i].className += ' notVisible';
+        }
+      }
+    }
+
+    document.getElementById("ff8eef2a-f6b8-43b5-94dc-389413d93eb5_toggleCorrectBtn").addEventListener('click', function showCorrectHandler() {
+      return toggleVisible('.toggleCorrect');
+    });
+
+    document.getElementById("ff8eef2a-f6b8-43b5-94dc-389413d93eb5_toggleFeedbackBtn").addEventListener('click', function showFeedbackHandler() {
+      return toggleVisible('.toggleFeedback');
+    });
+  });
+</script>
+<div id="ff8eef2a-f6b8-43b5-94dc-389413d93eb5" class="container">
+  <span class="questionNumber">28.</span>
+  <div>
+    <div class="row">
+      <small>Question</small>
+      <div class="markdown"><p>Auth0 supports the Liquid template language for dynamically generating email content and, enhancing HTML functionality. An Auth0 developer wants to define the subject of the welcome email based on the user's first and last names.</p>
+<p>For the Auth0 user profile with first name John and last name Smith, the subject in the email would be:<br>
+Welcome JOHN.SMITH !</p>
+<p>Is this an accurate way to use Liquid markup to achieve the desired result?</p>
+</div>
+    </div>
+
+    <div>
+      <div class="subrow lessPadding">
+        <small>Option</small>
+        <small>Your Response</small>
+        <small class="toggleCorrect">Correct Response</small>
+        <small class="toggleFeedback">Feedback</small>
+      </div>
+      
+      <div class="subrow">
+        <div class="markdown"><p>Welcome { user.given_name  | upcase}.{ user.family_name | upcase} !</p>
+</div>
+        <div>Yes</div>
+        <div class="toggleCorrect">No</div>
+        <div class="toggleFeedback  markdown"><p>{  } is not a correct markup.</p>
+</div>
+      </div>
+      
+    </div>
+
+    <div class="row">
+      <small>Score</small>
+      <div>0%</div>
+    </div>
+
+    <div class="toggleFeedback  row">
+      <small>Feedback</small>
+      
+      <div class="markdown"></div>
+      
+    </div>
+
+  </div>
+  <button class="prettyButton None " id="ff8eef2a-f6b8-43b5-94dc-389413d93eb5_toggleCorrectBtn" style="background-color: #5384A3">
+    <span class="toggleCorrect notVisible">Show Correct Answer</span>
+    <span class="toggleCorrect">Hide Correct Answer</span>
+  </button>
+  <button class="prettyButton None" id="ff8eef2a-f6b8-43b5-94dc-389413d93eb5_toggleFeedbackBtn" style="background-color: #5384A3">
+    <span class="toggleFeedback notVisible">Show Feedback</span>
+    <span class="toggleFeedback">Hide Feedback</span>
+  </button>
+</div>
+            <br>
+            <br>
+          
+        
+          
+            <script>
+  document.addEventListener('DOMContentLoaded', function contentLoaded() {
+    function toggleVisible(classSelector) {
+      var thingsToToggle = document.getElementById("d5147229-8dd3-478f-82c2-3887fac04bf0").querySelectorAll(classSelector);
+
+      for (var i = 0; i < thingsToToggle.length; i++) {
+        if (thingsToToggle[i].className.indexOf('notVisible') !== -1) {
+          thingsToToggle[i].className = thingsToToggle[i].className.replace('notVisible', '').trim();
+        } else {
+          thingsToToggle[i].className += ' notVisible';
+        }
+      }
+    }
+
+    document.getElementById("d5147229-8dd3-478f-82c2-3887fac04bf0_toggleCorrectBtn").addEventListener('click', function showCorrectHandler() {
+      return toggleVisible('.toggleCorrect');
+    });
+
+    document.getElementById("d5147229-8dd3-478f-82c2-3887fac04bf0_toggleFeedbackBtn").addEventListener('click', function showFeedbackHandler() {
+      return toggleVisible('.toggleFeedback');
+    });
+  });
+</script>
+<div id="d5147229-8dd3-478f-82c2-3887fac04bf0" class="container">
+  <span class="questionNumber">29.</span>
+  <div>
+    <div class="row">
+      <small>Question</small>
+      <div class="markdown"><p>An Auth0 developer needs to ensure that an application's most sensitive functions can only be executed while a customer is on a trusted network.</p>
+<p>Is this how this requirement can be satisfied?</p>
+</div>
+    </div>
+
+    <div>
+      <div class="subrow lessPadding">
+        <small>Option</small>
+        <small>Your Response</small>
+        <small class="toggleCorrect">Correct Response</small>
+        <small class="toggleFeedback">Feedback</small>
+      </div>
+      
+      <div class="subrow">
+        <div class="markdown"><p>Add the trusted network IP range to the Auth0 application's 'Allowed Web Origins' setting.</p>
+</div>
+        <div>No</div>
+        <div class="toggleCorrect">No</div>
+        <div class="toggleFeedback  markdown"><p>This is incorrect. Allowed Web Origins have nothing to do with the level of access granted, but are used in cross-origin authentication requests as well as device code grants to determine which network hostnames are allowed to use those flows.</p>
+</div>
+      </div>
+      
+      <div class="subrow">
+        <div class="markdown"><p>Implement an application sign-on policy and applicable token hook to ensure that sensitive scopes are only included when the request is coming from the trusted network.</p>
+</div>
+        <div>No</div>
+        <div class="toggleCorrect">No</div>
+        <div class="toggleFeedback  markdown"><p>This is incorrect. These are the steps that would be taken in an Okta Customer Identity implementation, not Auth0.</p>
+</div>
+      </div>
+      
+      <div class="subrow">
+        <div class="markdown"><p>Implement a Auth0 post-login action to inspect the incoming IP address, and only include sensitive scopes when the inbound request is coming from the trusted network.</p>
+</div>
+        <div>Yes</div>
+        <div class="toggleCorrect">Yes</div>
+        <div class="toggleFeedback  markdown"><p>This is correct. Auth0 post-login actions are run not only upon initial authentication, but also at token refresh time, enabling near real-time access control based upon the network location of the user.</p>
+</div>
+      </div>
+      
+      <div class="subrow">
+        <div class="markdown"><p>Implement an Okta FGA policy to allow/deny sensitive transactions at runtime.</p>
+</div>
+        <div>No</div>
+        <div class="toggleCorrect">No</div>
+        <div class="toggleFeedback  markdown"><p>This is incorrect. While the Okta FGA platform could be used to satisfy this use case, FGA does not have the concept of a policy for controlling access at the network level.</p>
+</div>
+      </div>
+      
+    </div>
+
+    <div class="row">
+      <small>Score</small>
+      <div>100%</div>
+    </div>
+
+    <div class="toggleFeedback  row">
+      <small>Feedback</small>
+      
+      <div class="markdown"></div>
+      
+    </div>
+
+  </div>
+  <button class="prettyButton None " id="d5147229-8dd3-478f-82c2-3887fac04bf0_toggleCorrectBtn" style="background-color: #5384A3">
+    <span class="toggleCorrect notVisible">Show Correct Answer</span>
+    <span class="toggleCorrect">Hide Correct Answer</span>
+  </button>
+  <button class="prettyButton None" id="d5147229-8dd3-478f-82c2-3887fac04bf0_toggleFeedbackBtn" style="background-color: #5384A3">
+    <span class="toggleFeedback notVisible">Show Feedback</span>
+    <span class="toggleFeedback">Hide Feedback</span>
+  </button>
+</div>
+            <br>
+            <br>
+          
+        
+          
+            <script>
+  document.addEventListener('DOMContentLoaded', function contentLoaded() {
+    function toggleVisible(classSelector) {
+      var thingsToToggle = document.getElementById("16324fc8-4fbe-4939-9e80-24f2462ce480").querySelectorAll(classSelector);
+
+      for (var i = 0; i < thingsToToggle.length; i++) {
+        if (thingsToToggle[i].className.indexOf('notVisible') !== -1) {
+          thingsToToggle[i].className = thingsToToggle[i].className.replace('notVisible', '').trim();
+        } else {
+          thingsToToggle[i].className += ' notVisible';
+        }
+      }
+    }
+
+    document.getElementById("16324fc8-4fbe-4939-9e80-24f2462ce480_toggleCorrectBtn").addEventListener('click', function showCorrectHandler() {
+      return toggleVisible('.toggleCorrect');
+    });
+
+    document.getElementById("16324fc8-4fbe-4939-9e80-24f2462ce480_toggleFeedbackBtn").addEventListener('click', function showFeedbackHandler() {
+      return toggleVisible('.toggleFeedback');
+    });
+  });
+</script>
+<div id="16324fc8-4fbe-4939-9e80-24f2462ce480" class="container">
+  <span class="questionNumber">30.</span>
+  <div>
+    <div class="row">
+      <small>Question</small>
+      <div class="markdown"><p>Is this a preferred method to implement the Okta Workforce Identity as an identity provider in Auth0?</p>
+</div>
+    </div>
+
+    <div>
+      <div class="subrow lessPadding">
+        <small>Option</small>
+        <small>Your Response</small>
+        <small class="toggleCorrect">Correct Response</small>
+        <small class="toggleFeedback">Feedback</small>
+      </div>
+      
+      <div class="subrow">
+        <div class="markdown"><p>Use the Okta Workforce Enterprise Connection</p>
+</div>
+        <div>Yes</div>
+        <div class="toggleCorrect">Yes</div>
+        <div class="toggleFeedback  markdown"><p>Inbound IDPs into Auth0 are configured as “connections” within Auth0</p>
+</div>
+      </div>
+      
+    </div>
+
+    <div class="row">
+      <small>Score</small>
+      <div>100%</div>
+    </div>
+
+    <div class="toggleFeedback  row">
+      <small>Feedback</small>
+      
+      <div class="markdown"></div>
+      
+    </div>
+
+  </div>
+  <button class="prettyButton None " id="16324fc8-4fbe-4939-9e80-24f2462ce480_toggleCorrectBtn" style="background-color: #5384A3">
+    <span class="toggleCorrect notVisible">Show Correct Answer</span>
+    <span class="toggleCorrect">Hide Correct Answer</span>
+  </button>
+  <button class="prettyButton None" id="16324fc8-4fbe-4939-9e80-24f2462ce480_toggleFeedbackBtn" style="background-color: #5384A3">
+    <span class="toggleFeedback notVisible">Show Feedback</span>
+    <span class="toggleFeedback">Hide Feedback</span>
+  </button>
+</div>
+            <br>
+            <br>
+          
+        
+          
+            <script>
+  document.addEventListener('DOMContentLoaded', function contentLoaded() {
+    function toggleVisible(classSelector) {
+      var thingsToToggle = document.getElementById("7078e0e8-dda8-42fa-8b59-f3ba8805948f").querySelectorAll(classSelector);
+
+      for (var i = 0; i < thingsToToggle.length; i++) {
+        if (thingsToToggle[i].className.indexOf('notVisible') !== -1) {
+          thingsToToggle[i].className = thingsToToggle[i].className.replace('notVisible', '').trim();
+        } else {
+          thingsToToggle[i].className += ' notVisible';
+        }
+      }
+    }
+
+    document.getElementById("7078e0e8-dda8-42fa-8b59-f3ba8805948f_toggleCorrectBtn").addEventListener('click', function showCorrectHandler() {
+      return toggleVisible('.toggleCorrect');
+    });
+
+    document.getElementById("7078e0e8-dda8-42fa-8b59-f3ba8805948f_toggleFeedbackBtn").addEventListener('click', function showFeedbackHandler() {
+      return toggleVisible('.toggleFeedback');
+    });
+  });
+</script>
+<div id="7078e0e8-dda8-42fa-8b59-f3ba8805948f" class="container">
+  <span class="questionNumber">31.</span>
+  <div>
+    <div class="row">
+      <small>Question</small>
+      <div class="markdown"><p>Auth0 is used to enrich a user's profile with a list of product licenses that the customer has purchased. This list of licenses is used to determine the user's access.</p>
+<p>Is this where the list of licenses should be stored in the user's profile?</p>
+</div>
+    </div>
+
+    <div>
+      <div class="subrow lessPadding">
+        <small>Option</small>
+        <small>Your Response</small>
+        <small class="toggleCorrect">Correct Response</small>
+        <small class="toggleFeedback">Feedback</small>
+      </div>
+      
+      <div class="subrow">
+        <div class="markdown"><p>As an attribute of the user's user_metadata object.</p>
+</div>
+        <div>No</div>
+        <div class="toggleCorrect">No</div>
+        <div class="toggleFeedback  markdown"><p>This is incorrect because the purpose of the user_metadata object is to store profile information that is readily changed by the user. It is not an appropriate place to store authorization data.</p>
+</div>
+      </div>
+      
+      <div class="subrow">
+        <div class="markdown"><p>As an attribute of the user's root profile.</p>
+</div>
+        <div>No</div>
+        <div class="toggleCorrect">No</div>
+        <div class="toggleFeedback  markdown"><p>This is incorrect because the user's root profile is a very limited subset of information that is not intended to be manipulated by Auth0 actions.</p>
+</div>
+      </div>
+      
+      <div class="subrow">
+        <div class="markdown"><p>As items within the user's "permissions" list.</p>
+</div>
+        <div>No</div>
+        <div class="toggleCorrect">No</div>
+        <div class="toggleFeedback  markdown"><p>This is incorrect because there is no concept of a user-permissions list within the Auth0 platform.</p>
+</div>
+      </div>
+      
+      <div class="subrow">
+        <div class="markdown"><p>As an attribute of the user's app_metadata object.</p>
+</div>
+        <div>Yes</div>
+        <div class="toggleCorrect">Yes</div>
+        <div class="toggleFeedback  markdown"><p>This is correct because the app_metadata object is used to store authoritative information that is defined by an organization's business processes, and is often used to store authorization information- to be considered and potentially included within id and access tokens minted by the platform.</p>
+</div>
+      </div>
+      
+    </div>
+
+    <div class="row">
+      <small>Score</small>
+      <div>100%</div>
+    </div>
+
+    <div class="toggleFeedback  row">
+      <small>Feedback</small>
+      
+      <div class="markdown"></div>
+      
+    </div>
+
+  </div>
+  <button class="prettyButton None " id="7078e0e8-dda8-42fa-8b59-f3ba8805948f_toggleCorrectBtn" style="background-color: #5384A3">
+    <span class="toggleCorrect notVisible">Show Correct Answer</span>
+    <span class="toggleCorrect">Hide Correct Answer</span>
+  </button>
+  <button class="prettyButton None" id="7078e0e8-dda8-42fa-8b59-f3ba8805948f_toggleFeedbackBtn" style="background-color: #5384A3">
+    <span class="toggleFeedback notVisible">Show Feedback</span>
+    <span class="toggleFeedback">Hide Feedback</span>
+  </button>
+</div>
+            <br>
+            <br>
+          
+        
+          
+            <script>
+  document.addEventListener('DOMContentLoaded', function contentLoaded() {
+    function toggleVisible(classSelector) {
+      var thingsToToggle = document.getElementById("9ff379be-ffc8-4bba-9ba6-8a131c4c4c64").querySelectorAll(classSelector);
+
+      for (var i = 0; i < thingsToToggle.length; i++) {
+        if (thingsToToggle[i].className.indexOf('notVisible') !== -1) {
+          thingsToToggle[i].className = thingsToToggle[i].className.replace('notVisible', '').trim();
+        } else {
+          thingsToToggle[i].className += ' notVisible';
+        }
+      }
+    }
+
+    document.getElementById("9ff379be-ffc8-4bba-9ba6-8a131c4c4c64_toggleCorrectBtn").addEventListener('click', function showCorrectHandler() {
+      return toggleVisible('.toggleCorrect');
+    });
+
+    document.getElementById("9ff379be-ffc8-4bba-9ba6-8a131c4c4c64_toggleFeedbackBtn").addEventListener('click', function showFeedbackHandler() {
+      return toggleVisible('.toggleFeedback');
+    });
+  });
+</script>
+<div id="9ff379be-ffc8-4bba-9ba6-8a131c4c4c64" class="container">
+  <span class="questionNumber">32.</span>
+  <div>
+    <div class="row">
+      <small>Question</small>
+      <div class="markdown"><p>Is this a valid use case to use Organizations in Auth0?</p>
+</div>
+    </div>
+
+    <div>
+      <div class="subrow lessPadding">
+        <small>Option</small>
+        <small>Your Response</small>
+        <small class="toggleCorrect">Correct Response</small>
+        <small class="toggleFeedback">Feedback</small>
+      </div>
+      
+      <div class="subrow">
+        <div class="markdown"><p>Create separate Organizations to represent Development, Testing and Production environments in a single Auth0 tenant</p>
+</div>
+        <div>No</div>
+        <div class="toggleCorrect">No</div>
+        <div class="toggleFeedback  markdown"><p>This is not a recommended use case for Organizations. Separate Auth0 tenants should be used for this purpose</p>
+</div>
+      </div>
+      
+      <div class="subrow">
+        <div class="markdown"><p>Support delegated administration use cases allowing administrators from a B2B partner to manage their own user accounts with the Auth0 tenant</p>
+</div>
+        <div>Yes</div>
+        <div class="toggleCorrect">Yes</div>
+        <div class="toggleFeedback  markdown"><p>This is a recommended use case for Organizations in the documentation</p>
+</div>
+      </div>
+      
+      <div class="subrow">
+        <div class="markdown"><p>Create separate Organizations to logically separate user accounts for different customers in a B2B use case</p>
+</div>
+        <div>Yes</div>
+        <div class="toggleCorrect">Yes</div>
+        <div class="toggleFeedback  markdown"><p>This is a recommended use case for Organizations in the documentation</p>
+</div>
+      </div>
+      
+    </div>
+
+    <div class="row">
+      <small>Score</small>
+      <div>100%</div>
+    </div>
+
+    <div class="toggleFeedback  row">
+      <small>Feedback</small>
+      
+      <div class="markdown"></div>
+      
+    </div>
+
+  </div>
+  <button class="prettyButton None " id="9ff379be-ffc8-4bba-9ba6-8a131c4c4c64_toggleCorrectBtn" style="background-color: #5384A3">
+    <span class="toggleCorrect notVisible">Show Correct Answer</span>
+    <span class="toggleCorrect">Hide Correct Answer</span>
+  </button>
+  <button class="prettyButton None" id="9ff379be-ffc8-4bba-9ba6-8a131c4c4c64_toggleFeedbackBtn" style="background-color: #5384A3">
+    <span class="toggleFeedback notVisible">Show Feedback</span>
+    <span class="toggleFeedback">Hide Feedback</span>
+  </button>
+</div>
+            <br>
+            <br>
+          
+        
+          
+            <script>
+  document.addEventListener('DOMContentLoaded', function contentLoaded() {
+    function toggleVisible(classSelector) {
+      var thingsToToggle = document.getElementById("a4aff3e3-c79f-44fa-9ff3-aa814f445d0e").querySelectorAll(classSelector);
+
+      for (var i = 0; i < thingsToToggle.length; i++) {
+        if (thingsToToggle[i].className.indexOf('notVisible') !== -1) {
+          thingsToToggle[i].className = thingsToToggle[i].className.replace('notVisible', '').trim();
+        } else {
+          thingsToToggle[i].className += ' notVisible';
+        }
+      }
+    }
+
+    document.getElementById("a4aff3e3-c79f-44fa-9ff3-aa814f445d0e_toggleCorrectBtn").addEventListener('click', function showCorrectHandler() {
+      return toggleVisible('.toggleCorrect');
+    });
+
+    document.getElementById("a4aff3e3-c79f-44fa-9ff3-aa814f445d0e_toggleFeedbackBtn").addEventListener('click', function showFeedbackHandler() {
+      return toggleVisible('.toggleFeedback');
+    });
+  });
+</script>
+<div id="a4aff3e3-c79f-44fa-9ff3-aa814f445d0e" class="container">
+  <span class="questionNumber">33.</span>
+  <div>
+    <div class="row">
+      <small>Question</small>
+      <div class="markdown"><p>A customer needs to secure user access to their APIs using RBAC principles.</p>
+<p>Is this what an Auth0 developer should perform to meet this requirement?</p>
+</div>
+    </div>
+
+    <div>
+      <div class="subrow lessPadding">
+        <small>Option</small>
+        <small>Your Response</small>
+        <small class="toggleCorrect">Correct Response</small>
+        <small class="toggleFeedback">Feedback</small>
+      </div>
+      
+      <div class="subrow">
+        <div class="markdown"><p>Use the Auth0 AD/LDAP agent to bulk import AD group definitions into Auth0. RBAC concepts can be implemented using nested group memberships within AD.</p>
+</div>
+        <div>No</div>
+        <div class="toggleCorrect">No</div>
+        <div class="toggleFeedback  markdown"><p>This is incorrect. The AD/LDAP agent does not import group definitions into Auth0 as shown, and does not use group concepts to implement RBAC- instead opting for a more direct user-api-role approach.</p>
+</div>
+      </div>
+      
+      <div class="subrow">
+        <div class="markdown"><p>Create groups within Auth0, along with the appropriate group rules to enable users to be automatically assigned to those groups. Next, a Auth0 post-login action is to be used to inspect the user's group membership at runtime.</p>
+</div>
+        <div>No</div>
+        <div class="toggleCorrect">No</div>
+        <div class="toggleFeedback  markdown"><p>This is incorrect. Auth0 does not use groups and group definitions to implement RBAC principles.</p>
+</div>
+      </div>
+      
+      <div class="subrow">
+        <div class="markdown"><p>Enable RBAC handling for the API/audience within Auth0. Next, configure a role within Auth0, assigning both permissions and users to the role.</p>
+</div>
+        <div>Yes</div>
+        <div class="toggleCorrect">Yes</div>
+        <div class="toggleFeedback  markdown"><p>This is correct. All actions described may be done either through the Auth0 administrative console, or via API, according to the workflows required by the customer.</p>
+</div>
+      </div>
+      
+    </div>
+
+    <div class="row">
+      <small>Score</small>
+      <div>100%</div>
+    </div>
+
+    <div class="toggleFeedback  row">
+      <small>Feedback</small>
+      
+      <div class="markdown"></div>
+      
+    </div>
+
+  </div>
+  <button class="prettyButton None " id="a4aff3e3-c79f-44fa-9ff3-aa814f445d0e_toggleCorrectBtn" style="background-color: #5384A3">
+    <span class="toggleCorrect notVisible">Show Correct Answer</span>
+    <span class="toggleCorrect">Hide Correct Answer</span>
+  </button>
+  <button class="prettyButton None" id="a4aff3e3-c79f-44fa-9ff3-aa814f445d0e_toggleFeedbackBtn" style="background-color: #5384A3">
+    <span class="toggleFeedback notVisible">Show Feedback</span>
+    <span class="toggleFeedback">Hide Feedback</span>
+  </button>
+</div>
+            <br>
+            <br>
+          
+        
+          
+            <script>
+  document.addEventListener('DOMContentLoaded', function contentLoaded() {
+    function toggleVisible(classSelector) {
+      var thingsToToggle = document.getElementById("739a1f05-16ab-46a7-b5e7-a3b90b564bdd").querySelectorAll(classSelector);
+
+      for (var i = 0; i < thingsToToggle.length; i++) {
+        if (thingsToToggle[i].className.indexOf('notVisible') !== -1) {
+          thingsToToggle[i].className = thingsToToggle[i].className.replace('notVisible', '').trim();
+        } else {
+          thingsToToggle[i].className += ' notVisible';
+        }
+      }
+    }
+
+    document.getElementById("739a1f05-16ab-46a7-b5e7-a3b90b564bdd_toggleCorrectBtn").addEventListener('click', function showCorrectHandler() {
+      return toggleVisible('.toggleCorrect');
+    });
+
+    document.getElementById("739a1f05-16ab-46a7-b5e7-a3b90b564bdd_toggleFeedbackBtn").addEventListener('click', function showFeedbackHandler() {
+      return toggleVisible('.toggleFeedback');
+    });
+  });
+</script>
+<div id="739a1f05-16ab-46a7-b5e7-a3b90b564bdd" class="container">
+  <span class="questionNumber">34.</span>
+  <div>
+    <div class="row">
+      <small>Question</small>
+      <div class="markdown"><p>A customer needs to leverage user preference information in its marketing platform to provide a tailored user experience for their customers.</p>
+<p>Is this an approach an Auth0 developer should take in order to fulfil the customer's requirement?</p>
+</div>
+    </div>
+
+    <div>
+      <div class="subrow lessPadding">
+        <small>Option</small>
+        <small>Your Response</small>
+        <small class="toggleCorrect">Correct Response</small>
+        <small class="toggleFeedback">Feedback</small>
+      </div>
+      
+      <div class="subrow">
+        <div class="markdown"><p>Extract a daily CSV file from the marketing platform, and bulk load the marketing data into Auth0 using the import API.</p>
+</div>
+        <div>No</div>
+        <div class="toggleCorrect">No</div>
+        <div class="toggleFeedback  markdown"><p>This is incorrect for two reasons. First, due to the dynamic nature of marketing analytic information, it is not best practice to rely on daily CSV extracts for such information. Second, Auth0 does not have any "import API" that could be used to import such data.</p>
+</div>
+      </div>
+      
+      <div class="subrow">
+        <div class="markdown"><p>Create a custom DB connection in Auth0, and integrate it into the marketing platform to pull customer preference data.</p>
+</div>
+        <div>No</div>
+        <div class="toggleCorrect">No</div>
+        <div class="toggleFeedback  markdown"><p>This is incorrect because custom DB connections in Auth0 are intended to be used for login credentials. Since no login credentials exist in the marketing database, a custom database is not an appropriate solution for this scenario.</p>
+</div>
+      </div>
+      
+      <div class="subrow">
+        <div class="markdown"><p>Implement a Auth0 post-login action to make an API call to the marketing platform to retrieve the most recent customer preference data. This data can then be stored as part of the user's profile, and included in any tokens minted for any application.</p>
+</div>
+        <div>Yes</div>
+        <div class="toggleCorrect">Yes</div>
+        <div class="toggleFeedback  markdown"><p>This is correct because Auth0 actions are intended for retrieving and updating external attribute stores such as marketing platforms.</p>
+</div>
+      </div>
+      
+      <div class="subrow">
+        <div class="markdown"><p>Implement a Auth0 redirect action to bring the user to a form so they can input their preferences again.</p>
+</div>
+        <div>Yes</div>
+        <div class="toggleCorrect">No</div>
+        <div class="toggleFeedback  markdown"><p>This is incorrect because the purpose of the marketing platform is to avoid any additional user input. Furthermore, some of the preference information may be inferred from a vast set of analyzed data, and may not be known to the user.</p>
+</div>
+      </div>
+      
+    </div>
+
+    <div class="row">
+      <small>Score</small>
+      <div>100%</div>
+    </div>
+
+    <div class="toggleFeedback  row">
+      <small>Feedback</small>
+      
+      <div class="markdown"></div>
+      
+    </div>
+
+  </div>
+  <button class="prettyButton None " id="739a1f05-16ab-46a7-b5e7-a3b90b564bdd_toggleCorrectBtn" style="background-color: #5384A3">
+    <span class="toggleCorrect notVisible">Show Correct Answer</span>
+    <span class="toggleCorrect">Hide Correct Answer</span>
+  </button>
+  <button class="prettyButton None" id="739a1f05-16ab-46a7-b5e7-a3b90b564bdd_toggleFeedbackBtn" style="background-color: #5384A3">
+    <span class="toggleFeedback notVisible">Show Feedback</span>
+    <span class="toggleFeedback">Hide Feedback</span>
+  </button>
+</div>
+            <br>
+            <br>
+          
+        
+          
+            <script>
+  document.addEventListener('DOMContentLoaded', function contentLoaded() {
+    function toggleVisible(classSelector) {
+      var thingsToToggle = document.getElementById("b7ea2acd-f733-4138-83c8-69e3a4efb5f7").querySelectorAll(classSelector);
+
+      for (var i = 0; i < thingsToToggle.length; i++) {
+        if (thingsToToggle[i].className.indexOf('notVisible') !== -1) {
+          thingsToToggle[i].className = thingsToToggle[i].className.replace('notVisible', '').trim();
+        } else {
+          thingsToToggle[i].className += ' notVisible';
+        }
+      }
+    }
+
+    document.getElementById("b7ea2acd-f733-4138-83c8-69e3a4efb5f7_toggleCorrectBtn").addEventListener('click', function showCorrectHandler() {
+      return toggleVisible('.toggleCorrect');
+    });
+
+    document.getElementById("b7ea2acd-f733-4138-83c8-69e3a4efb5f7_toggleFeedbackBtn").addEventListener('click', function showFeedbackHandler() {
+      return toggleVisible('.toggleFeedback');
+    });
+  });
+</script>
+<div id="b7ea2acd-f733-4138-83c8-69e3a4efb5f7" class="container">
+  <span class="questionNumber">35.</span>
+  <div>
+    <div class="row">
+      <small>Question</small>
+      <div class="markdown"><p>An Auth0 developer is implementing passwordless login using Authentication API. The developer has invoked an endpoint to start the authentication and send a verification code to the user using SMS.</p>
+<p>Is this the appropriate next step to verify the code and authenticate the user?</p>
+</div>
+    </div>
+
+    <div>
+      <div class="subrow lessPadding">
+        <small>Option</small>
+        <small>Your Response</small>
+        <small class="toggleCorrect">Correct Response</small>
+        <small class="toggleFeedback">Feedback</small>
+      </div>
+      
+      <div class="subrow">
+        <div class="markdown"><p>Call POST /dbconnections/signup</p>
+</div>
+        <div>No</div>
+        <div class="toggleCorrect">No</div>
+        <div class="toggleFeedback  markdown"><p>This endpoint creates a new user</p>
+</div>
+      </div>
+      
+      <div class="subrow">
+        <div class="markdown"><p>Call GET /authorize</p>
+</div>
+        <div>No</div>
+        <div class="toggleCorrect">No</div>
+        <div class="toggleFeedback  markdown"><p>/authorize endpoint is not required in this flow</p>
+<p>https://auth0.com/docs/api/authentication#passwordless</p>
+</div>
+      </div>
+      
+      <div class="subrow">
+        <div class="markdown"><p>Call POST /mfa/associate</p>
+</div>
+        <div>No</div>
+        <div class="toggleCorrect">No</div>
+        <div class="toggleFeedback  markdown"><p>Associates or adds a new authenticator for multi-factor authentication (MFA).</p>
+</div>
+      </div>
+      
+      <div class="subrow">
+        <div class="markdown"><p>Call POST /oauth/token</p>
+</div>
+        <div>Yes</div>
+        <div class="toggleCorrect">Yes</div>
+        <div class="toggleFeedback  markdown"><p>Once you have a verification code, use POST /oauth/token endpoint to login the user with their phone number/email and verification code.</p>
+</div>
+      </div>
+      
+    </div>
+
+    <div class="row">
+      <small>Score</small>
+      <div>100%</div>
+    </div>
+
+    <div class="toggleFeedback  row">
+      <small>Feedback</small>
+      
+      <div class="markdown"></div>
+      
+    </div>
+
+  </div>
+  <button class="prettyButton None " id="b7ea2acd-f733-4138-83c8-69e3a4efb5f7_toggleCorrectBtn" style="background-color: #5384A3">
+    <span class="toggleCorrect notVisible">Show Correct Answer</span>
+    <span class="toggleCorrect">Hide Correct Answer</span>
+  </button>
+  <button class="prettyButton None" id="b7ea2acd-f733-4138-83c8-69e3a4efb5f7_toggleFeedbackBtn" style="background-color: #5384A3">
+    <span class="toggleFeedback notVisible">Show Feedback</span>
+    <span class="toggleFeedback">Hide Feedback</span>
+  </button>
+</div>
+            <br>
+            <br>
+          
+        
+          
+            <script>
+  document.addEventListener('DOMContentLoaded', function contentLoaded() {
+    function toggleVisible(classSelector) {
+      var thingsToToggle = document.getElementById("98b9bdc8-b61c-498f-8203-f5679faf1c67").querySelectorAll(classSelector);
+
+      for (var i = 0; i < thingsToToggle.length; i++) {
+        if (thingsToToggle[i].className.indexOf('notVisible') !== -1) {
+          thingsToToggle[i].className = thingsToToggle[i].className.replace('notVisible', '').trim();
+        } else {
+          thingsToToggle[i].className += ' notVisible';
+        }
+      }
+    }
+
+    document.getElementById("98b9bdc8-b61c-498f-8203-f5679faf1c67_toggleCorrectBtn").addEventListener('click', function showCorrectHandler() {
+      return toggleVisible('.toggleCorrect');
+    });
+
+    document.getElementById("98b9bdc8-b61c-498f-8203-f5679faf1c67_toggleFeedbackBtn").addEventListener('click', function showFeedbackHandler() {
+      return toggleVisible('.toggleFeedback');
+    });
+  });
+</script>
+<div id="98b9bdc8-b61c-498f-8203-f5679faf1c67" class="container">
+  <span class="questionNumber">36.</span>
+  <div>
+    <div class="row">
+      <small>Question</small>
+      <div class="markdown"><p>Customer Identity Cloud (CIC) Authentication API provides identity features compatible with Auth0 and other supported identity protocols. It includes endpoints that allow users to perform actions like logging in, signing up, logging out, and accessing APIs.</p>
+<p>Is this one of the client authentication methods supported by CIC Authentication API?</p>
+</div>
+    </div>
+
+    <div>
+      <div class="subrow lessPadding">
+        <small>Option</small>
+        <small>Your Response</small>
+        <small class="toggleCorrect">Correct Response</small>
+        <small class="toggleFeedback">Feedback</small>
+      </div>
+      
+      <div class="subrow">
+        <div class="markdown"><p>Digest Auth</p>
+</div>
+        <div>No</div>
+        <div class="toggleCorrect">No</div>
+        <div class="toggleFeedback  markdown"><p>DigestAuth is NOT an available authentication method for Authentication API endpoints.</p>
+<p>https://auth0.com/docs/api/authentication#authentication-methods</p>
+</div>
+      </div>
+      
+      <div class="subrow">
+        <div class="markdown"><p>OAuth 1.0</p>
+</div>
+        <div>No</div>
+        <div class="toggleCorrect">No</div>
+        <div class="toggleFeedback  markdown"><p>OAuth 1.0 is NOT an available authentication method for Authentication API endpoints.</p>
+<p>https://auth0.com/docs/api/authentication#authentication-methods</p>
+</div>
+      </div>
+      
+      <div class="subrow">
+        <div class="markdown"><p>NTLM Authentication</p>
+</div>
+        <div>No</div>
+        <div class="toggleCorrect">No</div>
+        <div class="toggleFeedback  markdown"><p>NTLM Authentication is NOT an available authentication method for Authentication API endpoints.</p>
+<p>https://auth0.com/docs/api/authentication#authentication-methods</p>
+</div>
+      </div>
+      
+      <div class="subrow">
+        <div class="markdown"><p>mTLS</p>
+</div>
+        <div>Yes</div>
+        <div class="toggleCorrect">Yes</div>
+        <div class="toggleFeedback  markdown"><p>Five options for authenticating with this Authentication API:<br>
+OAuth2 Access Token<br>
+Client ID and Client Assertion (confidential applications)<br>
+Client ID and Client Secret (confidential applications)<br>
+Client ID (public applications)<br>
+mTLS Authentication (confidential applications)</p>
+<p>https://auth0.com/docs/api/authentication#authentication-methods</p>
+</div>
+      </div>
+      
+    </div>
+
+    <div class="row">
+      <small>Score</small>
+      <div>100%</div>
+    </div>
+
+    <div class="toggleFeedback  row">
+      <small>Feedback</small>
+      
+      <div class="markdown"></div>
+      
+    </div>
+
+  </div>
+  <button class="prettyButton None " id="98b9bdc8-b61c-498f-8203-f5679faf1c67_toggleCorrectBtn" style="background-color: #5384A3">
+    <span class="toggleCorrect notVisible">Show Correct Answer</span>
+    <span class="toggleCorrect">Hide Correct Answer</span>
+  </button>
+  <button class="prettyButton None" id="98b9bdc8-b61c-498f-8203-f5679faf1c67_toggleFeedbackBtn" style="background-color: #5384A3">
+    <span class="toggleFeedback notVisible">Show Feedback</span>
+    <span class="toggleFeedback">Hide Feedback</span>
+  </button>
+</div>
+            <br>
+            <br>
+          
+        
+          
+            <script>
+  document.addEventListener('DOMContentLoaded', function contentLoaded() {
+    function toggleVisible(classSelector) {
+      var thingsToToggle = document.getElementById("4206ae41-fc0e-4152-a003-36b7832a4600").querySelectorAll(classSelector);
+
+      for (var i = 0; i < thingsToToggle.length; i++) {
+        if (thingsToToggle[i].className.indexOf('notVisible') !== -1) {
+          thingsToToggle[i].className = thingsToToggle[i].className.replace('notVisible', '').trim();
+        } else {
+          thingsToToggle[i].className += ' notVisible';
+        }
+      }
+    }
+
+    document.getElementById("4206ae41-fc0e-4152-a003-36b7832a4600_toggleCorrectBtn").addEventListener('click', function showCorrectHandler() {
+      return toggleVisible('.toggleCorrect');
+    });
+
+    document.getElementById("4206ae41-fc0e-4152-a003-36b7832a4600_toggleFeedbackBtn").addEventListener('click', function showFeedbackHandler() {
+      return toggleVisible('.toggleFeedback');
+    });
+  });
+</script>
+<div id="4206ae41-fc0e-4152-a003-36b7832a4600" class="container">
+  <span class="questionNumber">37.</span>
+  <div>
+    <div class="row">
+      <small>Question</small>
+      <div class="markdown"><p>Is this an appropriate method and endpoint for creating a native application in Auth0 using the Management API?</p>
+</div>
+    </div>
+
+    <div>
+      <div class="subrow lessPadding">
+        <small>Option</small>
+        <small>Your Response</small>
+        <small class="toggleCorrect">Correct Response</small>
+        <small class="toggleFeedback">Feedback</small>
+      </div>
+      
+      <div class="subrow">
+        <div class="markdown"><p>PATCH  /api/v2/clients</p>
+</div>
+        <div>No</div>
+        <div class="toggleCorrect">No</div>
+        <div class="toggleFeedback  markdown"><p>PATCH is used for update and requires an id - /api/v2/clients/{id}</p>
+</div>
+      </div>
+      
+      <div class="subrow">
+        <div class="markdown"><p>POST  /api/v2/device-credentials</p>
+</div>
+        <div>No</div>
+        <div class="toggleCorrect">No</div>
+        <div class="toggleFeedback  markdown"><p>Creates a device credential public key to manage refresh token rotation for a given user_id</p>
+</div>
+      </div>
+      
+      <div class="subrow">
+        <div class="markdown"><p>POST /api/v2/clients</p>
+</div>
+        <div>Yes</div>
+        <div class="toggleCorrect">Yes</div>
+        <div class="toggleFeedback  markdown"><p>Create a new client (application or SSO integration).</p>
+</div>
+      </div>
+      
+      <div class="subrow">
+        <div class="markdown"><p>POST  /api/v2/client-grants</p>
+</div>
+        <div>No</div>
+        <div class="toggleCorrect">No</div>
+        <div class="toggleFeedback  markdown"><p>Creates a client grant for a machine-to-machine login flow.</p>
+</div>
+      </div>
+      
+    </div>
+
+    <div class="row">
+      <small>Score</small>
+      <div>100%</div>
+    </div>
+
+    <div class="toggleFeedback  row">
+      <small>Feedback</small>
+      
+      <div class="markdown"></div>
+      
+    </div>
+
+  </div>
+  <button class="prettyButton None " id="4206ae41-fc0e-4152-a003-36b7832a4600_toggleCorrectBtn" style="background-color: #5384A3">
+    <span class="toggleCorrect notVisible">Show Correct Answer</span>
+    <span class="toggleCorrect">Hide Correct Answer</span>
+  </button>
+  <button class="prettyButton None" id="4206ae41-fc0e-4152-a003-36b7832a4600_toggleFeedbackBtn" style="background-color: #5384A3">
+    <span class="toggleFeedback notVisible">Show Feedback</span>
+    <span class="toggleFeedback">Hide Feedback</span>
+  </button>
+</div>
+            <br>
+            <br>
+          
+        
+          
+            <script>
+  document.addEventListener('DOMContentLoaded', function contentLoaded() {
+    function toggleVisible(classSelector) {
+      var thingsToToggle = document.getElementById("1235e4cb-9a54-4c19-8358-abb690d64810").querySelectorAll(classSelector);
+
+      for (var i = 0; i < thingsToToggle.length; i++) {
+        if (thingsToToggle[i].className.indexOf('notVisible') !== -1) {
+          thingsToToggle[i].className = thingsToToggle[i].className.replace('notVisible', '').trim();
+        } else {
+          thingsToToggle[i].className += ' notVisible';
+        }
+      }
+    }
+
+    document.getElementById("1235e4cb-9a54-4c19-8358-abb690d64810_toggleCorrectBtn").addEventListener('click', function showCorrectHandler() {
+      return toggleVisible('.toggleCorrect');
+    });
+
+    document.getElementById("1235e4cb-9a54-4c19-8358-abb690d64810_toggleFeedbackBtn").addEventListener('click', function showFeedbackHandler() {
+      return toggleVisible('.toggleFeedback');
+    });
+  });
+</script>
+<div id="1235e4cb-9a54-4c19-8358-abb690d64810" class="container">
+  <span class="questionNumber">38.</span>
+  <div>
+    <div class="row">
+      <small>Question</small>
+      <div class="markdown"><p>Is this an action an Auth0 developer can perform with Auth0 event logs?</p>
+</div>
+    </div>
+
+    <div>
+      <div class="subrow lessPadding">
+        <small>Option</small>
+        <small>Your Response</small>
+        <small class="toggleCorrect">Correct Response</small>
+        <small class="toggleFeedback">Feedback</small>
+      </div>
+      
+      <div class="subrow">
+        <div class="markdown"><p>View enterprise operations and call errors from an application callback</p>
+</div>
+        <div>Yes</div>
+        <div class="toggleCorrect">No</div>
+        <div class="toggleFeedback  markdown"><p>This is not a valid action in Auth0 event logs</p>
+</div>
+      </div>
+      
+    </div>
+
+    <div class="row">
+      <small>Score</small>
+      <div>0%</div>
+    </div>
+
+    <div class="toggleFeedback  row">
+      <small>Feedback</small>
+      
+      <div class="markdown"></div>
+      
+    </div>
+
+  </div>
+  <button class="prettyButton None " id="1235e4cb-9a54-4c19-8358-abb690d64810_toggleCorrectBtn" style="background-color: #5384A3">
+    <span class="toggleCorrect notVisible">Show Correct Answer</span>
+    <span class="toggleCorrect">Hide Correct Answer</span>
+  </button>
+  <button class="prettyButton None" id="1235e4cb-9a54-4c19-8358-abb690d64810_toggleFeedbackBtn" style="background-color: #5384A3">
+    <span class="toggleFeedback notVisible">Show Feedback</span>
+    <span class="toggleFeedback">Hide Feedback</span>
+  </button>
+</div>
+            <br>
+            <br>
+          
+        
+          
+            <script>
+  document.addEventListener('DOMContentLoaded', function contentLoaded() {
+    function toggleVisible(classSelector) {
+      var thingsToToggle = document.getElementById("ec139a96-2163-44e3-8a22-c5ad785866df").querySelectorAll(classSelector);
+
+      for (var i = 0; i < thingsToToggle.length; i++) {
+        if (thingsToToggle[i].className.indexOf('notVisible') !== -1) {
+          thingsToToggle[i].className = thingsToToggle[i].className.replace('notVisible', '').trim();
+        } else {
+          thingsToToggle[i].className += ' notVisible';
+        }
+      }
+    }
+
+    document.getElementById("ec139a96-2163-44e3-8a22-c5ad785866df_toggleCorrectBtn").addEventListener('click', function showCorrectHandler() {
+      return toggleVisible('.toggleCorrect');
+    });
+
+    document.getElementById("ec139a96-2163-44e3-8a22-c5ad785866df_toggleFeedbackBtn").addEventListener('click', function showFeedbackHandler() {
+      return toggleVisible('.toggleFeedback');
+    });
+  });
+</script>
+<div id="ec139a96-2163-44e3-8a22-c5ad785866df" class="container">
+  <span class="questionNumber">39.</span>
+  <div>
+    <div class="row">
+      <small>Question</small>
+      <div class="markdown"><p>Is this what a Password Dictionary contains in Auth0?</p>
+</div>
+    </div>
+
+    <div>
+      <div class="subrow lessPadding">
+        <small>Option</small>
+        <small>Your Response</small>
+        <small class="toggleCorrect">Correct Response</small>
+        <small class="toggleFeedback">Feedback</small>
+      </div>
+      
+      <div class="subrow">
+        <div class="markdown"><p>A library of all Users passwords for Auth0 Administrators to manage</p>
+</div>
+        <div>No</div>
+        <div class="toggleCorrect">No</div>
+        <div class="toggleFeedback  markdown"><p>Auth0 does not expose stored passwords to administrators</p>
+</div>
+      </div>
+      
+      <div class="subrow">
+        <div class="markdown"><p>10,000 commonly used passwords that you can prevent users from using</p>
+</div>
+        <div>Yes</div>
+        <div class="toggleCorrect">Yes</div>
+        <div class="toggleFeedback  markdown"><p>The dictionary contain commonly used passwords</p>
+</div>
+      </div>
+      
+      <div class="subrow">
+        <div class="markdown"><p>A dictionary of password available to users that users can register with</p>
+</div>
+        <div>No</div>
+        <div class="toggleCorrect">No</div>
+        <div class="toggleFeedback  markdown"><p>The dictionary does not contain a recommended list of passwords to use</p>
+</div>
+      </div>
+      
+    </div>
+
+    <div class="row">
+      <small>Score</small>
+      <div>100%</div>
+    </div>
+
+    <div class="toggleFeedback  row">
+      <small>Feedback</small>
+      
+      <div class="markdown"></div>
+      
+    </div>
+
+  </div>
+  <button class="prettyButton None " id="ec139a96-2163-44e3-8a22-c5ad785866df_toggleCorrectBtn" style="background-color: #5384A3">
+    <span class="toggleCorrect notVisible">Show Correct Answer</span>
+    <span class="toggleCorrect">Hide Correct Answer</span>
+  </button>
+  <button class="prettyButton None" id="ec139a96-2163-44e3-8a22-c5ad785866df_toggleFeedbackBtn" style="background-color: #5384A3">
+    <span class="toggleFeedback notVisible">Show Feedback</span>
+    <span class="toggleFeedback">Hide Feedback</span>
+  </button>
+</div>
+            <br>
+            <br>
+          
+        
+          
+            <script>
+  document.addEventListener('DOMContentLoaded', function contentLoaded() {
+    function toggleVisible(classSelector) {
+      var thingsToToggle = document.getElementById("6abba221-f281-4615-a3b2-9aee4d570acf").querySelectorAll(classSelector);
+
+      for (var i = 0; i < thingsToToggle.length; i++) {
+        if (thingsToToggle[i].className.indexOf('notVisible') !== -1) {
+          thingsToToggle[i].className = thingsToToggle[i].className.replace('notVisible', '').trim();
+        } else {
+          thingsToToggle[i].className += ' notVisible';
+        }
+      }
+    }
+
+    document.getElementById("6abba221-f281-4615-a3b2-9aee4d570acf_toggleCorrectBtn").addEventListener('click', function showCorrectHandler() {
+      return toggleVisible('.toggleCorrect');
+    });
+
+    document.getElementById("6abba221-f281-4615-a3b2-9aee4d570acf_toggleFeedbackBtn").addEventListener('click', function showFeedbackHandler() {
+      return toggleVisible('.toggleFeedback');
+    });
+  });
+</script>
+<div id="6abba221-f281-4615-a3b2-9aee4d570acf" class="container">
+  <span class="questionNumber">40.</span>
+  <div>
+    <div class="row">
+      <small>Question</small>
+      <div class="markdown"><p>An Auth0 developer is implementing a custom Auth0 Action to integrate a third-party system to reduce fraudulent registrations. The third-party system has a REST API that returns an ALLOW or DENY decision based on the provided user information and context. The developer needs to create a user based on the decision from the third-party system.</p>
+<p>Is this an accurate trigger for the custom Auth0 Action?</p>
+</div>
+    </div>
+
+    <div>
+      <div class="subrow lessPadding">
+        <small>Option</small>
+        <small>Your Response</small>
+        <small class="toggleCorrect">Correct Response</small>
+        <small class="toggleFeedback">Feedback</small>
+      </div>
+      
+      <div class="subrow">
+        <div class="markdown"><p>post-challenge</p>
+</div>
+        <div>No</div>
+        <div class="toggleCorrect">No</div>
+        <div class="toggleFeedback  markdown"><p>Triggers after the user completes the first challenge, but before the user enters a new password, during password reset.</p>
+</div>
+      </div>
+      
+      <div class="subrow">
+        <div class="markdown"><p>pre-user-registration</p>
+</div>
+        <div>Yes</div>
+        <div class="toggleCorrect">Yes</div>
+        <div class="toggleFeedback  markdown"><p>Triggers before a user is added to a Database or Passwordless Connection and can be used to prevent creation of a user in Auth0</p>
+</div>
+      </div>
+      
+      <div class="subrow">
+        <div class="markdown"><p>post-user-registration</p>
+</div>
+        <div>No</div>
+        <div class="toggleCorrect">No</div>
+        <div class="toggleFeedback  markdown"><p>Triggers after a user is added to a Database or Passwordless Connection.</p>
+</div>
+      </div>
+      
+    </div>
+
+    <div class="row">
+      <small>Score</small>
+      <div>100%</div>
+    </div>
+
+    <div class="toggleFeedback  row">
+      <small>Feedback</small>
+      
+      <div class="markdown"></div>
+      
+    </div>
+
+  </div>
+  <button class="prettyButton None " id="6abba221-f281-4615-a3b2-9aee4d570acf_toggleCorrectBtn" style="background-color: #5384A3">
+    <span class="toggleCorrect notVisible">Show Correct Answer</span>
+    <span class="toggleCorrect">Hide Correct Answer</span>
+  </button>
+  <button class="prettyButton None" id="6abba221-f281-4615-a3b2-9aee4d570acf_toggleFeedbackBtn" style="background-color: #5384A3">
+    <span class="toggleFeedback notVisible">Show Feedback</span>
+    <span class="toggleFeedback">Hide Feedback</span>
+  </button>
+</div>
+            <br>
+            <br>
+          
+        
+      
+    </div>
+    </div>
+   </div>
+  
+  <script type="text/javascript" src="./caveon.markdown.min.js.ダウンロード"></script>
+</body></html>
