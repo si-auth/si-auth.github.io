@@ -5,7 +5,7 @@
            <link>https://auth0.com/changelog/rss.xml</link>
            <description>Auth0 Changelog</description>
            <language>en-US</language>
-           <lastBuildDate>Thu, 29 Jan 2026 01:28:24 GMT</lastBuildDate>
+           <lastBuildDate>Thu, 29 Jan 2026 03:28:34 GMT</lastBuildDate>
            <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
            <image>
                <title>Auth0 Changelog</title>
@@ -18,7 +18,7 @@
                    <pubDate>Wed, 28 Jan 2026 00:00:00 GMT</pubDate>
                    <description>We’re excited to introduce __Universal Custom Password Hash__ in Limited Early Access (EA), enabling user migrations into Auth0 without disrupting sign-ins - even when your existing system uses custom or legacy password formats.
 
-With __Universal Custom Password Hash__ you can bring existing users over through Bulk Import and use Auth0 Actions to script custom password validation logic for your environment so users can continue signing in with their current credentials.
+With __Universal Custom Password Hash__ you can bring existing users over through [Bulk Import](https://auth0.com/docs/manage-users/user-migration/bulk-user-imports) and use [Auth0 Actions](https://auth0.com/docs/customize/actions) to script custom password validation logic for your environment so users can continue signing in with their current credentials.
 
 __Key Capabilities:__
 - __Support for custom password formats during migration__: Migrate users from legacy and proprietary systems while maintaining the existing sign-in experience. 
