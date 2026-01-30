@@ -5,7 +5,7 @@
            <link>https://auth0.com/changelog/rss.xml</link>
            <description>Auth0 Changelog</description>
            <language>en-US</language>
-           <lastBuildDate>Fri, 30 Jan 2026 18:34:49 GMT</lastBuildDate>
+           <lastBuildDate>Fri, 30 Jan 2026 19:34:50 GMT</lastBuildDate>
            <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
            <image>
                <title>Auth0 Changelog</title>
@@ -41,9 +41,10 @@ __Key highlights of this release:__
 - __Self-Service SSO experience__: Your customers’ IT teams can configure Google Workspace inbound directory sync alongside SSO and SCIM provisioning, and manage user onboarding/offboarding directly. 
 
 __Learn more:__
-[Sync Google Workspace Users to Auth0 with Directory Sync](https://auth0.com/docs/authenticate/identity-providers/enterprise-identity-providers/google-directory-sync)
-[Management API Connection Endpoints](https://auth0.com/docs/api/management/v2/connections/post-directory-provisioning)
-</description>
+- [Sync Google Workspace Users to Auth0 with Directory Sync](https://auth0.com/docs/authenticate/identity-providers/enterprise-identity-providers/google-directory-sync)
+- [Management API Connection Endpoints](https://auth0.com/docs/api/management/v2/connections/post-directory-provisioning)
+
+[Screenshot 2026-01-30 at 10.47.49 AM](//images.ctfassets.net/kbkgmx9upatd/2bVmoNFeDlZBTetDmgw1gy/fd8428b105883b223c54d880a935214b/Screenshot_2026-01-30_at_10.47.49â__AM.png)</description>
                    <guid>https://auth0.com/changelog#495lZtEV5GFvXCEEOTmXpQ</guid>
                </item><item>
                    <title>Self-Service Domain Verification for Organization Discovery now in Early Access!</title>
