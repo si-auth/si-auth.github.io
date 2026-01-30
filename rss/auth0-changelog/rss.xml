@@ -5,7 +5,7 @@
            <link>https://auth0.com/changelog/rss.xml</link>
            <description>Auth0 Changelog</description>
            <language>en-US</language>
-           <lastBuildDate>Fri, 30 Jan 2026 20:34:50 GMT</lastBuildDate>
+           <lastBuildDate>Fri, 30 Jan 2026 21:34:51 GMT</lastBuildDate>
            <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
            <image>
                <title>Auth0 Changelog</title>
@@ -26,7 +26,8 @@ We are enhancing the permission model from a single admin to __Groups__ that can
   - __Store Viewer__: A read-only role useful for ops teams or sales engineers who need visibility without the ability to impact systems.
 - __Groups__: Account Owners or Group Managers can create groups (ex., &amp;quot;IT Group&amp;quot; or &amp;quot;Dev Team&amp;quot;) and assign members to them. All members automatically inherit the permissions defined at the group level.
 - __Scoping__: Crucially, these roles can be scoped to specific stores. For example, this allows a single user, to be an Editor for a &amp;quot;Staging&amp;quot; store but restricted to Viewer for a &amp;quot;Production&amp;quot; store.
-For more details, refer to Auth0 FGA’s Dashboard documentation.
+
+For more details, refer to Auth0 FGA’s [Dashboard](https://docs.fga.dev/intro/dashboard) documentation.
 </description>
                    <guid>https://auth0.com/changelog#2FC37fwfuoG9VdrUyt74jt</guid>
                </item><item>
