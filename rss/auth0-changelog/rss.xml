@@ -5,7 +5,7 @@
            <link>https://auth0.com/changelog/rss.xml</link>
            <description>Auth0 Changelog</description>
            <language>en-US</language>
-           <lastBuildDate>Mon, 09 Feb 2026 15:41:27 GMT</lastBuildDate>
+           <lastBuildDate>Mon, 09 Feb 2026 18:41:47 GMT</lastBuildDate>
            <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
            <image>
                <title>Auth0 Changelog</title>
@@ -85,7 +85,7 @@ For more information on __Credential Guard__, check out our [online documentatio
                    <pubDate>Mon, 02 Feb 2026 00:00:00 GMT</pubDate>
                    <description>We’re excited to roll out a highly requested update to the mobile login experience! We know that every tap matters when it comes to user conversion, so we’ve eliminated a common friction point in the authentication journey.
 
-![Numeric Keyboard for OTP entry](//images.ctfassets.net/kbkgmx9upatd/695PTlpJ9e7m5fcfOonCZy/151eef3dbf469bd343e334e628c8ba4b/opt_entry.png)
+![otp_numeric_pad.png](//images.ctfassets.net/kbkgmx9upatd/695PTlpJ9e7m5fcfOonCZy/79286d8ef2a1db5c63bf38543ab14c30/otp_numeric_pad.png)
 
 Previously, users might have been met with a standard alphabetical keyboard when prompted for a code. Now, for all SMS and Email OTP challenges, mobile devices will automatically surface the numeric keyboard. This change spans 16+ touchpoints—including MFA enrollment, Passwordless login, and password resets—ensuring your authentication flow feels native, intuitive, and fast.
 
