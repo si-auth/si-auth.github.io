@@ -5,7 +5,7 @@
            <link>https://auth0.com/changelog/rss.xml</link>
            <description>Auth0 Changelog</description>
            <language>en-US</language>
-           <lastBuildDate>Tue, 24 Feb 2026 16:49:13 GMT</lastBuildDate>
+           <lastBuildDate>Tue, 24 Feb 2026 18:31:44 GMT</lastBuildDate>
            <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
            <image>
                <title>Auth0 Changelog</title>
@@ -1278,11 +1278,11 @@ Available for all **Enterprise** customers. Start using these signals today.
 </description>
                    <guid>https://auth0.com/changelog#2AHovpFxwoGWDImYkICvvQ</guid>
                </item><item>
-                   <title>Actions - Transaction Metadata (EA)</title>
+                   <title>Actions - Transaction Metadata - EA</title>
                    <pubDate>Tue, 12 Aug 2025 00:00:00 GMT</pubDate>
                    <description>We are excited to announce that __Actions Transaction Metadata__ is now available in [__Early Access__](https://auth0.com/docs/troubleshoot/product-lifecycle/product-release-stages#early-access &amp;quot;Early Access&amp;quot;).
 
-This feature allows developers to set, share, and access, custom data between Actions run in the same `post-login` execution.
+This feature allows you to set, share, and access, custom data between Actions run in the same `post-login` execution.
 
 __Early Access__ functionality includes:
 - __Accessing Transaction Metadata:__ A new `event.transaction.metadata` object within `post-login` Actions that contains the custom `key/value` pairs, which can be accessed through `key`.
