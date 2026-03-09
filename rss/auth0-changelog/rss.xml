@@ -5,7 +5,7 @@
            <link>https://auth0.com/changelog/rss.xml</link>
            <description>Auth0 Changelog</description>
            <language>en-US</language>
-           <lastBuildDate>Mon, 09 Mar 2026 16:15:16 GMT</lastBuildDate>
+           <lastBuildDate>Mon, 09 Mar 2026 18:15:25 GMT</lastBuildDate>
            <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
            <image>
                <title>Auth0 Changelog</title>
@@ -14,7 +14,7 @@
            </image>
            <atom:link href="https://auth0.com/changelog/rss.xml" rel="self" type="application/rss+xml"/>
            <item>
-                   <title>Real-time API &amp;amp; Rate Limit Metrics Streaming (Public Beta)</title>
+                   <title>Real-time API &amp;amp; Rate Limit Metrics Streaming (Beta)</title>
                    <pubDate>Fri, 06 Mar 2026 00:00:00 GMT</pubDate>
                    <description>You can now stream real-time metrics for Auth0 Management API usage and rate limit events directly to your observability platform.
 
@@ -22,7 +22,7 @@ These new metric streams give you detailed telemetry on every API request, inclu
 
 We&amp;apos;ve included out-of-the-box support for Datadog, and you can connect to New Relic, Prometheus, and Splunk using OpenTelemetry.
 
-This feature is now available in Public Beta. To get started, check out our Metric Streams documentation.</description>
+This feature is now available in Beta. To get started, check out our Metric Streams documentation.</description>
                    <guid>https://auth0.com/changelog#24nAKx5yhwaJc9tCnjVABy</guid>
                </item><item>
                    <title>Forms - HTTP Vault Connection New Options</title>
