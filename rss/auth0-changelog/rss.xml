@@ -5,7 +5,7 @@
            <link>https://auth0.com/changelog/rss.xml</link>
            <description>Auth0 Changelog</description>
            <language>en-US</language>
-           <lastBuildDate>Tue, 10 Mar 2026 15:19:54 GMT</lastBuildDate>
+           <lastBuildDate>Tue, 10 Mar 2026 16:19:59 GMT</lastBuildDate>
            <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
            <image>
                <title>Auth0 Changelog</title>
@@ -16,7 +16,15 @@
            <item>
                    <title>Customize RPID values for Passkeys EA</title>
                    <pubDate>Tue, 10 Mar 2026 00:00:00 GMT</pubDate>
-                   <description>Boost Passkey adoption by enabling shared enrollment across subdomains. You can now customize the RP ID to allow a single Passkey to authenticate users across multiple applications under the same root domain.Currently in EA </description>
+                   <description>Boost Passkey adoption by enabling shared enrollment across subdomains. You can now customize the RP ID to allow a single Passkey to authenticate users across multiple applications under the same root domain.Currently in EA
+
+Learn more about customizing RP ID for Passkeys:
+
+Configure Passkey Policy - https://auth0.com/docs/authenticate/database-connections/passkeys/configure-passkey-policy
+
+Native Passkeys for Mobile Applications - Auth0 Docs - https://auth0.com/docs/authenticate/database-connections/passkeys/native-passkeys-for-mobile-applications
+
+Passkeys - Auth0 Docs - https://auth0.com/docs/authenticate/database-connections/passkeys</description>
                    <guid>https://auth0.com/changelog#a8ASoFgEcUK0MefoGhIYi</guid>
                </item><item>
                    <title>Real-time API &amp;amp; Rate Limit Metrics Streaming (Beta)</title>
