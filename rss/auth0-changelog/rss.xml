@@ -5,7 +5,7 @@
            <link>https://auth0.com/changelog/rss.xml</link>
            <description>Auth0 Changelog</description>
            <language>en-US</language>
-           <lastBuildDate>Wed, 15 Apr 2026 15:12:48 GMT</lastBuildDate>
+           <lastBuildDate>Wed, 15 Apr 2026 17:13:29 GMT</lastBuildDate>
            <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
            <image>
                <title>Auth0 Changelog</title>
@@ -249,11 +249,11 @@ For more details, see the [product documentation](https://auth0.com/docs/secure/
 
 Learn more about customizing RP ID for Passkeys:
 
-Configure Passkey Policy - https://auth0.com/docs/authenticate/database-connections/passkeys/configure-passkey-policy
+[Configure Passkey Policy ](https://auth0.com/docs/authenticate/database-connections/passkeys/configure-passkey-policy)
 
-Native Passkeys for Mobile Applications - Auth0 Docs - https://auth0.com/docs/authenticate/database-connections/passkeys/native-passkeys-for-mobile-applications
+Native Passkeys for Mobile Applications - Auth0 Docs - [Native Passkeys for Mobile Applications ](https://auth0.com/docs/authenticate/database-connections/passkeys/native-passkeys-for-mobile-applications)
 
-Passkeys - Auth0 Docs - https://auth0.com/docs/authenticate/database-connections/passkeys</description>
+Passkeys - Auth0 Docs - [Passkeys Docs](https://auth0.com/docs/authenticate/database-connections/passkeys)</description>
                    <guid>https://auth0.com/changelog#a8ASoFgEcUK0MefoGhIYi</guid>
                </item><item>
                    <title>Real-time API &amp;amp; Rate Limit Metrics Streaming (Beta)</title>
