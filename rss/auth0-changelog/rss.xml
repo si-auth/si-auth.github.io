@@ -5,7 +5,7 @@
            <link>https://auth0.com/changelog/rss.xml</link>
            <description>Auth0 Changelog</description>
            <language>en-US</language>
-           <lastBuildDate>Thu, 07 May 2026 05:45:02 GMT</lastBuildDate>
+           <lastBuildDate>Thu, 07 May 2026 08:45:20 GMT</lastBuildDate>
            <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
            <image>
                <title>Auth0 Changelog</title>
@@ -56,7 +56,9 @@ __Action Required:__ No action is required from customers. If you previously imp
                </item><item>
                    <title>Resend Email Provider is now Generally Available</title>
                    <pubDate>Wed, 06 May 2026 00:00:00 GMT</pubDate>
-                   <description>We&amp;apos;re excited to announce that __Resend__ is now __Generally Available__ as an out-of-the-box email delivery provider in Auth0!
+                   <description>![Resend Email Provider](//images.ctfassets.net/kbkgmx9upatd/6OddDRhhBu9EP9dx9bDwtL/f7d1f79c21d193059d6d0ee72458ea59/CleanShot_2026-05-07_at_10.07.31_2x.png)
+
+We&amp;apos;re excited to announce that __Resend__ is now __Generally Available__ as an out-of-the-box email delivery provider in Auth0!
 
 With this release, you can now configure Resend as your email delivery provider with built-in configuration directly within Auth0. Resend offers a modern, developer-friendly approach to transactional email with excellent deliverability and a clean API.
 
