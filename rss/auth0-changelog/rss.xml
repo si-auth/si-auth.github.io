@@ -5,7 +5,7 @@
            <link>https://auth0.com/changelog/rss.xml</link>
            <description>Auth0 Changelog</description>
            <language>en-US</language>
-           <lastBuildDate>Fri, 10 Jul 2026 07:11:54 GMT</lastBuildDate>
+           <lastBuildDate>Fri, 10 Jul 2026 10:13:11 GMT</lastBuildDate>
            <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
            <image>
                <title>Auth0 Changelog</title>
@@ -14,6 +14,17 @@
            </image>
            <atom:link href="https://auth0.com/changelog/rss.xml" rel="self" type="application/rss+xml"/>
            <item>
+                   <title>Third-Party Apps for Organizations is now Generally Available</title>
+                   <pubDate>Fri, 10 Jul 2026 00:00:00 GMT</pubDate>
+                   <description>Third-party applications now work with Auth0 Organizations. Tenant admins can allow or block third-party app access on a per-organization basis — access is blocked by default, so existing organizations are unaffected until you explicitly opt in. 
+- To authenticate users within an organization, a third-party app&amp;apos;s connection must be promoted to domain level (`is_domain_connection: true`). 
+- User consent is scoped per organization — granting access in one organization does not carry over to another.
+
+![Third-party-app-org-toggle](https://cdn.auth0.com/blog/third-party-apps-orgs.png)
+
+To learn more, read [Enable third-party application access for an Organization](https://auth0.com/docs/manage-users/organizations/configure-organizations/enable-third-party-application-access).</description>
+                   <guid>https://auth0.com/changelog#6aN3hsgrdNAaAdXwAOMpAk</guid>
+               </item><item>
                    <title>Google One Tap Support for Universal Login EA</title>
                    <pubDate>Thu, 09 Jul 2026 00:00:00 GMT</pubDate>
                    <description>Bring frictionless, one-tap authentication to your users! Auth0 now supports Google One Tap within the Universal Login prompt for Early Access. Users are greeted with a secure, non-intrusive identity overlay that lets them sign in instantly with a single tap, completely eliminating manual forms and page redirects. Check out the [Auth0 Google Social Connection documentation](https://auth0.com/docs/authenticate/identity-providers/social-identity-providers/google-one-tap) to learn how to enable it for your web applications!</description>
@@ -176,22 +187,6 @@ __Learn more:__
 </description>
                    <guid>https://auth0.com/changelog#3JIQlpZIUJmq1diRBXKZUd</guid>
                </item><item>
-                   <title>M2M Support for Third-Party Applications is now Generally Available</title>
-                   <pubDate>Tue, 02 Jun 2026 00:00:00 GMT</pubDate>
-                   <description>We&amp;apos;re happy to announce that `strict` third-party applications now support machine-to-machine (M2M) access using the `client_credentials` grant type.
-
-As you expose your APIs to AI agents and partner backend services that operate without a user in the loop, you need those integrations to work within the same secure-by-default posture as the rest of your third-party application setup. This release makes that possible.
-
-![M2M-third-party-app](https://cdn.auth0.com/blog/M2M-third-party-app.png)
-
-__What&amp;apos;s included__:
-- `client_credentials` grant type support for `strict` third-party applications, available via the Management API and Dashboard.
-- Organization-scoped M2M access: `strict` third-party applications can request access tokens within the scope of a specific organization, with the same explicit grant requirements that apply to all M2M applications. Learn more about [M2M access for organizations](https://auth0.com/docs/manage-users/organizations/organizations-for-m2m-applications).
-- M2M access is intentionally restricted to applications created manually via the Management API or Dashboard. Applications registered via Dynamic Client Registration are excluded to prevent uncontrolled token issuance by unvetted third parties.
-
-To learn more, visit the [Third-Party Applications documentation](https://auth0.com/docs/get-started/applications/third-party-applications).</description>
-                   <guid>https://auth0.com/changelog#2tvGxAGzcIJemzFFN67Yfc</guid>
-               </item><item>
                    <title>Dashboard Navigation &amp;amp; IA Refresh is now in Beta</title>
                    <pubDate>Tue, 02 Jun 2026 00:00:00 GMT</pubDate>
                    <description>We are excited to announce that the redesigned __Dashboard navigation and information architecture (IA)__ is now available in Beta. This update is the first step toward a more unified platform experience across Auth0, making it faster to find what you need and easier to act on everything across the platform. Alongside the IA changes, this beta also includes a significant visual refresh.
@@ -234,6 +229,22 @@ Rolling out progressively to Public Cloud tenants starting this week, with broad
 
 For detailed documentation on search capabilities, visit our [Product documentation](https://www.auth0.com/docs/get-started/auth0-overview/dashboard/search-and-filter-auth0-dashboard).</description>
                    <guid>https://auth0.com/changelog#4pl2qmNBc5YGkSnfArJQJD</guid>
+               </item><item>
+                   <title>M2M Support for Third-Party Applications is now Generally Available</title>
+                   <pubDate>Tue, 02 Jun 2026 00:00:00 GMT</pubDate>
+                   <description>We&amp;apos;re happy to announce that `strict` third-party applications now support machine-to-machine (M2M) access using the `client_credentials` grant type.
+
+As you expose your APIs to AI agents and partner backend services that operate without a user in the loop, you need those integrations to work within the same secure-by-default posture as the rest of your third-party application setup. This release makes that possible.
+
+![M2M-third-party-app](https://cdn.auth0.com/blog/M2M-third-party-app.png)
+
+__What&amp;apos;s included__:
+- `client_credentials` grant type support for `strict` third-party applications, available via the Management API and Dashboard.
+- Organization-scoped M2M access: `strict` third-party applications can request access tokens within the scope of a specific organization, with the same explicit grant requirements that apply to all M2M applications. Learn more about [M2M access for organizations](https://auth0.com/docs/manage-users/organizations/organizations-for-m2m-applications).
+- M2M access is intentionally restricted to applications created manually via the Management API or Dashboard. Applications registered via Dynamic Client Registration are excluded to prevent uncontrolled token issuance by unvetted third parties.
+
+To learn more, visit the [Third-Party Applications documentation](https://auth0.com/docs/get-started/applications/third-party-applications).</description>
+                   <guid>https://auth0.com/changelog#2tvGxAGzcIJemzFFN67Yfc</guid>
                </item><item>
                    <title>Customize RPID values for Passkeys GA</title>
                    <pubDate>Mon, 01 Jun 2026 00:00:00 GMT</pubDate>
@@ -307,6 +318,15 @@ To learn more, visit the [Custom Token Exchange documentation](https://auth0.com
 ![set-Actor-Actions](https://cdn.auth0.com/blog/set-actor-actions-method.png)</description>
                    <guid>https://auth0.com/changelog#43nGPOY7E0sW9L3s2lrzfx</guid>
                </item><item>
+                   <title>General availability of DPoP sender constraining for Enterprise Connections</title>
+                   <pubDate>Tue, 26 May 2026 00:00:00 GMT</pubDate>
+                   <description>Demonstrating Proof of Possession (DPoP) sender constraining for Enterprise Connections is now generally available. Customers can now establish Okta and OIDC Enterprise Connections with DPoP enabled on those connections. This is available on all plans with Enterprise Connections.
+
+DPoP for Enterprise Connections enables Auth0 to generate DPoP proofs when performing token exchange and calling userinfo endpoints on upstream OIDC and/or Okta connections. DPoP is a core building block of FAPI2 and IPSIE (Identity Proofing and Secure Identity Exchange) ecosystems. It provides a lightweight, standards-based way to enforce proof-of-possession (of a private key) without the operational overhead of mTLS token binding.
+
+Please see [product documentation](https://auth0.com/docs/authenticate/enterprise-connections/enable-dpop-enterprise-connections) for further details. </description>
+                   <guid>https://auth0.com/changelog#Bqn7JFXNtNpr5pK4SjNYF</guid>
+               </item><item>
                    <title>Federated Logout for OIDC and Okta enterprise connections is now generally available</title>
                    <pubDate>Tue, 26 May 2026 00:00:00 GMT</pubDate>
                    <description>Federated Logout is now generally available for OIDC and Okta enterprise connections. When a user logs out with `?federated` appended to the logout URL, Auth0 calls the upstream identity provider&amp;apos;s `end_session_endpoint` to terminate the IdP session, closing the gap where a lingering IdP session could silently re-authenticate the user on their next login attempt.
@@ -320,15 +340,6 @@ With federated logout:
 
 This feature is available on all plans that include enterprise connections. Read the [documentation](https://auth0.com/docs/authenticate/login/logout/log-users-out-of-idps ) to learn more.</description>
                    <guid>https://auth0.com/changelog#2xFJS2QkpbCMiFX0eEciWG</guid>
-               </item><item>
-                   <title>General availability of DPoP sender constraining for Enterprise Connections</title>
-                   <pubDate>Tue, 26 May 2026 00:00:00 GMT</pubDate>
-                   <description>Demonstrating Proof of Possession (DPoP) sender constraining for Enterprise Connections is now generally available. Customers can now establish Okta and OIDC Enterprise Connections with DPoP enabled on those connections. This is available on all plans with Enterprise Connections.
-
-DPoP for Enterprise Connections enables Auth0 to generate DPoP proofs when performing token exchange and calling userinfo endpoints on upstream OIDC and/or Okta connections. DPoP is a core building block of FAPI2 and IPSIE (Identity Proofing and Secure Identity Exchange) ecosystems. It provides a lightweight, standards-based way to enforce proof-of-possession (of a private key) without the operational overhead of mTLS token binding.
-
-Please see [product documentation](https://auth0.com/docs/authenticate/enterprise-connections/enable-dpop-enterprise-connections) for further details. </description>
-                   <guid>https://auth0.com/changelog#Bqn7JFXNtNpr5pK4SjNYF</guid>
                </item><item>
                    <title>Secure Canonical Domains with New Tenant ACL Signals</title>
                    <pubDate>Tue, 26 May 2026 00:00:00 GMT</pubDate>
@@ -544,19 +555,6 @@ To learn more, visit the [Third-Party Applications documentation](https://auth0.
 </description>
                    <guid>https://auth0.com/changelog#YcrZfUuth36sz2ZLClPEh</guid>
                </item><item>
-                   <title>Self-Service Domain Verification now in General Availabilty!</title>
-                   <pubDate>Tue, 28 Apr 2026 00:00:00 GMT</pubDate>
-                   <description>We&amp;apos;re excited to announce that __Self-Service Domain Verification is now in General Availability__! Allow your customers&amp;apos; IT admins to verify their own email domains for HRD directly within the SSO setup assistant — no back-and-forth with your team required.
-
-Key Advantages at a Glance:
-- Proven ownership: IT admins verify domains via DNS TXT record.
-- Flexible requirements: Configure domain verification as off, optional, or required — per customer engagement.
-- Domain management: IT admins can now add, re-verify, and delete domains entirely through self-service.
-- Enterprise-ready controls: Pre-configure domains for your customers to verify, or pre-verify domains on their behalf — with verified domains automatically powering Organization Discovery when enabled.
-
-To dive deeper, please review our updated documentation on[ Self-Service Enterprise Configuration](https://auth0.com/docs/authenticate/enterprise-connections/self-service-enterprise-config).</description>
-                   <guid>https://auth0.com/changelog#6ALAmotlACYGqbTE8UoJ3</guid>
-               </item><item>
                    <title>Self-Service Provisioning now in General Availability!</title>
                    <pubDate>Tue, 28 Apr 2026 00:00:00 GMT</pubDate>
                    <description>We’re thrilled to announce that the __Self-Service Provisioning experience is now in General Availability__! Empower your customers&amp;apos; IT teams to handle user onboarding and offboarding themselves, which means less manual work and fewer support tickets for your team.
@@ -571,6 +569,19 @@ __Key Advantages at a Glance__
 
 To dive deeper, please review our updated documented on [Self-Service Enterprise Configuration](https://auth0.com/docs/authenticate/enterprise-connections/self-service-enterprise-config).</description>
                    <guid>https://auth0.com/changelog#3TqcZNu5FJI7nIrTd4C59S</guid>
+               </item><item>
+                   <title>Self-Service Domain Verification now in General Availabilty!</title>
+                   <pubDate>Tue, 28 Apr 2026 00:00:00 GMT</pubDate>
+                   <description>We&amp;apos;re excited to announce that __Self-Service Domain Verification is now in General Availability__! Allow your customers&amp;apos; IT admins to verify their own email domains for HRD directly within the SSO setup assistant — no back-and-forth with your team required.
+
+Key Advantages at a Glance:
+- Proven ownership: IT admins verify domains via DNS TXT record.
+- Flexible requirements: Configure domain verification as off, optional, or required — per customer engagement.
+- Domain management: IT admins can now add, re-verify, and delete domains entirely through self-service.
+- Enterprise-ready controls: Pre-configure domains for your customers to verify, or pre-verify domains on their behalf — with verified domains automatically powering Organization Discovery when enabled.
+
+To dive deeper, please review our updated documentation on[ Self-Service Enterprise Configuration](https://auth0.com/docs/authenticate/enterprise-connections/self-service-enterprise-config).</description>
+                   <guid>https://auth0.com/changelog#6ALAmotlACYGqbTE8UoJ3</guid>
                </item><item>
                    <title>Organization Discovery by Domain now in General Availability!</title>
                    <pubDate>Tue, 28 Apr 2026 00:00:00 GMT</pubDate>
@@ -946,6 +957,15 @@ What&amp;apos;s new:
 </description>
                    <guid>https://auth0.com/changelog#8WjIOWCE7KMD1HF8qRBjj</guid>
                </item><item>
+                   <title> Brute Force Protection for Passwordless Notifications</title>
+                   <pubDate>Tue, 03 Mar 2026 00:00:00 GMT</pubDate>
+                   <description>To improve the end-user experience and mitigate message spam, Brute Force Protection now proactively prevents the sending of passwordless email and SMS codes to users who are already blocked. 
+
+This update ensures that restricted users cannot continue to trigger unsolicited notifications, closing a gap in our abuse prevention coverage and reducing unnecessary messages
+
+For more information on _Brute Force Protection_, check out our [online documentation](https://auth0.com/docs/secure/attack-protection/brute-force-protection).</description>
+                   <guid>https://auth0.com/changelog#6NsBsJujkexciOsVQkTSO9</guid>
+               </item><item>
                    <title>Actions - Transaction Metadata - GA</title>
                    <pubDate>Tue, 03 Mar 2026 00:00:00 GMT</pubDate>
                    <description>We are excited to announce that __Actions Transaction Metadata__ is now GA.
@@ -959,15 +979,6 @@ Functionality includes:
 - __Values Types:__ Values can be `boolean`, `number`, `string`, or `string` serialization of `object` and `array`.
 - __Docs:__ [Actions Transaction Metadata](https://auth0.com/docs/customize/actions/transaction-metadata &amp;quot;Actions Transaction Metadata Docs&amp;quot;)</description>
                    <guid>https://auth0.com/changelog#1yZLr3z0RceWn8mQ1bLvUL</guid>
-               </item><item>
-                   <title> Brute Force Protection for Passwordless Notifications</title>
-                   <pubDate>Tue, 03 Mar 2026 00:00:00 GMT</pubDate>
-                   <description>To improve the end-user experience and mitigate message spam, Brute Force Protection now proactively prevents the sending of passwordless email and SMS codes to users who are already blocked. 
-
-This update ensures that restricted users cannot continue to trigger unsolicited notifications, closing a gap in our abuse prevention coverage and reducing unnecessary messages
-
-For more information on _Brute Force Protection_, check out our [online documentation](https://auth0.com/docs/secure/attack-protection/brute-force-protection).</description>
-                   <guid>https://auth0.com/changelog#6NsBsJujkexciOsVQkTSO9</guid>
                </item><item>
                    <title>Actions - Modules - EA</title>
                    <pubDate>Thu, 26 Feb 2026 00:00:00 GMT</pubDate>
@@ -1125,28 +1136,6 @@ No API or behavior changes from Early Access.
 - [Use Case: Organization Information in Session Metadata](https://auth0.com/docs/manage-users/sessions/session-metadata/add-organization-information)</description>
                    <guid>https://auth0.com/changelog#4XCPHK0lxXRWfPqughjGqS</guid>
                </item><item>
-                   <title>Auth0 Agent Skills </title>
-                   <pubDate>Fri, 06 Feb 2026 00:00:00 GMT</pubDate>
-                   <description>We&amp;apos;re introducing Auth0 Agent Skills Beta- structured guidance that teaches AI coding assistants how to implement Auth0 authentication correctly across any framework.
-
-Agent Skills are AI-native instructions that work with popular coding assistants like Claude Code, Codex, Gemini CLI, etc... They provide production-ready code patterns, security best practices, and step-by-step implementation flows directly within your development workflow.
-
-__Key Features__
-  - Framework Coverage: Support for React, Next.js, Vue, Angular, Express, Nuxt, React Native, and more
-  - Security First: Built-in best practices for MFA, protected routes, and secure token handling
-  - Migration Support: Guided migration from Firebase Auth, AWS Cognito, Supabase, and other providers
-  - Easy Installation: Install via CLI (npx skills add auth0/agent-skills) or directly in Claude Code plugins
-  - Production Ready: Generate complete authentication implementations in minutes
-
-__Getting Started__
-- Install Auth0 Agent Skills: `npx skills add auth0/agent-skills`
-- Then ask your AI assistant: &amp;quot;Add auth0 to my app&amp;quot; and you&amp;apos;re ready to go.
-
-__Learn More__
-  - [auth0/agent-skills repo](https://github.com/auth0/agent-skills)
-  - [Documentation](https://auth0.com/docs/quickstart/agent-skills)</description>
-                   <guid>https://auth0.com/changelog#34nfrABQdaCKQ7ZFzslAqP</guid>
-               </item><item>
                    <title>Credential Guard: Breached Phone Credentials Support</title>
                    <pubDate>Fri, 06 Feb 2026 00:00:00 GMT</pubDate>
                    <description>To strengthen defenses across the identity surface, we have added millions of breached phone credentials to our detection capabilities within __Credential Guard__
@@ -1192,6 +1181,40 @@ Access and manage refresh token metadata programmatically:
 Learn more about Refresh Token Metadata in our [documentation](https://auth0.com/docs/secure/tokens/refresh-tokens/refresh-token-metadata) </description>
                    <guid>https://auth0.com/changelog#66wOIhfWKdTVk1y1eFjwH4</guid>
                </item><item>
+                   <title>Auth0 Agent Skills </title>
+                   <pubDate>Fri, 06 Feb 2026 00:00:00 GMT</pubDate>
+                   <description>We&amp;apos;re introducing Auth0 Agent Skills Beta- structured guidance that teaches AI coding assistants how to implement Auth0 authentication correctly across any framework.
+
+Agent Skills are AI-native instructions that work with popular coding assistants like Claude Code, Codex, Gemini CLI, etc... They provide production-ready code patterns, security best practices, and step-by-step implementation flows directly within your development workflow.
+
+__Key Features__
+  - Framework Coverage: Support for React, Next.js, Vue, Angular, Express, Nuxt, React Native, and more
+  - Security First: Built-in best practices for MFA, protected routes, and secure token handling
+  - Migration Support: Guided migration from Firebase Auth, AWS Cognito, Supabase, and other providers
+  - Easy Installation: Install via CLI (npx skills add auth0/agent-skills) or directly in Claude Code plugins
+  - Production Ready: Generate complete authentication implementations in minutes
+
+__Getting Started__
+- Install Auth0 Agent Skills: `npx skills add auth0/agent-skills`
+- Then ask your AI assistant: &amp;quot;Add auth0 to my app&amp;quot; and you&amp;apos;re ready to go.
+
+__Learn More__
+  - [auth0/agent-skills repo](https://github.com/auth0/agent-skills)
+  - [Documentation](https://auth0.com/docs/quickstart/agent-skills)</description>
+                   <guid>https://auth0.com/changelog#34nfrABQdaCKQ7ZFzslAqP</guid>
+               </item><item>
+                   <title> Enhanced Bot Detection Accuracy with JA4 Signals</title>
+                   <pubDate>Mon, 02 Feb 2026 00:00:00 GMT</pubDate>
+                   <description>To provide a more robust defense against sophisticated automated threats, Auth0 has integrated JA4 signals into the core of our Bot Detection machine learning engine.
+
+The addition of JA4 signals allows our models to surface and mitigate sophisticated automated threats that traditional signals often miss. 
+
+This enhanced security feature is available now to all Enterprise customers with the Attack Protection add-on. The rollout is currently underway and will be completed in the coming weeks, aligned with individual customer release schedules.
+
+To learn more about Auth0&amp;apos;s Bot Detection Product, click [here](https://auth0.com/docs/secure/attack-protection/bot-detection)
+</description>
+                   <guid>https://auth0.com/changelog#40upcFBPuFxKG7nacgSlQc</guid>
+               </item><item>
                    <title>Better Mobile UX: Numeric Keyboards Now Default for OTPs </title>
                    <pubDate>Mon, 02 Feb 2026 00:00:00 GMT</pubDate>
                    <description>We’re excited to roll out a highly requested update to the mobile login experience! We know that every tap matters when it comes to user conversion, so we’ve eliminated a common friction point in the authentication journey.
@@ -1208,17 +1231,22 @@ Trigger an MFA challenge or Passwordless login from your mobile device to see th
 * Visit your [Dashboard](https://manage.auth0.com)</description>
                    <guid>https://auth0.com/changelog#29R56ta9PFA5dZI59IiWOr</guid>
                </item><item>
-                   <title> Enhanced Bot Detection Accuracy with JA4 Signals</title>
-                   <pubDate>Mon, 02 Feb 2026 00:00:00 GMT</pubDate>
-                   <description>To provide a more robust defense against sophisticated automated threats, Auth0 has integrated JA4 signals into the core of our Bot Detection machine learning engine.
+                   <title>Roles for the Auth0 FGA Dashboard</title>
+                   <pubDate>Fri, 30 Jan 2026 00:00:00 GMT</pubDate>
+                   <description>We are excited to release the __Per-Member Authorization__ feature that introduces __roles__ to the FGA Dashboard! This allows you to grant appropriate levels of access based on users’ needs.
 
-The addition of JA4 signals allows our models to surface and mitigate sophisticated automated threats that traditional signals often miss. 
+We are enhancing the permission model from a single admin to __Groups__ that can be assigned roles. Groups are an organizational container for managing permissions and offer convenience when assigning roles to multiple users at once.
 
-This enhanced security feature is available now to all Enterprise customers with the Attack Protection add-on. The rollout is currently underway and will be completed in the coming weeks, aligned with individual customer release schedules.
+- __New Roles__: We are introducing three new granular roles to sit alongside the previous admin role (now renamed __Account Owner__):
+  - __Group Manager__: An account-level role for managing teams without accessing FGA stores directly.
+  - __Store Editor__: A store-level role that can modify models and tuples but cannot manage groups.
+  - __Store Viewer__: A read-only role useful for ops teams or sales engineers who need visibility without the ability to impact systems.
+- __Groups__: Account Owners or Group Managers can create groups (ex., &amp;quot;IT Group&amp;quot; or &amp;quot;Dev Team&amp;quot;) and assign members to them. All members automatically inherit the permissions defined at the group level.
+- __Scoping__: Crucially, these roles can be scoped to specific stores. For example, this allows a single user, to be an Editor for a &amp;quot;Staging&amp;quot; store but restricted to Viewer for a &amp;quot;Production&amp;quot; store.
 
-To learn more about Auth0&amp;apos;s Bot Detection Product, click [here](https://auth0.com/docs/secure/attack-protection/bot-detection)
+For more details, refer to Auth0 FGA Dashboard’s [Roles](https://docs.fga.dev/dashboard/roles) documentation.
 </description>
-                   <guid>https://auth0.com/changelog#40upcFBPuFxKG7nacgSlQc</guid>
+                   <guid>https://auth0.com/changelog#2FC37fwfuoG9VdrUyt74jt</guid>
                </item><item>
                    <title>API Access Policies for Applications is now Generally Available</title>
                    <pubDate>Fri, 30 Jan 2026 00:00:00 GMT</pubDate>
@@ -1310,23 +1338,6 @@ Learn more about Self-Service SSO in the [product documentation](https://auth0.c
 
 By using Self-Service SSO Domain Verification for Organization Discovery by Domain, you agree to the applicable Free Trial terms in Okta’s Master Subscription Agreement and Okta’s Privacy Policy during use of the Early Access feature. The Free Trial terms can be found within the Master Subscription Agreement at [https://www.okta.com/agreements](https://www.okta.com/agreements &amp;quot;https://www.okta.com/agreements&amp;quot;).</description>
                    <guid>https://auth0.com/changelog#3gORrQiUn2cmxZp3UPwRLN</guid>
-               </item><item>
-                   <title>Roles for the Auth0 FGA Dashboard</title>
-                   <pubDate>Fri, 30 Jan 2026 00:00:00 GMT</pubDate>
-                   <description>We are excited to release the __Per-Member Authorization__ feature that introduces __roles__ to the FGA Dashboard! This allows you to grant appropriate levels of access based on users’ needs.
-
-We are enhancing the permission model from a single admin to __Groups__ that can be assigned roles. Groups are an organizational container for managing permissions and offer convenience when assigning roles to multiple users at once.
-
-- __New Roles__: We are introducing three new granular roles to sit alongside the previous admin role (now renamed __Account Owner__):
-  - __Group Manager__: An account-level role for managing teams without accessing FGA stores directly.
-  - __Store Editor__: A store-level role that can modify models and tuples but cannot manage groups.
-  - __Store Viewer__: A read-only role useful for ops teams or sales engineers who need visibility without the ability to impact systems.
-- __Groups__: Account Owners or Group Managers can create groups (ex., &amp;quot;IT Group&amp;quot; or &amp;quot;Dev Team&amp;quot;) and assign members to them. All members automatically inherit the permissions defined at the group level.
-- __Scoping__: Crucially, these roles can be scoped to specific stores. For example, this allows a single user, to be an Editor for a &amp;quot;Staging&amp;quot; store but restricted to Viewer for a &amp;quot;Production&amp;quot; store.
-
-For more details, refer to Auth0 FGA Dashboard’s [Roles](https://docs.fga.dev/dashboard/roles) documentation.
-</description>
-                   <guid>https://auth0.com/changelog#2FC37fwfuoG9VdrUyt74jt</guid>
                </item><item>
                    <title>Universal Custom Password Hash for Bulk Import - Now in Limited Early Access!</title>
                    <pubDate>Wed, 28 Jan 2026 00:00:00 GMT</pubDate>
@@ -1968,6 +1979,22 @@ For Private Key JWT, Auth0 now lets you choose which algorithm is used to sign c
 This release is currently rolling out to all environments. To enable the Additional Signing Algorithms Limited Early Access release in your Auth0 tenant once available in your environment, please contact your Technical Account Manager to request access.</description>
                    <guid>https://auth0.com/changelog#39RZCNYZg2waEwr5fLhd7d</guid>
                </item><item>
+                   <title>React Native SDK v5.0 (GA)</title>
+                   <pubDate>Wed, 01 Oct 2025 00:00:00 GMT</pubDate>
+                   <description>We are excited to announce the release of the __Auth0 React Native SDK v5__, a foundational rewrite designed to provide a best-in-class developer experience for one of the world&amp;apos;s most popular mobile frameworks. This major update delivers a simpler, more powerful way to integrate secure authentication into your React Native applications while ensuring compatibility with the latest evolution of the ecosystem.
+
+__Highlights:__
+- __Stay on the Cutting Edge of React Native:__ Deploy with confidence knowing your authentication layer is ready for the future. The SDK is fully compatible with React 19 and Expo 53, and now includes Beta support for React Native&amp;apos;s New Architecture (Turbo Modules). This allows you to leverage the latest performance and UI capabilities of the ecosystem without compromising on security.
+- __Accelerate Development with a Better DX:__ We&amp;apos;ve refactored the entire SDK from the ground up to create a more intuitive and efficient developer experience. With a simpler API surface, unified cross-platform error handling, and an Android layer rewritten in modern Kotlin, you can integrate Auth0 faster and spend less time debugging.
+- __Build for More Platforms with react-native-web:__ The new, robust architecture enables first-class support for react-native-web. Now you can share more of your authentication logic between your native mobile and web applications, streamlining development and ensuring a consistent user experience everywhere.
+
+Get Started Today. The Auth0 React Native SDK v5 is now generally available.
+
+As a major version release, v5 includes breaking changes aimed at improving the long-term health and usability of the SDK. To upgrade, please consult our comprehensive [Migration Guide](https://github.com/auth0/react-native-auth0/blob/master/MIGRATION_GUIDE.md) to v5.
+
+For a full list of new features, improvements, and breaking changes, view the complete release notes on [GitHub](https://github.com/auth0/react-native-auth0/releases/tag/v5.0.0).</description>
+                   <guid>https://auth0.com/changelog#5plVH0sRpMqH1cNb4FBGOK</guid>
+               </item><item>
                    <title>Ephemeral Sessions with Actions (Public EA)</title>
                    <pubDate>Wed, 01 Oct 2025 00:00:00 GMT</pubDate>
                    <description>As part of the Continuous Session Protection, you can now configure ephemeral (non-persistent) sessions using Actions. This allows enterprise customers to dynamically control whether a session is stored in a persistent cookie or only in memory.
@@ -1984,22 +2011,6 @@ Learn more: https://auth0.com/docs/manage-users/sessions/sessions-with-actions#s
 [Use Ephemeral Sessions with Actions to configure Keep Me Sign In](https://auth0.com/docs/manage-users/sessions/configure-keep-me-signed-in-sessions)
 </description>
                    <guid>https://auth0.com/changelog#3R5TLwcoC5ELeNg9vS0QL7</guid>
-               </item><item>
-                   <title>React Native SDK v5.0 (GA)</title>
-                   <pubDate>Wed, 01 Oct 2025 00:00:00 GMT</pubDate>
-                   <description>We are excited to announce the release of the __Auth0 React Native SDK v5__, a foundational rewrite designed to provide a best-in-class developer experience for one of the world&amp;apos;s most popular mobile frameworks. This major update delivers a simpler, more powerful way to integrate secure authentication into your React Native applications while ensuring compatibility with the latest evolution of the ecosystem.
-
-__Highlights:__
-- __Stay on the Cutting Edge of React Native:__ Deploy with confidence knowing your authentication layer is ready for the future. The SDK is fully compatible with React 19 and Expo 53, and now includes Beta support for React Native&amp;apos;s New Architecture (Turbo Modules). This allows you to leverage the latest performance and UI capabilities of the ecosystem without compromising on security.
-- __Accelerate Development with a Better DX:__ We&amp;apos;ve refactored the entire SDK from the ground up to create a more intuitive and efficient developer experience. With a simpler API surface, unified cross-platform error handling, and an Android layer rewritten in modern Kotlin, you can integrate Auth0 faster and spend less time debugging.
-- __Build for More Platforms with react-native-web:__ The new, robust architecture enables first-class support for react-native-web. Now you can share more of your authentication logic between your native mobile and web applications, streamlining development and ensuring a consistent user experience everywhere.
-
-Get Started Today. The Auth0 React Native SDK v5 is now generally available.
-
-As a major version release, v5 includes breaking changes aimed at improving the long-term health and usability of the SDK. To upgrade, please consult our comprehensive [Migration Guide](https://github.com/auth0/react-native-auth0/blob/master/MIGRATION_GUIDE.md) to v5.
-
-For a full list of new features, improvements, and breaking changes, view the complete release notes on [GitHub](https://github.com/auth0/react-native-auth0/releases/tag/v5.0.0).</description>
-                   <guid>https://auth0.com/changelog#5plVH0sRpMqH1cNb4FBGOK</guid>
                </item><item>
                    <title>Organizations Support for Native Passkeys</title>
                    <pubDate>Wed, 01 Oct 2025 00:00:00 GMT</pubDate>
