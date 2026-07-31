@@ -5,7 +5,7 @@
            <link>https://auth0.com/changelog/rss.xml</link>
            <description>Auth0 Changelog</description>
            <language>en-US</language>
-           <lastBuildDate>Thu, 30 Jul 2026 21:39:00 GMT</lastBuildDate>
+           <lastBuildDate>Thu, 30 Jul 2026 23:39:18 GMT</lastBuildDate>
            <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
            <image>
                <title>Auth0 Changelog</title>
@@ -23,37 +23,11 @@ A guided setup walks you through federating over OIDC or SAML, including Okta as
 Please contact the Sales team if you would like to evaluate Enterprise Connect Beta.</description>
                    <guid>https://auth0.com/changelog#7tP8Zqm27Hp3qORKgIaNwT</guid>
                </item><item>
-                   <title>Privileged Worker is now Early Access!</title>
-                   <pubDate>Thu, 30 Jul 2026 00:00:00 GMT</pubDate>
-                   <description>We&amp;apos;re thrilled to announce __Privileged Worker__ is now in __Early Access__, letting your autonomous agents pull a user&amp;apos;s third-party tokens - Gmail, Drive, Slack, and more - from Token Vault with no user session required. Token Vault today assumes a human is actively logged in to hand over their token; if your agent runs on a schedule, in CI, or wakes up at 2am with no one signed in, there may not always be a user signed in. Privileged Worker gives your background agents their own strong credential to authorize that exchange directly.
-
-With privileged worker, you can register a trusted worker identity, authenticate it with Private Key JWT or mTLS, and it can request a specific user&amp;apos;s third-party token directly from Token Vault. We give you the ability to pin each worker credential to specific connections and scopes, so a compromised credential can only reach what it was actually authorized for.
-
-To enable the Privileged Worker Early Access release in your Auth0 tenant once available in your environment, please contact your Auth0 Account Team. 
-
-Learn more in the [documentation](https://auth0.com/docs/secure/call-apis-on-users-behalf/token-vault/privileged-worker-token-exchange-with-token-vault#privileged-worker-token-exchange-with-token-vault).</description>
-                   <guid>https://auth0.com/changelog#3Ehpq3QsDRBlkNWDb91Hly</guid>
-               </item><item>
-                   <title>Agents as Principal now in Early Access!</title>
-                   <pubDate>Thu, 30 Jul 2026 00:00:00 GMT</pubDate>
-                   <description>We&amp;apos;re excited to announce __Agents as Principal__ is now in __Early Access__, giving AI agents a first-class identity in Auth0 - distinct from human users and clients. If you&amp;apos;re running agents in production today, they&amp;apos;re likely standing in as a shared client or user identity, which means you can&amp;apos;t tell which agent acted, track it when it&amp;apos;s acting for someone else, or separate its traffic from a human&amp;apos;s. This release gives every agent its own identifier, credentials, and audit trail so you can!
-
-- __Know Exactly Which Agent Acted:__ Every agent gets a unique identity of its own, instead of hiding behind a shared client or a user account. You can create and manage agent identities directly, so &amp;quot;who did this&amp;quot; has a real answer.
-
-- __Track Delegation End to End:__ When an agent acts on a user&amp;apos;s behalf, the full chain - who delegated, to which agent, through which app - is encoded in the token and auditable through every hop. 
-
-- __Bring Your Existing Agents In:__ Already running agents outside Auth0 through your own registry, an MCP server, or elsewhere? Associate the identifier you already use internally with an Auth0 client, so you&amp;apos;re not re-provisioning agents you&amp;apos;ve already built.
-
-To enable the Agent as Principal Early Access release in your Auth0 tenant once available in your environment, please contact your Auth0 Account Team. 
-
-Learn more in the [documentation](https://auth0.com/docs/ai-agents-mcp/agents-as-principal).</description>
-                   <guid>https://auth0.com/changelog#7cWok8ec4tujGeC6si1yiN</guid>
-               </item><item>
                    <title>Curated Blocklists in Tenant Access Control Lists is Now GA!</title>
                    <pubDate>Thu, 30 Jul 2026 00:00:00 GMT</pubDate>
                    <description>
 ### Overview 
-Curated Blocklists extend Auth0 Tenant Access Control Lists (ACLs) by integrating dynamically updated threat intelligence directly into your Network ACL rules. 
+Curated Blocklists extend Auth0 Tenant Access Control Lists (ACLs) by integrating dynamically updated threat intelligence directly into your Tenant ACL rules. 
 
 Instead of manually tracking and updating individual IP ranges or ASNs, Attack Protection customers can delegate IP risk management to Auth0 Threat Intel, ensuring continuous, automated protection against evolving threat vectors.
 
@@ -97,6 +71,32 @@ Configure curated blocklists via the Network ACLs Management API inside the `aut
 * [Configure Tenant ACLs](https://auth0.com/docs/secure/tenant-access-control-list/configure-rules)
 </description>
                    <guid>https://auth0.com/changelog#3qvd2EJvV52InnJhPx4lS1</guid>
+               </item><item>
+                   <title>Agents as Principal now in Early Access!</title>
+                   <pubDate>Thu, 30 Jul 2026 00:00:00 GMT</pubDate>
+                   <description>We&amp;apos;re excited to announce __Agents as Principal__ is now in __Early Access__, giving AI agents a first-class identity in Auth0 - distinct from human users and clients. If you&amp;apos;re running agents in production today, they&amp;apos;re likely standing in as a shared client or user identity, which means you can&amp;apos;t tell which agent acted, track it when it&amp;apos;s acting for someone else, or separate its traffic from a human&amp;apos;s. This release gives every agent its own identifier, credentials, and audit trail so you can!
+
+- __Know Exactly Which Agent Acted:__ Every agent gets a unique identity of its own, instead of hiding behind a shared client or a user account. You can create and manage agent identities directly, so &amp;quot;who did this&amp;quot; has a real answer.
+
+- __Track Delegation End to End:__ When an agent acts on a user&amp;apos;s behalf, the full chain - who delegated, to which agent, through which app - is encoded in the token and auditable through every hop. 
+
+- __Bring Your Existing Agents In:__ Already running agents outside Auth0 through your own registry, an MCP server, or elsewhere? Associate the identifier you already use internally with an Auth0 client, so you&amp;apos;re not re-provisioning agents you&amp;apos;ve already built.
+
+To enable the Agent as Principal Early Access release in your Auth0 tenant once available in your environment, please contact your Auth0 Account Team. 
+
+Learn more in the [documentation](https://auth0.com/docs/ai-agents-mcp/agents-as-principal).</description>
+                   <guid>https://auth0.com/changelog#7cWok8ec4tujGeC6si1yiN</guid>
+               </item><item>
+                   <title>Token Vault Privileged Worker is now Early Access!</title>
+                   <pubDate>Thu, 30 Jul 2026 00:00:00 GMT</pubDate>
+                   <description>We&amp;apos;re thrilled to announce __Token Vault Privileged Worker__ is now in __Early Access__, letting your autonomous agents pull a user&amp;apos;s third-party tokens - Gmail, Drive, Slack, and more - from Token Vault with no user session required. Token Vault today assumes a human is actively logged in to hand over their token; if your agent runs on a schedule, in CI, or wakes up at 2am with no one signed in, there may not always be a user signed in. Privileged Worker gives your background agents their own strong credential to authorize that exchange directly.
+
+With privileged worker, you can register a trusted worker identity, authenticate it with Private Key JWT or mTLS, and it can request a specific user&amp;apos;s third-party token directly from Token Vault. We give you the ability to pin each worker credential to specific connections and scopes, so a compromised credential can only reach what it was actually authorized for.
+
+To enable the Privileged Worker Early Access release in your Auth0 tenant once available in your environment, please contact your Auth0 Account Team. 
+
+Learn more in the [documentation](https://auth0.com/docs/secure/call-apis-on-users-behalf/token-vault/privileged-worker-token-exchange-with-token-vault#privileged-worker-token-exchange-with-token-vault).</description>
+                   <guid>https://auth0.com/changelog#3Ehpq3QsDRBlkNWDb91Hly</guid>
                </item><item>
                    <title>Organization-to-Application Entitlement - Early Access</title>
                    <pubDate>Wed, 29 Jul 2026 00:00:00 GMT</pubDate>
