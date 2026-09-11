@@ -1,0 +1,715 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>OAuth/OIDC Numa (Immersion) Workshop 2026 レポート</title>
+<style>
+  :root {
+    --blue:#3498db; --blue-dark:#2c3e50; --green:#2ecc71;
+    --bg:#f5f7f9; --card:#fff; --text:#333; --muted:#6b7280;
+  }
+  * { box-sizing:border-box; }
+  html { scroll-behavior:smooth; }
+  body {
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Hiragino Kaku Gothic ProN",
+                 "Yu Gothic",Meiryo,Arial,sans-serif;
+    line-height:1.75; color:var(--text); max-width:980px; margin:0 auto;
+    padding:28px 18px 64px; background:var(--bg);
+  }
+  a { color:#1f6fae; }
+  .hero {
+    background:linear-gradient(135deg,#2c3e50,#3f6f93); color:#fff;
+    border-radius:14px; padding:34px 34px 28px; margin-bottom:22px;
+    box-shadow:0 8px 22px rgba(0,0,0,.08);
+  }
+  .hero h1 { margin:0 0 10px; font-size:2.05rem; line-height:1.35; }
+  .hero p { margin:8px 0 0; opacity:.95; }
+  .eyebrow { font-size:.88rem; letter-spacing:.06em; opacity:.8; }
+  .overview {
+    background:var(--card); border:1px solid #e1e5e9; border-radius:12px;
+    padding:24px 26px; margin-bottom:24px;
+  }
+  .overview-grid { display:grid; grid-template-columns:1.2fr 1fr; gap:20px; }
+  .toc {
+    display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:8px;
+    margin-top:12px;
+  }
+  .toc a {
+    display:block; padding:9px 11px; border:1px solid #e1e5e9; border-radius:8px;
+    text-decoration:none; background:#fbfcfd; line-height:1.45;
+  }
+  .toc a:hover { border-color:var(--blue); background:#f3f9fd; }
+  .toc span { display:block; color:var(--muted); font-size:.78rem; margin-bottom:2px; }
+  h2.lecture-title {
+    font-size:1.45rem; color:var(--blue-dark); margin:0; padding:0 0 13px;
+    border-bottom:2px solid var(--blue); display:flex; gap:16px; justify-content:space-between;
+    align-items:flex-start;
+  }
+  .lecture-title > span { flex:1; }
+  .lecture-card {
+    background:var(--card); border:1px solid #ddd; border-radius:12px;
+    padding:24px 26px; margin-bottom:26px; box-shadow:0 3px 10px rgba(0,0,0,.04);
+  }
+  .session-meta { color:var(--muted); font-size:.88rem; margin-bottom:7px; }
+  .material-link {
+    font-size:.78rem; background:var(--blue); color:#fff; padding:7px 10px;
+    border-radius:6px; text-decoration:none; white-space:nowrap; flex:none;
+  }
+  .material-unavailable {
+    font-size:.76rem; background:#eef1f4; color:#68717a; padding:6px 9px; border-radius:6px;
+    white-space:nowrap; flex:none;
+  }
+  .section-title {
+    font-size:1.12rem; color:var(--blue-dark); margin:22px 0 9px;
+    display:flex; align-items:center;
+  }
+  .section-title::before { content:"■"; color:var(--blue); margin-right:8px; font-size:.76em; }
+  .content-box {
+    background:#f7fcf8; border-left:4px solid var(--green);
+    padding:12px 16px; margin-bottom:8px; border-radius:0 7px 7px 0;
+  }
+  ul,ol { margin-top:6px; margin-bottom:6px; padding-left:1.5em; }
+  li { margin:5px 0; }
+  .slide-container { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:16px; margin-top:12px; }
+  .slide {
+    margin:0; border:1px solid #dfe4e8; border-radius:9px; overflow:hidden; background:#fff;
+  }
+  .slide img { display:block; width:100%; height:auto; background:#eee; }
+  .slide figcaption { padding:10px 12px; font-size:.86rem; line-height:1.55; }
+  .slide.image-error::after {
+    content:"画像を表示できません。資料リンクから該当スライドを確認してください。";
+    display:block; padding:14px; color:#9b2c2c;
+  }
+  .no-slides {
+    background:#fbfbfb; border:1px dashed #b8c0c8; border-radius:8px; padding:14px 16px; color:#616970;
+  }
+  .tags { margin-top:22px; padding-top:14px; border-top:1px dashed #ccd2d7; }
+  .tag {
+    display:inline-block; background:#e7f2fa; color:#2670a5; padding:4px 9px;
+    border-radius:999px; font-size:.8rem; margin:0 5px 6px 0;
+  }
+  .source-note {
+    margin-top:14px; padding-top:10px; border-top:1px solid #edf0f2; color:var(--muted); font-size:.78rem;
+  }
+  .source-note a { word-break:break-all; }
+  .method-note {
+    font-size:.86rem; background:#fff8e8; border-left:4px solid #e7b23a;
+    padding:11px 14px; border-radius:0 7px 7px 0; margin-top:14px;
+  }
+  .footer { color:var(--muted); font-size:.78rem; margin-top:22px; }
+  @media (max-width:760px) {
+    body { padding:16px 10px 40px; }
+    .hero { padding:25px 21px; }
+    .hero h1 { font-size:1.65rem; }
+    .overview-grid,.toc,.slide-container { grid-template-columns:1fr; }
+    .lecture-title { flex-direction:column; }
+    .material-link,.material-unavailable { align-self:flex-start; }
+  }
+  @media print {
+    body { max-width:none; background:#fff; padding:0; }
+    .hero { box-shadow:none; }
+    .lecture-card { break-inside:avoid; box-shadow:none; }
+    .toc a { color:#111; }
+  }
+</style>
+</head>
+<body>
+  <section class="hero">
+    <div class="eyebrow">EVENT REPORT / 2026.08.25</div>
+    <h1>OAuth/OIDC Numa (Immersion) Workshop 2026</h1>
+    <p>各講演の概要・主なポイント・話の流れ・キースライドを、公開資料を中心に整理した技術レポート</p>
+  </section>
+
+  <section class="overview">
+    <div class="overview-grid">
+      <div>
+        <h2 style="margin:0 0 8px;color:var(--blue-dark);">イベント概要</h2>
+        <p>OAuth/OIDC Numa (Immersion) Workshop 2026は、2026年8月25日に開催されたOAuth/OIDCおよび関連技術の没入型ワークショップ。公式の開催趣旨では、最新仕様の追随だけでなく、開発を通じて得られた実践知見の共有を重視している。本日の講演群を通して見ると、AIエージェント、パスキー、ワークロードID、ブラウザ主導のID連携、組織間委任、KYC/本人確認、EUDIW、Verifiable Credentials、1st-partyアカウント統合まで、OAuth/OIDCを中心とする技術が「単一プロトコル」ではなく、複数の信頼境界・端末・組織・標準・運用をつなぐ基盤として扱われていることが分かる。</p>
+        <div class="method-note">
+          <strong>レポート作成方針：</strong>
+          公開講演資料があるセッションは、その資料のTranscriptを基礎に整理しています。資料が確認できないセッションは、タイトル・公開プログラムから支持できる範囲に限定し、内容を推測で補っていません。
+        </div>
+      </div>
+      <div>
+        <h2 style="margin:0 0 8px;color:var(--blue-dark);">全体を貫く主要テーマ</h2>
+        <ul><li>AIエージェントへの安全な権限委譲：Scoped PasskeyやOAuthの正しい位置づけ</li><li>複数のTrust Domainをまたぐ認可：Identity/Authorization ChainingとToken Exchange</li><li>非人間・ワークロードの認証：SPIFFE SVIDをOAuthクライアント認証へ接続</li><li>ブラウザが担う認証・連携：EVP / FedCM / Digital Credentials API</li><li>組織・契約に根差した認可：AuthZEN / RAR / SSF / Token Exchangeの組み合わせ</li><li>本人確認の実装競争：デジタル認証アプリ、Wallet、OpenID4VP、mdoc、SD-JWT</li><li>VCエコシステム：仕様準拠だけでなくProfile一致とConformance Testが重要</li><li>アカウント統合：パスキーを「導入技術」から「統合を進めるドライバー」へ</li></ul>
+      </div>
+    </div>
+
+    <h2 style="margin:23px 0 8px;color:var(--blue-dark);">講演一覧</h2>
+    <nav class="toc"><a href="#session-1"><span>10:00 - 10:15</span>オープニングセッションと本日のイベントの見どころ</a><a href="#session-2"><span>10:15 - 10:40</span>MCPを待つな、パスキーを拡げよう ― 限定認可（Scoped）パスキーで権限委譲の課題は解決するか</a><a href="#session-3"><span>10:40 - 11:05</span>サービス内で複数のOP・ASを連鎖させる ～実案件で悩んだトークンのチェイン、“OAuth Identity and Authorization Chaining” と見比べてみた～</a><a href="#session-4"><span>11:05 - 11:35</span>OAuth SPIFFE Client Authentication</a><a href="#session-5"><span>12:45 - 13:10</span>ブラウザで変わるID連携 ― FedCMとEVPが描く未来の認証</a><a href="#session-6"><span>13:10 - 13:35</span>モバイルアプリにおけるOAuth/OIDCクライアント認証の再設計</a><a href="#session-7"><span>13:35 - 14:00</span>会計事務所と顧問先の契約関係をOIDC・OAuthで表現する</a><a href="#session-8"><span>14:00 - 14:30</span>AI時代の「OAuth認証」にどう物申すか?</a><a href="#session-9"><span>14:50 - 15:15</span>EUDIWの枠組みを出発点に民間エコシステムの在り方を考える</a><a href="#session-10"><span>15:15 - 15:40</span>メルカリにおける本人確認の取り組み 新技術導入の現在地とこれから</a><a href="#session-11"><span>15:40 - 16:10</span>Digital Credentials API × OpenID4VP ブラウザ完結型本人確認の実装知見</a><a href="#session-12"><span>16:30 - 16:55</span>IHV likeなユースケースへのOpenID Connect関連仕様の適用事例</a><a href="#session-13"><span>16:55 - 17:20</span>OpenID for Verifiable Credentials 実装から見えた相互運用性確保までの道のり</a><a href="#session-14"><span>17:20 - 17:45</span>パスキーでドライブする 1st-partyアカウント統合</a><a href="#session-15"><span>17:45 - 17:50</span>クロージング</a><a href="#session-16"><span>18:00 - 18:50</span>Beerセッション「OAuthに沼った芸人大集合、OAuthトーーク!!!!」</a></nav>
+  </section>
+
+  
+    <article class="lecture-card" id="session-1">
+      <div class="session-meta">10:00 - 10:15　|　ritou</div>
+      <h2 class="lecture-title">
+        <span>オープニングセッションと本日のイベントの見どころ</span>
+        <span class="material-unavailable">公開資料未確認</span>
+      </h2>
+      <h3 class="section-title">概要・背景</h3>
+      <p>本イベントの趣旨と、OAuth/OIDCを中心とした認証・認可・デジタルアイデンティティの最新論点を俯瞰する導入セッション。公開された講演資料は確認できなかったため、個別の主張・スライド内容については記載を限定した。</p>
+
+      <h3 class="section-title">主なポイント</h3>
+      <div class="content-box"><ul><li>OAuth/OIDCと関連する実装・標準化の現在地を、一日を通して掘り下げるための導入。</li><li>本日の各講演では、AIエージェント、パスキー、ワークロードID、ブラウザ連携、本人確認、VC、アカウント統合などが扱われる。</li><li>イベント全体を「仕様そのもの」だけでなく、実案件での実装・運用・相互運用性まで考える場として位置づける。</li></ul></div>
+
+      <h3 class="section-title">話の流れ</h3>
+      <ol><li>導入：イベントの趣旨・狙い</li><li>全体像：当日の主要テーマを俯瞰</li><li>各講演への橋渡し：実装・標準・運用の論点へ</li></ol>
+
+      <h3 class="section-title">キースライド</h3>
+      
+        <div class="no-slides">
+          <strong>キースライド</strong>
+          <p>公開された講演資料を確認できなかったため、スライド画像は掲載していません。内容についても公開情報以上の補完は行っていません。</p>
+        </div>
+        
+
+      <div class="tags"><span class="tag">#OAuth</span><span class="tag">#OpenIDConnect</span><span class="tag">#DigitalIdentity</span><span class="tag">#Workshop</span></div>
+      <div class="source-note">主資料：公開講演資料は確認できず。プログラム記載と公開情報の範囲で整理。</div>
+    </article>
+    
+    <article class="lecture-card" id="session-2">
+      <div class="session-meta">10:15 - 10:40　|　小岩井 航介 / KDDI株式会社</div>
+      <h2 class="lecture-title">
+        <span>MCPを待つな、パスキーを拡げよう ― 限定認可（Scoped）パスキーで権限委譲の課題は解決するか</span>
+        <a class="material-link" href="https://speakerdeck.com/oidfj/20260825-numa-02-mcp-scoped-passkey" target="_blank" rel="noopener">講演資料を見る ↗</a>
+      </h2>
+      <h3 class="section-title">概要・背景</h3>
+      <p>AIエージェントや人間同士の代理操作における権限委譲を、パスキーそのものに限定権限を持たせる「Scoped Passkey」で扱おうという提案。MCP対応を待つより先に、現行WebサービスをAIエージェントから安全に使えるようにする道筋を検討する。</p>
+
+      <h3 class="section-title">主なポイント</h3>
+      <div class="content-box"><ul><li>AIエージェントは、各サービスがMCP対応するより先に、人間向けHTMLを解釈してタスクを実行し始める可能性がある。</li><li>限定認可パスキーでは、特定のパスキーに限定された権限を付与し、そのパスキーを人間・非人間の代理主体へ渡すモデルを想定する。</li><li>OAuth 2.xでユーザーの許諾を得た上でAPIからパスキーを発行し、AIエージェント等に安全に権限委譲する構想を示す。</li></ul></div>
+
+      <h3 class="section-title">話の流れ</h3>
+      <ol><li>課題提起：AIエージェントと既存Web/APIのギャップ</li><li>着眼点：人間以外も利用できる限定権限パスキー</li><li>方式：OAuthで許諾 → 限定スコープのパスキー発行</li><li>検証：デモを通じて成立性を確認</li><li>まとめ：MCPを待たずに権限委譲を拡張する</li></ol>
+
+      <h3 class="section-title">キースライド</h3>
+      <div class="slide-container">
+        <figure class="slide">
+          <a href="https://files.speakerdeck.com/presentations/d2d45898c12d423194ab231f235e7aae/slide_6.jpg" target="_blank" rel="noopener">
+            <img src="https://files.speakerdeck.com/presentations/d2d45898c12d423194ab231f235e7aae/slide_6.jpg" alt="限定認可（Scoped）パスキー" loading="lazy"
+                 onerror="this.closest('figure').classList.add('image-error')">
+          </a>
+          <figcaption><strong>限定認可（Scoped）パスキー</strong><br>パスキーに限定された権限を持たせる基本概念（p.6）</figcaption>
+        </figure>
+        
+        <figure class="slide">
+          <a href="https://files.speakerdeck.com/presentations/d2d45898c12d423194ab231f235e7aae/slide_7.jpg" target="_blank" rel="noopener">
+            <img src="https://files.speakerdeck.com/presentations/d2d45898c12d423194ab231f235e7aae/slide_7.jpg" alt="OAuthによるパスキー発行" loading="lazy"
+                 onerror="this.closest('figure').classList.add('image-error')">
+          </a>
+          <figcaption><strong>OAuthによるパスキー発行</strong><br>AIエージェント等への権限委譲にOAuthを利用する構想（p.7）</figcaption>
+        </figure>
+        </div>
+
+      <div class="tags"><span class="tag">#Passkey</span><span class="tag">#ScopedAuthorization</span><span class="tag">#AIAgent</span><span class="tag">#MCP</span><span class="tag">#Delegation</span></div>
+      <div class="source-note">主資料：<a href="https://speakerdeck.com/oidfj/20260825-numa-02-mcp-scoped-passkey" target="_blank" rel="noopener">公開講演資料（Speaker Deck）</a></div>
+    </article>
+    
+    <article class="lecture-card" id="session-3">
+      <div class="session-meta">10:40 - 11:05　|　名古屋 謙彦 / GMOサイバーセキュリティ byイエラエ株式会社</div>
+      <h2 class="lecture-title">
+        <span>サービス内で複数のOP・ASを連鎖させる ～実案件で悩んだトークンのチェイン、“OAuth Identity and Authorization Chaining” と見比べてみた～</span>
+        <a class="material-link" href="https://speakerdeck.com/oidfj/20260825-numa-03-oauth-identity-and-authorization-chaining" target="_blank" rel="noopener">講演資料を見る ↗</a>
+      </h2>
+      <h3 class="section-title">概要・背景</h3>
+      <p>複数の認可サーバー（AS）やOpenID Provider（OP）をまたぐ実案件でのトークン連鎖の問題を、IETFのIdentity and Authorization Chainingの考え方と照合。下流の認可判断で、元ユーザー、付与された権限、必要に応じて前段のResource Server情報を失わないことが中心テーマとなる。</p>
+
+      <h3 class="section-title">主なポイント</h3>
+      <div class="content-box"><ul><li>Chainingは「誰のために始まった要求か」「何を許可されたか」「必要なら前段でどのResource Serverが呼ばれたか」をTrust Domainを越えて保持する考え方。</li><li>Token Exchangeは単なるトークン形式変換ではなく、下流ASへ何を渡すかを決める境界として扱う。</li><li>実装上はsubject identifier mapping、data minimization、scope control/downscoping、claimsの意味と責任分界が重要になる。</li></ul></div>
+
+      <h3 class="section-title">話の流れ</h3>
+      <ol><li>定義：I-Dでいうchainingの3要素を整理</li><li>実案件：複数OP/AS連鎖で発生する要求をモデル化</li><li>方式比較：Identity ChainingとToken Exchangeを照合</li><li>設計論点：subject mapping・最小権限・claim semantics</li><li>まとめ：Trust Domainを越える認可コンテキストの継承</li></ol>
+
+      <h3 class="section-title">キースライド</h3>
+      <div class="slide-container">
+        <figure class="slide">
+          <a href="https://files.speakerdeck.com/presentations/92d5924f478f47ea8627b262bf2bbe7e/slide_3.jpg" target="_blank" rel="noopener">
+            <img src="https://files.speakerdeck.com/presentations/92d5924f478f47ea8627b262bf2bbe7e/slide_3.jpg" alt="I-Dがいう「chaining」とは" loading="lazy"
+                 onerror="this.closest('figure').classList.add('image-error')">
+          </a>
+          <figcaption><strong>I-Dがいう「chaining」とは</strong><br>chainingの3要素を整理したキースライド（p.3）</figcaption>
+        </figure>
+        
+        <figure class="slide">
+          <a href="https://files.speakerdeck.com/presentations/92d5924f478f47ea8627b262bf2bbe7e/slide_7.jpg" target="_blank" rel="noopener">
+            <img src="https://files.speakerdeck.com/presentations/92d5924f478f47ea8627b262bf2bbe7e/slide_7.jpg" alt="Token Exchangeの境界" loading="lazy"
+                 onerror="this.closest('figure').classList.add('image-error')">
+          </a>
+          <figcaption><strong>Token Exchangeの境界</strong><br>B側AS向けにclaimsを絞り、認可コンテキストを受け渡す考え方（p.7）</figcaption>
+        </figure>
+        </div>
+
+      <div class="tags"><span class="tag">#IdentityChaining</span><span class="tag">#TokenExchange</span><span class="tag">#OAuth</span><span class="tag">#Authorization</span><span class="tag">#TrustDomain</span></div>
+      <div class="source-note">主資料：<a href="https://speakerdeck.com/oidfj/20260825-numa-03-oauth-identity-and-authorization-chaining" target="_blank" rel="noopener">公開講演資料（Speaker Deck）</a></div>
+    </article>
+    
+    <article class="lecture-card" id="session-4">
+      <div class="session-meta">11:05 - 11:35　|　川崎 貴彦 / 株式会社Authlete</div>
+      <h2 class="lecture-title">
+        <span>OAuth SPIFFE Client Authentication</span>
+        <a class="material-link" href="https://speakerdeck.com/oidfj/20260825-numa-04-oauth-spiffe-client-authentication" target="_blank" rel="noopener">講演資料を見る ↗</a>
+      </h2>
+      <h3 class="section-title">概要・背景</h3>
+      <p>SPIFFEのワークロードIDをOAuthクライアント認証に利用する方法を解説。共有シークレットではなく暗号学的に検証可能なSVIDをクライアント資格情報として使い、X.509-SVID、JWT-SVID、WIT-SVIDそれぞれのOAuth連携方法を整理する。</p>
+
+      <h3 class="section-title">主なポイント</h3>
+      <div class="content-box"><ul><li>SPIFFE SVIDにはX.509-SVID、JWT-SVID、WIT-SVIDがあり、ワークロードをSPIFFE IDで識別する。</li><li>X.509-SVIDはmTLSベース、JWT-SVIDはJWT Client Authenticationのプロファイル、WIT-SVIDはAttestation-Based Client Authentication系の仕組みで扱う。</li><li>JWT-SVIDではSPIFFE Bundleから検証鍵を取得し、SPIFFE ID・aud・expなどを検証してOAuthクライアントを認証する。</li></ul></div>
+
+      <h3 class="section-title">話の流れ</h3>
+      <ol><li>背景：ワークロード認証とOAuthクライアント認証を接続</li><li>基礎：SPIFFE ID / SVID / Trust Domain</li><li>方式：X.509 / JWT / WIT の3系統</li><li>実装：AS側でSVIDとBundleを検証</li><li>検討：仕様ドラフト上のヘッダー・相互運用性の論点</li></ol>
+
+      <h3 class="section-title">キースライド</h3>
+      <div class="slide-container">
+        <figure class="slide">
+          <a href="https://files.speakerdeck.com/presentations/a6ed8c9ffa49483c9196942f4b0a2af5/slide_3.jpg" target="_blank" rel="noopener">
+            <img src="https://files.speakerdeck.com/presentations/a6ed8c9ffa49483c9196942f4b0a2af5/slide_3.jpg" alt="SPIFFE SVIDの構造" loading="lazy"
+                 onerror="this.closest('figure').classList.add('image-error')">
+          </a>
+          <figcaption><strong>SPIFFE SVIDの構造</strong><br>X.509-SVID / JWT-SVIDと検証鍵の関係（p.3）</figcaption>
+        </figure>
+        
+        <figure class="slide">
+          <a href="https://files.speakerdeck.com/presentations/a6ed8c9ffa49483c9196942f4b0a2af5/slide_5.jpg" target="_blank" rel="noopener">
+            <img src="https://files.speakerdeck.com/presentations/a6ed8c9ffa49483c9196942f4b0a2af5/slide_5.jpg" alt="OAuth SPIFFE Client Authentication Method Summary" loading="lazy"
+                 onerror="this.closest('figure').classList.add('image-error')">
+          </a>
+          <figcaption><strong>OAuth SPIFFE Client Authentication Method Summary</strong><br>3種類のSVIDをOAuthクライアント認証に対応づける整理（p.5）</figcaption>
+        </figure>
+        </div>
+
+      <div class="tags"><span class="tag">#SPIFFE</span><span class="tag">#SVID</span><span class="tag">#WorkloadIdentity</span><span class="tag">#OAuth</span><span class="tag">#mTLS</span></div>
+      <div class="source-note">主資料：<a href="https://speakerdeck.com/oidfj/20260825-numa-04-oauth-spiffe-client-authentication" target="_blank" rel="noopener">公開講演資料（Speaker Deck）</a></div>
+    </article>
+    
+    <article class="lecture-card" id="session-5">
+      <div class="session-meta">12:45 - 13:10　|　えーじ / Google</div>
+      <h2 class="lecture-title">
+        <span>ブラウザで変わるID連携 ― FedCMとEVPが描く未来の認証</span>
+        <a class="material-link" href="https://speakerdeck.com/oidfj/20260825-numa-05-evp-fedcm" target="_blank" rel="noopener">講演資料を見る ↗</a>
+      </h2>
+      <h3 class="section-title">概要・背景</h3>
+      <p>Chrome／ブラウザ側の機能として、Email Verification Protocol（EVP）とFedCM（Federated Credential Management）を取り上げ、認証・ID連携のUXとプライバシーをどう改善できるかを紹介する。</p>
+
+      <h3 class="section-title">主なポイント</h3>
+      <div class="content-box"><ul><li>EVPはブラウザ上でメールアドレスの検証を完了させ、従来と大きく変わらないUXを保ちつつ、段階的に導入する方向を示す。</li><li>FedCMはブラウザがID連携の仲介役となり、passive / active / ambient modeなどを通じて、プライバシーに配慮したID連携を目指す。</li><li>パスキーやメール認証など既存の認証体験を、ブラウザの機能で安全性と使いやすさの両面から改善する流れが示される。</li></ul></div>
+
+      <h3 class="section-title">話の流れ</h3>
+      <ol><li>導入：ブラウザが担うID連携の変化</li><li>EVP：メール検証をブラウザ完結へ</li><li>FedCM：Federated Identityのブラウザ仲介</li><li>モード：passive / active / ambientの整理</li><li>まとめ：プライバシーとUXを両立したID連携</li></ol>
+
+      <h3 class="section-title">キースライド</h3>
+      <div class="slide-container">
+        <figure class="slide">
+          <a href="https://files.speakerdeck.com/presentations/06565e557c7949deb1da4fcc62859bcf/slide_3.jpg" target="_blank" rel="noopener">
+            <img src="https://files.speakerdeck.com/presentations/06565e557c7949deb1da4fcc62859bcf/slide_3.jpg" alt="Email Verification Protocol" loading="lazy"
+                 onerror="this.closest('figure').classList.add('image-error')">
+          </a>
+          <figcaption><strong>Email Verification Protocol</strong><br>ブラウザ上でメール検証を完了する基本イメージ（p.3）</figcaption>
+        </figure>
+        
+        <figure class="slide">
+          <a href="https://files.speakerdeck.com/presentations/06565e557c7949deb1da4fcc62859bcf/slide_17.jpg" target="_blank" rel="noopener">
+            <img src="https://files.speakerdeck.com/presentations/06565e557c7949deb1da4fcc62859bcf/slide_17.jpg" alt="FedCM" loading="lazy"
+                 onerror="this.closest('figure').classList.add('image-error')">
+          </a>
+          <figcaption><strong>FedCM</strong><br>ブラウザ・IdP・RPの関係と新しいID連携の方向性</figcaption>
+        </figure>
+        </div>
+
+      <div class="tags"><span class="tag">#FedCM</span><span class="tag">#EVP</span><span class="tag">#Chrome</span><span class="tag">#Browser</span><span class="tag">#Privacy</span><span class="tag">#Passkey</span></div>
+      <div class="source-note">主資料：<a href="https://speakerdeck.com/oidfj/20260825-numa-05-evp-fedcm" target="_blank" rel="noopener">公開講演資料（Speaker Deck）</a></div>
+    </article>
+    
+    <article class="lecture-card" id="session-6">
+      <div class="session-meta">13:10 - 13:35　|　田中 翔真 / KDDI株式会社</div>
+      <h2 class="lecture-title">
+        <span>モバイルアプリにおけるOAuth/OIDCクライアント認証の再設計</span>
+        <span class="material-unavailable">公開資料未確認</span>
+      </h2>
+      <h3 class="section-title">概要・背景</h3>
+      <p>モバイルアプリをOAuth/OIDCクライアントとして運用する際のクライアント認証を再設計するセッション。公開された講演資料を確認できなかったため、本レポートではタイトルから読み取れるテーマ以上の具体的な方式・結論は補完していない。</p>
+
+      <h3 class="section-title">主なポイント</h3>
+      <div class="content-box"><ul><li>対象はモバイルアプリにおけるOAuth/OIDCクライアント認証。</li><li>「再設計」が主題であり、アプリ固有のクライアント認証・秘密情報管理・端末環境との関係が主要な検討対象と考えられる。</li><li>具体的な採用方式、評価結果、実装上の結論は公開資料未確認のため未記載。</li></ul></div>
+
+      <h3 class="section-title">話の流れ</h3>
+      <ol><li>問題提起：モバイルアプリのクライアント認証</li><li>設計論点：認証方式とアプリ／OSの境界</li><li>評価：具体方式の比較・再設計</li><li>結論：公開資料未確認</li></ol>
+
+      <h3 class="section-title">キースライド</h3>
+      
+        <div class="no-slides">
+          <strong>キースライド</strong>
+          <p>公開された講演資料を確認できなかったため、スライド画像は掲載していません。内容についても公開情報以上の補完は行っていません。</p>
+        </div>
+        
+
+      <div class="tags"><span class="tag">#OAuth</span><span class="tag">#OIDC</span><span class="tag">#MobileApp</span><span class="tag">#ClientAuthentication</span></div>
+      <div class="source-note">主資料：公開講演資料は確認できず。プログラム記載と公開情報の範囲で整理。</div>
+    </article>
+    
+    <article class="lecture-card" id="session-7">
+      <div class="session-meta">13:35 - 14:00　|　寺原 歩 / freee株式会社</div>
+      <h2 class="lecture-title">
+        <span>会計事務所と顧問先の契約関係をOIDC・OAuthで表現する</span>
+        <a class="material-link" href="https://speakerdeck.com/terara/kaikei-jimusho-to-komonsaki-no-keiyaku-kankei-o-oidc-oauth-de-hyougen-suru" target="_blank" rel="noopener">講演資料を見る ↗</a>
+      </h2>
+      <h3 class="section-title">概要・背景</h3>
+      <p>会計事務所と顧問先の間の契約、会計事務所スタッフの担当割り当て、その結果として行われる委任業務を、OIDC / OAuth / AuthZEN / RAR / SSFの組合せで表現する提案。操作時点の権限だけでなく、「なぜその権限が存在するのか」を監査記録から契約まで遡れることを重視する。</p>
+
+      <h3 class="section-title">主なポイント</h3>
+      <div class="content-box"><ul><li>組織間契約を起点に、スタッフへのAssignmentと委任業務を認可コンテキストとして扱う。</li><li>OIDCは「誰であるか」、AuthZENは「今、この関係で操作してよいか」、OAuthは「決められた権限を運ぶ」、SSFは「関係の変化を伝える」という役割分担を提示。</li><li>契約終了時にはSSFで状態変化を伝え、発行停止・再評価・失効につなげる。</li></ul></div>
+
+      <h3 class="section-title">話の流れ</h3>
+      <ol><li>業務背景：顧問契約 → スタッフ割当 → 委任業務</li><li>関係モデル化：Relationship / Assignment / 契約状態</li><li>認可：AuthZENで関係を評価</li><li>権限伝達：OAuth・必要に応じてToken Exchange</li><li>ライフサイクル：SSFで契約終了を伝播</li><li>監査：操作から契約・担当関係へ遡及</li></ol>
+
+      <h3 class="section-title">キースライド</h3>
+      <div class="slide-container">
+        <figure class="slide">
+          <a href="https://files.speakerdeck.com/presentations/f8eaee5721b14e2b974f2ce948984d81/slide_20.jpg" target="_blank" rel="noopener">
+            <img src="https://files.speakerdeck.com/presentations/f8eaee5721b14e2b974f2ce948984d81/slide_20.jpg" alt="委任業務のシーケンス" loading="lazy"
+                 onerror="this.closest('figure').classList.add('image-error')">
+          </a>
+          <figcaption><strong>委任業務のシーケンス</strong><br>AuthZEN・Registry・STSを含む委任業務の主要呼び出し経路（p.20）</figcaption>
+        </figure>
+        
+        <figure class="slide">
+          <a href="https://files.speakerdeck.com/presentations/f8eaee5721b14e2b974f2ce948984d81/slide_17.jpg" target="_blank" rel="noopener">
+            <img src="https://files.speakerdeck.com/presentations/f8eaee5721b14e2b974f2ce948984d81/slide_17.jpg" alt="仕様の役割分担" loading="lazy"
+                 onerror="this.closest('figure').classList.add('image-error')">
+          </a>
+          <figcaption><strong>仕様の役割分担</strong><br>OIDC / AuthZEN / OAuth / SSFの役割を分離して整理（p.17）</figcaption>
+        </figure>
+        </div>
+
+      <div class="tags"><span class="tag">#OIDC</span><span class="tag">#OAuth</span><span class="tag">#AuthZEN</span><span class="tag">#RAR</span><span class="tag">#SSF</span><span class="tag">#Delegation</span><span class="tag">#Audit</span></div>
+      <div class="source-note">主資料：<a href="https://speakerdeck.com/terara/kaikei-jimusho-to-komonsaki-no-keiyaku-kankei-o-oidc-oauth-de-hyougen-suru" target="_blank" rel="noopener">公開講演資料（Speaker Deck）</a></div>
+    </article>
+    
+    <article class="lecture-card" id="session-8">
+      <div class="session-meta">14:00 - 14:30　|　古川 英明</div>
+      <h2 class="lecture-title">
+        <span>AI時代の「OAuth認証」にどう物申すか?</span>
+        <a class="material-link" href="https://speakerdeck.com/oidfj/20260825-numa-09" target="_blank" rel="noopener">講演資料を見る ↗</a>
+      </h2>
+      <h3 class="section-title">概要・背景</h3>
+      <p>AIサービスやMCP周辺で広がる「OAuth認証」という表現を題材に、OAuth 2.0の役割を正確に捉え直すディスカッション型セッション。OAuthは本質的に認可のためのフレームワークであり、用語の曖昧さがLLMや開発者コミュニティに波及する問題を扱う。</p>
+
+      <h3 class="section-title">主なポイント</h3>
+      <div class="content-box"><ul><li>AI系サービスの公式ドキュメントでも、OAuth 2.0を「authentication」と表現する例が増えていることを取り上げる。</li><li>OAuth 2.0の認可コードフローには認可サーバーによるリソースオーナー／クライアントの認証が含まれるため、全体が「OAuth認証」と誤解されやすい。</li><li>OAuth 2.0全体はリソースオーナーからクライアントへの認可を扱う枠組みであり、用語の正確さをLLMにも浸透させる必要性を議論する。</li></ul></div>
+
+      <h3 class="section-title">話の流れ</h3>
+      <ol><li>現状確認：「OAuth認証」という表現の拡大</li><li>具体例：AI/MCP関連ドキュメントでの用語使用</li><li>整理：認証と認可をOAuth 2.0のフローに沿って再確認</li><li>問題提起：LLMによる誤用の増幅</li><li>議論：正しい用語をどう広めるか</li></ol>
+
+      <h3 class="section-title">キースライド</h3>
+      <div class="slide-container">
+        <figure class="slide">
+          <a href="https://files.speakerdeck.com/presentations/a233b2b3b2cd460f9bf9893a3f7ccc17/slide_2.jpg" target="_blank" rel="noopener">
+            <img src="https://files.speakerdeck.com/presentations/a233b2b3b2cd460f9bf9893a3f7ccc17/slide_2.jpg" alt="「OAuth認証」が広がる背景" loading="lazy"
+                 onerror="this.closest('figure').classList.add('image-error')">
+          </a>
+          <figcaption><strong>「OAuth認証」が広がる背景</strong><br>AI系サービスのドキュメントでの用語誤用を問題提起（p.2）</figcaption>
+        </figure>
+        
+        <figure class="slide">
+          <a href="https://files.speakerdeck.com/presentations/a233b2b3b2cd460f9bf9893a3f7ccc17/slide_11.jpg" target="_blank" rel="noopener">
+            <img src="https://files.speakerdeck.com/presentations/a233b2b3b2cd460f9bf9893a3f7ccc17/slide_11.jpg" alt="OAuth 2.0の「認証」と「認可」" loading="lazy"
+                 onerror="this.closest('figure').classList.add('image-error')">
+          </a>
+          <figcaption><strong>OAuth 2.0の「認証」と「認可」</strong><br>認可コードフロー上の認証箇所とOAuth全体の役割を整理（p.11）</figcaption>
+        </figure>
+        </div>
+
+      <div class="tags"><span class="tag">#OAuth</span><span class="tag">#Authentication</span><span class="tag">#Authorization</span><span class="tag">#MCP</span><span class="tag">#LLM</span><span class="tag">#Terminology</span></div>
+      <div class="source-note">主資料：<a href="https://speakerdeck.com/oidfj/20260825-numa-09" target="_blank" rel="noopener">公開講演資料（Speaker Deck）</a></div>
+    </article>
+    
+    <article class="lecture-card" id="session-9">
+      <div class="session-meta">14:50 - 15:15　|　小松 隆行（ソフトバンク株式会社）、小西 優貴（株式会社Maximax）</div>
+      <h2 class="lecture-title">
+        <span>EUDIWの枠組みを出発点に民間エコシステムの在り方を考える</span>
+        <a class="material-link" href="https://speakerdeck.com/oidfj/20260825-numa-11" target="_blank" rel="noopener">講演資料を見る ↗</a>
+      </h2>
+      <h3 class="section-title">概要・背景</h3>
+      <p>企業間ID連携の個別調整コストに対し、Issuer-Holder-Verifier（IHV）型のウォレットエコシステムを民間ビジネスへ応用できないか検討。EUDIWを先行事例として、技術仕様だけでなくトラストフレームワーク、制度、運用、監査まで含めたエコシステム設計を考える。</p>
+
+      <h3 class="section-title">主なポイント</h3>
+      <div class="content-box"><ul><li>IdP-RP型フェデレーションでは、接続先が増えるたびに契約・セキュリティ・同意などの個別調整コストが累積する。</li><li>IHV型ではIssuerとVerifierを疎結合にでき、Wallet経由でユーザー中心の提示・同意を作りやすい一方、初期インフラやガバナンスのコストが大きい。</li><li>EUDIWでは技術仕様だけでなく、トラストフレームワークや法制度・標準・役割分担までを含めてエコシステムを成立させることが重要。</li></ul></div>
+
+      <h3 class="section-title">話の流れ</h3>
+      <ol><li>課題：企業間ID連携の個別開発・調整コスト</li><li>仮説：IHVモデルなら参加・離脱しやすい接続形態を作れるか</li><li>先行例：EUDIWのTrust / ARFを整理</li><li>机上検証：民間ユースケースへ置き換え</li><li>結論：技術規格だけでなくトラストフレームワークが必要</li></ol>
+
+      <h3 class="section-title">キースライド</h3>
+      <div class="slide-container">
+        <figure class="slide">
+          <a href="https://files.speakerdeck.com/presentations/36c6a170c4144487ae83e6f1981f5ae4/slide_3.jpg" target="_blank" rel="noopener">
+            <img src="https://files.speakerdeck.com/presentations/36c6a170c4144487ae83e6f1981f5ae4/slide_3.jpg" alt="IHVモデルを民間ビジネスに活かせないか" loading="lazy"
+                 onerror="this.closest('figure').classList.add('image-error')">
+          </a>
+          <figcaption><strong>IHVモデルを民間ビジネスに活かせないか</strong><br>IdP-RP型からWallet型への着眼点（p.3）</figcaption>
+        </figure>
+        
+        <figure class="slide">
+          <a href="https://files.speakerdeck.com/presentations/36c6a170c4144487ae83e6f1981f5ae4/slide_8.jpg" target="_blank" rel="noopener">
+            <img src="https://files.speakerdeck.com/presentations/36c6a170c4144487ae83e6f1981f5ae4/slide_8.jpg" alt="プロトコルだけではビジネスは成立しない" loading="lazy"
+                 onerror="this.closest('figure').classList.add('image-error')">
+          </a>
+          <figcaption><strong>プロトコルだけではビジネスは成立しない</strong><br>技術・ルール・運用・監査を支えるトラストフレームワーク（p.8）</figcaption>
+        </figure>
+        </div>
+
+      <div class="tags"><span class="tag">#EUDIW</span><span class="tag">#IHV</span><span class="tag">#Wallet</span><span class="tag">#TrustFramework</span><span class="tag">#VC</span><span class="tag">#Ecosystem</span></div>
+      <div class="source-note">主資料：<a href="https://speakerdeck.com/oidfj/20260825-numa-11" target="_blank" rel="noopener">公開講演資料（Speaker Deck）</a></div>
+    </article>
+    
+    <article class="lecture-card" id="session-10">
+      <div class="session-meta">15:15 - 15:40　|　合路 健人 / 株式会社メルカリ</div>
+      <h2 class="lecture-title">
+        <span>メルカリにおける本人確認の取り組み 新技術導入の現在地とこれから</span>
+        <a class="material-link" href="https://speakerdeck.com/oidfj/20260825-numa-12" target="_blank" rel="noopener">講演資料を見る ↗</a>
+      </h2>
+      <h3 class="section-title">概要・背景</h3>
+      <p>メルカリにおけるマイナンバーカード本人確認の実装を題材に、デジタル認証アプリとVerify with Wallet APIなど複数の検証方法を比較。ユーザー体験と開発・運用の観点から、スマートフォン上の本人確認手段をどう選ぶかを整理する。</p>
+
+      <h3 class="section-title">主なポイント</h3>
+      <div class="content-box"><ul><li>本人確認には、ICチップ読み取り、デジタル認証アプリ、スマートフォン内のカード、書類画像など複数の方式がある。</li><li>デジタル認証アプリはOIDC準拠で既存ID連携へ追加しやすい一方、アプリ遷移・インストール・暗証番号などが離脱要因になり得る。</li><li>Verify with Wallet APIはネイティブSDK不要・アプリ不要の利点があるが、Apple Walletへのカード追加状況やユーザー離脱、データ取得方法などが課題となる。</li></ul></div>
+
+      <h3 class="section-title">話の流れ</h3>
+      <ol><li>全体整理：マイナンバーカード検証手法の比較</li><li>デジタル認証アプリ：OIDCベースの実装と課題</li><li>Verify with Wallet API：mdocを用いた検証</li><li>今後：Android側の展開やWeb検証への期待</li><li>まとめ：利用者・技術双方の条件で方式を選択</li></ol>
+
+      <h3 class="section-title">キースライド</h3>
+      <div class="slide-container">
+        <figure class="slide">
+          <a href="https://files.speakerdeck.com/presentations/6456ff78c55a455aa0a012a90935cf60/slide_6.jpg" target="_blank" rel="noopener">
+            <img src="https://files.speakerdeck.com/presentations/6456ff78c55a455aa0a012a90935cf60/slide_6.jpg" alt="デジタル認証アプリ" loading="lazy"
+                 onerror="this.closest('figure').classList.add('image-error')">
+          </a>
+          <figcaption><strong>デジタル認証アプリ</strong><br>本人確認導線の実装イメージ（p.6）</figcaption>
+        </figure>
+        
+        <figure class="slide">
+          <a href="https://files.speakerdeck.com/presentations/6456ff78c55a455aa0a012a90935cf60/slide_14.jpg" target="_blank" rel="noopener">
+            <img src="https://files.speakerdeck.com/presentations/6456ff78c55a455aa0a012a90935cf60/slide_14.jpg" alt="Verify with Wallet APIの特徴" loading="lazy"
+                 onerror="this.closest('figure').classList.add('image-error')">
+          </a>
+          <figcaption><strong>Verify with Wallet APIの特徴</strong><br>SDK不要・アプリ不要の利点と課題（p.14）</figcaption>
+        </figure>
+        </div>
+
+      <div class="tags"><span class="tag">#MyNumberCard</span><span class="tag">#KYC</span><span class="tag">#DigitalAuthentication</span><span class="tag">#Wallet</span><span class="tag">#OIDC</span><span class="tag">#mdoc</span></div>
+      <div class="source-note">主資料：<a href="https://speakerdeck.com/oidfj/20260825-numa-12" target="_blank" rel="noopener">公開講演資料（Speaker Deck）</a></div>
+    </article>
+    
+    <article class="lecture-card" id="session-11">
+      <div class="session-meta">15:40 - 16:10　|　佐々木 慎之介 / 株式会社KDDIテクノロジー</div>
+      <h2 class="lecture-title">
+        <span>Digital Credentials API × OpenID4VP ブラウザ完結型本人確認の実装知見</span>
+        <a class="material-link" href="https://speakerdeck.com/oidfj/20260825-numa-13-digital-credentials-api-x-openid4vp" target="_blank" rel="noopener">講演資料を見る ↗</a>
+      </h2>
+      <h3 class="section-title">概要・背景</h3>
+      <p>W3C Digital Credentials API（DC-API）とOpenID4VPを組み合わせ、Androidでブラウザから離脱せずに本人確認を完了するPoCを実装。その実装コードとアーキテクチャから、メタデータのみ登録・動的VP生成、JWEによる保護、iOSの制約などを共有する。</p>
+
+      <h3 class="section-title">主なポイント</h3>
+      <div class="content-box"><ul><li>従来のCustom SchemeやApp Linksでは「ブラウザ→アプリ→ブラウザ」のコンテキストスイッチが発生するのに対し、DC-APIではブラウザ上にOS同意UIをオーバーレイ表示できる。</li><li>Android上で、資格情報登録、VP生成、暗号化・復号、署名検証、nonce照合、クレーム抽出までのフローを確認した。</li><li>iOSではDC-APIで扱えるドキュメントタイプの制約により独自SD-JWTを登録できず、Android先行＋iOSフォールバックが現実的と整理されている。</li></ul></div>
+
+      <h3 class="section-title">話の流れ</h3>
+      <ol><li>背景：ブラウザ認証のUX断絶</li><li>設計：DC-API + OpenID4VP + SD-JWT</li><li>実装：Credential Managerへの登録と動的VP生成</li><li>検証：同一デバイス／クロスデバイスで確認</li><li>課題：iOS制約・エラー処理・本番向けIssuer/セッション管理</li><li>結論：Androidでブラウザ完結型KYCの成立性を実証</li></ol>
+
+      <h3 class="section-title">キースライド</h3>
+      <div class="slide-container">
+        <figure class="slide">
+          <a href="https://files.speakerdeck.com/presentations/cfe4c2f297244abf8c0699e3a5e1a536/slide_2.jpg" target="_blank" rel="noopener">
+            <img src="https://files.speakerdeck.com/presentations/cfe4c2f297244abf8c0699e3a5e1a536/slide_2.jpg" alt="従来方式とDC-APIの比較" loading="lazy"
+                 onerror="this.closest('figure').classList.add('image-error')">
+          </a>
+          <figcaption><strong>従来方式とDC-APIの比較</strong><br>ブラウザ完結・オリジン検証などの改善点（p.2）</figcaption>
+        </figure>
+        
+        <figure class="slide">
+          <a href="https://files.speakerdeck.com/presentations/cfe4c2f297244abf8c0699e3a5e1a536/slide_5.jpg" target="_blank" rel="noopener">
+            <img src="https://files.speakerdeck.com/presentations/cfe4c2f297244abf8c0699e3a5e1a536/slide_5.jpg" alt="PoCから得られた知見と課題" loading="lazy"
+                 onerror="this.closest('figure').classList.add('image-error')">
+          </a>
+          <figcaption><strong>PoCから得られた知見と課題</strong><br>iOS制約、本番化課題、動的生成方式を整理（p.5）</figcaption>
+        </figure>
+        </div>
+
+      <div class="tags"><span class="tag">#DigitalCredentialsAPI</span><span class="tag">#OpenID4VP</span><span class="tag">#SDJWT</span><span class="tag">#Android</span><span class="tag">#BrowserKYC</span><span class="tag">#JWE</span></div>
+      <div class="source-note">主資料：<a href="https://speakerdeck.com/oidfj/20260825-numa-13-digital-credentials-api-x-openid4vp" target="_blank" rel="noopener">公開講演資料（Speaker Deck）</a></div>
+    </article>
+    
+    <article class="lecture-card" id="session-12">
+      <div class="session-meta">16:30 - 16:55　|　菊池 佑 / 株式会社オプティム</div>
+      <h2 class="lecture-title">
+        <span>IHV likeなユースケースへのOpenID Connect関連仕様の適用事例</span>
+        <a class="material-link" href="https://speakerdeck.com/optim/20260825-numa-kikuchi" target="_blank" rel="noopener">講演資料を見る ↗</a>
+      </h2>
+      <h3 class="section-title">概要・背景</h3>
+      <p>自治体公式スーパーアプリの「デジタル市民証」を題材に、IHV型に近い本人属性提示ユースケースを、既存のOpenID Connect / OAuth基盤を活用して実装した事例。VC系技術を全面導入せず、普及技術を再利用する判断の利点と限界を共有する。</p>
+
+      <h3 class="section-title">主なポイント</h3>
+      <div class="content-box"><ul><li>2023年秋の初版リリース時点ではVC関連標準が発展途上で、技術要素の複雑さや開発スケジュールとのバランスから、既存OIDC基盤を再利用する方針を採った。</li><li>オンラインではOAuth Resource Serverとして市民証情報を取得し、対面ではQRコードからアクセストークンを得て本人確認済み属性を取得する構成を採る。</li><li>既存技術の再利用による開発容易性・ユーザー理解のしやすさがある一方、完全オフラインや独自拡張の標準化への還元が今後の課題。</li></ul></div>
+
+      <h3 class="section-title">話の流れ</h3>
+      <ol><li>ユースケース：自治体公式スーパーアプリとデジタル市民証</li><li>判断：VCではなくOIDC/OAuth中心で実現</li><li>実装：市民証情報をResource Serverとして提供</li><li>対面・オフライン：QR Code Token経由の提示</li><li>評価：フェデレーション型の利点とIHV型との違い</li><li>takeaways：既存標準の部分適用の価値</li></ol>
+
+      <h3 class="section-title">キースライド</h3>
+      <div class="slide-container">
+        <figure class="slide">
+          <a href="https://files.speakerdeck.com/presentations/711ec9eaab184d4a9ba2f889a0b19a0e/slide_11.jpg" target="_blank" rel="noopener">
+            <img src="https://files.speakerdeck.com/presentations/711ec9eaab184d4a9ba2f889a0b19a0e/slide_11.jpg" alt="実現手法" loading="lazy"
+                 onerror="this.closest('figure').classList.add('image-error')">
+          </a>
+          <figcaption><strong>実現手法</strong><br>デジタル市民証情報をOAuth Resource Serverとして提供（p.11）</figcaption>
+        </figure>
+        
+        <figure class="slide">
+          <a href="https://files.speakerdeck.com/presentations/711ec9eaab184d4a9ba2f889a0b19a0e/slide_16.jpg" target="_blank" rel="noopener">
+            <img src="https://files.speakerdeck.com/presentations/711ec9eaab184d4a9ba2f889a0b19a0e/slide_16.jpg" alt="フェデレーション型で得た学び" loading="lazy"
+                 onerror="this.closest('figure').classList.add('image-error')">
+          </a>
+          <figcaption><strong>フェデレーション型で得た学び</strong><br>既存技術の再利用と今後の悩みを整理したtakeaways（p.16）</figcaption>
+        </figure>
+        </div>
+
+      <div class="tags"><span class="tag">#IHV</span><span class="tag">#OIDC</span><span class="tag">#OAuth</span><span class="tag">#DigitalCitizenID</span><span class="tag">#Municipality</span><span class="tag">#KYC</span></div>
+      <div class="source-note">主資料：<a href="https://speakerdeck.com/optim/20260825-numa-kikuchi" target="_blank" rel="noopener">公開講演資料（Speaker Deck）</a></div>
+    </article>
+    
+    <article class="lecture-card" id="session-13">
+      <div class="session-meta">16:55 - 17:20　|　藤田 和成 / 伊藤忠テクノソリューションズ株式会社</div>
+      <h2 class="lecture-title">
+        <span>OpenID for Verifiable Credentials 実装から見えた相互運用性確保までの道のり</span>
+        <a class="material-link" href="https://speakerdeck.com/oidfj/20260825-numa-16-openid-for-verifiable-credentials" target="_blank" rel="noopener">講演資料を見る ↗</a>
+      </h2>
+      <h3 class="section-title">概要・背景</h3>
+      <p>OpenID for Verifiable Credentialsの実装とConformance Testの経験から、仕様準拠だけでは相互運用性を保証できないことを示す。実装、仕様解釈、Test Suiteの3者をログで照合し、テスト結果を実装改善やSuite改善へ還元する実務的な進め方を紹介する。</p>
+
+      <h3 class="section-title">主なポイント</h3>
+      <div class="content-box"><ul><li>VCエコシステムはIssuer / Holder / Verifierの多者モデルで、仕様のOPTIONAL / RECOMMENDEDな選択肢が実装差につながる。</li><li>Conformance Suiteは無料・OSSでローカルやCI/CDから実行でき、仕様を動かして確認するための開発ツールとして利用できる。</li><li>実装条件を固定してテストし、HTTP/JSONログと参照仕様を照合しながら修正することで、Suite側の未検証経路も発見し、Issue起票などを通じて改善へつなげられる。</li></ul></div>
+
+      <h3 class="section-title">話の流れ</h3>
+      <ol><li>背景：VCの相互運用性が難しい理由</li><li>ツール：Conformance Testの役割</li><li>実践：条件を選びテストを再現</li><li>解析：ログ・HTTP通信・仕様を突き合わせる</li><li>フィードバック：Suite側の問題もIssue化</li><li>まとめ：テストを開発プロセスに組み込む</li></ol>
+
+      <h3 class="section-title">キースライド</h3>
+      <div class="slide-container">
+        <figure class="slide">
+          <a href="https://files.speakerdeck.com/presentations/aa8db9f5c80c463fb79d5d6791db1d03/slide_7.jpg" target="_blank" rel="noopener">
+            <img src="https://files.speakerdeck.com/presentations/aa8db9f5c80c463fb79d5d6791db1d03/slide_7.jpg" alt="Conformance Testとは何か" loading="lazy"
+                 onerror="this.closest('figure').classList.add('image-error')">
+          </a>
+          <figcaption><strong>Conformance Testとは何か</strong><br>OSSテストスイートの役割と利用方法（p.7）</figcaption>
+        </figure>
+        
+        <figure class="slide">
+          <a href="https://files.speakerdeck.com/presentations/aa8db9f5c80c463fb79d5d6791db1d03/slide_29.jpg" target="_blank" rel="noopener">
+            <img src="https://files.speakerdeck.com/presentations/aa8db9f5c80c463fb79d5d6791db1d03/slide_29.jpg" alt="実際のテストで分かったこと" loading="lazy"
+                 onerror="this.closest('figure').classList.add('image-error')">
+          </a>
+          <figcaption><strong>実際のテストで分かったこと</strong><br>条件→実装→Suite feedbackの改善ループ（p.29）</figcaption>
+        </figure>
+        </div>
+
+      <div class="tags"><span class="tag">#VerifiableCredentials</span><span class="tag">#OpenID4VC</span><span class="tag">#ConformanceTest</span><span class="tag">#Interoperability</span><span class="tag">#DPoP</span><span class="tag">#VCKnots</span></div>
+      <div class="source-note">主資料：<a href="https://speakerdeck.com/oidfj/20260825-numa-16-openid-for-verifiable-credentials" target="_blank" rel="noopener">公開講演資料（Speaker Deck）</a></div>
+    </article>
+    
+    <article class="lecture-card" id="session-14">
+      <div class="session-meta">17:20 - 17:45　|　狩野 達也 / 株式会社メルカリ</div>
+      <h2 class="lecture-title">
+        <span>パスキーでドライブする 1st-partyアカウント統合</span>
+        <a class="material-link" href="https://speakerdeck.com/oidfj/20260825-numa-17-passkey-driven-account-integration" target="_blank" rel="noopener">講演資料を見る ↗</a>
+      </h2>
+      <h3 class="section-title">概要・背景</h3>
+      <p>同一組織内の複数サービスに分散したアカウント統合を、パスキー導入を起点に進めるアプローチ。アカウント統合前に各サービスが独立してパスキーを導入するとコストとユーザー再登録負担が増えるため、「共通利用できるパスキー」を先に成立させる発想を提示する。</p>
+
+      <h3 class="section-title">主なポイント</h3>
+      <div class="content-box"><ul><li>サービス統合では、技術的難しさと組織的難しさに対して、統合の価値が十分に認識されないことが障壁になる。</li><li>先に主軸サービスへパスキーを導入し、OIDCで他サービスへID連携し、Related Origin Requests（ROR）とFiPAを組み合わせて主軸側のパスキーをRPでも使えるようにする。</li><li>既存アカウントとの自動結合は避け、既存認証を経て連携を作る。パスキー利用をMigrationの自然なきっかけにし、運用コストの重複を避ける。</li></ul></div>
+
+      <h3 class="section-title">話の流れ</h3>
+      <ol><li>背景：なぜアカウント統合が難しいのか</li><li>失敗パターン：サービス別パスキー導入の重複コスト</li><li>方針：主軸サービスでパスキーを先に導入</li><li>技術：OIDC + ROR + FiPAでRPから利用</li><li>UX：ログイン時に連携作成・アカウント作成を支援</li><li>Security：account linking / step-upなどの考慮</li><li>まとめ：パスキーを統合のドライバーにする</li></ol>
+
+      <h3 class="section-title">キースライド</h3>
+      <div class="slide-container">
+        <figure class="slide">
+          <a href="https://files.speakerdeck.com/presentations/fb3647d53b774090be7438b82037d1e6/slide_30.jpg" target="_blank" rel="noopener">
+            <img src="https://files.speakerdeck.com/presentations/fb3647d53b774090be7438b82037d1e6/slide_30.jpg" alt="共通利用できるパスキー導入から始める" loading="lazy"
+                 onerror="this.closest('figure').classList.add('image-error')">
+          </a>
+          <figcaption><strong>共通利用できるパスキー導入から始める</strong><br>主軸サービスのパスキーをRPで利用するアーキテクチャ（p.30）</figcaption>
+        </figure>
+        
+        <figure class="slide">
+          <a href="https://files.speakerdeck.com/presentations/fb3647d53b774090be7438b82037d1e6/slide_36.jpg" target="_blank" rel="noopener">
+            <img src="https://files.speakerdeck.com/presentations/fb3647d53b774090be7438b82037d1e6/slide_36.jpg" alt="Summary" loading="lazy"
+                 onerror="this.closest('figure').classList.add('image-error')">
+          </a>
+          <figcaption><strong>Summary</strong><br>「パスキー導入」をアカウント統合の最初のステップにする整理（p.36）</figcaption>
+        </figure>
+        </div>
+
+      <div class="tags"><span class="tag">#Passkey</span><span class="tag">#AccountIntegration</span><span class="tag">#FirstParty</span><span class="tag">#OIDC</span><span class="tag">#ROR</span><span class="tag">#FiPA</span><span class="tag">#Migration</span></div>
+      <div class="source-note">主資料：<a href="https://speakerdeck.com/oidfj/20260825-numa-17-passkey-driven-account-integration" target="_blank" rel="noopener">公開講演資料（Speaker Deck）</a></div>
+    </article>
+    
+    <article class="lecture-card" id="session-15">
+      <div class="session-meta">17:45 - 17:50　|　崎村 夏彦</div>
+      <h2 class="lecture-title">
+        <span>クロージング</span>
+        <span class="material-unavailable">公開資料未確認</span>
+      </h2>
+      <h3 class="section-title">概要・背景</h3>
+      <p>終日のワークショップを締めくくるクロージング。公開資料は確認できなかったため、個別のメッセージや発言内容は補完せず、プログラム上の位置づけのみを記載する。</p>
+
+      <h3 class="section-title">主なポイント</h3>
+      <div class="content-box"><ul><li>終日の講演・議論を締めくくるセッション。</li><li>本レポートでは、公開講演資料に基づく各セッションの論点を横断的に振り返る材料として位置づける。</li><li>具体的なクロージングメッセージは公開資料未確認。</li></ul></div>
+
+      <h3 class="section-title">話の流れ</h3>
+      <ol><li>総括：終日のテーマを振り返る</li><li>次の一歩：実装・標準化・運用への接続</li><li>終了：ワークショップを閉じる</li></ol>
+
+      <h3 class="section-title">キースライド</h3>
+      
+        <div class="no-slides">
+          <strong>キースライド</strong>
+          <p>公開された講演資料を確認できなかったため、スライド画像は掲載していません。内容についても公開情報以上の補完は行っていません。</p>
+        </div>
+        
+
+      <div class="tags"><span class="tag">#OAuth</span><span class="tag">#OIDC</span><span class="tag">#DigitalIdentity</span><span class="tag">#Community</span></div>
+      <div class="source-note">主資料：公開講演資料は確認できず。プログラム記載と公開情報の範囲で整理。</div>
+    </article>
+    
+    <article class="lecture-card" id="session-16">
+      <div class="session-meta">18:00 - 18:50　|　Nat、tkudos、ritou、kura、KYC WGより1名、教育WGより1名、TG40WGより1名</div>
+      <h2 class="lecture-title">
+        <span>Beerセッション「OAuthに沼った芸人大集合、OAuthトーーク!!!!」</span>
+        <span class="material-unavailable">公開資料未確認</span>
+      </h2>
+      <h3 class="section-title">概要・背景</h3>
+      <p>終日の技術セッション後に行われる参加型のBeerセッション。公開資料は確認できなかったため、個々の話題や議論の内容は記載せず、イベント全体の交流・振り返りの場として整理する。</p>
+
+      <h3 class="section-title">主なポイント</h3>
+      <div class="content-box"><ul><li>OAuth/OIDCに関する「沼」を経験した参加者・実務者が集まり、知見や失敗談を共有する場。</li><li>KYC、教育、TG40など複数のWGから参加者が加わる構成。</li><li>講演資料ベースの技術レポートではなく、コミュニティ交流・実務経験共有の位置づけ。</li></ul></div>
+
+      <h3 class="section-title">話の流れ</h3>
+      <ol><li>集合：各分野の実務者・コミュニティメンバー</li><li>共有：OAuth/OIDCでの苦労・気づき</li><li>議論：参加者との相互作用</li><li>終了：終日の学びをコミュニティにつなげる</li></ol>
+
+      <h3 class="section-title">キースライド</h3>
+      
+        <div class="no-slides">
+          <strong>キースライド</strong>
+          <p>公開された講演資料を確認できなかったため、スライド画像は掲載していません。内容についても公開情報以上の補完は行っていません。</p>
+        </div>
+        
+
+      <div class="tags"><span class="tag">#OAuth</span><span class="tag">#OIDC</span><span class="tag">#Community</span><span class="tag">#BeerSession</span><span class="tag">#ID沼</span></div>
+      <div class="source-note">主資料：公開講演資料は確認できず。プログラム記載と公開情報の範囲で整理。</div>
+    </article>
+    
+
+  <div class="footer">
+    本レポートの講演資料画像は各Speaker Deck公開ページを参照しています。画像・スライド内容の権利は各登壇者／組織等の権利者に帰属します。
+    資料リンクは2026年9月時点で確認した公開URLです。
+  </div>
+</body>
+</html>
