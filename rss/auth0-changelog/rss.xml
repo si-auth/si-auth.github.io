@@ -5,7 +5,7 @@
            <link>https://auth0.com/changelog/rss.xml</link>
            <description>Auth0 Changelog</description>
            <language>en-US</language>
-           <lastBuildDate>Fri, 18 Sep 2026 17:16:11 GMT</lastBuildDate>
+           <lastBuildDate>Fri, 18 Sep 2026 20:15:43 GMT</lastBuildDate>
            <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
            <image>
                <title>Auth0 Changelog</title>
@@ -14,26 +14,27 @@
            </image>
            <atom:link href="https://auth0.com/changelog/rss.xml" rel="self" type="application/rss+xml"/>
            <item>
-                   <title>Custom User ID Assignment with Actions — Early Access</title>
-                   <pubDate>Thu, 17 Sep 2026 00:00:00 GMT</pubDate>
-                   <description>You can now assign a custom `user_id` to new database-connection users at signup by calling the `api.user.setUserId()` method in a `pre-user-registration` Action.
+                   <title>Actions - Modules - GA</title>
+                   <pubDate>Fri, 18 Sep 2026 00:00:00 GMT</pubDate>
+                   <description>We are excited to announce that __Actions Modules__ is now available in [__General Availability__](https://auth0.com/docs/troubleshoot/product-lifecycle/product-release-stages#general-availability).
 
-Previously, Auth0 automatically generated user IDs in the standard `auth0|&amp;lt;id&amp;gt;` format for new signups. Customers who needed custom or legacy-compatible IDs had to build self-hosted signup pages or rely on bulk import. Now you can define any custom `user_id` format — UUIDs, domain-specific IDs, or IDs derived from your existing systems — directly in an Action, keeping identity consistent across imported and newly-created users.
+This feature allows you to create, manage, and share reusable code across different Actions within your Auth0 Tenant.
 
-```javascript
-exports.onExecutePreUserRegistration = async (event, api) =&amp;gt; {
-  const crypto = require(&amp;apos;crypto&amp;apos;);
-  api.user.setUserId(crypto.randomUUID());
-};
-```
+### Key Highlights
+- __Simplified Code Management:__ Reduce code duplication and improve organization by writing common logic once and importing it into any Action where it is needed. This makes your Actions easier to maintain and update.
+- __Cross-trigger Access:__ Reuse custom functions across multiple Actions and Triggers.
+- __Independent Secrets and Dependencies:__ Define independent secrets and dependencies for each Action Module.
+- __Improved Performance:__ Move expensive initialization work into a module that can be reused across multiple Actions. This avoids re-running the same setup code in every execution.
+- __Unit Testing:__ Write unit tests using helpers available at [__@auth0/actions__](https://www.npmjs.com/package/@auth0/actions?activeTab=readme).
+- __IntelliSense:__ Get autocompletion and type hints in your code editor when writing Actions that use your Action Modules, either in the Auth0 Dashboard or in your own editor using [__@auth0/actions__](https://www.npmjs.com/package/@auth0/actions?activeTab=readme).
 
-Custom user IDs are supported for Database connections (including custom databases with automatic migration), Universal Login sign-up, the Authentication API signup endpoint, and the Management API Create User endpoint. They are not supported for passwordless, social, or enterprise connections, or for bulk import. The custom ID must be unique within the connection and meet the same validation rules as the Management API `user_id` parameter.
-
-[Read the docs →](https://auth0.com/docs/authenticate/database-connections/custom-user-id)
-
-&amp;gt; **Early Access:** This feature is in Early Access and is subject to change. By using this feature, you agree to the applicable Free Trial terms in Okta&amp;apos;s [Master Subscription Agreement](https://www.okta.com/agreements/).
-</description>
-                   <guid>https://auth0.com/changelog#RGWWqahrwFtycXhPate8b</guid>
+### Learn More
+- [Actions Modules Overview](https://auth0.com/docs/customize/actions/modules)
+- [Write Your First Action Module](https://auth0.com/docs/customize/actions/modules/write-your-first-action-module)
+- [Test an Action Module](https://auth0.com/docs/customize/actions/unit-test/test-an-action-module)
+- [Action Module Guidelines](https://auth0.com/docs/customize/actions/action-coding-guidelines#actions-modules)
+- [__@auth0/actions__](https://www.npmjs.com/package/@auth0/actions?activeTab=readme)</description>
+                   <guid>https://auth0.com/changelog#IEtKos3D7EXQYFieg95jE</guid>
                </item><item>
                    <title>My Organization API and Embeddable UI Components - Member Management in Early Access!</title>
                    <pubDate>Thu, 17 Sep 2026 00:00:00 GMT</pubDate>
@@ -61,6 +62,27 @@ This feature is available for all tenants. To begin, navigate to the __Applicati
 
 To learn more, read the [My Organization API documentation](https://auth0.com/docs/manage-users/my-organization-api) and if you have any feedback, give us a shout in our [community channel](https://community.auth0.com/)!</description>
                    <guid>https://auth0.com/changelog#QVyBUwb38zOqMQuF5Rohm</guid>
+               </item><item>
+                   <title>Custom User ID Assignment with Actions — Early Access</title>
+                   <pubDate>Thu, 17 Sep 2026 00:00:00 GMT</pubDate>
+                   <description>You can now assign a custom `user_id` to new database-connection users at signup by calling the `api.user.setUserId()` method in a `pre-user-registration` Action.
+
+Previously, Auth0 automatically generated user IDs in the standard `auth0|&amp;lt;id&amp;gt;` format for new signups. Customers who needed custom or legacy-compatible IDs had to build self-hosted signup pages or rely on bulk import. Now you can define any custom `user_id` format — UUIDs, domain-specific IDs, or IDs derived from your existing systems — directly in an Action, keeping identity consistent across imported and newly-created users.
+
+```javascript
+exports.onExecutePreUserRegistration = async (event, api) =&amp;gt; {
+  const crypto = require(&amp;apos;crypto&amp;apos;);
+  api.user.setUserId(crypto.randomUUID());
+};
+```
+
+Custom user IDs are supported for Database connections (including custom databases with automatic migration), Universal Login sign-up, the Authentication API signup endpoint, and the Management API Create User endpoint. They are not supported for passwordless, social, or enterprise connections, or for bulk import. The custom ID must be unique within the connection and meet the same validation rules as the Management API `user_id` parameter.
+
+[Read the docs →](https://auth0.com/docs/authenticate/database-connections/custom-user-id)
+
+&amp;gt; **Early Access:** This feature is in Early Access and is subject to change. By using this feature, you agree to the applicable Free Trial terms in Okta&amp;apos;s [Master Subscription Agreement](https://www.okta.com/agreements/).
+</description>
+                   <guid>https://auth0.com/changelog#RGWWqahrwFtycXhPate8b</guid>
                </item><item>
                    <title>Enterprise Connection Events — Early Access</title>
                    <pubDate>Wed, 16 Sep 2026 00:00:00 GMT</pubDate>
@@ -421,23 +443,24 @@ To enable the Agent as Principal Early Access release in your Auth0 tenant once 
 Learn more in the [documentation](https://auth0.com/docs/ai-agents-mcp/agents-as-principal).</description>
                    <guid>https://auth0.com/changelog#7cWok8ec4tujGeC6si1yiN</guid>
                </item><item>
-                   <title>Organization-to-Application Entitlement - Early Access</title>
+                   <title>Dashboard Search for Organization members now in Beta!</title>
                    <pubDate>Wed, 29 Jul 2026 00:00:00 GMT</pubDate>
-                   <description>**Organization-to-App Entitlement** lets you control which applications the members of an organization can access - natively, without custom code.
+                   <description>
+__Dashboard Search for Organization members is now available in Public Beta!__ Find your organization members faster without scrolling through paginated lists.
 
-If you sell multiple products and different customers have purchased different combinations, you can now enforce those boundaries directly in Auth0. When a member of an org tries to log in to an app they&amp;apos;re not entitled to, Auth0 denies access automatically. No Actions. No metadata checks. No custom logic to maintain.
+Users can now __search Organization Members in real time by name, email, ID and filter by blocked status.__ 
 
-**Opt-in, per org.** Entitlement enforcement is disabled by default - existing orgs and login flows are unaffected until you explicitly enable it. You can roll out to one org at a time, making it safe to adopt incrementally.
+Rolling out progressively to Public Cloud tenants starting this week, with broader availability in the coming weeks.
 
-**Safe to configure before you go live.** You can set up all your entitlements first, then enable enforcement when you&amp;apos;re ready. There&amp;apos;s no risk of locking members out during configuration.
+For detailed documentation on search capabilities, visit our [Product documentation](https://www.auth0.com/docs/get-started/auth0-overview/dashboard/search-and-filter-auth0-dashboard).</description>
+                   <guid>https://auth0.com/changelog#6qR4dKCHuPJGUEPiIrhM05</guid>
+               </item><item>
+                   <title>Actions Reference Catalog Now Available in Auth0 Docs</title>
+                   <pubDate>Wed, 29 Jul 2026 00:00:00 GMT</pubDate>
+                   <description>We now have an expansive Actions Reference Catalog available to dive deeper into [Actions Triggers](https://auth0.com/docs/customize/actions/explore-triggers) and their Event and API Objects. Within this new catalog, you can reference the event and api objects available to Auth0 Actions for each trigger, detailing the transaction data you can read and the methods you can call from your custom code.
 
-![org-to-app](//images.ctfassets.net/kbkgmx9upatd/rUfIbrGmUfR5DgFtEtZXB/2bae811541e02ba9905a790e4d1648cf/dbf50f9c-b7c6-474a-98e4-34c90d325c83.png)
-
-To learn more, review [Grant Per-Application Access to an Organization](https://auth0.com/docs/manage-users/organizations/configure-organizations/grant-application-access &amp;quot;Grant Per-Application Access to an Organization&amp;quot;).  
-
-By using Organization-to-Application Entitlement, you agree to the applicable Free Trial terms in Okta’s Master Subscription Agreement and Okta’s Privacy Policy during use of the Early Access feature. The Free Trial terms can be found within the Master Subscription Agreement at [https://www.okta.com/agreements](https://www.okta.com/agreements.).
-</description>
-                   <guid>https://auth0.com/changelog#4y94FiFLqM5Hrwi47LVUc7</guid>
+Try out the new Actions Reference Catalog here: [https://auth0.com/docs/actions/reference](https://auth0.com/docs/actions/reference)</description>
+                   <guid>https://auth0.com/changelog#1dDtqsRIpe1SdyMzjgvEbR</guid>
                </item><item>
                    <title>Organization-Level Roles - Early Access</title>
                    <pubDate>Wed, 29 Jul 2026 00:00:00 GMT</pubDate>
@@ -462,24 +485,23 @@ To learn more, review [Organization Roles](https://auth0.com/docs/manage-users/o
 By using Organization-to-Application Entitlement, you agree to the applicable Free Trial terms in Okta’s Master Subscription Agreement and Okta’s Privacy Policy during use of the Early Access feature. The Free Trial terms can be found within the Master Subscription Agreement at [https://www.okta.com/agreements](https://www.okta.com/agreements.).</description>
                    <guid>https://auth0.com/changelog#5TucoIC8w6Z2O5hhGseJa0</guid>
                </item><item>
-                   <title>Dashboard Search for Organization members now in Beta!</title>
+                   <title>Organization-to-Application Entitlement - Early Access</title>
                    <pubDate>Wed, 29 Jul 2026 00:00:00 GMT</pubDate>
-                   <description>
-__Dashboard Search for Organization members is now available in Public Beta!__ Find your organization members faster without scrolling through paginated lists.
+                   <description>**Organization-to-App Entitlement** lets you control which applications the members of an organization can access - natively, without custom code.
 
-Users can now __search Organization Members in real time by name, email, ID and filter by blocked status.__ 
+If you sell multiple products and different customers have purchased different combinations, you can now enforce those boundaries directly in Auth0. When a member of an org tries to log in to an app they&amp;apos;re not entitled to, Auth0 denies access automatically. No Actions. No metadata checks. No custom logic to maintain.
 
-Rolling out progressively to Public Cloud tenants starting this week, with broader availability in the coming weeks.
+**Opt-in, per org.** Entitlement enforcement is disabled by default - existing orgs and login flows are unaffected until you explicitly enable it. You can roll out to one org at a time, making it safe to adopt incrementally.
 
-For detailed documentation on search capabilities, visit our [Product documentation](https://www.auth0.com/docs/get-started/auth0-overview/dashboard/search-and-filter-auth0-dashboard).</description>
-                   <guid>https://auth0.com/changelog#6qR4dKCHuPJGUEPiIrhM05</guid>
-               </item><item>
-                   <title>Actions Reference Catalog Now Available in Auth0 Docs</title>
-                   <pubDate>Wed, 29 Jul 2026 00:00:00 GMT</pubDate>
-                   <description>We now have an expansive Actions Reference Catalog available to dive deeper into [Actions Triggers](https://auth0.com/docs/customize/actions/explore-triggers) and their Event and API Objects. Within this new catalog, you can reference the event and api objects available to Auth0 Actions for each trigger, detailing the transaction data you can read and the methods you can call from your custom code.
+**Safe to configure before you go live.** You can set up all your entitlements first, then enable enforcement when you&amp;apos;re ready. There&amp;apos;s no risk of locking members out during configuration.
 
-Try out the new Actions Reference Catalog here: [https://auth0.com/docs/actions/reference](https://auth0.com/docs/actions/reference)</description>
-                   <guid>https://auth0.com/changelog#1dDtqsRIpe1SdyMzjgvEbR</guid>
+![org-to-app](//images.ctfassets.net/kbkgmx9upatd/rUfIbrGmUfR5DgFtEtZXB/2bae811541e02ba9905a790e4d1648cf/dbf50f9c-b7c6-474a-98e4-34c90d325c83.png)
+
+To learn more, review [Grant Per-Application Access to an Organization](https://auth0.com/docs/manage-users/organizations/configure-organizations/grant-application-access &amp;quot;Grant Per-Application Access to an Organization&amp;quot;).  
+
+By using Organization-to-Application Entitlement, you agree to the applicable Free Trial terms in Okta’s Master Subscription Agreement and Okta’s Privacy Policy during use of the Early Access feature. The Free Trial terms can be found within the Master Subscription Agreement at [https://www.okta.com/agreements](https://www.okta.com/agreements.).
+</description>
+                   <guid>https://auth0.com/changelog#4y94FiFLqM5Hrwi47LVUc7</guid>
                </item><item>
                    <title>Cross App Access (XAA) for Resource Applications is now in Open Early Access</title>
                    <pubDate>Mon, 27 Jul 2026 00:00:00 GMT</pubDate>
@@ -812,23 +834,6 @@ With this release, Token Vault exchanges and the Connected Accounts flow respect
 For complete setup instructions and more, refer to our [documentation](https://auth0.com/docs/secure/call-apis-on-users-behalf/token-vault#use-with-organizations)..</description>
                    <guid>https://auth0.com/changelog#6nxqGjfn3ToWBLO9jL2TSB</guid>
                </item><item>
-                   <title>Actions - Access Token Scope Customization - EA</title>
-                   <pubDate>Wed, 27 May 2026 00:00:00 GMT</pubDate>
-                   <description>We are excited to announce that we are adding __new Credentials Exchange Actions Access Token Scope Interfaces__ and they are now available in [__Early Access__](https://auth0.com/docs/troubleshoot/product-lifecycle/product-release-stages#early-access &amp;quot;Early Access&amp;quot;).
-
-These new interfaces allow you to customize the scopes to be considered when the access token is issued by writing __Credentials Exchange Actions__, considering the restrictions based on API and Client Grants definitions.
-
-__Early Access__ functionality includes:
-- __Add/Remove:__ New interfaces to add or remove target scopes from Credentials Exchange Actions.
-- __Set/Clear:__ Additional interfaces to clear or set target scopes from Credentials Exchange Actions without having to loop through the list of scopes.
-- __Read:__ The list of target scopes becomes available immediately after being transformed.
-- __Limits:__ Increased limits to handle up-to 1000 scopes for both __Credentials Exchange Actions__.
-- __Bonus:__ The limits were also increased for __Post Login Actions__.
-- __Docs:__
-  - __Event Object__: [https://auth0.com/docs/customize/actions/explore-triggers/machine-to-machine-trigger/credentials-exchange-event-object#param-target-scopes](https://auth0.com/docs/customize/actions/explore-triggers/machine-to-machine-trigger/credentials-exchange-event-object#param-target-scopes &amp;quot;Event Object&amp;quot;) 
-  - __API Object__: [https://auth0.com/docs/customize/actions/explore-triggers/machine-to-machine-trigger/credentials-exchange-api-object#api-transaction](https://auth0.com/docs/customize/actions/explore-triggers/machine-to-machine-trigger/credentials-exchange-api-object#api-transaction &amp;quot;API Object&amp;quot;)</description>
-                   <guid>https://auth0.com/changelog#6t3B5qOiI4OSTGtrupS8uh</guid>
-               </item><item>
                    <title>Custom Token Exchange - Delegated Authorization now available in Open Early Access</title>
                    <pubDate>Wed, 27 May 2026 00:00:00 GMT</pubDate>
                    <description>We&amp;apos;re excited to announce that __Custom Token Exchange now supports Delegated Authorization__. This release is available to all __Enterprise, B2B Professional, and B2C Professional customers__.
@@ -849,25 +854,22 @@ To learn more, visit the [Custom Token Exchange documentation](https://auth0.com
 ![set-Actor-Actions](https://cdn.auth0.com/blog/set-actor-actions-method.png)</description>
                    <guid>https://auth0.com/changelog#43nGPOY7E0sW9L3s2lrzfx</guid>
                </item><item>
-                   <title>Secure Canonical Domains with New Tenant ACL Signals</title>
-                   <pubDate>Tue, 26 May 2026 00:00:00 GMT</pubDate>
-                   <description>We have enhanced Tenant Access Control Lists (ACLs) to provide granular control over upstream proxy infrastructure and canonical domain routing.
+                   <title>Actions - Access Token Scope Customization - EA</title>
+                   <pubDate>Wed, 27 May 2026 00:00:00 GMT</pubDate>
+                   <description>We are excited to announce that we are adding __new Credentials Exchange Actions Access Token Scope Interfaces__ and they are now available in [__Early Access__](https://auth0.com/docs/troubleshoot/product-lifecycle/product-release-stages#early-access &amp;quot;Early Access&amp;quot;).
 
-With this update, you can now isolate traffic by enforcing distinct rules on your canonical hostnames while keeping your user-facing custom domains open.
+These new interfaces allow you to customize the scopes to be considered when the access token is issued by writing __Credentials Exchange Actions__, considering the restrictions based on API and Client Grants definitions.
 
-##### What&amp;apos;s New? 
-
-* **Canonical Hostname Routing**
-    * Match access rules directly against your canonical hostnames. This allows you to lock down backend default domains while keeping customer-facing custom domains open and accessible to your users.
-* **Connecting IP Verification**
-    *  Define precise allowed IPv4 and IPv6 CIDR blocks for the infrastructure (such as reverse proxies or content delivery networks) connecting directly to the Auth0 edge.
-*  **Expanded Attribute Quotas**
-    * The limit for Tenant ACL attributes has been increased from 10 to 20 per signal, giving you the additional flexibility needed to scale complex, multi-domain configurations seamlessly.
-
-##### Resources
-To learn more about Tenant ACLs, click [here](https://auth0.com/docs/secure/tenant-access-control-list)
-</description>
-                   <guid>https://auth0.com/changelog#1HJRARwaxBi5V94dshJcZ3</guid>
+__Early Access__ functionality includes:
+- __Add/Remove:__ New interfaces to add or remove target scopes from Credentials Exchange Actions.
+- __Set/Clear:__ Additional interfaces to clear or set target scopes from Credentials Exchange Actions without having to loop through the list of scopes.
+- __Read:__ The list of target scopes becomes available immediately after being transformed.
+- __Limits:__ Increased limits to handle up-to 1000 scopes for both __Credentials Exchange Actions__.
+- __Bonus:__ The limits were also increased for __Post Login Actions__.
+- __Docs:__
+  - __Event Object__: [https://auth0.com/docs/customize/actions/explore-triggers/machine-to-machine-trigger/credentials-exchange-event-object#param-target-scopes](https://auth0.com/docs/customize/actions/explore-triggers/machine-to-machine-trigger/credentials-exchange-event-object#param-target-scopes &amp;quot;Event Object&amp;quot;) 
+  - __API Object__: [https://auth0.com/docs/customize/actions/explore-triggers/machine-to-machine-trigger/credentials-exchange-api-object#api-transaction](https://auth0.com/docs/customize/actions/explore-triggers/machine-to-machine-trigger/credentials-exchange-api-object#api-transaction &amp;quot;API Object&amp;quot;)</description>
+                   <guid>https://auth0.com/changelog#6t3B5qOiI4OSTGtrupS8uh</guid>
                </item><item>
                    <title>General availability of DPoP sender constraining for Enterprise Connections</title>
                    <pubDate>Tue, 26 May 2026 00:00:00 GMT</pubDate>
@@ -891,6 +893,26 @@ With federated logout:
 
 This feature is available on all plans that include enterprise connections. Read the [documentation](https://auth0.com/docs/authenticate/login/logout/log-users-out-of-idps ) to learn more.</description>
                    <guid>https://auth0.com/changelog#2xFJS2QkpbCMiFX0eEciWG</guid>
+               </item><item>
+                   <title>Secure Canonical Domains with New Tenant ACL Signals</title>
+                   <pubDate>Tue, 26 May 2026 00:00:00 GMT</pubDate>
+                   <description>We have enhanced Tenant Access Control Lists (ACLs) to provide granular control over upstream proxy infrastructure and canonical domain routing.
+
+With this update, you can now isolate traffic by enforcing distinct rules on your canonical hostnames while keeping your user-facing custom domains open.
+
+##### What&amp;apos;s New? 
+
+* **Canonical Hostname Routing**
+    * Match access rules directly against your canonical hostnames. This allows you to lock down backend default domains while keeping customer-facing custom domains open and accessible to your users.
+* **Connecting IP Verification**
+    *  Define precise allowed IPv4 and IPv6 CIDR blocks for the infrastructure (such as reverse proxies or content delivery networks) connecting directly to the Auth0 edge.
+*  **Expanded Attribute Quotas**
+    * The limit for Tenant ACL attributes has been increased from 10 to 20 per signal, giving you the additional flexibility needed to scale complex, multi-domain configurations seamlessly.
+
+##### Resources
+To learn more about Tenant ACLs, click [here](https://auth0.com/docs/secure/tenant-access-control-list)
+</description>
+                   <guid>https://auth0.com/changelog#1HJRARwaxBi5V94dshJcZ3</guid>
                </item><item>
                    <title>Suspicious IP Throttling for Custom Token Exchange</title>
                    <pubDate>Tue, 19 May 2026 00:00:00 GMT</pubDate>
@@ -1033,6 +1055,18 @@ __What’s new:__
 To keep improving this experience, we’ll be continuously adding more contextual actions and capabilities to the __CMD+K Command Palette__.</description>
                    <guid>https://auth0.com/changelog#3mhwjZdB3L7vXnesSa5t8E</guid>
                </item><item>
+                   <title>Auth0 Event Streams for Outbound User Lifecycle Management – Now in General Availability</title>
+                   <pubDate>Thu, 30 Apr 2026 00:00:00 GMT</pubDate>
+                   <description>Event Streams is now available for all customers in General Availablity.
+
+Customer can:
+- Subscribe to Auth0 User, Organizations, and Groups (Early Access Limited Release) Events
+- Deliver Events to AWS EventBridge, Auth0 Actions, and Webhooks (including to [Okta Workflows](https://help.okta.com/wf/en-us/content/topics/workflows/execute/flow-api-endpoint.htm &amp;quot;Okta Workflows&amp;quot;) via Customer Header Auth)
+- Consume events via the Events API
+
+See the [Auth0 Docs](https://auth0.com/docs/deploy-monitor/events &amp;quot;Event Streams&amp;quot;) and [Event Catalog](https://auth0.com/docs/events &amp;quot;Event Catalog&amp;quot;) for further instructions.</description>
+                   <guid>https://auth0.com/changelog#fuWON1ktuPMy4n09B1mrR</guid>
+               </item><item>
                    <title>Auth0 FGA Permissions Index Is Now in Developer Preview</title>
                    <pubDate>Thu, 30 Apr 2026 00:00:00 GMT</pubDate>
                    <description>
@@ -1050,18 +1084,6 @@ __Learn more__:
 
 ![FGA Colocated Permisssions Index](//images.ctfassets.net/kbkgmx9upatd/5CRF124QdAzhLSegaqS2ca/9bc2efffe9329c8b37efcb3b33aea3d4/FGA_Colocated_Permisssions_Index.png)</description>
                    <guid>https://auth0.com/changelog#5KDss6efgwLvwrnUYFADEs</guid>
-               </item><item>
-                   <title>Auth0 Event Streams for Outbound User Lifecycle Management – Now in General Availability</title>
-                   <pubDate>Thu, 30 Apr 2026 00:00:00 GMT</pubDate>
-                   <description>Event Streams is now available for all customers in General Availablity.
-
-Customer can:
-- Subscribe to Auth0 User, Organizations, and Groups (Early Access Limited Release) Events
-- Deliver Events to AWS EventBridge, Auth0 Actions, and Webhooks (including to [Okta Workflows](https://help.okta.com/wf/en-us/content/topics/workflows/execute/flow-api-endpoint.htm &amp;quot;Okta Workflows&amp;quot;) via Customer Header Auth)
-- Consume events via the Events API
-
-See the [Auth0 Docs](https://auth0.com/docs/deploy-monitor/events &amp;quot;Event Streams&amp;quot;) and [Event Catalog](https://auth0.com/docs/events &amp;quot;Event Catalog&amp;quot;) for further instructions.</description>
-                   <guid>https://auth0.com/changelog#fuWON1ktuPMy4n09B1mrR</guid>
                </item><item>
                    <title>Enhanced Security Controls for Third-Party Applications is now Generally Available</title>
                    <pubDate>Thu, 30 Apr 2026 00:00:00 GMT</pubDate>
@@ -1085,6 +1107,19 @@ As you open your APIs to AI agents, customers, partners, and external developers
 To learn more, visit the [Third-Party Applications documentation](https://auth0.com/docs/get-started/applications/third-party-applications).
 </description>
                    <guid>https://auth0.com/changelog#YcrZfUuth36sz2ZLClPEh</guid>
+               </item><item>
+                   <title>Organization Discovery by Domain now in General Availability!</title>
+                   <pubDate>Tue, 28 Apr 2026 00:00:00 GMT</pubDate>
+                   <description>We&amp;apos;re thrilled to announce that __Organization Discovery by Domain is now in General Availability__! Automatically identify your customers&amp;apos; users and route them to the right identity provider based on their email domain — before they even reach the login screen.
+
+Key Advantages at a Glance:
+- Automatic routing: Direct users to their organization&amp;apos;s IdP the moment they enter their email — no manual org selection required.
+- Multi-org support: When a single domain maps to multiple organizations, an org picker ensures users land in the right place.
+- Seamless B2B login: Eliminate the friction of Home Realm Discovery by adding full organization context to the pre-login flow.
+- Flexible configuration: Support email-based, org-name-based, or combined discovery to match your customers&amp;apos; login requirements.
+
+To dive deeper, please review our documentation [here](https://auth0.com/docs/manage-users/organizations/login-flows-for-organizations#organization-domain-discovery-optional).</description>
+                   <guid>https://auth0.com/changelog#1PKSNs4ANJ6DkZWjq9d203</guid>
                </item><item>
                    <title>Self-Service Provisioning now in General Availability!</title>
                    <pubDate>Tue, 28 Apr 2026 00:00:00 GMT</pubDate>
@@ -1113,19 +1148,6 @@ Key Advantages at a Glance:
 
 To dive deeper, please review our updated documentation on[ Self-Service Enterprise Configuration](https://auth0.com/docs/authenticate/enterprise-connections/self-service-enterprise-config).</description>
                    <guid>https://auth0.com/changelog#6ALAmotlACYGqbTE8UoJ3</guid>
-               </item><item>
-                   <title>Organization Discovery by Domain now in General Availability!</title>
-                   <pubDate>Tue, 28 Apr 2026 00:00:00 GMT</pubDate>
-                   <description>We&amp;apos;re thrilled to announce that __Organization Discovery by Domain is now in General Availability__! Automatically identify your customers&amp;apos; users and route them to the right identity provider based on their email domain — before they even reach the login screen.
-
-Key Advantages at a Glance:
-- Automatic routing: Direct users to their organization&amp;apos;s IdP the moment they enter their email — no manual org selection required.
-- Multi-org support: When a single domain maps to multiple organizations, an org picker ensures users land in the right place.
-- Seamless B2B login: Eliminate the friction of Home Realm Discovery by adding full organization context to the pre-login flow.
-- Flexible configuration: Support email-based, org-name-based, or combined discovery to match your customers&amp;apos; login requirements.
-
-To dive deeper, please review our documentation [here](https://auth0.com/docs/manage-users/organizations/login-flows-for-organizations#organization-domain-discovery-optional).</description>
-                   <guid>https://auth0.com/changelog#1PKSNs4ANJ6DkZWjq9d203</guid>
                </item><item>
                    <title>New Identity, Same Great Features: Self-Service SSO is now Self-Service Enterprise Configuration</title>
                    <pubDate>Tue, 28 Apr 2026 00:00:00 GMT</pubDate>
@@ -1188,19 +1210,6 @@ While we are not planning to move forward with mDL Verification Service capabili
 </description>
                    <guid>https://auth0.com/changelog#37Bpvtxbjs4NAeKFJOxqdD</guid>
                </item><item>
-                   <title>Google Workspace Directory Sync for Groups - Expanded Early Access (EA)</title>
-                   <pubDate>Fri, 17 Apr 2026 00:00:00 GMT</pubDate>
-                   <description>We are excited to announce the next phase of our __Google Workspace Directory Sync for Groups__ Early Access! 
-
-Building on our initial Early Access [release](https://auth0.com/changelog#6WhEr0c0yB3K5oh7jiPADP), this update introduces __Partial Group Sync__, giving you exact control over which Enterprise Groups to import from your Google Workspace Directory into Auth0.
-
-__What&amp;apos;s new:__
-- Targeted Group Sync: Instead of syncing your entire directory, you can now choose to synchronize only a specific subset of your Google Workspace groups. Easily manage your selected groups through either the Management Dashboard or Management API. 
-
-__How to join Early Access:__
-To join the EA program, please complete the [EA Terms &amp;amp; Conditions form](https://forms.gle/9MK4hnQUW8AVfREZ9) and contact your Auth0 Account Team to request activation and supporting documentation.</description>
-                   <guid>https://auth0.com/changelog#3sQ4fmmnZQuIAu9jZBoBOS</guid>
-               </item><item>
                    <title>Delegated Administration Extension</title>
                    <pubDate>Fri, 17 Apr 2026 00:00:00 GMT</pubDate>
                    <description>__v4.8.1 — Custom Domain Hook__
@@ -1219,6 +1228,19 @@ Not on v4.8.x: Manually update the extension in your Auth0 tenant by navigating 
 
 Already on v4.8.x: No action required — the patch has been automatically applied.</description>
                    <guid>https://auth0.com/changelog#5agVKVb0XqU9j5y8Z2S12t</guid>
+               </item><item>
+                   <title>Google Workspace Directory Sync for Groups - Expanded Early Access (EA)</title>
+                   <pubDate>Fri, 17 Apr 2026 00:00:00 GMT</pubDate>
+                   <description>We are excited to announce the next phase of our __Google Workspace Directory Sync for Groups__ Early Access! 
+
+Building on our initial Early Access [release](https://auth0.com/changelog#6WhEr0c0yB3K5oh7jiPADP), this update introduces __Partial Group Sync__, giving you exact control over which Enterprise Groups to import from your Google Workspace Directory into Auth0.
+
+__What&amp;apos;s new:__
+- Targeted Group Sync: Instead of syncing your entire directory, you can now choose to synchronize only a specific subset of your Google Workspace groups. Easily manage your selected groups through either the Management Dashboard or Management API. 
+
+__How to join Early Access:__
+To join the EA program, please complete the [EA Terms &amp;amp; Conditions form](https://forms.gle/9MK4hnQUW8AVfREZ9) and contact your Auth0 Account Team to request activation and supporting documentation.</description>
+                   <guid>https://auth0.com/changelog#3sQ4fmmnZQuIAu9jZBoBOS</guid>
                </item><item>
                    <title>Multi-Resource Refresh Tokens (MRRT) is now Generally Available</title>
                    <pubDate>Tue, 14 Apr 2026 00:00:00 GMT</pubDate>
@@ -1271,17 +1293,12 @@ DPoP for Enterprise Connections enables Auth0 to generate DPoP proofs when perfo
 Please see [product documentation](https://auth0.com/docs/authenticate/enterprise-connections/enable-dpop-enterprise-connections) for details.  </description>
                    <guid>https://auth0.com/changelog#3kRaHbKHHvaDZjqdKFSNX2</guid>
                </item><item>
-                   <title>Akamai Supplemental Signals is Now GA</title>
+                   <title>Universal Login — &amp;quot;Forgot Password&amp;quot; CTA updated to &amp;quot;Reset Password&amp;quot;</title>
                    <pubDate>Thu, 09 Apr 2026 00:00:00 GMT</pubDate>
-                   <description>__Auth0 Akamai Supplemental Signals is now GA__ and available across the full authentication lifecycle. 
+                   <description>The call to action for the Universal Login forgot password flow has been updated from &amp;quot;Forgot Password&amp;quot; to &amp;quot;Reset Password.&amp;quot; This aligns all Universal Login CTAs to be action-oriented. The updated text is available across all languages supported by Auth0. Customers who want to keep the original &amp;quot;Forgot Password&amp;quot; text can restore it via language customization at Branding &amp;gt; Universal Login &amp;gt; Edit text and translations. 
 
-This update allows developers to ingest risk scores and edge intelligence from Akamai Bot Manager and Account Protector into several new Action triggers: __Pre-User Registration__, __Post-User Registration__, __Post-Challenge__, and __Post-Change Password__. 
-
-By integrating these signals directly into the Auth0 pipeline, organizations can stop automated bot signups before an account is created and enforce real-time security logic during critical events like password resets or MFA challenges.
-
-To learn more about __Akamai Supplemental Signals__ and how to set it up review our online documentation [here](https://auth0.com/docs/secure/attack-protection/configure-akamai-supplemental-signals)
-</description>
-                   <guid>https://auth0.com/changelog#5HgzBbwQyUv6qtPHjfV0mX</guid>
+Learn more: https://auth0.com/docs/customize/login-pages/universal-login/customize-text-elements</description>
+                   <guid>https://auth0.com/changelog#ZTobrcpU7AQ3v37HPRDWa</guid>
                </item><item>
                    <title>My Organization API and Embeddable UI Components - Organization Details and IdP Management in Early Access!</title>
                    <pubDate>Thu, 09 Apr 2026 00:00:00 GMT</pubDate>
@@ -1312,21 +1329,17 @@ This feature is available for all tenants. To begin, navigate to the __Applicati
 To learn more, read the [My Organization API documentation](https://auth0.com/docs/manage-users/my-organization-api) and if you have any feedback, give us a shout in our community channel!</description>
                    <guid>https://auth0.com/changelog#7wWQexQzB29PXNwEFJhAZA</guid>
                </item><item>
-                   <title>Universal Login — &amp;quot;Forgot Password&amp;quot; CTA updated to &amp;quot;Reset Password&amp;quot;</title>
+                   <title>Akamai Supplemental Signals is Now GA</title>
                    <pubDate>Thu, 09 Apr 2026 00:00:00 GMT</pubDate>
-                   <description>The call to action for the Universal Login forgot password flow has been updated from &amp;quot;Forgot Password&amp;quot; to &amp;quot;Reset Password.&amp;quot; This aligns all Universal Login CTAs to be action-oriented. The updated text is available across all languages supported by Auth0. Customers who want to keep the original &amp;quot;Forgot Password&amp;quot; text can restore it via language customization at Branding &amp;gt; Universal Login &amp;gt; Edit text and translations. 
+                   <description>__Auth0 Akamai Supplemental Signals is now GA__ and available across the full authentication lifecycle. 
 
-Learn more: https://auth0.com/docs/customize/login-pages/universal-login/customize-text-elements</description>
-                   <guid>https://auth0.com/changelog#ZTobrcpU7AQ3v37HPRDWa</guid>
-               </item><item>
-                   <title>Express Submission to the Okta Integration Network</title>
-                   <pubDate>Wed, 08 Apr 2026 00:00:00 GMT</pubDate>
-                   <description>Auth0 developers leveraging [Express Configuration with Okta](https://auth0.com/docs/authenticate/identity-providers/enterprise-identity-providers/okta/express-configuration) now have a more streamlined process for submitting their application to the Okta Integration Network.
+This update allows developers to ingest risk scores and edge intelligence from Akamai Bot Manager and Account Protector into several new Action triggers: __Pre-User Registration__, __Post-User Registration__, __Post-Challenge__, and __Post-Change Password__. 
 
-The Okta Integration Network (OIN) Wizard has been updated with a new section for Auth0 developers that automatically populates the required configuration fields for OpenID Connect (OIDC), System for Cross-domain Identity Management (SCIM), and Global Token Revocation (GTR) integrations, based on information sourced from the Auth0 Dashboard.
+By integrating these signals directly into the Auth0 pipeline, organizations can stop automated bot signups before an account is created and enforce real-time security logic during critical events like password resets or MFA challenges.
 
-To learn more about Express Configuration with Okta and the Okta Integration Network (OIN), [click here](https://auth0.com/docs/authenticate/identity-providers/enterprise-identity-providers/okta/express-configuration).</description>
-                   <guid>https://auth0.com/changelog#4SIYjVxOsFw6paD8OcEu8l</guid>
+To learn more about __Akamai Supplemental Signals__ and how to set it up review our online documentation [here](https://auth0.com/docs/secure/attack-protection/configure-akamai-supplemental-signals)
+</description>
+                   <guid>https://auth0.com/changelog#5HgzBbwQyUv6qtPHjfV0mX</guid>
                </item><item>
                    <title>Multiple Custom Domains General Availability </title>
                    <pubDate>Wed, 08 Apr 2026 00:00:00 GMT</pubDate>
@@ -1344,6 +1357,15 @@ MCD GA includes support for:
 
 Visit [Auth0 docs](https://auth0.com/docs/customize/custom-domains/multiple-custom-domains) to get started. </description>
                    <guid>https://auth0.com/changelog#52jneyDuedriHasGYwAOQw</guid>
+               </item><item>
+                   <title>Express Submission to the Okta Integration Network</title>
+                   <pubDate>Wed, 08 Apr 2026 00:00:00 GMT</pubDate>
+                   <description>Auth0 developers leveraging [Express Configuration with Okta](https://auth0.com/docs/authenticate/identity-providers/enterprise-identity-providers/okta/express-configuration) now have a more streamlined process for submitting their application to the Okta Integration Network.
+
+The Okta Integration Network (OIN) Wizard has been updated with a new section for Auth0 developers that automatically populates the required configuration fields for OpenID Connect (OIDC), System for Cross-domain Identity Management (SCIM), and Global Token Revocation (GTR) integrations, based on information sourced from the Auth0 Dashboard.
+
+To learn more about Express Configuration with Okta and the Okta Integration Network (OIN), [click here](https://auth0.com/docs/authenticate/identity-providers/enterprise-identity-providers/okta/express-configuration).</description>
+                   <guid>https://auth0.com/changelog#4SIYjVxOsFw6paD8OcEu8l</guid>
                </item><item>
                    <title>Introducing the Developer Preview Release Stage</title>
                    <pubDate>Tue, 07 Apr 2026 00:00:00 GMT</pubDate>
@@ -1488,6 +1510,15 @@ What&amp;apos;s new:
 </description>
                    <guid>https://auth0.com/changelog#8WjIOWCE7KMD1HF8qRBjj</guid>
                </item><item>
+                   <title> Brute Force Protection for Passwordless Notifications</title>
+                   <pubDate>Tue, 03 Mar 2026 00:00:00 GMT</pubDate>
+                   <description>To improve the end-user experience and mitigate message spam, Brute Force Protection now proactively prevents the sending of passwordless email and SMS codes to users who are already blocked. 
+
+This update ensures that restricted users cannot continue to trigger unsolicited notifications, closing a gap in our abuse prevention coverage and reducing unnecessary messages
+
+For more information on _Brute Force Protection_, check out our [online documentation](https://auth0.com/docs/secure/attack-protection/brute-force-protection).</description>
+                   <guid>https://auth0.com/changelog#6NsBsJujkexciOsVQkTSO9</guid>
+               </item><item>
                    <title>Actions - Transaction Metadata - GA</title>
                    <pubDate>Tue, 03 Mar 2026 00:00:00 GMT</pubDate>
                    <description>We are excited to announce that __Actions Transaction Metadata__ is now GA.
@@ -1501,15 +1532,6 @@ Functionality includes:
 - __Values Types:__ Values can be `boolean`, `number`, `string`, or `string` serialization of `object` and `array`.
 - __Docs:__ [Actions Transaction Metadata](https://auth0.com/docs/customize/actions/transaction-metadata &amp;quot;Actions Transaction Metadata Docs&amp;quot;)</description>
                    <guid>https://auth0.com/changelog#1yZLr3z0RceWn8mQ1bLvUL</guid>
-               </item><item>
-                   <title> Brute Force Protection for Passwordless Notifications</title>
-                   <pubDate>Tue, 03 Mar 2026 00:00:00 GMT</pubDate>
-                   <description>To improve the end-user experience and mitigate message spam, Brute Force Protection now proactively prevents the sending of passwordless email and SMS codes to users who are already blocked. 
-
-This update ensures that restricted users cannot continue to trigger unsolicited notifications, closing a gap in our abuse prevention coverage and reducing unnecessary messages
-
-For more information on _Brute Force Protection_, check out our [online documentation](https://auth0.com/docs/secure/attack-protection/brute-force-protection).</description>
-                   <guid>https://auth0.com/changelog#6NsBsJujkexciOsVQkTSO9</guid>
                </item><item>
                    <title>Actions - Modules - EA</title>
                    <pubDate>Thu, 26 Feb 2026 00:00:00 GMT</pubDate>
@@ -1700,6 +1722,18 @@ Access and manage refresh token metadata programmatically:
 Learn more about Refresh Token Metadata in our [documentation](https://auth0.com/docs/secure/tokens/refresh-tokens/refresh-token-metadata) </description>
                    <guid>https://auth0.com/changelog#66wOIhfWKdTVk1y1eFjwH4</guid>
                </item><item>
+                   <title>Credential Guard: Breached Phone Credentials Support</title>
+                   <pubDate>Fri, 06 Feb 2026 00:00:00 GMT</pubDate>
+                   <description>To strengthen defenses across the identity surface, we have added millions of breached phone credentials to our detection capabilities within __Credential Guard__
+
+This enhancement allows organizations using Phone as an Identifier to proactively identify compromised credentials and trigger automated security responses, such as login blocks or password resets. 
+
+This expansion ensures that phone-based authentication is as secure as traditional email-based methods without impacting system performance. 
+
+For more information on __Credential Guard__, check out our [online documentation](https://auth0.com/docs/secure/attack-protection/breached-password-detection#detect-breaches-faster-with-credential-guard).
+</description>
+                   <guid>https://auth0.com/changelog#3EewWZ94uLQBroGrdOSAAQ</guid>
+               </item><item>
                    <title>Auth0 Agent Skills </title>
                    <pubDate>Fri, 06 Feb 2026 00:00:00 GMT</pubDate>
                    <description>We&amp;apos;re introducing Auth0 Agent Skills Beta- structured guidance that teaches AI coding assistants how to implement Auth0 authentication correctly across any framework.
@@ -1721,18 +1755,6 @@ __Learn More__
   - [auth0/agent-skills repo](https://github.com/auth0/agent-skills)
   - [Documentation](https://auth0.com/docs/quickstart/agent-skills)</description>
                    <guid>https://auth0.com/changelog#34nfrABQdaCKQ7ZFzslAqP</guid>
-               </item><item>
-                   <title>Credential Guard: Breached Phone Credentials Support</title>
-                   <pubDate>Fri, 06 Feb 2026 00:00:00 GMT</pubDate>
-                   <description>To strengthen defenses across the identity surface, we have added millions of breached phone credentials to our detection capabilities within __Credential Guard__
-
-This enhancement allows organizations using Phone as an Identifier to proactively identify compromised credentials and trigger automated security responses, such as login blocks or password resets. 
-
-This expansion ensures that phone-based authentication is as secure as traditional email-based methods without impacting system performance. 
-
-For more information on __Credential Guard__, check out our [online documentation](https://auth0.com/docs/secure/attack-protection/breached-password-detection#detect-breaches-faster-with-credential-guard).
-</description>
-                   <guid>https://auth0.com/changelog#3EewWZ94uLQBroGrdOSAAQ</guid>
                </item><item>
                    <title>Better Mobile UX: Numeric Keyboards Now Default for OTPs </title>
                    <pubDate>Mon, 02 Feb 2026 00:00:00 GMT</pubDate>
