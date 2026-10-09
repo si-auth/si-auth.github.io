@@ -5,7 +5,7 @@
            <link>https://auth0.com/changelog/rss.xml</link>
            <description>Auth0 Changelog</description>
            <language>en-US</language>
-           <lastBuildDate>Fri, 09 Oct 2026 10:49:39 GMT</lastBuildDate>
+           <lastBuildDate>Fri, 09 Oct 2026 17:30:59 GMT</lastBuildDate>
            <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
            <image>
                <title>Auth0 Changelog</title>
@@ -14,6 +14,29 @@
            </image>
            <atom:link href="https://auth0.com/changelog/rss.xml" rel="self" type="application/rss+xml"/>
            <item>
+                   <title>Actions - Access Token Scope Customization - GA</title>
+                   <pubDate>Fri, 09 Oct 2026 00:00:00 GMT</pubDate>
+                   <description>We are excited to announce that __Access Token Scope Customization for Actions is now Generally Available__, and with this release we are __extending support to Post Login Actions__. Credentials Exchange Actions, which had these interfaces in Early Access, are now GA as well.
+
+These interfaces let you customize which `scopes` are considered when an access token is issued. Auth0 evaluates your changes against your API and application access policies, so an Action can narrow or propose scopes without bypassing RBAC, application permissions, or consent.
+
+Functionality includes:
+
+- __Post Login support__: Target scope interfaces are now available in Post Login Actions, in addition to Credentials Exchange Actions.
+- __Add/Remove__: Add or remove target scopes from your Actions. Removals are always honored. Additions are granted only if the user and application are authorized for them.
+- __Set/Clear__: Replace or empty the full list of target scopes in a single call, without looping through the list.
+- __Read__: `event.transaction.target_scopes` reflects every change as it is made, including across chained Actions.
+
+Which interface to use:
+- __Third-party applications__: Use the target scope interfaces. `api.accessToken.addScope()` is __not__ available for third-party applications, because it bypasses consent.
+- __First-party applications__: We recommend the target scope interfaces too. Keep `api.accessToken.addScope() for cases where you intentionally need to force-add a scope regardless of those policies.
+
+To learn more, read our [documentation](https://auth0.com/docs/customize/actions/handling-scopes-in-actions)
+
+![](https://cdn.auth0.com/blog/handling_target_scopes2.png)
+</description>
+                   <guid>https://auth0.com/changelog#1XGBthpxlSgDVxlWVGehN2</guid>
+               </item><item>
                    <title>Upcoming changes to the length of refresh tokens</title>
                    <pubDate>Thu, 01 Oct 2026 00:00:00 GMT</pubDate>
                    <description>As part of our commitment to maintaining the highest security and compliance standards, we will soon be updating our authentication service configuration to increase the length and entropy of our refresh tokens.
@@ -64,6 +87,27 @@ This feature allows you to create, manage, and share reusable code across differ
 - [__@auth0/actions__](https://www.npmjs.com/package/@auth0/actions?activeTab=readme)</description>
                    <guid>https://auth0.com/changelog#IEtKos3D7EXQYFieg95jE</guid>
                </item><item>
+                   <title>Custom User ID Assignment with Actions — Early Access</title>
+                   <pubDate>Thu, 17 Sep 2026 00:00:00 GMT</pubDate>
+                   <description>You can now assign a custom `user_id` to new database-connection users at signup by calling the `api.user.setUserId()` method in a `pre-user-registration` Action.
+
+Previously, Auth0 automatically generated user IDs in the standard `auth0|&amp;lt;id&amp;gt;` format for new signups. Customers who needed custom or legacy-compatible IDs had to build self-hosted signup pages or rely on bulk import. Now you can define any custom `user_id` format — UUIDs, domain-specific IDs, or IDs derived from your existing systems — directly in an Action, keeping identity consistent across imported and newly-created users.
+
+```javascript
+exports.onExecutePreUserRegistration = async (event, api) =&amp;gt; {
+  const crypto = require(&amp;apos;crypto&amp;apos;);
+  api.user.setUserId(crypto.randomUUID());
+};
+```
+
+Custom user IDs are supported for Database connections (including custom databases with automatic migration), Universal Login sign-up, the Authentication API signup endpoint, and the Management API Create User endpoint. They are not supported for passwordless, social, or enterprise connections, or for bulk import. The custom ID must be unique within the connection and meet the same validation rules as the Management API `user_id` parameter.
+
+[Read the docs →](https://auth0.com/docs/authenticate/database-connections/custom-user-id)
+
+&amp;gt; **Early Access:** This feature is in Early Access and is subject to change. By using this feature, you agree to the applicable Free Trial terms in Okta&amp;apos;s [Master Subscription Agreement](https://www.okta.com/agreements/).
+</description>
+                   <guid>https://auth0.com/changelog#RGWWqahrwFtycXhPate8b</guid>
+               </item><item>
                    <title>My Organization API and Embeddable UI Components - Member Management in Early Access!</title>
                    <pubDate>Thu, 17 Sep 2026 00:00:00 GMT</pubDate>
                    <description>We are excited to announce the __Early Access (EA)__ release of __Member Management__ for the __My Organization API and Embeddable UI Components__. Building on the Organization Details and Identity Provider Management foundation, this release gives B2B SaaS developers everything they need to let organization administrators manage their own members — sending invitations, assigning roles, and controlling access — without building custom backend infrastructure.
@@ -91,51 +135,6 @@ This feature is available for all tenants. To begin, navigate to the __Applicati
 To learn more, read the [My Organization API documentation](https://auth0.com/docs/manage-users/my-organization-api) and if you have any feedback, give us a shout in our [community channel](https://community.auth0.com/)!</description>
                    <guid>https://auth0.com/changelog#QVyBUwb38zOqMQuF5Rohm</guid>
                </item><item>
-                   <title>Custom User ID Assignment with Actions — Early Access</title>
-                   <pubDate>Thu, 17 Sep 2026 00:00:00 GMT</pubDate>
-                   <description>You can now assign a custom `user_id` to new database-connection users at signup by calling the `api.user.setUserId()` method in a `pre-user-registration` Action.
-
-Previously, Auth0 automatically generated user IDs in the standard `auth0|&amp;lt;id&amp;gt;` format for new signups. Customers who needed custom or legacy-compatible IDs had to build self-hosted signup pages or rely on bulk import. Now you can define any custom `user_id` format — UUIDs, domain-specific IDs, or IDs derived from your existing systems — directly in an Action, keeping identity consistent across imported and newly-created users.
-
-```javascript
-exports.onExecutePreUserRegistration = async (event, api) =&amp;gt; {
-  const crypto = require(&amp;apos;crypto&amp;apos;);
-  api.user.setUserId(crypto.randomUUID());
-};
-```
-
-Custom user IDs are supported for Database connections (including custom databases with automatic migration), Universal Login sign-up, the Authentication API signup endpoint, and the Management API Create User endpoint. They are not supported for passwordless, social, or enterprise connections, or for bulk import. The custom ID must be unique within the connection and meet the same validation rules as the Management API `user_id` parameter.
-
-[Read the docs →](https://auth0.com/docs/authenticate/database-connections/custom-user-id)
-
-&amp;gt; **Early Access:** This feature is in Early Access and is subject to change. By using this feature, you agree to the applicable Free Trial terms in Okta&amp;apos;s [Master Subscription Agreement](https://www.okta.com/agreements/).
-</description>
-                   <guid>https://auth0.com/changelog#RGWWqahrwFtycXhPate8b</guid>
-               </item><item>
-                   <title>Enterprise Connection Events — Early Access</title>
-                   <pubDate>Wed, 16 Sep 2026 00:00:00 GMT</pubDate>
-                   <description>You can now stream real-time notifications when an enterprise connection changes — without polling the Management API.
-
-__What&amp;apos;s new__ 
-
-Previously, detecting changes to an enterprise connection (a new SSO connection added, an existing one updated, or one removed) required polling the Management API on a schedule. With connection events, Auth0 notifies you the moment a change happens.
-
-__What you can do in EA__
-
-- Subscribe to connection.created, connection.updated, and connection.deleted events for your enterprise connections — Azure AD, ADFS, Google Workspace, Active Directory, LDAP, and Ping
-- Deliver events to a webhook or Amazon EventBridge
-- Consume events as CloudEvents-formatted JSON, so they work with your existing event tooling
-
-__What stays the same__
-
-Enterprise connection management via the Dashboard and Management API is unchanged. Connection events are additive — you don&amp;apos;t need to change how you create or manage connections to start using them.
-
-To learn more, review the Connection Events [documentation](https://auth0.com/docs/events).
-
-By using Connection Events, you agree to the applicable Free Trial terms in Okta&amp;apos;s Master Subscription Agreement and Okta&amp;apos;s Privacy Policy during use of the Early Access feature. The Free Trial terms can be found within the Master Subscription Agreement at [https://www.okta.com/agreements](https://www.okta.com/agreements).
-</description>
-                   <guid>https://auth0.com/changelog#4eYFRh9yN93NXhkOqBSpRT</guid>
-               </item><item>
                    <title>B2B Connect - Enterprise in Early Access!</title>
                    <pubDate>Wed, 16 Sep 2026 00:00:00 GMT</pubDate>
                    <description>You can now connect your existing authorization server to Auth0 for enterprise SSO, SCIM provisioning, and multi-tenant org management — without migrating your users.
@@ -160,6 +159,30 @@ To learn more, review the B2B Connect [documentation](https://auth0.com/docs/get
 By using B2B Connect, you agree to the applicable Free Trial terms in Okta&amp;apos;s Master Subscription Agreement and Okta&amp;apos;s Privacy Policy during use of the Early Access feature. The Free Trial terms can be found within the Master Subscription Agreement at [https://www.okta.com/agreements](https://www.okta.com/agreements).
 </description>
                    <guid>https://auth0.com/changelog#2KAdg9LxvB5CiN8O5KR4PI</guid>
+               </item><item>
+                   <title>Enterprise Connection Events — Early Access</title>
+                   <pubDate>Wed, 16 Sep 2026 00:00:00 GMT</pubDate>
+                   <description>You can now stream real-time notifications when an enterprise connection changes — without polling the Management API.
+
+__What&amp;apos;s new__ 
+
+Previously, detecting changes to an enterprise connection (a new SSO connection added, an existing one updated, or one removed) required polling the Management API on a schedule. With connection events, Auth0 notifies you the moment a change happens.
+
+__What you can do in EA__
+
+- Subscribe to connection.created, connection.updated, and connection.deleted events for your enterprise connections — Azure AD, ADFS, Google Workspace, Active Directory, LDAP, and Ping
+- Deliver events to a webhook or Amazon EventBridge
+- Consume events as CloudEvents-formatted JSON, so they work with your existing event tooling
+
+__What stays the same__
+
+Enterprise connection management via the Dashboard and Management API is unchanged. Connection events are additive — you don&amp;apos;t need to change how you create or manage connections to start using them.
+
+To learn more, review the Connection Events [documentation](https://auth0.com/docs/events).
+
+By using Connection Events, you agree to the applicable Free Trial terms in Okta&amp;apos;s Master Subscription Agreement and Okta&amp;apos;s Privacy Policy during use of the Early Access feature. The Free Trial terms can be found within the Master Subscription Agreement at [https://www.okta.com/agreements](https://www.okta.com/agreements).
+</description>
+                   <guid>https://auth0.com/changelog#4eYFRh9yN93NXhkOqBSpRT</guid>
                </item><item>
                    <title>New Deny All Rule for Tenant ACL</title>
                    <pubDate>Tue, 08 Sep 2026 00:00:00 GMT</pubDate>
@@ -387,25 +410,20 @@ __Direct navigation__ — &amp;quot;View more&amp;quot; links take you to filter
 This update is available to all customers in public cloud, and will be gradually rolling out to private cloud environments in the coming months. </description>
                    <guid>https://auth0.com/changelog#40KS8Q8mYuySx8GeHYq427</guid>
                </item><item>
-                   <title>Token Vault Privileged Worker is now Early Access!</title>
+                   <title>Agents as Principal now in Early Access!</title>
                    <pubDate>Thu, 30 Jul 2026 00:00:00 GMT</pubDate>
-                   <description>We&amp;apos;re thrilled to announce __Token Vault Privileged Worker__ is now in __Early Access__, letting your autonomous agents pull a user&amp;apos;s third-party tokens - Gmail, Drive, Slack, and more - from Token Vault with no user session required. Token Vault today assumes a human is actively logged in to hand over their token; if your agent runs on a schedule, in CI, or wakes up at 2am with no one signed in, there may not always be a user signed in. Privileged Worker gives your background agents their own strong credential to authorize that exchange directly.
+                   <description>We&amp;apos;re excited to announce __Agents as Principal__ is now in __Early Access__, giving AI agents a first-class identity in Auth0 - distinct from human users and clients. If you&amp;apos;re running agents in production today, they&amp;apos;re likely standing in as a shared client or user identity, which means you can&amp;apos;t tell which agent acted, track it when it&amp;apos;s acting for someone else, or separate its traffic from a human&amp;apos;s. This release gives every agent its own identifier, credentials, and audit trail so you can!
 
-With privileged worker, you can register a trusted worker identity, authenticate it with Private Key JWT or mTLS, and it can request a specific user&amp;apos;s third-party token directly from Token Vault. We give you the ability to pin each worker credential to specific connections and scopes, so a compromised credential can only reach what it was actually authorized for.
+- __Know Exactly Which Agent Acted:__ Every agent gets a unique identity of its own, instead of hiding behind a shared client or a user account. You can create and manage agent identities directly, so &amp;quot;who did this&amp;quot; has a real answer.
 
-To enable the Privileged Worker Early Access release in your Auth0 tenant once available in your environment, please contact your Auth0 Account Team. 
+- __Track Delegation End to End:__ When an agent acts on a user&amp;apos;s behalf, the full chain - who delegated, to which agent, through which app - is encoded in the token and auditable through every hop. 
 
-Learn more in the [documentation](https://auth0.com/docs/secure/call-apis-on-users-behalf/token-vault/privileged-worker-token-exchange-with-token-vault#privileged-worker-token-exchange-with-token-vault).</description>
-                   <guid>https://auth0.com/changelog#3Ehpq3QsDRBlkNWDb91Hly</guid>
-               </item><item>
-                   <title>Enterprise Connect - Beta</title>
-                   <pubDate>Thu, 30 Jul 2026 00:00:00 GMT</pubDate>
-                   <description>Enterprise Connect is now in Beta. It lets you use Auth0 as a modular B2B identity layer. You can federate your existing SAML or OIDC capable authorization server to Auth0 and layer on enterprise SSO, user provisioning, and self-service onboarding / setup capabilities for B2B use cases.
+- __Bring Your Existing Agents In:__ Already running agents outside Auth0 through your own registry, an MCP server, or elsewhere? Associate the identifier you already use internally with an Auth0 client, so you&amp;apos;re not re-provisioning agents you&amp;apos;ve already built.
 
-A guided setup walks you through federating over OIDC or SAML, including Okta as a connection strategy, configuring the integration, self-service onboarding, adding user profile claims into ID tokens using Actions code, and wiring up outbound SCIM user provisioning. Connection lifecycle events (connection.created, connection.updated, connection.deleted) keep your local domain map in sync as customers onboard.
+To enable the Agent as Principal Early Access release in your Auth0 tenant once available in your environment, please contact your Auth0 Account Team. 
 
-Please contact the Sales team if you would like to evaluate Enterprise Connect Beta.</description>
-                   <guid>https://auth0.com/changelog#7tP8Zqm27Hp3qORKgIaNwT</guid>
+Learn more in the [documentation](https://auth0.com/docs/ai-agents-mcp/agents-as-principal).</description>
+                   <guid>https://auth0.com/changelog#7cWok8ec4tujGeC6si1yiN</guid>
                </item><item>
                    <title>Curated Blocklists in Tenant Access Control Lists is Now GA!</title>
                    <pubDate>Thu, 30 Jul 2026 00:00:00 GMT</pubDate>
@@ -456,27 +474,25 @@ Configure curated blocklists via the Network ACLs Management API inside the `aut
 </description>
                    <guid>https://auth0.com/changelog#3qvd2EJvV52InnJhPx4lS1</guid>
                </item><item>
-                   <title>Agents as Principal now in Early Access!</title>
+                   <title>Token Vault Privileged Worker is now Early Access!</title>
                    <pubDate>Thu, 30 Jul 2026 00:00:00 GMT</pubDate>
-                   <description>We&amp;apos;re excited to announce __Agents as Principal__ is now in __Early Access__, giving AI agents a first-class identity in Auth0 - distinct from human users and clients. If you&amp;apos;re running agents in production today, they&amp;apos;re likely standing in as a shared client or user identity, which means you can&amp;apos;t tell which agent acted, track it when it&amp;apos;s acting for someone else, or separate its traffic from a human&amp;apos;s. This release gives every agent its own identifier, credentials, and audit trail so you can!
+                   <description>We&amp;apos;re thrilled to announce __Token Vault Privileged Worker__ is now in __Early Access__, letting your autonomous agents pull a user&amp;apos;s third-party tokens - Gmail, Drive, Slack, and more - from Token Vault with no user session required. Token Vault today assumes a human is actively logged in to hand over their token; if your agent runs on a schedule, in CI, or wakes up at 2am with no one signed in, there may not always be a user signed in. Privileged Worker gives your background agents their own strong credential to authorize that exchange directly.
 
-- __Know Exactly Which Agent Acted:__ Every agent gets a unique identity of its own, instead of hiding behind a shared client or a user account. You can create and manage agent identities directly, so &amp;quot;who did this&amp;quot; has a real answer.
+With privileged worker, you can register a trusted worker identity, authenticate it with Private Key JWT or mTLS, and it can request a specific user&amp;apos;s third-party token directly from Token Vault. We give you the ability to pin each worker credential to specific connections and scopes, so a compromised credential can only reach what it was actually authorized for.
 
-- __Track Delegation End to End:__ When an agent acts on a user&amp;apos;s behalf, the full chain - who delegated, to which agent, through which app - is encoded in the token and auditable through every hop. 
+To enable the Privileged Worker Early Access release in your Auth0 tenant once available in your environment, please contact your Auth0 Account Team. 
 
-- __Bring Your Existing Agents In:__ Already running agents outside Auth0 through your own registry, an MCP server, or elsewhere? Associate the identifier you already use internally with an Auth0 client, so you&amp;apos;re not re-provisioning agents you&amp;apos;ve already built.
-
-To enable the Agent as Principal Early Access release in your Auth0 tenant once available in your environment, please contact your Auth0 Account Team. 
-
-Learn more in the [documentation](https://auth0.com/docs/ai-agents-mcp/agents-as-principal).</description>
-                   <guid>https://auth0.com/changelog#7cWok8ec4tujGeC6si1yiN</guid>
+Learn more in the [documentation](https://auth0.com/docs/secure/call-apis-on-users-behalf/token-vault/privileged-worker-token-exchange-with-token-vault#privileged-worker-token-exchange-with-token-vault).</description>
+                   <guid>https://auth0.com/changelog#3Ehpq3QsDRBlkNWDb91Hly</guid>
                </item><item>
-                   <title>Actions Reference Catalog Now Available in Auth0 Docs</title>
-                   <pubDate>Wed, 29 Jul 2026 00:00:00 GMT</pubDate>
-                   <description>We now have an expansive Actions Reference Catalog available to dive deeper into [Actions Triggers](https://auth0.com/docs/customize/actions/explore-triggers) and their Event and API Objects. Within this new catalog, you can reference the event and api objects available to Auth0 Actions for each trigger, detailing the transaction data you can read and the methods you can call from your custom code.
+                   <title>Enterprise Connect - Beta</title>
+                   <pubDate>Thu, 30 Jul 2026 00:00:00 GMT</pubDate>
+                   <description>Enterprise Connect is now in Beta. It lets you use Auth0 as a modular B2B identity layer. You can federate your existing SAML or OIDC capable authorization server to Auth0 and layer on enterprise SSO, user provisioning, and self-service onboarding / setup capabilities for B2B use cases.
 
-Try out the new Actions Reference Catalog here: [https://auth0.com/docs/actions/reference](https://auth0.com/docs/actions/reference)</description>
-                   <guid>https://auth0.com/changelog#1dDtqsRIpe1SdyMzjgvEbR</guid>
+A guided setup walks you through federating over OIDC or SAML, including Okta as a connection strategy, configuring the integration, self-service onboarding, adding user profile claims into ID tokens using Actions code, and wiring up outbound SCIM user provisioning. Connection lifecycle events (connection.created, connection.updated, connection.deleted) keep your local domain map in sync as customers onboard.
+
+Please contact the Sales team if you would like to evaluate Enterprise Connect Beta.</description>
+                   <guid>https://auth0.com/changelog#7tP8Zqm27Hp3qORKgIaNwT</guid>
                </item><item>
                    <title>Dashboard Search for Organization members now in Beta!</title>
                    <pubDate>Wed, 29 Jul 2026 00:00:00 GMT</pubDate>
@@ -490,23 +506,12 @@ Rolling out progressively to Public Cloud tenants starting this week, with broad
 For detailed documentation on search capabilities, visit our [Product documentation](https://www.auth0.com/docs/get-started/auth0-overview/dashboard/search-and-filter-auth0-dashboard).</description>
                    <guid>https://auth0.com/changelog#6qR4dKCHuPJGUEPiIrhM05</guid>
                </item><item>
-                   <title>Organization-to-Application Entitlement - Early Access</title>
+                   <title>Actions Reference Catalog Now Available in Auth0 Docs</title>
                    <pubDate>Wed, 29 Jul 2026 00:00:00 GMT</pubDate>
-                   <description>**Organization-to-App Entitlement** lets you control which applications the members of an organization can access - natively, without custom code.
+                   <description>We now have an expansive Actions Reference Catalog available to dive deeper into [Actions Triggers](https://auth0.com/docs/customize/actions/explore-triggers) and their Event and API Objects. Within this new catalog, you can reference the event and api objects available to Auth0 Actions for each trigger, detailing the transaction data you can read and the methods you can call from your custom code.
 
-If you sell multiple products and different customers have purchased different combinations, you can now enforce those boundaries directly in Auth0. When a member of an org tries to log in to an app they&amp;apos;re not entitled to, Auth0 denies access automatically. No Actions. No metadata checks. No custom logic to maintain.
-
-**Opt-in, per org.** Entitlement enforcement is disabled by default - existing orgs and login flows are unaffected until you explicitly enable it. You can roll out to one org at a time, making it safe to adopt incrementally.
-
-**Safe to configure before you go live.** You can set up all your entitlements first, then enable enforcement when you&amp;apos;re ready. There&amp;apos;s no risk of locking members out during configuration.
-
-![org-to-app](//images.ctfassets.net/kbkgmx9upatd/rUfIbrGmUfR5DgFtEtZXB/2bae811541e02ba9905a790e4d1648cf/dbf50f9c-b7c6-474a-98e4-34c90d325c83.png)
-
-To learn more, review [Grant Per-Application Access to an Organization](https://auth0.com/docs/manage-users/organizations/configure-organizations/grant-application-access &amp;quot;Grant Per-Application Access to an Organization&amp;quot;).  
-
-By using Organization-to-Application Entitlement, you agree to the applicable Free Trial terms in Okta’s Master Subscription Agreement and Okta’s Privacy Policy during use of the Early Access feature. The Free Trial terms can be found within the Master Subscription Agreement at [https://www.okta.com/agreements](https://www.okta.com/agreements.).
-</description>
-                   <guid>https://auth0.com/changelog#4y94FiFLqM5Hrwi47LVUc7</guid>
+Try out the new Actions Reference Catalog here: [https://auth0.com/docs/actions/reference](https://auth0.com/docs/actions/reference)</description>
+                   <guid>https://auth0.com/changelog#1dDtqsRIpe1SdyMzjgvEbR</guid>
                </item><item>
                    <title>Organization-Level Roles - Early Access</title>
                    <pubDate>Wed, 29 Jul 2026 00:00:00 GMT</pubDate>
@@ -530,6 +535,24 @@ To learn more, review [Organization Roles](https://auth0.com/docs/manage-users/o
 
 By using Organization-to-Application Entitlement, you agree to the applicable Free Trial terms in Okta’s Master Subscription Agreement and Okta’s Privacy Policy during use of the Early Access feature. The Free Trial terms can be found within the Master Subscription Agreement at [https://www.okta.com/agreements](https://www.okta.com/agreements.).</description>
                    <guid>https://auth0.com/changelog#5TucoIC8w6Z2O5hhGseJa0</guid>
+               </item><item>
+                   <title>Organization-to-Application Entitlement - Early Access</title>
+                   <pubDate>Wed, 29 Jul 2026 00:00:00 GMT</pubDate>
+                   <description>**Organization-to-App Entitlement** lets you control which applications the members of an organization can access - natively, without custom code.
+
+If you sell multiple products and different customers have purchased different combinations, you can now enforce those boundaries directly in Auth0. When a member of an org tries to log in to an app they&amp;apos;re not entitled to, Auth0 denies access automatically. No Actions. No metadata checks. No custom logic to maintain.
+
+**Opt-in, per org.** Entitlement enforcement is disabled by default - existing orgs and login flows are unaffected until you explicitly enable it. You can roll out to one org at a time, making it safe to adopt incrementally.
+
+**Safe to configure before you go live.** You can set up all your entitlements first, then enable enforcement when you&amp;apos;re ready. There&amp;apos;s no risk of locking members out during configuration.
+
+![org-to-app](//images.ctfassets.net/kbkgmx9upatd/rUfIbrGmUfR5DgFtEtZXB/2bae811541e02ba9905a790e4d1648cf/dbf50f9c-b7c6-474a-98e4-34c90d325c83.png)
+
+To learn more, review [Grant Per-Application Access to an Organization](https://auth0.com/docs/manage-users/organizations/configure-organizations/grant-application-access &amp;quot;Grant Per-Application Access to an Organization&amp;quot;).  
+
+By using Organization-to-Application Entitlement, you agree to the applicable Free Trial terms in Okta’s Master Subscription Agreement and Okta’s Privacy Policy during use of the Early Access feature. The Free Trial terms can be found within the Master Subscription Agreement at [https://www.okta.com/agreements](https://www.okta.com/agreements.).
+</description>
+                   <guid>https://auth0.com/changelog#4y94FiFLqM5Hrwi47LVUc7</guid>
                </item><item>
                    <title>Cross App Access (XAA) for Resource Applications is now in Open Early Access</title>
                    <pubDate>Mon, 27 Jul 2026 00:00:00 GMT</pubDate>
@@ -784,6 +807,22 @@ __What&amp;apos;s included__:
 To learn more, visit the [Third-Party Applications documentation](https://auth0.com/docs/get-started/applications/third-party-applications).</description>
                    <guid>https://auth0.com/changelog#2tvGxAGzcIJemzFFN67Yfc</guid>
                </item><item>
+                   <title>Dashboard Search for Applications Now in Beta</title>
+                   <pubDate>Tue, 02 Jun 2026 00:00:00 GMT</pubDate>
+                   <description>We&amp;apos;re excited to announce that __Dashboard Search for Applications__ is now available in Public Beta! Find your applications faster without scrolling through paginated lists.
+
+__What&amp;apos;s New:__
+Dashboard users can now __search and filter applications__ in real time by application name, client ID, external client ID, metadata, application type, and first-party status.
+
+- __Multiple filter options__ — Combine up to 5 filters
+- __Guided filter menu__ with Boolean search logic
+- __Filters persist in URLs__ for sharing and bookmarking
+
+Rolling out progressively to Public Cloud tenants starting this week, with broader availability in the coming weeks.
+
+For detailed documentation on search capabilities, visit our [Product documentation](https://www.auth0.com/docs/get-started/auth0-overview/dashboard/search-and-filter-auth0-dashboard).</description>
+                   <guid>https://auth0.com/changelog#4pl2qmNBc5YGkSnfArJQJD</guid>
+               </item><item>
                    <title>Dashboard Navigation &amp;amp; IA Refresh is now in Beta</title>
                    <pubDate>Tue, 02 Jun 2026 00:00:00 GMT</pubDate>
                    <description>We are excited to announce that the redesigned __Dashboard navigation and information architecture (IA)__ is now available in Beta. This update is the first step toward a more unified platform experience across Auth0, making it faster to find what you need and easier to act on everything across the platform. Alongside the IA changes, this beta also includes a significant visual refresh.
@@ -810,22 +849,6 @@ To learn more, visit the [Third-Party Applications documentation](https://auth0.
 
 If you&amp;apos;re interested in joining the Dashboard Navigation &amp;amp; IA Refresh beta program, please send a request through the [Auth0 Support Center](https://support.auth0.com) or contact your Technical Account Manager (TAM) or Auth0 Sales Executive to help you out with the process.</description>
                    <guid>https://auth0.com/changelog#1bJBNHLBIg4ZrsCHnxZYWZ</guid>
-               </item><item>
-                   <title>Dashboard Search for Applications Now in Beta</title>
-                   <pubDate>Tue, 02 Jun 2026 00:00:00 GMT</pubDate>
-                   <description>We&amp;apos;re excited to announce that __Dashboard Search for Applications__ is now available in Public Beta! Find your applications faster without scrolling through paginated lists.
-
-__What&amp;apos;s New:__
-Dashboard users can now __search and filter applications__ in real time by application name, client ID, external client ID, metadata, application type, and first-party status.
-
-- __Multiple filter options__ — Combine up to 5 filters
-- __Guided filter menu__ with Boolean search logic
-- __Filters persist in URLs__ for sharing and bookmarking
-
-Rolling out progressively to Public Cloud tenants starting this week, with broader availability in the coming weeks.
-
-For detailed documentation on search capabilities, visit our [Product documentation](https://www.auth0.com/docs/get-started/auth0-overview/dashboard/search-and-filter-auth0-dashboard).</description>
-                   <guid>https://auth0.com/changelog#4pl2qmNBc5YGkSnfArJQJD</guid>
                </item><item>
                    <title>Customize RPID values for Passkeys GA</title>
                    <pubDate>Mon, 01 Jun 2026 00:00:00 GMT</pubDate>
