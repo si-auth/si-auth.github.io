@@ -5,7 +5,7 @@
            <link>https://auth0.com/changelog/rss.xml</link>
            <description>Auth0 Changelog</description>
            <language>en-US</language>
-           <lastBuildDate>Wed, 28 Oct 2026 17:03:31 GMT</lastBuildDate>
+           <lastBuildDate>Wed, 28 Oct 2026 22:03:54 GMT</lastBuildDate>
            <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
            <image>
                <title>Auth0 Changelog</title>
@@ -14,6 +14,27 @@
            </image>
            <atom:link href="https://auth0.com/changelog/rss.xml" rel="self" type="application/rss+xml"/>
            <item>
+                   <title>Introducing Universal Portals - Developer Preview</title>
+                   <pubDate>Tue, 27 Oct 2026 00:00:00 GMT</pubDate>
+                   <description>We&amp;apos;re excited to announce that __Universal Portals__ is now in [Developer Preview](https://auth0.com/docs/troubleshoot/product-lifecycle/product-release-stages#developer-preview)!
+
+![Universal Portals - Developer Preview](//images.ctfassets.net/kbkgmx9upatd/4vI3sj3kx0blT4Fz8v0ia/cf2fcf36391ae15696f32896364f6f8a/portals-form-drag-purple.gif)
+
+Universal Portals are hosted, self-service portals where end users manage their own accounts and organization administrators manage their own organizations, without you building, hosting, or maintaining the interface. You build each portal from pre-built components, and Auth0 hosts it at a URL on your domain.
+
+Key capabilities:
+- **Consumer portals:** let end users update their profile, enroll multi-factor authentication (MFA) factors and passkeys, and review their security settings.
+- **Business portals:** let organization administrators edit organization details and verify domains.
+- **Visual builder:** arrange pages with Universal Components, Auth0 Forms, and layout components such as headings, rich text, sections, separators, and images.
+- **[Auth0 Forms](https://auth0.com/docs/customize/forms):** add a Form to any portal page to collect or update information, such as profile updates, policy acceptance, and communication preferences. [Learn how to add a Form to a portal](https://auth0.com/docs/customize/portals/customize-portals#add-an-auth0-form).
+- **Branding inheritance:** portals use your tenant&amp;apos;s logo, colors, and fonts, or the organization&amp;apos;s branding when opened in an organization context.
+- **Secure token handling:** the portal server keeps the access and refresh tokens, and the browser holds only a secure session cookie.
+- **Automatic MFA step-up:** when Auth0 requires MFA for an operation, the portal presents the challenge and retries the operation once the user completes it.
+
+*Contact your Account Executive to discuss access and see the documentation for an [overview](https://auth0.com/docs/customize/portals/overview).*
+</description>
+                   <guid>https://auth0.com/changelog#4KAJcZF0wcFnG8Yln9SugQ</guid>
+               </item><item>
                    <title>Identity Conversion Suite is now in Early Access</title>
                    <pubDate>Mon, 26 Oct 2026 00:00:00 GMT</pubDate>
                    <description>Identity Conversion Suite brings Anonymous Sessions and Experiment Center together in Early Access. Anonymous Sessions helps applications maintain session context before a visitor signs up or logs in. Experiment Center lets teams A/B test login experiences and review results in metrics dashboards. The suite is a paid add-on for Enterprise plans. Contact your Account Executive to discuss access and see the documentation for an overview.
@@ -561,16 +582,20 @@ __Direct navigation__ — &amp;quot;View more&amp;quot; links take you to filter
 This update is available to all customers in public cloud, and will be gradually rolling out to private cloud environments in the coming months. </description>
                    <guid>https://auth0.com/changelog#40KS8Q8mYuySx8GeHYq427</guid>
                </item><item>
-                   <title>Token Vault Privileged Worker is now Early Access!</title>
+                   <title>Agents as Principal now in Early Access!</title>
                    <pubDate>Thu, 30 Jul 2026 00:00:00 GMT</pubDate>
-                   <description>We&amp;apos;re thrilled to announce __Token Vault Privileged Worker__ is now in __Early Access__, letting your autonomous agents pull a user&amp;apos;s third-party tokens - Gmail, Drive, Slack, and more - from Token Vault with no user session required. Token Vault today assumes a human is actively logged in to hand over their token; if your agent runs on a schedule, in CI, or wakes up at 2am with no one signed in, there may not always be a user signed in. Privileged Worker gives your background agents their own strong credential to authorize that exchange directly.
+                   <description>We&amp;apos;re excited to announce __Agents as Principal__ is now in __Early Access__, giving AI agents a first-class identity in Auth0 - distinct from human users and clients. If you&amp;apos;re running agents in production today, they&amp;apos;re likely standing in as a shared client or user identity, which means you can&amp;apos;t tell which agent acted, track it when it&amp;apos;s acting for someone else, or separate its traffic from a human&amp;apos;s. This release gives every agent its own identifier, credentials, and audit trail so you can!
 
-With privileged worker, you can register a trusted worker identity, authenticate it with Private Key JWT or mTLS, and it can request a specific user&amp;apos;s third-party token directly from Token Vault. We give you the ability to pin each worker credential to specific connections and scopes, so a compromised credential can only reach what it was actually authorized for.
+- __Know Exactly Which Agent Acted:__ Every agent gets a unique identity of its own, instead of hiding behind a shared client or a user account. You can create and manage agent identities directly, so &amp;quot;who did this&amp;quot; has a real answer.
 
-To enable the Privileged Worker Early Access release in your Auth0 tenant once available in your environment, please contact your Auth0 Account Team. 
+- __Track Delegation End to End:__ When an agent acts on a user&amp;apos;s behalf, the full chain - who delegated, to which agent, through which app - is encoded in the token and auditable through every hop. 
 
-Learn more in the [documentation](https://auth0.com/docs/secure/call-apis-on-users-behalf/token-vault/privileged-worker-token-exchange-with-token-vault#privileged-worker-token-exchange-with-token-vault).</description>
-                   <guid>https://auth0.com/changelog#3Ehpq3QsDRBlkNWDb91Hly</guid>
+- __Bring Your Existing Agents In:__ Already running agents outside Auth0 through your own registry, an MCP server, or elsewhere? Associate the identifier you already use internally with an Auth0 client, so you&amp;apos;re not re-provisioning agents you&amp;apos;ve already built.
+
+To enable the Agent as Principal Early Access release in your Auth0 tenant once available in your environment, please contact your Auth0 Account Team. 
+
+Learn more in the [documentation](https://auth0.com/docs/ai-agents-mcp/agents-as-principal).</description>
+                   <guid>https://auth0.com/changelog#7cWok8ec4tujGeC6si1yiN</guid>
                </item><item>
                    <title>Curated Blocklists in Tenant Access Control Lists is Now GA!</title>
                    <pubDate>Thu, 30 Jul 2026 00:00:00 GMT</pubDate>
@@ -630,20 +655,16 @@ A guided setup walks you through federating over OIDC or SAML, including Okta as
 Please contact the Sales team if you would like to evaluate Enterprise Connect Beta.</description>
                    <guid>https://auth0.com/changelog#7tP8Zqm27Hp3qORKgIaNwT</guid>
                </item><item>
-                   <title>Agents as Principal now in Early Access!</title>
+                   <title>Token Vault Privileged Worker is now Early Access!</title>
                    <pubDate>Thu, 30 Jul 2026 00:00:00 GMT</pubDate>
-                   <description>We&amp;apos;re excited to announce __Agents as Principal__ is now in __Early Access__, giving AI agents a first-class identity in Auth0 - distinct from human users and clients. If you&amp;apos;re running agents in production today, they&amp;apos;re likely standing in as a shared client or user identity, which means you can&amp;apos;t tell which agent acted, track it when it&amp;apos;s acting for someone else, or separate its traffic from a human&amp;apos;s. This release gives every agent its own identifier, credentials, and audit trail so you can!
+                   <description>We&amp;apos;re thrilled to announce __Token Vault Privileged Worker__ is now in __Early Access__, letting your autonomous agents pull a user&amp;apos;s third-party tokens - Gmail, Drive, Slack, and more - from Token Vault with no user session required. Token Vault today assumes a human is actively logged in to hand over their token; if your agent runs on a schedule, in CI, or wakes up at 2am with no one signed in, there may not always be a user signed in. Privileged Worker gives your background agents their own strong credential to authorize that exchange directly.
 
-- __Know Exactly Which Agent Acted:__ Every agent gets a unique identity of its own, instead of hiding behind a shared client or a user account. You can create and manage agent identities directly, so &amp;quot;who did this&amp;quot; has a real answer.
+With privileged worker, you can register a trusted worker identity, authenticate it with Private Key JWT or mTLS, and it can request a specific user&amp;apos;s third-party token directly from Token Vault. We give you the ability to pin each worker credential to specific connections and scopes, so a compromised credential can only reach what it was actually authorized for.
 
-- __Track Delegation End to End:__ When an agent acts on a user&amp;apos;s behalf, the full chain - who delegated, to which agent, through which app - is encoded in the token and auditable through every hop. 
+To enable the Privileged Worker Early Access release in your Auth0 tenant once available in your environment, please contact your Auth0 Account Team. 
 
-- __Bring Your Existing Agents In:__ Already running agents outside Auth0 through your own registry, an MCP server, or elsewhere? Associate the identifier you already use internally with an Auth0 client, so you&amp;apos;re not re-provisioning agents you&amp;apos;ve already built.
-
-To enable the Agent as Principal Early Access release in your Auth0 tenant once available in your environment, please contact your Auth0 Account Team. 
-
-Learn more in the [documentation](https://auth0.com/docs/ai-agents-mcp/agents-as-principal).</description>
-                   <guid>https://auth0.com/changelog#7cWok8ec4tujGeC6si1yiN</guid>
+Learn more in the [documentation](https://auth0.com/docs/secure/call-apis-on-users-behalf/token-vault/privileged-worker-token-exchange-with-token-vault#privileged-worker-token-exchange-with-token-vault).</description>
+                   <guid>https://auth0.com/changelog#3Ehpq3QsDRBlkNWDb91Hly</guid>
                </item><item>
                    <title>Organization-Level Roles - Early Access</title>
                    <pubDate>Wed, 29 Jul 2026 00:00:00 GMT</pubDate>
@@ -668,12 +689,17 @@ To learn more, review [Organization Roles](https://auth0.com/docs/manage-users/o
 By using Organization-to-Application Entitlement, you agree to the applicable Free Trial terms in Okta’s Master Subscription Agreement and Okta’s Privacy Policy during use of the Early Access feature. The Free Trial terms can be found within the Master Subscription Agreement at [https://www.okta.com/agreements](https://www.okta.com/agreements.).</description>
                    <guid>https://auth0.com/changelog#5TucoIC8w6Z2O5hhGseJa0</guid>
                </item><item>
-                   <title>Actions Reference Catalog Now Available in Auth0 Docs</title>
+                   <title>Dashboard Search for Organization members now in Beta!</title>
                    <pubDate>Wed, 29 Jul 2026 00:00:00 GMT</pubDate>
-                   <description>We now have an expansive Actions Reference Catalog available to dive deeper into [Actions Triggers](https://auth0.com/docs/customize/actions/explore-triggers) and their Event and API Objects. Within this new catalog, you can reference the event and api objects available to Auth0 Actions for each trigger, detailing the transaction data you can read and the methods you can call from your custom code.
+                   <description>
+__Dashboard Search for Organization members is now available in Public Beta!__ Find your organization members faster without scrolling through paginated lists.
 
-Try out the new Actions Reference Catalog here: [https://auth0.com/docs/actions/reference](https://auth0.com/docs/actions/reference)</description>
-                   <guid>https://auth0.com/changelog#1dDtqsRIpe1SdyMzjgvEbR</guid>
+Users can now __search Organization Members in real time by name, email, ID and filter by blocked status.__ 
+
+Rolling out progressively to Public Cloud tenants starting this week, with broader availability in the coming weeks.
+
+For detailed documentation on search capabilities, visit our [Product documentation](https://www.auth0.com/docs/get-started/auth0-overview/dashboard/search-and-filter-auth0-dashboard).</description>
+                   <guid>https://auth0.com/changelog#6qR4dKCHuPJGUEPiIrhM05</guid>
                </item><item>
                    <title>Organization-to-Application Entitlement - Early Access</title>
                    <pubDate>Wed, 29 Jul 2026 00:00:00 GMT</pubDate>
@@ -693,17 +719,12 @@ By using Organization-to-Application Entitlement, you agree to the applicable Fr
 </description>
                    <guid>https://auth0.com/changelog#4y94FiFLqM5Hrwi47LVUc7</guid>
                </item><item>
-                   <title>Dashboard Search for Organization members now in Beta!</title>
+                   <title>Actions Reference Catalog Now Available in Auth0 Docs</title>
                    <pubDate>Wed, 29 Jul 2026 00:00:00 GMT</pubDate>
-                   <description>
-__Dashboard Search for Organization members is now available in Public Beta!__ Find your organization members faster without scrolling through paginated lists.
+                   <description>We now have an expansive Actions Reference Catalog available to dive deeper into [Actions Triggers](https://auth0.com/docs/customize/actions/explore-triggers) and their Event and API Objects. Within this new catalog, you can reference the event and api objects available to Auth0 Actions for each trigger, detailing the transaction data you can read and the methods you can call from your custom code.
 
-Users can now __search Organization Members in real time by name, email, ID and filter by blocked status.__ 
-
-Rolling out progressively to Public Cloud tenants starting this week, with broader availability in the coming weeks.
-
-For detailed documentation on search capabilities, visit our [Product documentation](https://www.auth0.com/docs/get-started/auth0-overview/dashboard/search-and-filter-auth0-dashboard).</description>
-                   <guid>https://auth0.com/changelog#6qR4dKCHuPJGUEPiIrhM05</guid>
+Try out the new Actions Reference Catalog here: [https://auth0.com/docs/actions/reference](https://auth0.com/docs/actions/reference)</description>
+                   <guid>https://auth0.com/changelog#1dDtqsRIpe1SdyMzjgvEbR</guid>
                </item><item>
                    <title>Cross App Access (XAA) for Resource Applications is now in Open Early Access</title>
                    <pubDate>Mon, 27 Jul 2026 00:00:00 GMT</pubDate>
@@ -1310,18 +1331,17 @@ To learn more, visit the [Third-Party Applications documentation](https://auth0.
 </description>
                    <guid>https://auth0.com/changelog#YcrZfUuth36sz2ZLClPEh</guid>
                </item><item>
-                   <title>Organization Discovery by Domain now in General Availability!</title>
+                   <title>New Identity, Same Great Features: Self-Service SSO is now Self-Service Enterprise Configuration</title>
                    <pubDate>Tue, 28 Apr 2026 00:00:00 GMT</pubDate>
-                   <description>We&amp;apos;re thrilled to announce that __Organization Discovery by Domain is now in General Availability__! Automatically identify your customers&amp;apos; users and route them to the right identity provider based on their email domain — before they even reach the login screen.
+                   <description>The new name better reflects the full scope of the suite, which includes:
 
-Key Advantages at a Glance:
-- Automatic routing: Direct users to their organization&amp;apos;s IdP the moment they enter their email — no manual org selection required.
-- Multi-org support: When a single domain maps to multiple organizations, an org picker ensures users land in the right place.
-- Seamless B2B login: Eliminate the friction of Home Realm Discovery by adding full organization context to the pre-login flow.
-- Flexible configuration: Support email-based, org-name-based, or combined discovery to match your customers&amp;apos; login requirements.
+- Single Sign-On (SSO): Allow enterprise customers to configure and maintain SSO for their applications.
+- Domain Verification: Self-managed domain verification and mapping for IT admins.
+- Google Directory Sync: Keep user attributes synchronized across systems.
+- User Provisioning: Automate the user lifecycle through SCIM 2.0.
 
-To dive deeper, please review our documentation [here](https://auth0.com/docs/manage-users/organizations/login-flows-for-organizations#organization-domain-discovery-optional).</description>
-                   <guid>https://auth0.com/changelog#1PKSNs4ANJ6DkZWjq9d203</guid>
+No functional changes — everything works the same. For full details, see the [Self-Service Enterprise Configuration](https://auth0.com/docs/authenticate/enterprise-connections/self-service-enterprise-config) documentation.</description>
+                   <guid>https://auth0.com/changelog#25JUjMOH28xo3ysd3seeqa</guid>
                </item><item>
                    <title>Self-Service Provisioning now in General Availability!</title>
                    <pubDate>Tue, 28 Apr 2026 00:00:00 GMT</pubDate>
@@ -1351,17 +1371,18 @@ Key Advantages at a Glance:
 To dive deeper, please review our updated documentation on[ Self-Service Enterprise Configuration](https://auth0.com/docs/authenticate/enterprise-connections/self-service-enterprise-config).</description>
                    <guid>https://auth0.com/changelog#6ALAmotlACYGqbTE8UoJ3</guid>
                </item><item>
-                   <title>New Identity, Same Great Features: Self-Service SSO is now Self-Service Enterprise Configuration</title>
+                   <title>Organization Discovery by Domain now in General Availability!</title>
                    <pubDate>Tue, 28 Apr 2026 00:00:00 GMT</pubDate>
-                   <description>The new name better reflects the full scope of the suite, which includes:
+                   <description>We&amp;apos;re thrilled to announce that __Organization Discovery by Domain is now in General Availability__! Automatically identify your customers&amp;apos; users and route them to the right identity provider based on their email domain — before they even reach the login screen.
 
-- Single Sign-On (SSO): Allow enterprise customers to configure and maintain SSO for their applications.
-- Domain Verification: Self-managed domain verification and mapping for IT admins.
-- Google Directory Sync: Keep user attributes synchronized across systems.
-- User Provisioning: Automate the user lifecycle through SCIM 2.0.
+Key Advantages at a Glance:
+- Automatic routing: Direct users to their organization&amp;apos;s IdP the moment they enter their email — no manual org selection required.
+- Multi-org support: When a single domain maps to multiple organizations, an org picker ensures users land in the right place.
+- Seamless B2B login: Eliminate the friction of Home Realm Discovery by adding full organization context to the pre-login flow.
+- Flexible configuration: Support email-based, org-name-based, or combined discovery to match your customers&amp;apos; login requirements.
 
-No functional changes — everything works the same. For full details, see the [Self-Service Enterprise Configuration](https://auth0.com/docs/authenticate/enterprise-connections/self-service-enterprise-config) documentation.</description>
-                   <guid>https://auth0.com/changelog#25JUjMOH28xo3ysd3seeqa</guid>
+To dive deeper, please review our documentation [here](https://auth0.com/docs/manage-users/organizations/login-flows-for-organizations#organization-domain-discovery-optional).</description>
+                   <guid>https://auth0.com/changelog#1PKSNs4ANJ6DkZWjq9d203</guid>
                </item><item>
                    <title>Auth0 Private Cloud Now Available on Azure in Japan</title>
                    <pubDate>Thu, 23 Apr 2026 00:00:00 GMT</pubDate>
