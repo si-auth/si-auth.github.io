@@ -5,7 +5,7 @@
            <link>https://auth0.com/changelog/rss.xml</link>
            <description>Auth0 Changelog</description>
            <language>en-US</language>
-           <lastBuildDate>Thu, 19 Nov 2026 05:31:36 GMT</lastBuildDate>
+           <lastBuildDate>Thu, 19 Nov 2026 15:33:50 GMT</lastBuildDate>
            <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
            <image>
                <title>Auth0 Changelog</title>
@@ -14,6 +14,20 @@
            </image>
            <atom:link href="https://auth0.com/changelog/rss.xml" rel="self" type="application/rss+xml"/>
            <item>
+                   <title>Pushed Authorization Requests (PAR) and JWT-Secured Encryption (JWE) for Okta and Enterprise OIDC Connections (BETA)</title>
+                   <pubDate>Thu, 19 Nov 2026 00:00:00 GMT</pubDate>
+                   <description>Enterprise OIDC and Okta connections now support Pushed Authorization Requests (PAR) and encrypted ID tokens (JWE). Together, they help meet the security profile that some government and open-banking identity providers require.
+
+**What&amp;apos;s new**
+- **PAR:** Auth0 sends its authorization request to upstream identity provider over a server-to-server connection, and gets back a reference. The request details never appear in the browser address bar. 
+- **JWE:** the upstream identity provider can encrypt the ID token, so only Auth0 can read its claims. Auth0 decrypts the token, validates its signature and claims, and maps them to a user. 
+
+**Who can use it**
+- Enterprise customers can request it for their non-production tenants through their Auth0 account team.
+
+By using PAR/JWE, you agree to the applicable Free Trial terms in Okta&amp;apos;s Master Subscription Agreement and Okta&amp;apos;s Privacy Policy during use of the beta feature. The Free Trial terms can be found within the Master Subscription Agreement at https://www.okta.com/agreements. </description>
+                   <guid>https://auth0.com/changelog#2GV1CS4tk0oooesEB3FJfW</guid>
+               </item><item>
                    <title>OpenID Connect for Third-Party Apps is now Generally Available</title>
                    <pubDate>Wed, 18 Nov 2026 00:00:00 GMT</pubDate>
                    <description>Third-party applications can now use OpenID Connect (OIDC) to receive ID tokens. OIDC is off by default for third-party apps, so existing apps are unaffected until you explicitly turn it on.
@@ -74,28 +88,6 @@ Extensibility that remains unmigrated and targets the Node.js 18 runtime will ev
 For more information, check our [docs](https://auth0.com/docs/troubleshoot/product-lifecycle/deprecations-and-migrations#node-js-18-extensibility-runtime).</description>
                    <guid>https://auth0.com/changelog#7dspkbC0bodEpnUfHqwNMI</guid>
                </item><item>
-                   <title>Management API Search for Clients, Client Grants, Resource Servers and Organizations is now in Early Access</title>
-                   <pubDate>Mon, 09 Nov 2026 00:00:00 GMT</pubDate>
-                   <description>We&amp;apos;re excited to announce that search endpoints for the Management API for Clients, Client Grants, Resource Servers and Organizations are now available in Early Access! Find a specific resource without paging through full lists or filtering client-side.
-
-Available in Public Cloud and many Private Cloud environments, with the remaining environments rolling out in the coming weeks.
-
-To learn more, see the documentation for [Clients](https://auth0.com/docs/api/management/v2/clients/get-clients-search), [Client Grants](https://auth0.com/docs/api/management/v2/client-grants/get-client-grants-search), [Resource Servers](https://auth0.com/docs/api/management/v2/resource-servers/get-resource-servers-search) and [Organizations](https://auth0.com/docs/api/management/v2/organizations/get-search).</description>
-                   <guid>https://auth0.com/changelog#4S0DxW8FpR3SBt7u972wQp</guid>
-               </item><item>
-                   <title>Auth for UCP is now in Early Access</title>
-                   <pubDate>Mon, 09 Nov 2026 00:00:00 GMT</pubDate>
-                   <description>We&amp;apos;re excited to announce that Auth for UCP is now available in limited Early Access. Auth0 can now secure Universal Commerce Protocol (UCP) servers and let shoppers link their identity in an AI agent to their account with a business.
-
-UCP is an open standard that lets AI agents discover a business&amp;apos;s catalog and make purchases on a user&amp;apos;s behalf. With Auth for UCP, you can 
-
-- Secure your UCP server with Auth0 so that trusted agents, such as Gemini, can connect to it.
-- Link accounts so a user can connect their identity in Gemini to their account with your business, enabling personalization, loyalty points, and order tracking.
-- Coming next: support for Google streamlined identity linking, which lets users who are signed in to Gemini with the same Google account they used to sign up with your business link their accounts without re-entering their login information.
-
-To learn more, read the [Auth for UCP documentation](https://auth0.com/docs/ai-agents-mcp/auth-for-ucp#auth-for-ucp) and our blog posts [Securing Agentic Commerce with UCP](https://auth0.com/blog/securing-agentic-commerce-using-auth0-universal-commerce-protocol-ucp/) and [Securing the front door of Agentic Commerce](https://auth0.com/blog/securing-the-front-door-of-agentic-commerce/).</description>
-                   <guid>https://auth0.com/changelog#J3XWwHJNfMOMtZdOUv0cO</guid>
-               </item><item>
                    <title>Dashboard Search is now GA! </title>
                    <pubDate>Mon, 09 Nov 2026 00:00:00 GMT</pubDate>
                    <description>Dashboard Search is now __Generally Available__! Find the resources you need faster, without scrolling through paginated lists.
@@ -122,6 +114,28 @@ This update is available to all customers in public cloud, and will be gradually
 
 For detailed documentation on search capabilities, visit our [Product documentation](https://www.auth0.com/docs/get-started/auth0-overview/dashboard/search-and-filter-auth0-dashboard).</description>
                    <guid>https://auth0.com/changelog#3DylRS38OQfaXgaJUd1bjk</guid>
+               </item><item>
+                   <title>Auth for UCP is now in Early Access</title>
+                   <pubDate>Mon, 09 Nov 2026 00:00:00 GMT</pubDate>
+                   <description>We&amp;apos;re excited to announce that Auth for UCP is now available in limited Early Access. Auth0 can now secure Universal Commerce Protocol (UCP) servers and let shoppers link their identity in an AI agent to their account with a business.
+
+UCP is an open standard that lets AI agents discover a business&amp;apos;s catalog and make purchases on a user&amp;apos;s behalf. With Auth for UCP, you can 
+
+- Secure your UCP server with Auth0 so that trusted agents, such as Gemini, can connect to it.
+- Link accounts so a user can connect their identity in Gemini to their account with your business, enabling personalization, loyalty points, and order tracking.
+- Coming next: support for Google streamlined identity linking, which lets users who are signed in to Gemini with the same Google account they used to sign up with your business link their accounts without re-entering their login information.
+
+To learn more, read the [Auth for UCP documentation](https://auth0.com/docs/ai-agents-mcp/auth-for-ucp#auth-for-ucp) and our blog posts [Securing Agentic Commerce with UCP](https://auth0.com/blog/securing-agentic-commerce-using-auth0-universal-commerce-protocol-ucp/) and [Securing the front door of Agentic Commerce](https://auth0.com/blog/securing-the-front-door-of-agentic-commerce/).</description>
+                   <guid>https://auth0.com/changelog#J3XWwHJNfMOMtZdOUv0cO</guid>
+               </item><item>
+                   <title>Management API Search for Clients, Client Grants, Resource Servers and Organizations is now in Early Access</title>
+                   <pubDate>Mon, 09 Nov 2026 00:00:00 GMT</pubDate>
+                   <description>We&amp;apos;re excited to announce that search endpoints for the Management API for Clients, Client Grants, Resource Servers and Organizations are now available in Early Access! Find a specific resource without paging through full lists or filtering client-side.
+
+Available in Public Cloud and many Private Cloud environments, with the remaining environments rolling out in the coming weeks.
+
+To learn more, see the documentation for [Clients](https://auth0.com/docs/api/management/v2/clients/get-clients-search), [Client Grants](https://auth0.com/docs/api/management/v2/client-grants/get-client-grants-search), [Resource Servers](https://auth0.com/docs/api/management/v2/resource-servers/get-resource-servers-search) and [Organizations](https://auth0.com/docs/api/management/v2/organizations/get-search).</description>
+                   <guid>https://auth0.com/changelog#4S0DxW8FpR3SBt7u972wQp</guid>
                </item><item>
                    <title>Multi-Factor Authentication: Exponential Backoff for Phone MFA SMS Delivery</title>
                    <pubDate>Fri, 30 Oct 2026 00:00:00 GMT</pubDate>
@@ -202,24 +216,6 @@ Learn More:
 - [Blog Post](https://auth0.com/blog/auth0-identity-conversion-suite-early-access/)</description>
                    <guid>https://auth0.com/changelog#5C8lUdlgOoptJ0dLnFdR0T</guid>
                </item><item>
-                   <title>Application Profiles are available in Early Access</title>
-                   <pubDate>Thu, 22 Oct 2026 00:00:00 GMT</pubDate>
-                   <description>We are excited to announce that application profiles are now available in Early Access. This feature allows you to manage third party applications created and used by AI agents, as well as centralizing management of large numbers of applications in a single configuration point.
-
-### What&amp;apos;s included in the Early Access:
-The Application Profiles feature, in this first phase, allows you to:
-- Govern all DCIMD applications security settings with one single profile:
-  - Configure default values for refresh tokens lifetimes, leeway, DPoP...
-  - Configure B2B behaviour of DCIMD applications (individuals/orgs/both) and login experience
-- Application Profiles will apply to all DCIMD applications on runtime
-
-#### ✨ How to configure application profiles
-- The settings will be found in the dashboard, inside the &amp;quot;Applications section&amp;quot;
-
-## Documentation Links
-[Application profiles documentation](https://auth0.com/docs/get-started/applications/application-profiles)</description>
-                   <guid>https://auth0.com/changelog#5tM7A32Ytnk1JlK29f0rDO</guid>
-               </item><item>
                    <title>CIMD with Dynamic Registration in Early Access</title>
                    <pubDate>Thu, 22 Oct 2026 00:00:00 GMT</pubDate>
                    <description>Auth0 now supports __CIMD with dynamic registration in Early Access__. MCP clients and AI agents can connect to your tenant without an administrator registering each one first.
@@ -238,6 +234,24 @@ __Resources__
 
 By using CIMD with dynamic registration, you agree to the applicable Free Trial terms in Okta&amp;apos;s Master Subscription Agreement and Okta&amp;apos;s Privacy Policy during use of the Early Access feature. The Free Trial terms can be found within the Master Subscription Agreement at https://www.okta.com/agreements.</description>
                    <guid>https://auth0.com/changelog#1tZgllWxrRu1H5aLnyRbCp</guid>
+               </item><item>
+                   <title>Application Profiles are available in Early Access</title>
+                   <pubDate>Thu, 22 Oct 2026 00:00:00 GMT</pubDate>
+                   <description>We are excited to announce that application profiles are now available in Early Access. This feature allows you to manage third party applications created and used by AI agents, as well as centralizing management of large numbers of applications in a single configuration point.
+
+### What&amp;apos;s included in the Early Access:
+The Application Profiles feature, in this first phase, allows you to:
+- Govern all DCIMD applications security settings with one single profile:
+  - Configure default values for refresh tokens lifetimes, leeway, DPoP...
+  - Configure B2B behaviour of DCIMD applications (individuals/orgs/both) and login experience
+- Application Profiles will apply to all DCIMD applications on runtime
+
+#### ✨ How to configure application profiles
+- The settings will be found in the dashboard, inside the &amp;quot;Applications section&amp;quot;
+
+## Documentation Links
+[Application profiles documentation](https://auth0.com/docs/get-started/applications/application-profiles)</description>
+                   <guid>https://auth0.com/changelog#5tM7A32Ytnk1JlK29f0rDO</guid>
                </item><item>
                    <title> Configurable Unblock Mode for Brute Force Protection</title>
                    <pubDate>Thu, 22 Oct 2026 00:00:00 GMT</pubDate>
@@ -381,18 +395,6 @@ Existing active sessions and existing refresh tokens will remain valid until exp
 If you have any questions or require support during this transition, please reach out to Support</description>
                    <guid>https://auth0.com/changelog#5rn5HfDjtV2Hx80c3u9dBg</guid>
                </item><item>
-                   <title>FGA Permissions Index is in Early Access</title>
-                   <pubDate>Fri, 18 Sep 2026 00:00:00 GMT</pubDate>
-                   <description>The FGA Permissions Index is graduating from Developer Preview to Early Access. 
-
-The [FGA Permissions Index](https://docs.fga.dev/permissions-index/fga-permissions-index) precompute permissions for instant verification of what users can access.
-- You can now build, monitor, and manage your indexes self-service inside the FGA Dashboard.
-- Every [FGA Enterprise subscription](https://docs.fga.dev/subscription-plans#enterprise-subscription) automatically includes complimentary access to one Permissions Index with up to 10 million expansions.
-- Organizations with larger workloads can purchase a [paid add-on subscription](https://docs.fga.dev/subscription-plans#permissions-index-subscription-add-on) to scale up to 10 indexes, 10 relations per index, and the right number of expansions tailored to your scale (e.g., 20 million, 30 million, etc.).
-
-Visit the [Permissions Index Documentation](https://docs.fga.dev/permissions-index/fga-permissions-index) to learn more.</description>
-                   <guid>https://auth0.com/changelog#73HBruFmROJHXrIGgj0Wrm</guid>
-               </item><item>
                    <title>Actions - Modules - GA</title>
                    <pubDate>Fri, 18 Sep 2026 00:00:00 GMT</pubDate>
                    <description>We are excited to announce that __Actions Modules__ is now available in [__General Availability__](https://auth0.com/docs/troubleshoot/product-lifecycle/product-release-stages#general-availability).
@@ -415,26 +417,17 @@ This feature allows you to create, manage, and share reusable code across differ
 - [__@auth0/actions__](https://www.npmjs.com/package/@auth0/actions?activeTab=readme)</description>
                    <guid>https://auth0.com/changelog#IEtKos3D7EXQYFieg95jE</guid>
                </item><item>
-                   <title>Custom User ID Assignment with Actions — Early Access</title>
-                   <pubDate>Thu, 17 Sep 2026 00:00:00 GMT</pubDate>
-                   <description>You can now assign a custom `user_id` to new database-connection users at signup by calling the `api.user.setUserId()` method in a `pre-user-registration` Action.
+                   <title>FGA Permissions Index is in Early Access</title>
+                   <pubDate>Fri, 18 Sep 2026 00:00:00 GMT</pubDate>
+                   <description>The FGA Permissions Index is graduating from Developer Preview to Early Access. 
 
-Previously, Auth0 automatically generated user IDs in the standard `auth0|&amp;lt;id&amp;gt;` format for new signups. Customers who needed custom or legacy-compatible IDs had to build self-hosted signup pages or rely on bulk import. Now you can define any custom `user_id` format — UUIDs, domain-specific IDs, or IDs derived from your existing systems — directly in an Action, keeping identity consistent across imported and newly-created users.
+The [FGA Permissions Index](https://docs.fga.dev/permissions-index/fga-permissions-index) precompute permissions for instant verification of what users can access.
+- You can now build, monitor, and manage your indexes self-service inside the FGA Dashboard.
+- Every [FGA Enterprise subscription](https://docs.fga.dev/subscription-plans#enterprise-subscription) automatically includes complimentary access to one Permissions Index with up to 10 million expansions.
+- Organizations with larger workloads can purchase a [paid add-on subscription](https://docs.fga.dev/subscription-plans#permissions-index-subscription-add-on) to scale up to 10 indexes, 10 relations per index, and the right number of expansions tailored to your scale (e.g., 20 million, 30 million, etc.).
 
-```javascript
-exports.onExecutePreUserRegistration = async (event, api) =&amp;gt; {
-  const crypto = require(&amp;apos;crypto&amp;apos;);
-  api.user.setUserId(crypto.randomUUID());
-};
-```
-
-Custom user IDs are supported for Database connections (including custom databases with automatic migration), Universal Login sign-up, the Authentication API signup endpoint, and the Management API Create User endpoint. They are not supported for passwordless, social, or enterprise connections, or for bulk import. The custom ID must be unique within the connection and meet the same validation rules as the Management API `user_id` parameter.
-
-[Read the docs →](https://auth0.com/docs/authenticate/database-connections/custom-user-id)
-
-&amp;gt; **Early Access:** This feature is in Early Access and is subject to change. By using this feature, you agree to the applicable Free Trial terms in Okta&amp;apos;s [Master Subscription Agreement](https://www.okta.com/agreements/).
-</description>
-                   <guid>https://auth0.com/changelog#RGWWqahrwFtycXhPate8b</guid>
+Visit the [Permissions Index Documentation](https://docs.fga.dev/permissions-index/fga-permissions-index) to learn more.</description>
+                   <guid>https://auth0.com/changelog#73HBruFmROJHXrIGgj0Wrm</guid>
                </item><item>
                    <title>My Organization API and Embeddable UI Components - Member Management in Early Access!</title>
                    <pubDate>Thu, 17 Sep 2026 00:00:00 GMT</pubDate>
@@ -463,29 +456,26 @@ This feature is available for all tenants. To begin, navigate to the __Applicati
 To learn more, read the [My Organization API documentation](https://auth0.com/docs/manage-users/my-organization-api) and if you have any feedback, give us a shout in our [community channel](https://community.auth0.com/)!</description>
                    <guid>https://auth0.com/changelog#QVyBUwb38zOqMQuF5Rohm</guid>
                </item><item>
-                   <title>Enterprise Connection Events — Early Access</title>
-                   <pubDate>Wed, 16 Sep 2026 00:00:00 GMT</pubDate>
-                   <description>You can now stream real-time notifications when an enterprise connection changes — without polling the Management API.
+                   <title>Custom User ID Assignment with Actions — Early Access</title>
+                   <pubDate>Thu, 17 Sep 2026 00:00:00 GMT</pubDate>
+                   <description>You can now assign a custom `user_id` to new database-connection users at signup by calling the `api.user.setUserId()` method in a `pre-user-registration` Action.
 
-__What&amp;apos;s new__ 
+Previously, Auth0 automatically generated user IDs in the standard `auth0|&amp;lt;id&amp;gt;` format for new signups. Customers who needed custom or legacy-compatible IDs had to build self-hosted signup pages or rely on bulk import. Now you can define any custom `user_id` format — UUIDs, domain-specific IDs, or IDs derived from your existing systems — directly in an Action, keeping identity consistent across imported and newly-created users.
 
-Previously, detecting changes to an enterprise connection (a new SSO connection added, an existing one updated, or one removed) required polling the Management API on a schedule. With connection events, Auth0 notifies you the moment a change happens.
+```javascript
+exports.onExecutePreUserRegistration = async (event, api) =&amp;gt; {
+  const crypto = require(&amp;apos;crypto&amp;apos;);
+  api.user.setUserId(crypto.randomUUID());
+};
+```
 
-__What you can do in EA__
+Custom user IDs are supported for Database connections (including custom databases with automatic migration), Universal Login sign-up, the Authentication API signup endpoint, and the Management API Create User endpoint. They are not supported for passwordless, social, or enterprise connections, or for bulk import. The custom ID must be unique within the connection and meet the same validation rules as the Management API `user_id` parameter.
 
-- Subscribe to connection.created, connection.updated, and connection.deleted events for your enterprise connections — Azure AD, ADFS, Google Workspace, Active Directory, LDAP, and Ping
-- Deliver events to a webhook or Amazon EventBridge
-- Consume events as CloudEvents-formatted JSON, so they work with your existing event tooling
+[Read the docs →](https://auth0.com/docs/authenticate/database-connections/custom-user-id)
 
-__What stays the same__
-
-Enterprise connection management via the Dashboard and Management API is unchanged. Connection events are additive — you don&amp;apos;t need to change how you create or manage connections to start using them.
-
-To learn more, review the Connection Events [documentation](https://auth0.com/docs/events).
-
-By using Connection Events, you agree to the applicable Free Trial terms in Okta&amp;apos;s Master Subscription Agreement and Okta&amp;apos;s Privacy Policy during use of the Early Access feature. The Free Trial terms can be found within the Master Subscription Agreement at [https://www.okta.com/agreements](https://www.okta.com/agreements).
+&amp;gt; **Early Access:** This feature is in Early Access and is subject to change. By using this feature, you agree to the applicable Free Trial terms in Okta&amp;apos;s [Master Subscription Agreement](https://www.okta.com/agreements/).
 </description>
-                   <guid>https://auth0.com/changelog#4eYFRh9yN93NXhkOqBSpRT</guid>
+                   <guid>https://auth0.com/changelog#RGWWqahrwFtycXhPate8b</guid>
                </item><item>
                    <title>B2B Connect - Enterprise in Early Access!</title>
                    <pubDate>Wed, 16 Sep 2026 00:00:00 GMT</pubDate>
@@ -511,6 +501,30 @@ To learn more, review the B2B Connect [documentation](https://auth0.com/docs/get
 By using B2B Connect, you agree to the applicable Free Trial terms in Okta&amp;apos;s Master Subscription Agreement and Okta&amp;apos;s Privacy Policy during use of the Early Access feature. The Free Trial terms can be found within the Master Subscription Agreement at [https://www.okta.com/agreements](https://www.okta.com/agreements).
 </description>
                    <guid>https://auth0.com/changelog#2KAdg9LxvB5CiN8O5KR4PI</guid>
+               </item><item>
+                   <title>Enterprise Connection Events — Early Access</title>
+                   <pubDate>Wed, 16 Sep 2026 00:00:00 GMT</pubDate>
+                   <description>You can now stream real-time notifications when an enterprise connection changes — without polling the Management API.
+
+__What&amp;apos;s new__ 
+
+Previously, detecting changes to an enterprise connection (a new SSO connection added, an existing one updated, or one removed) required polling the Management API on a schedule. With connection events, Auth0 notifies you the moment a change happens.
+
+__What you can do in EA__
+
+- Subscribe to connection.created, connection.updated, and connection.deleted events for your enterprise connections — Azure AD, ADFS, Google Workspace, Active Directory, LDAP, and Ping
+- Deliver events to a webhook or Amazon EventBridge
+- Consume events as CloudEvents-formatted JSON, so they work with your existing event tooling
+
+__What stays the same__
+
+Enterprise connection management via the Dashboard and Management API is unchanged. Connection events are additive — you don&amp;apos;t need to change how you create or manage connections to start using them.
+
+To learn more, review the Connection Events [documentation](https://auth0.com/docs/events).
+
+By using Connection Events, you agree to the applicable Free Trial terms in Okta&amp;apos;s Master Subscription Agreement and Okta&amp;apos;s Privacy Policy during use of the Early Access feature. The Free Trial terms can be found within the Master Subscription Agreement at [https://www.okta.com/agreements](https://www.okta.com/agreements).
+</description>
+                   <guid>https://auth0.com/changelog#4eYFRh9yN93NXhkOqBSpRT</guid>
                </item><item>
                    <title>New Deny All Rule for Tenant ACL</title>
                    <pubDate>Tue, 08 Sep 2026 00:00:00 GMT</pubDate>
@@ -1259,6 +1273,20 @@ DPoP for Enterprise Connections enables Auth0 to generate DPoP proofs when perfo
 Please see [product documentation](https://auth0.com/docs/authenticate/enterprise-connections/enable-dpop-enterprise-connections) for further details. </description>
                    <guid>https://auth0.com/changelog#Bqn7JFXNtNpr5pK4SjNYF</guid>
                </item><item>
+                   <title>Federated Logout for OIDC and Okta enterprise connections is now generally available</title>
+                   <pubDate>Tue, 26 May 2026 00:00:00 GMT</pubDate>
+                   <description>Federated Logout is now generally available for OIDC and Okta enterprise connections. When a user logs out with `?federated` appended to the logout URL, Auth0 calls the upstream identity provider&amp;apos;s `end_session_endpoint` to terminate the IdP session, closing the gap where a lingering IdP session could silently re-authenticate the user on their next login attempt.
+
+Note: if federated logout is attempted without providing an `end_session_endpoint`, federated logout will not be able to be completed, and a `federated_logout_failed` tenant log will be generated. The user will be successfully logged out of Auth0 and redirected back to the application, just as with a standard (non-federated) logout.
+
+With federated logout:
+ - Auth0 takes the burden off customers by handling IdP session termination
+ - Customers simply indicate if the IdP session should be ended when the Auth0 logout endpoint is reached — no extra setup needed for compliant IdPs
+ - Employers and employees have peace of mind that their data is not accessible when they logout from their applications
+
+This feature is available on all plans that include enterprise connections. Read the [documentation](https://auth0.com/docs/authenticate/login/logout/log-users-out-of-idps ) to learn more.</description>
+                   <guid>https://auth0.com/changelog#2xFJS2QkpbCMiFX0eEciWG</guid>
+               </item><item>
                    <title>Secure Canonical Domains with New Tenant ACL Signals</title>
                    <pubDate>Tue, 26 May 2026 00:00:00 GMT</pubDate>
                    <description>We have enhanced Tenant Access Control Lists (ACLs) to provide granular control over upstream proxy infrastructure and canonical domain routing.
@@ -1278,20 +1306,6 @@ With this update, you can now isolate traffic by enforcing distinct rules on you
 To learn more about Tenant ACLs, click [here](https://auth0.com/docs/secure/tenant-access-control-list)
 </description>
                    <guid>https://auth0.com/changelog#1HJRARwaxBi5V94dshJcZ3</guid>
-               </item><item>
-                   <title>Federated Logout for OIDC and Okta enterprise connections is now generally available</title>
-                   <pubDate>Tue, 26 May 2026 00:00:00 GMT</pubDate>
-                   <description>Federated Logout is now generally available for OIDC and Okta enterprise connections. When a user logs out with `?federated` appended to the logout URL, Auth0 calls the upstream identity provider&amp;apos;s `end_session_endpoint` to terminate the IdP session, closing the gap where a lingering IdP session could silently re-authenticate the user on their next login attempt.
-
-Note: if federated logout is attempted without providing an `end_session_endpoint`, federated logout will not be able to be completed, and a `federated_logout_failed` tenant log will be generated. The user will be successfully logged out of Auth0 and redirected back to the application, just as with a standard (non-federated) logout.
-
-With federated logout:
- - Auth0 takes the burden off customers by handling IdP session termination
- - Customers simply indicate if the IdP session should be ended when the Auth0 logout endpoint is reached — no extra setup needed for compliant IdPs
- - Employers and employees have peace of mind that their data is not accessible when they logout from their applications
-
-This feature is available on all plans that include enterprise connections. Read the [documentation](https://auth0.com/docs/authenticate/login/logout/log-users-out-of-idps ) to learn more.</description>
-                   <guid>https://auth0.com/changelog#2xFJS2QkpbCMiFX0eEciWG</guid>
                </item><item>
                    <title>Suspicious IP Throttling for Custom Token Exchange</title>
                    <pubDate>Tue, 19 May 2026 00:00:00 GMT</pubDate>
@@ -1434,6 +1448,36 @@ __What’s new:__
 To keep improving this experience, we’ll be continuously adding more contextual actions and capabilities to the __CMD+K Command Palette__.</description>
                    <guid>https://auth0.com/changelog#3mhwjZdB3L7vXnesSa5t8E</guid>
                </item><item>
+                   <title>Auth0 Event Streams for Outbound User Lifecycle Management – Now in General Availability</title>
+                   <pubDate>Thu, 30 Apr 2026 00:00:00 GMT</pubDate>
+                   <description>Event Streams is now available for all customers in General Availablity.
+
+Customer can:
+- Subscribe to Auth0 User, Organizations, and Groups (Early Access Limited Release) Events
+- Deliver Events to AWS EventBridge, Auth0 Actions, and Webhooks (including to [Okta Workflows](https://help.okta.com/wf/en-us/content/topics/workflows/execute/flow-api-endpoint.htm &amp;quot;Okta Workflows&amp;quot;) via Customer Header Auth)
+- Consume events via the Events API
+
+See the [Auth0 Docs](https://auth0.com/docs/deploy-monitor/events &amp;quot;Event Streams&amp;quot;) and [Event Catalog](https://auth0.com/docs/events &amp;quot;Event Catalog&amp;quot;) for further instructions.</description>
+                   <guid>https://auth0.com/changelog#fuWON1ktuPMy4n09B1mrR</guid>
+               </item><item>
+                   <title>Auth0 FGA Permissions Index Is Now in Developer Preview</title>
+                   <pubDate>Thu, 30 Apr 2026 00:00:00 GMT</pubDate>
+                   <description>
+__What is a Permissions Index?__
+
+In relationship-based access control like FGA, checking for permissions requires traversing a complex graph of relationships to find a valid path between a user and an object. The [FGA Permissions Index](https://docs.fga.dev/permissions-index/fga-permissions-index) anticipates this time-consuming traversal by pre-calculating every possible permission path and storing them as direct, user-to-object relationships. Whenever an indexed relationship is added or revoked in FGA, an incremental compute engine cleverly remembers which parts of the graph are affected, quickly ‘flattens’ those relationships, and enables a simple, efficient lookup at query time, no real-time graph traversal necessary.
+
+This makes it easier to power traditionally diffucult authorization use cases such as [enterprise search](https://docs.fga.dev/integration/advanced/search-with-permissions) and AI retrieval (like RAG) over large datasets without repeatedly traversing the authorization graph every time.
+
+The Developer Preview of FGA Permissions Index is available to any existing FGA enterprise customer. [Get started](https://docs.fga.dev/permissions-index/getting-started) today!
+
+__Learn more__:
+- [What is a Permissions Index?](https://docs.fga.dev/permissions-index/fga-permissions-index#what-is-a-permissions-index)
+- [Permissions Index Best Practices](https://docs.fga.dev/permissions-index/best-practices)
+
+![FGA Colocated Permisssions Index](//images.ctfassets.net/kbkgmx9upatd/5CRF124QdAzhLSegaqS2ca/9bc2efffe9329c8b37efcb3b33aea3d4/FGA_Colocated_Permisssions_Index.png)</description>
+                   <guid>https://auth0.com/changelog#5KDss6efgwLvwrnUYFADEs</guid>
+               </item><item>
                    <title>Enhanced Security Controls for Third-Party Applications is now Generally Available</title>
                    <pubDate>Thu, 30 Apr 2026 00:00:00 GMT</pubDate>
                    <description>We&amp;apos;re excited to announce that **Enhanced Security Controls for Third-Party Applications** is now Generally Available for all Auth0 customers.
@@ -1456,48 +1500,6 @@ As you open your APIs to AI agents, customers, partners, and external developers
 To learn more, visit the [Third-Party Applications documentation](https://auth0.com/docs/get-started/applications/third-party-applications).
 </description>
                    <guid>https://auth0.com/changelog#YcrZfUuth36sz2ZLClPEh</guid>
-               </item><item>
-                   <title>Auth0 FGA Permissions Index Is Now in Developer Preview</title>
-                   <pubDate>Thu, 30 Apr 2026 00:00:00 GMT</pubDate>
-                   <description>
-__What is a Permissions Index?__
-
-In relationship-based access control like FGA, checking for permissions requires traversing a complex graph of relationships to find a valid path between a user and an object. The [FGA Permissions Index](https://docs.fga.dev/permissions-index/fga-permissions-index) anticipates this time-consuming traversal by pre-calculating every possible permission path and storing them as direct, user-to-object relationships. Whenever an indexed relationship is added or revoked in FGA, an incremental compute engine cleverly remembers which parts of the graph are affected, quickly ‘flattens’ those relationships, and enables a simple, efficient lookup at query time, no real-time graph traversal necessary.
-
-This makes it easier to power traditionally diffucult authorization use cases such as [enterprise search](https://docs.fga.dev/integration/advanced/search-with-permissions) and AI retrieval (like RAG) over large datasets without repeatedly traversing the authorization graph every time.
-
-The Developer Preview of FGA Permissions Index is available to any existing FGA enterprise customer. [Get started](https://docs.fga.dev/permissions-index/getting-started) today!
-
-__Learn more__:
-- [What is a Permissions Index?](https://docs.fga.dev/permissions-index/fga-permissions-index#what-is-a-permissions-index)
-- [Permissions Index Best Practices](https://docs.fga.dev/permissions-index/best-practices)
-
-![FGA Colocated Permisssions Index](//images.ctfassets.net/kbkgmx9upatd/5CRF124QdAzhLSegaqS2ca/9bc2efffe9329c8b37efcb3b33aea3d4/FGA_Colocated_Permisssions_Index.png)</description>
-                   <guid>https://auth0.com/changelog#5KDss6efgwLvwrnUYFADEs</guid>
-               </item><item>
-                   <title>Auth0 Event Streams for Outbound User Lifecycle Management – Now in General Availability</title>
-                   <pubDate>Thu, 30 Apr 2026 00:00:00 GMT</pubDate>
-                   <description>Event Streams is now available for all customers in General Availablity.
-
-Customer can:
-- Subscribe to Auth0 User, Organizations, and Groups (Early Access Limited Release) Events
-- Deliver Events to AWS EventBridge, Auth0 Actions, and Webhooks (including to [Okta Workflows](https://help.okta.com/wf/en-us/content/topics/workflows/execute/flow-api-endpoint.htm &amp;quot;Okta Workflows&amp;quot;) via Customer Header Auth)
-- Consume events via the Events API
-
-See the [Auth0 Docs](https://auth0.com/docs/deploy-monitor/events &amp;quot;Event Streams&amp;quot;) and [Event Catalog](https://auth0.com/docs/events &amp;quot;Event Catalog&amp;quot;) for further instructions.</description>
-                   <guid>https://auth0.com/changelog#fuWON1ktuPMy4n09B1mrR</guid>
-               </item><item>
-                   <title>New Identity, Same Great Features: Self-Service SSO is now Self-Service Enterprise Configuration</title>
-                   <pubDate>Tue, 28 Apr 2026 00:00:00 GMT</pubDate>
-                   <description>The new name better reflects the full scope of the suite, which includes:
-
-- Single Sign-On (SSO): Allow enterprise customers to configure and maintain SSO for their applications.
-- Domain Verification: Self-managed domain verification and mapping for IT admins.
-- Google Directory Sync: Keep user attributes synchronized across systems.
-- User Provisioning: Automate the user lifecycle through SCIM 2.0.
-
-No functional changes — everything works the same. For full details, see the [Self-Service Enterprise Configuration](https://auth0.com/docs/authenticate/enterprise-connections/self-service-enterprise-config) documentation.</description>
-                   <guid>https://auth0.com/changelog#25JUjMOH28xo3ysd3seeqa</guid>
                </item><item>
                    <title>Self-Service Provisioning now in General Availability!</title>
                    <pubDate>Tue, 28 Apr 2026 00:00:00 GMT</pubDate>
@@ -1539,6 +1541,18 @@ Key Advantages at a Glance:
 
 To dive deeper, please review our documentation [here](https://auth0.com/docs/manage-users/organizations/login-flows-for-organizations#organization-domain-discovery-optional).</description>
                    <guid>https://auth0.com/changelog#1PKSNs4ANJ6DkZWjq9d203</guid>
+               </item><item>
+                   <title>New Identity, Same Great Features: Self-Service SSO is now Self-Service Enterprise Configuration</title>
+                   <pubDate>Tue, 28 Apr 2026 00:00:00 GMT</pubDate>
+                   <description>The new name better reflects the full scope of the suite, which includes:
+
+- Single Sign-On (SSO): Allow enterprise customers to configure and maintain SSO for their applications.
+- Domain Verification: Self-managed domain verification and mapping for IT admins.
+- Google Directory Sync: Keep user attributes synchronized across systems.
+- User Provisioning: Automate the user lifecycle through SCIM 2.0.
+
+No functional changes — everything works the same. For full details, see the [Self-Service Enterprise Configuration](https://auth0.com/docs/authenticate/enterprise-connections/self-service-enterprise-config) documentation.</description>
+                   <guid>https://auth0.com/changelog#25JUjMOH28xo3ysd3seeqa</guid>
                </item><item>
                    <title>Auth0 Private Cloud Now Available on Azure in Japan</title>
                    <pubDate>Thu, 23 Apr 2026 00:00:00 GMT</pubDate>
@@ -1589,19 +1603,6 @@ While we are not planning to move forward with mDL Verification Service capabili
 </description>
                    <guid>https://auth0.com/changelog#37Bpvtxbjs4NAeKFJOxqdD</guid>
                </item><item>
-                   <title>Google Workspace Directory Sync for Groups - Expanded Early Access (EA)</title>
-                   <pubDate>Fri, 17 Apr 2026 00:00:00 GMT</pubDate>
-                   <description>We are excited to announce the next phase of our __Google Workspace Directory Sync for Groups__ Early Access! 
-
-Building on our initial Early Access [release](https://auth0.com/changelog#6WhEr0c0yB3K5oh7jiPADP), this update introduces __Partial Group Sync__, giving you exact control over which Enterprise Groups to import from your Google Workspace Directory into Auth0.
-
-__What&amp;apos;s new:__
-- Targeted Group Sync: Instead of syncing your entire directory, you can now choose to synchronize only a specific subset of your Google Workspace groups. Easily manage your selected groups through either the Management Dashboard or Management API. 
-
-__How to join Early Access:__
-To join the EA program, please complete the [EA Terms &amp;amp; Conditions form](https://forms.gle/9MK4hnQUW8AVfREZ9) and contact your Auth0 Account Team to request activation and supporting documentation.</description>
-                   <guid>https://auth0.com/changelog#3sQ4fmmnZQuIAu9jZBoBOS</guid>
-               </item><item>
                    <title>Delegated Administration Extension</title>
                    <pubDate>Fri, 17 Apr 2026 00:00:00 GMT</pubDate>
                    <description>__v4.8.1 — Custom Domain Hook__
@@ -1620,6 +1621,19 @@ Not on v4.8.x: Manually update the extension in your Auth0 tenant by navigating 
 
 Already on v4.8.x: No action required — the patch has been automatically applied.</description>
                    <guid>https://auth0.com/changelog#5agVKVb0XqU9j5y8Z2S12t</guid>
+               </item><item>
+                   <title>Google Workspace Directory Sync for Groups - Expanded Early Access (EA)</title>
+                   <pubDate>Fri, 17 Apr 2026 00:00:00 GMT</pubDate>
+                   <description>We are excited to announce the next phase of our __Google Workspace Directory Sync for Groups__ Early Access! 
+
+Building on our initial Early Access [release](https://auth0.com/changelog#6WhEr0c0yB3K5oh7jiPADP), this update introduces __Partial Group Sync__, giving you exact control over which Enterprise Groups to import from your Google Workspace Directory into Auth0.
+
+__What&amp;apos;s new:__
+- Targeted Group Sync: Instead of syncing your entire directory, you can now choose to synchronize only a specific subset of your Google Workspace groups. Easily manage your selected groups through either the Management Dashboard or Management API. 
+
+__How to join Early Access:__
+To join the EA program, please complete the [EA Terms &amp;amp; Conditions form](https://forms.gle/9MK4hnQUW8AVfREZ9) and contact your Auth0 Account Team to request activation and supporting documentation.</description>
+                   <guid>https://auth0.com/changelog#3sQ4fmmnZQuIAu9jZBoBOS</guid>
                </item><item>
                    <title>Multi-Resource Refresh Tokens (MRRT) is now Generally Available</title>
                    <pubDate>Tue, 14 Apr 2026 00:00:00 GMT</pubDate>
@@ -1672,18 +1686,6 @@ DPoP for Enterprise Connections enables Auth0 to generate DPoP proofs when perfo
 Please see [product documentation](https://auth0.com/docs/authenticate/enterprise-connections/enable-dpop-enterprise-connections) for details.  </description>
                    <guid>https://auth0.com/changelog#3kRaHbKHHvaDZjqdKFSNX2</guid>
                </item><item>
-                   <title>Akamai Supplemental Signals is Now GA</title>
-                   <pubDate>Thu, 09 Apr 2026 00:00:00 GMT</pubDate>
-                   <description>__Auth0 Akamai Supplemental Signals is now GA__ and available across the full authentication lifecycle. 
-
-This update allows developers to ingest risk scores and edge intelligence from Akamai Bot Manager and Account Protector into several new Action triggers: __Pre-User Registration__, __Post-User Registration__, __Post-Challenge__, and __Post-Change Password__. 
-
-By integrating these signals directly into the Auth0 pipeline, organizations can stop automated bot signups before an account is created and enforce real-time security logic during critical events like password resets or MFA challenges.
-
-To learn more about __Akamai Supplemental Signals__ and how to set it up review our online documentation [here](https://auth0.com/docs/secure/attack-protection/configure-akamai-supplemental-signals)
-</description>
-                   <guid>https://auth0.com/changelog#5HgzBbwQyUv6qtPHjfV0mX</guid>
-               </item><item>
                    <title>My Organization API and Embeddable UI Components - Organization Details and IdP Management in Early Access!</title>
                    <pubDate>Thu, 09 Apr 2026 00:00:00 GMT</pubDate>
                    <description>We are excited to announce the __Early Access (EA)__ release of the __My Organization API__ and a library of __Embeddable UI Components for Organization Detail and Identity Provider Management__. Every B2B product needs an admin console for customers to manage their own members and security. This new feature set empowers B2B SaaS developers to deliver robust self-service experience for admins in a matter of days, not months.
@@ -1712,6 +1714,18 @@ This feature is available for all tenants. To begin, navigate to the __Applicati
 
 To learn more, read the [My Organization API documentation](https://auth0.com/docs/manage-users/my-organization-api) and if you have any feedback, give us a shout in our community channel!</description>
                    <guid>https://auth0.com/changelog#7wWQexQzB29PXNwEFJhAZA</guid>
+               </item><item>
+                   <title>Akamai Supplemental Signals is Now GA</title>
+                   <pubDate>Thu, 09 Apr 2026 00:00:00 GMT</pubDate>
+                   <description>__Auth0 Akamai Supplemental Signals is now GA__ and available across the full authentication lifecycle. 
+
+This update allows developers to ingest risk scores and edge intelligence from Akamai Bot Manager and Account Protector into several new Action triggers: __Pre-User Registration__, __Post-User Registration__, __Post-Challenge__, and __Post-Change Password__. 
+
+By integrating these signals directly into the Auth0 pipeline, organizations can stop automated bot signups before an account is created and enforce real-time security logic during critical events like password resets or MFA challenges.
+
+To learn more about __Akamai Supplemental Signals__ and how to set it up review our online documentation [here](https://auth0.com/docs/secure/attack-protection/configure-akamai-supplemental-signals)
+</description>
+                   <guid>https://auth0.com/changelog#5HgzBbwQyUv6qtPHjfV0mX</guid>
                </item><item>
                    <title>Universal Login — &amp;quot;Forgot Password&amp;quot; CTA updated to &amp;quot;Reset Password&amp;quot;</title>
                    <pubDate>Thu, 09 Apr 2026 00:00:00 GMT</pubDate>
@@ -2163,6 +2177,39 @@ Trigger an MFA challenge or Passwordless login from your mobile device to see th
 * Visit your [Dashboard](https://manage.auth0.com)</description>
                    <guid>https://auth0.com/changelog#29R56ta9PFA5dZI59IiWOr</guid>
                </item><item>
+                   <title>Roles for the Auth0 FGA Dashboard</title>
+                   <pubDate>Fri, 30 Jan 2026 00:00:00 GMT</pubDate>
+                   <description>We are excited to release the __Per-Member Authorization__ feature that introduces __roles__ to the FGA Dashboard! This allows you to grant appropriate levels of access based on users’ needs.
+
+We are enhancing the permission model from a single admin to __Groups__ that can be assigned roles. Groups are an organizational container for managing permissions and offer convenience when assigning roles to multiple users at once.
+
+- __New Roles__: We are introducing three new granular roles to sit alongside the previous admin role (now renamed __Account Owner__):
+  - __Group Manager__: An account-level role for managing teams without accessing FGA stores directly.
+  - __Store Editor__: A store-level role that can modify models and tuples but cannot manage groups.
+  - __Store Viewer__: A read-only role useful for ops teams or sales engineers who need visibility without the ability to impact systems.
+- __Groups__: Account Owners or Group Managers can create groups (ex., &amp;quot;IT Group&amp;quot; or &amp;quot;Dev Team&amp;quot;) and assign members to them. All members automatically inherit the permissions defined at the group level.
+- __Scoping__: Crucially, these roles can be scoped to specific stores. For example, this allows a single user, to be an Editor for a &amp;quot;Staging&amp;quot; store but restricted to Viewer for a &amp;quot;Production&amp;quot; store.
+
+For more details, refer to Auth0 FGA Dashboard’s [Roles](https://docs.fga.dev/dashboard/roles) documentation.
+</description>
+                   <guid>https://auth0.com/changelog#2FC37fwfuoG9VdrUyt74jt</guid>
+               </item><item>
+                   <title>API Access Policies for Applications is now Generally Available</title>
+                   <pubDate>Fri, 30 Jan 2026 00:00:00 GMT</pubDate>
+                   <description>We are pleased to announce that __API Access Policies for Applications__ is now Generally Available (GA) for all Auth0 customers. This feature allows you to specifically control which applications can request access tokens for your APIs, covering __both user and machine-to-machine access__.
+
+Previously available only via the Management API, these __policies can now be fully configured directly within the Auth0 Dashboard__. The new UI allows you to easily visualize and manage permissions per API, ensuring that only authorized applications can access sensitive resources.
+
+__Key Benefits__:
+- __Granular Control__: Define distinct access policies for user access vs. machine-to-machine access.
+- __Enhanced Security__: Use the `require_client_grant` policy to ensure only explicitly authorized applications can obtain tokens for the subset of allowed permissions.
+- __Simplified Management__: Configure these settings visually through the new Dashboard UI.
+
+To learn more, navigate to Applications &amp;gt; APIs &amp;gt; Application Access in the dashboard or read our [reference docs](https://auth0.com/docs/get-started/apis/api-access-policies-for-applications).
+
+![API Access Permissions dashboard](https://cdn.auth0.com/blog/API-Access-Polices-for-Apps.png)</description>
+                   <guid>https://auth0.com/changelog#5KLqJ24PwGJRs8qputOEkL</guid>
+               </item><item>
                    <title>Inbound SCIM Groups for Enterprise Connections is now in Limited Early Access</title>
                    <pubDate>Fri, 30 Jan 2026 00:00:00 GMT</pubDate>
                    <description>We’re pleased to announce that support for Groups within Auth0’s [Inbound SCIM for Enterprise Connections](https://auth0.com/docs/authenticate/protocols/scim/configure-inbound-scim) feature is now in limited early access!
@@ -2183,39 +2230,6 @@ __How to get access__
 
 To join the Limited EA program and access SCIM Groups for Enterprise connections, complete the [EA Terms &amp;amp; Conditions form](https://docs.google.com/forms/d/e/1FAIpQLSeGhlEuXSm4hqrP9DZgeEWtntUHCSzqCpKC_yiK2ISIUubsGg/viewform) and contact your Auth0 Account Team to request activation and supporting documentation.</description>
                    <guid>https://auth0.com/changelog#6osxJFJUB5gsCePUpSanRQ</guid>
-               </item><item>
-                   <title>API Access Policies for Applications is now Generally Available</title>
-                   <pubDate>Fri, 30 Jan 2026 00:00:00 GMT</pubDate>
-                   <description>We are pleased to announce that __API Access Policies for Applications__ is now Generally Available (GA) for all Auth0 customers. This feature allows you to specifically control which applications can request access tokens for your APIs, covering __both user and machine-to-machine access__.
-
-Previously available only via the Management API, these __policies can now be fully configured directly within the Auth0 Dashboard__. The new UI allows you to easily visualize and manage permissions per API, ensuring that only authorized applications can access sensitive resources.
-
-__Key Benefits__:
-- __Granular Control__: Define distinct access policies for user access vs. machine-to-machine access.
-- __Enhanced Security__: Use the `require_client_grant` policy to ensure only explicitly authorized applications can obtain tokens for the subset of allowed permissions.
-- __Simplified Management__: Configure these settings visually through the new Dashboard UI.
-
-To learn more, navigate to Applications &amp;gt; APIs &amp;gt; Application Access in the dashboard or read our [reference docs](https://auth0.com/docs/get-started/apis/api-access-policies-for-applications).
-
-![API Access Permissions dashboard](https://cdn.auth0.com/blog/API-Access-Polices-for-Apps.png)</description>
-                   <guid>https://auth0.com/changelog#5KLqJ24PwGJRs8qputOEkL</guid>
-               </item><item>
-                   <title>Roles for the Auth0 FGA Dashboard</title>
-                   <pubDate>Fri, 30 Jan 2026 00:00:00 GMT</pubDate>
-                   <description>We are excited to release the __Per-Member Authorization__ feature that introduces __roles__ to the FGA Dashboard! This allows you to grant appropriate levels of access based on users’ needs.
-
-We are enhancing the permission model from a single admin to __Groups__ that can be assigned roles. Groups are an organizational container for managing permissions and offer convenience when assigning roles to multiple users at once.
-
-- __New Roles__: We are introducing three new granular roles to sit alongside the previous admin role (now renamed __Account Owner__):
-  - __Group Manager__: An account-level role for managing teams without accessing FGA stores directly.
-  - __Store Editor__: A store-level role that can modify models and tuples but cannot manage groups.
-  - __Store Viewer__: A read-only role useful for ops teams or sales engineers who need visibility without the ability to impact systems.
-- __Groups__: Account Owners or Group Managers can create groups (ex., &amp;quot;IT Group&amp;quot; or &amp;quot;Dev Team&amp;quot;) and assign members to them. All members automatically inherit the permissions defined at the group level.
-- __Scoping__: Crucially, these roles can be scoped to specific stores. For example, this allows a single user, to be an Editor for a &amp;quot;Staging&amp;quot; store but restricted to Viewer for a &amp;quot;Production&amp;quot; store.
-
-For more details, refer to Auth0 FGA Dashboard’s [Roles](https://docs.fga.dev/dashboard/roles) documentation.
-</description>
-                   <guid>https://auth0.com/changelog#2FC37fwfuoG9VdrUyt74jt</guid>
                </item><item>
                    <title>New FGA Dashboard Logging UI is being rolled out</title>
                    <pubDate>Fri, 30 Jan 2026 00:00:00 GMT</pubDate>
@@ -2355,20 +2369,6 @@ __Get Started__
 These tiers are available immediately for new and existing customers. Please visit [Auth0 documentation](https://auth0.com/docs/deploy-monitor/deploy-private-cloud/private-cloud-on-azure#private-cloud-on-azure) for more info.</description>
                    <guid>https://auth0.com/changelog#1hynzVRKqrPmoeALKcx5US</guid>
                </item><item>
-                   <title>Custom Token Exchange now available in Open Early Access</title>
-                   <pubDate>Thu, 18 Dec 2025 00:00:00 GMT</pubDate>
-                   <description>We’re excited to announce the __Open Early Access (EA) of Custom Token Exchange__. OAuth 2.0 Token Exchange allows to trade one security token for another (typically an Access Token). With Custom Token Exchange, you can __run Auth0 Actions as part of that exchange__, giving you a flexible way to inject custom logic and implement your own authentication and authorization semantics. This lets you validate and authorize the request, and precisely set the user for every token exchange transaction.
-
-Key highlights of this release:
-- Automatic Entitlement: The feature is now __automatically available to all Enterprise and B2B Pro customers__ to be used for testing and __production__ (no manual enablement required).
-- __Organizations Support__: Full compatibility with Organizations. You can now pass the `organization` parameter in the request or use the new `setOrganization` function within your Action.
-- Enhanced Security: Includes __Multi-Factor Authentication (MFA) support__ during the exchange.
-
-![CTE-Orgs-sample-code.png](https://cdn.auth0.com/blog/CTE-Orgs-sample-code.png)
-
-To learn more, read the [reference documentation](https://auth0.com/docs/authenticate/custom-token-exchange).</description>
-                   <guid>https://auth0.com/changelog#4lhB2wvkmckLOncrc71BJr</guid>
-               </item><item>
                    <title>Security Center: Unleash Deeper Insights with New Filtering &amp;amp; Pre-defined Groupings</title>
                    <pubDate>Thu, 18 Dec 2025 00:00:00 GMT</pubDate>
                    <description>We&amp;apos;re excited to announce a significant update to the Security Center, marking the first major enhancement since last year&amp;apos;s introduction of Thresholds and Alerts! These new capabilities drastically improve your ability to monitor, analyze, and respond to security threats with greater precision and speed.
@@ -2383,6 +2383,20 @@ These enhancements are available on all public cloud envirovments and gradually 
 Explore the updated [Security Center](https://auth0.com/docs/secure/security-center) today to take control of your security insights and strengthen your security posture!
 </description>
                    <guid>https://auth0.com/changelog#Qu4slJXGZVsPh339UCCEE</guid>
+               </item><item>
+                   <title>Custom Token Exchange now available in Open Early Access</title>
+                   <pubDate>Thu, 18 Dec 2025 00:00:00 GMT</pubDate>
+                   <description>We’re excited to announce the __Open Early Access (EA) of Custom Token Exchange__. OAuth 2.0 Token Exchange allows to trade one security token for another (typically an Access Token). With Custom Token Exchange, you can __run Auth0 Actions as part of that exchange__, giving you a flexible way to inject custom logic and implement your own authentication and authorization semantics. This lets you validate and authorize the request, and precisely set the user for every token exchange transaction.
+
+Key highlights of this release:
+- Automatic Entitlement: The feature is now __automatically available to all Enterprise and B2B Pro customers__ to be used for testing and __production__ (no manual enablement required).
+- __Organizations Support__: Full compatibility with Organizations. You can now pass the `organization` parameter in the request or use the new `setOrganization` function within your Action.
+- Enhanced Security: Includes __Multi-Factor Authentication (MFA) support__ during the exchange.
+
+![CTE-Orgs-sample-code.png](https://cdn.auth0.com/blog/CTE-Orgs-sample-code.png)
+
+To learn more, read the [reference documentation](https://auth0.com/docs/authenticate/custom-token-exchange).</description>
+                   <guid>https://auth0.com/changelog#4lhB2wvkmckLOncrc71BJr</guid>
                </item><item>
                    <title>MyAccount API Explorer Experience Updated</title>
                    <pubDate>Wed, 17 Dec 2025 00:00:00 GMT</pubDate>
@@ -2460,6 +2474,13 @@ ACUL allows you to leverage all the security benefits of Universal Login, such a
 [Read the Documentation](https://auth0.com/docs/customize/login-pages/advanced-customizations)</description>
                    <guid>https://auth0.com/changelog#5pjJwHzDjb3Dp91OVbSnlS</guid>
                </item><item>
+                   <title>Requesting App for Cross App Access (XAA) is now available in Beta.</title>
+                   <pubDate>Wed, 10 Dec 2025 00:00:00 GMT</pubDate>
+                   <description>This new Token Vault capability allows Client Applications to obtain access tokens from third-party APIs (resource servers), through an authorization flow that is coordinated by a common Identity Provider implementing the [Identity Assertion Authorisation Grant](https://datatracker.ietf.org/doc/draft-ietf-oauth-identity-assertion-authz-grant/) standard. This new standard enables requesting applications such as AI Agents to obtain access tokens where user consent is managed by policy at the Identity Provider.
+
+To evaluate the Requesting App for Cross App Access, please contact Auth0. For more details, see the [product documentation](https://auth0.com/docs/secure/call-apis-on-users-behalf/xaa).</description>
+                   <guid>https://auth0.com/changelog#7oAdYxc0jsCVdQHqDBQ13R</guid>
+               </item><item>
                    <title>Google Workspace User Directory Sync - Now in Early Access</title>
                    <pubDate>Wed, 10 Dec 2025 00:00:00 GMT</pubDate>
                    <description>We’re excited to announce that Google Workspace User Directory Sync is now available in Limited Early Access (EA) with major enhancements to configuration, usability, and performance.
@@ -2480,13 +2501,6 @@ __How to Join EA:__
 To join the Limited EA program and access Google Workspace User Directory Sync, complete the [EA Terms &amp;amp; Conditions form](https://forms.gle/evWKYGQeML9b7zSs9) and contact your Auth0 Account Team to request activation and supporting documentation. 
 </description>
                    <guid>https://auth0.com/changelog#14aKLOPk3BgCLwFuyG9fsp</guid>
-               </item><item>
-                   <title>Requesting App for Cross App Access (XAA) is now available in Beta.</title>
-                   <pubDate>Wed, 10 Dec 2025 00:00:00 GMT</pubDate>
-                   <description>This new Token Vault capability allows Client Applications to obtain access tokens from third-party APIs (resource servers), through an authorization flow that is coordinated by a common Identity Provider implementing the [Identity Assertion Authorisation Grant](https://datatracker.ietf.org/doc/draft-ietf-oauth-identity-assertion-authz-grant/) standard. This new standard enables requesting applications such as AI Agents to obtain access tokens where user consent is managed by policy at the Identity Provider.
-
-To evaluate the Requesting App for Cross App Access, please contact Auth0. For more details, see the [product documentation](https://auth0.com/docs/secure/call-apis-on-users-behalf/xaa).</description>
-                   <guid>https://auth0.com/changelog#7oAdYxc0jsCVdQHqDBQ13R</guid>
                </item><item>
                    <title>Introducing the New ASP.NET Core API SDK </title>
                    <pubDate>Fri, 05 Dec 2025 00:00:00 GMT</pubDate>
@@ -2602,22 +2616,6 @@ Please refer to Auth0 docs for details - [Multiple Custom Domains](https://auth0
 These updates are available automatically to the current participants in MCD Early Access program. If you&amp;apos;re interested in joining the MCD Early Access program, please send a request through the [Auth0 Support Center](https://support.auth0.com/center/s/) and contact your Technical Account Manager (TAM) or Auth0 Sales Executive.</description>
                    <guid>https://auth0.com/changelog#KNla4yWuL2eEHiYX60swb</guid>
                </item><item>
-                   <title>New Management API endpoints to configure Bot Detection settings</title>
-                   <pubDate>Wed, 12 Nov 2025 00:00:00 GMT</pubDate>
-                   <description>Auth0 now provides Management API endpoints to manage Bot Detection configuration!
-
-__Key Capabilities:__
-
-__Bot Detection Controls:__ Automate adjustments to the Bot Detection Level (low, medium, or high) and manage your trusted IP AllowList via API.
-
-__Challenge Policies:__ Programmatically control CAPTCHA enforcement for password, passwordless, and password reset flows (options: always, when risky, or never).
-
-__CAPTCHA Management:__ Fully manage your CAPTCHA provider selection and configuration, including Auth0’s native challenge or third-party solutions.
-
-To learn more about the new Bot Detection API endpoints check out our online documentation [here](https://auth0.com/docs/api/management/v2/attack-protection/get-bot-detection)
-</description>
-                   <guid>https://auth0.com/changelog#4IIvynXfhRzUq01YELrRg4</guid>
-               </item><item>
                    <title>New Dynamic Client Registration (DCR) Scope Added to Tenant ACL</title>
                    <pubDate>Wed, 12 Nov 2025 00:00:00 GMT</pubDate>
                    <description>Auth0 has added a __Dynamic Client Registration (DCR)__ scope to the __Tenant Access Control List (ACL)__. 
@@ -2643,6 +2641,22 @@ Developers can use this library for:
 
 **Docs:** Learn more at [Actions NPM Docs](https://auth0.com/docs/customize/actions/actions-npm &amp;quot;Actions Types Docs&amp;quot;) and [Actions Unit Test Docs](https://auth0.com/docs/customize/actions/actions-unit-test &amp;quot;Actions Unit Test Docs&amp;quot;).</description>
                    <guid>https://auth0.com/changelog#1g7Si9zf4VnEOC3Na7zxGR</guid>
+               </item><item>
+                   <title>New Management API endpoints to configure Bot Detection settings</title>
+                   <pubDate>Wed, 12 Nov 2025 00:00:00 GMT</pubDate>
+                   <description>Auth0 now provides Management API endpoints to manage Bot Detection configuration!
+
+__Key Capabilities:__
+
+__Bot Detection Controls:__ Automate adjustments to the Bot Detection Level (low, medium, or high) and manage your trusted IP AllowList via API.
+
+__Challenge Policies:__ Programmatically control CAPTCHA enforcement for password, passwordless, and password reset flows (options: always, when risky, or never).
+
+__CAPTCHA Management:__ Fully manage your CAPTCHA provider selection and configuration, including Auth0’s native challenge or third-party solutions.
+
+To learn more about the new Bot Detection API endpoints check out our online documentation [here](https://auth0.com/docs/api/management/v2/attack-protection/get-bot-detection)
+</description>
+                   <guid>https://auth0.com/changelog#4IIvynXfhRzUq01YELrRg4</guid>
                </item><item>
                    <title>Add Session Metadata to Auth0 Sessions</title>
                    <pubDate>Fri, 07 Nov 2025 00:00:00 GMT</pubDate>
@@ -3583,25 +3597,11 @@ What’s New?
 </description>
                    <guid>https://auth0.com/changelog#46knYejnHFSYMc59ijmGjz</guid>
                </item><item>
-                   <title>Real-time Webtasks Logs Extension Deprecation</title>
+                   <title>Canadian French Language Support Added to Auth0 Dashboard and Docs</title>
                    <pubDate>Wed, 18 Jun 2025 00:00:00 GMT</pubDate>
-                   <description>#### What is changing?
-We are deprecating the Real-time Webtask Logs extension with a planned end-of-life after (EOL) **September 16, 2025**. 
-
-As a replacement, we have published the [Actions Real-time Logs](https://auth0.com/docs/customize/actions/actions-real-time-logs) feature integrated within the Auth0 Dashboard. The extension will cease to be available for new installations, but tenants with the extension already installed will maintain access until the planned EOL.
-
-#### Why are we making this change?
-The transition to the dashboard will improve the security posture and maintainability of the functionality, while simplifying future enhancements.
-
-#### How are you affected?
-For active users of the Real-time Webtask Logs extension, its scheduled removal will affect you, as the transition from extension to a direct dashboard capability inherently implies some user experience differences.
-
-#### What action do you need to take?
-You can start using the [Actions Real-time Logs](https://auth0.com/docs/customize/actions/actions-real-time-logs#how-to-use) feature by navigating to **Auth0 Dashboard** &amp;gt; **Monitoring** &amp;gt; **Actions Logs**. 
-
-We recommend that extension users familiarize themselves with the new user interface to avoid disruption once the extension becomes unavailable.
+                   <description>We’ve added a new language option-Canadian French-to help our users in Canada and beyond build secure identity solutions more easily. If your language preference is set to Canadian French in your browser settings, Auth0 will detect this and automatically serve the Dashboard and Documentation in Canadian French. You can manually override this setting in the Auth0 Dashboard and Docs via the language switcher in the top-right corner.
 </description>
-                   <guid>https://auth0.com/changelog#4PbsaXwpuayYFHiuPXr1SS</guid>
+                   <guid>https://auth0.com/changelog#3DROEob65di707QvAZkySI</guid>
                </item><item>
                    <title>Removal of Access to Specific Event Request Properties in Actions</title>
                    <pubDate>Wed, 18 Jun 2025 00:00:00 GMT</pubDate>
@@ -3635,11 +3635,25 @@ The exact implementation changes you may need to perform will depend on your ove
 For example, for scenarios related to reusing secret information previously available from the request, the support for [secret management](https://auth0.com/docs/customize/actions/write-your-first-action#add-a-secret) (`event.secrets`) as part of actions may provide a potential alternative. If the requests include restricted property names, but the information sent within them is not considered sensitive, you may consider using a different parameter name in the request, or ideally, consider using [custom parameters](https://auth0.com/docs/get-started/authentication-and-authorization-flow/authorization-code-flow/authorization-code-flow-with-par#supported-parameters) as part of [pushed authorization requests](https://auth0.com/docs/get-started/applications/configure-par) to avoid disclosing/interception of the data by end-users in browser-based flows. If the data is static per client or connection, consider storing it as part of client or connection metadata.</description>
                    <guid>https://auth0.com/changelog#3FKFF7m36s3iNW64RA9xSP</guid>
                </item><item>
-                   <title>Canadian French Language Support Added to Auth0 Dashboard and Docs</title>
+                   <title>Real-time Webtasks Logs Extension Deprecation</title>
                    <pubDate>Wed, 18 Jun 2025 00:00:00 GMT</pubDate>
-                   <description>We’ve added a new language option-Canadian French-to help our users in Canada and beyond build secure identity solutions more easily. If your language preference is set to Canadian French in your browser settings, Auth0 will detect this and automatically serve the Dashboard and Documentation in Canadian French. You can manually override this setting in the Auth0 Dashboard and Docs via the language switcher in the top-right corner.
+                   <description>#### What is changing?
+We are deprecating the Real-time Webtask Logs extension with a planned end-of-life after (EOL) **September 16, 2025**. 
+
+As a replacement, we have published the [Actions Real-time Logs](https://auth0.com/docs/customize/actions/actions-real-time-logs) feature integrated within the Auth0 Dashboard. The extension will cease to be available for new installations, but tenants with the extension already installed will maintain access until the planned EOL.
+
+#### Why are we making this change?
+The transition to the dashboard will improve the security posture and maintainability of the functionality, while simplifying future enhancements.
+
+#### How are you affected?
+For active users of the Real-time Webtask Logs extension, its scheduled removal will affect you, as the transition from extension to a direct dashboard capability inherently implies some user experience differences.
+
+#### What action do you need to take?
+You can start using the [Actions Real-time Logs](https://auth0.com/docs/customize/actions/actions-real-time-logs#how-to-use) feature by navigating to **Auth0 Dashboard** &amp;gt; **Monitoring** &amp;gt; **Actions Logs**. 
+
+We recommend that extension users familiarize themselves with the new user interface to avoid disruption once the extension becomes unavailable.
 </description>
-                   <guid>https://auth0.com/changelog#3DROEob65di707QvAZkySI</guid>
+                   <guid>https://auth0.com/changelog#4PbsaXwpuayYFHiuPXr1SS</guid>
                </item><item>
                    <title>Resilience enhancement - Private Cloud Restoration General Availability</title>
                    <pubDate>Tue, 17 Jun 2025 00:00:00 GMT</pubDate>
@@ -3723,18 +3737,6 @@ With this release, developers can:
 </description>
                    <guid>https://auth0.com/changelog#72JltARfrooqHBmkuTzb8d</guid>
                </item><item>
-                   <title>Actions - Name Edit</title>
-                   <pubDate>Thu, 29 May 2025 00:00:00 GMT</pubDate>
-                   <description>Action name editing is now available within the Auth0 Dashboard, providing developers the ability to rename existing Actions while ensuring unique names are maintained.
-
-To rename an Action:
-1. Navigate to the specific Action Details page in the Auth0 Dashboard.
-2. At the Action Details page, click the edit button located next to the Action&amp;apos;s name to make your changes.
-3. Enter the new name.
-4. Apply or cancel the changes.
-</description>
-                   <guid>https://auth0.com/changelog#5rwgKZhUbJ1HgnyiwhiTn7</guid>
-               </item><item>
                    <title>Fine-Grained Machine-to-Machine Token Quotas now available in Early Access</title>
                    <pubDate>Thu, 29 May 2025 00:00:00 GMT</pubDate>
                    <description>We’ve excited to announce that Fine-Grained M2M Token Quotas is now in __Early Access for Enterprise customers__.
@@ -3749,6 +3751,18 @@ To learn more, check out the [documentation](https://auth0.com/docs/fine-grained
 
 __Reach out to you Auth0 contact to request access!__</description>
                    <guid>https://auth0.com/changelog#3oV0iKjZW0TZs7SuLvE94L</guid>
+               </item><item>
+                   <title>Actions - Name Edit</title>
+                   <pubDate>Thu, 29 May 2025 00:00:00 GMT</pubDate>
+                   <description>Action name editing is now available within the Auth0 Dashboard, providing developers the ability to rename existing Actions while ensuring unique names are maintained.
+
+To rename an Action:
+1. Navigate to the specific Action Details page in the Auth0 Dashboard.
+2. At the Action Details page, click the edit button located next to the Action&amp;apos;s name to make your changes.
+3. Enter the new name.
+4. Apply or cancel the changes.
+</description>
+                   <guid>https://auth0.com/changelog#5rwgKZhUbJ1HgnyiwhiTn7</guid>
                </item><item>
                    <title>Advanced Customizations for Universal Login (Early Access) - WebAuthn + Biometrics Authentication, and Logout!</title>
                    <pubDate>Tue, 27 May 2025 00:00:00 GMT</pubDate>
@@ -4020,6 +4034,23 @@ With this feature, customers can perform ad-hoc mDL verification requests or int
 To enable the Limited Early Access release in your Auth0 tenant, please review the available [documentation](https://auth0.com/docs/secure/mdl-verification) and if interested, please fill out [this](https://docs.google.com/forms/d/e/1FAIpQLScEZSizEo6prfnxg_8YvU3Pv0s6rwryEpjEZt_9X3vplQhXVQ/viewform) form to request access. We are limiting the number of customers for whom this will be enabled and will reach out to you with more details. If you have any feedback, give us a shout in our [community channel](https://community.auth0.com/)!</description>
                    <guid>https://auth0.com/changelog#44rEHWw8XPzsjrCwNSpPtW</guid>
                </item><item>
+                   <title>Self-Service SSO - UI Ticketing and Advanced SAML Configurations</title>
+                   <pubDate>Tue, 01 Apr 2025 00:00:00 GMT</pubDate>
+                   <description>Auth0 is excited to announce new enhancements to the Self-Service SSO experience:
+
+__Self-Service SSO Ticket Creation in the Dashboard__
+
+Tenant admins can now generate SSO tickets directly from the Manage Dashboard, removing the need for API access. This update simplifies the process for all teams and makes it easier to experiment, configure, and roll out federated SSO integrations.
+
+__Enhanced SAML Configuration Options__
+
+Tenant admins can now configure whether IdP-Initiated SSO is allowed at the time of ticket creation. Additionally, in the wizard, IT admins have the option to choose whether authentication requests should be signed, offering more flexibility and control to meet varying security and compliance needs.
+
+![SS-SSO Ticket Creation](//images.ctfassets.net/kbkgmx9upatd/6rDbZaEUdVhIFOVOVQ2Nfo/a928026562badbe95eec425d11835bc4/Ticket_UI.gif)
+
+These updates enhance accessibility, security, and ease of use. Learn more about Self-Service SSO in the [product documentation](https://auth0.com/docs/authenticate/enterprise-connections/self-service-SSO).</description>
+                   <guid>https://auth0.com/changelog#3t61fp6lqBGWEWddiqCtwf</guid>
+               </item><item>
                    <title>New US Public Cloud Region (prod-us-5)</title>
                    <pubDate>Tue, 01 Apr 2025 00:00:00 GMT</pubDate>
                    <description>We are excited to announce that we are expanding our US public cloud offering with a brand new environment! prod-us-5 is a testament to our growth and provides a big capacity boost to onboard new Auth0 Public Cloud customers.
@@ -4055,38 +4086,6 @@ By using Self-Service SSO Domain Verification, you agree to the applicable Free 
 </description>
                    <guid>https://auth0.com/changelog#JSIvLDuIxl4Vvubx8g24r</guid>
                </item><item>
-                   <title>Self-Service SSO - UI Ticketing and Advanced SAML Configurations</title>
-                   <pubDate>Tue, 01 Apr 2025 00:00:00 GMT</pubDate>
-                   <description>Auth0 is excited to announce new enhancements to the Self-Service SSO experience:
-
-__Self-Service SSO Ticket Creation in the Dashboard__
-
-Tenant admins can now generate SSO tickets directly from the Manage Dashboard, removing the need for API access. This update simplifies the process for all teams and makes it easier to experiment, configure, and roll out federated SSO integrations.
-
-__Enhanced SAML Configuration Options__
-
-Tenant admins can now configure whether IdP-Initiated SSO is allowed at the time of ticket creation. Additionally, in the wizard, IT admins have the option to choose whether authentication requests should be signed, offering more flexibility and control to meet varying security and compliance needs.
-
-![SS-SSO Ticket Creation](//images.ctfassets.net/kbkgmx9upatd/6rDbZaEUdVhIFOVOVQ2Nfo/a928026562badbe95eec425d11835bc4/Ticket_UI.gif)
-
-These updates enhance accessibility, security, and ease of use. Learn more about Self-Service SSO in the [product documentation](https://auth0.com/docs/authenticate/enterprise-connections/self-service-SSO).</description>
-                   <guid>https://auth0.com/changelog#3t61fp6lqBGWEWddiqCtwf</guid>
-               </item><item>
-                   <title>Bot Detection Model Updated</title>
-                   <pubDate>Mon, 31 Mar 2025 00:00:00 GMT</pubDate>
-                   <description>We’ve updated our bot detection model to improve accuracy and keep up with evolving traffic patterns.
-
-- __Improved detection__: The new model is more effective at identifying and stopping bot activity.
-
-- __More computationally efficient__: Updated architecture enables more efficient decision-making.
-
-- __Trained on fresh data__: Reflects the latest trends in traffic to better spot malicious behavior.
-
-This enhanced security capability is now available to all Enterprise customers with the __Attack Protection__ add-on. The rollout is currently underway and will be completed in the coming weeks, aligned with individual customer release schedules.
-
-For details on activation or to learn more, please refer to our [documentation](https://auth0.com/docs/secure/attack-protection/bot-detection) or reach out to your account team. We are here to support you in protecting your systems against evolving threats.</description>
-                   <guid>https://auth0.com/changelog#1wnn4u7KN4VNwN5fRYuHUc</guid>
-               </item><item>
                    <title>Advanced Customizations for Universal Login (Early Access) - Organizations, and MFA TOTP and Password Reset Challenge, oh my!</title>
                    <pubDate>Mon, 31 Mar 2025 00:00:00 GMT</pubDate>
                    <description>We are excited to announce the next Early Access release of Advanced Customizations for Universal Login! This release adds support for building custom versions of Universal Login’s Organizations screens, the MFA TOTP screens, and the matching Reset Password Challenge factors all using the new ACUL SDK.
@@ -4114,6 +4113,26 @@ The latest versions of the ACUL SDK and our CDT tooling all include support for 
 We are well on our way to adding support for everything that Universal Login currently supports out of the box. Checkout our [online documentation](https://auth0.com/docs/customize/login-pages/advanced-customizations) to learn more about ACUL and stay tuned to the Auth0 Changelog for updates and announcements!</description>
                    <guid>https://auth0.com/changelog#1at7TjSZUGT6hIJL8zTSn9</guid>
                </item><item>
+                   <title>Bot Detection Model Updated</title>
+                   <pubDate>Mon, 31 Mar 2025 00:00:00 GMT</pubDate>
+                   <description>We’ve updated our bot detection model to improve accuracy and keep up with evolving traffic patterns.
+
+- __Improved detection__: The new model is more effective at identifying and stopping bot activity.
+
+- __More computationally efficient__: Updated architecture enables more efficient decision-making.
+
+- __Trained on fresh data__: Reflects the latest trends in traffic to better spot malicious behavior.
+
+This enhanced security capability is now available to all Enterprise customers with the __Attack Protection__ add-on. The rollout is currently underway and will be completed in the coming weeks, aligned with individual customer release schedules.
+
+For details on activation or to learn more, please refer to our [documentation](https://auth0.com/docs/secure/attack-protection/bot-detection) or reach out to your account team. We are here to support you in protecting your systems against evolving threats.</description>
+                   <guid>https://auth0.com/changelog#1wnn4u7KN4VNwN5fRYuHUc</guid>
+               </item><item>
+                   <title>Improvements to the Reset Custom Provider Button Functionality</title>
+                   <pubDate>Tue, 25 Mar 2025 00:00:00 GMT</pubDate>
+                   <description>The Auth0 Dashboard allows customers to reset the code for a Custom Provider when they click the Reset button. Previously, this experience was different across Custom Email and Phone Provider in both the behavior of the button and the text displayed throughout the reset process. This behavior has been fixed, and now the reset functionality is consistent across both features. </description>
+                   <guid>https://auth0.com/changelog#3gR889G5ZwMqgn3r5UrmRA</guid>
+               </item><item>
                    <title>Event Streams for User Life Cycle Management -- Public Beta</title>
                    <pubDate>Tue, 25 Mar 2025 00:00:00 GMT</pubDate>
                    <description>Auth0 Customers have historically struggled to easily discover changes to the User Lifecycle (user create, updated or deleted), by relying on suboptimal solutions such as Actions or Logs.
@@ -4134,11 +4153,6 @@ Here&amp;apos;s a summary of the key points:
 - __Log Streams:__ The new event log type is also sent through Log Streams.
 - __Log Stream Filter:__ There is a [new Log Stream Filter](https://auth0.com/docs/customize/log-streams/event-filters#actions-event-filters &amp;quot;Action Execution - Failure&amp;quot;) focused on Actions execution errors.</description>
                    <guid>https://auth0.com/changelog#3LCFto2kZe1vwS1j4NgUkq</guid>
-               </item><item>
-                   <title>Improvements to the Reset Custom Provider Button Functionality</title>
-                   <pubDate>Tue, 25 Mar 2025 00:00:00 GMT</pubDate>
-                   <description>The Auth0 Dashboard allows customers to reset the code for a Custom Provider when they click the Reset button. Previously, this experience was different across Custom Email and Phone Provider in both the behavior of the button and the text displayed throughout the reset process. This behavior has been fixed, and now the reset functionality is consistent across both features. </description>
-                   <guid>https://auth0.com/changelog#3gR889G5ZwMqgn3r5UrmRA</guid>
                </item><item>
                    <title>Japanese Language Support Added to Auth0 Dashboard and Docs</title>
                    <pubDate>Wed, 19 Mar 2025 00:00:00 GMT</pubDate>
@@ -4301,25 +4315,6 @@ __Prerequisites:__
 To enable this feature, navigate to the __Attributes__ tab on any connection and change the __Verification Method__ under the __Email__ attribute settings from __Verification Link__ to __OTP__.</description>
                    <guid>https://auth0.com/changelog#5wjT8AZCChc2zGWBC3UlMa</guid>
                </item><item>
-                   <title>Custom Token Exchange now available in Early Access</title>
-                   <pubDate>Thu, 06 Feb 2025 00:00:00 GMT</pubDate>
-                   <description>We are thrilled to announce the Early Access release of Custom Token Exchange. __Enterprise customers__ can now request access to use this feature.
-
-Token Exchange is an OAuth grant-type that enables the exchange of security tokens for other security tokens, typically access_tokens. Custom Token Exchange provides a flexible __solution using Actions that allows customers to provide their custom logic to control the exchange__ - i.e. effectively providing the means to implement custom authentication semantics using Actions.
-
-![Custom_Token_Exchange_EA_Action](https://cdn.auth0.com/blog/Custom_Token_Exchange_EA_Changelog.png)
-
-This __added flexibility__ can be used by customers to tackle __advanced integration use cases__, such as:
-- Seamlessly migrating users to Auth0
-- Integrating external IDPs
-- Exchanging Auth0 tokens for a different audience
-- ... and other use cases where regular federation and/or OIDC flows are not an option
-
-To learn more, read our [documentation](https://auth0.com/docs/custom-token-exchange-early-access).
-
-Reach out to you Auth0 contact to request access!</description>
-                   <guid>https://auth0.com/changelog#3vAOS1iFG0OAu7uRPmAvYd</guid>
-               </item><item>
                    <title>Advanced Customizations for Universal Login (Early Access) is launching today!</title>
                    <pubDate>Thu, 06 Feb 2025 00:00:00 GMT</pubDate>
                    <description>At Auth0, we understand that no two customer identity stories are the same.  Every company has a brand identity, a secret sauce, and a unique aesthetic vision. Today, we are very excited to introduce the next evolution in customization for Universal Login, **Advanced Customizations for Universal Login** (ACUL). ACUL enables your team to build custom, client-rendered versions of each Universal Login screen, allowing you to control every pixel of the Universal Login experience. 
@@ -4360,6 +4355,25 @@ This is just the beginning! In the coming months, we will be adding support for 
 
 Checkout our [online documentation](https://auth0.com/docs/customize/login-pages/advanced-customizations) to learn more about ACUL and stay tuned to the [Auth0 Changelog](https://auth0.com/changelog) for updates and announcements!</description>
                    <guid>https://auth0.com/changelog#kR21qiOZkM2jAlFDaId7D</guid>
+               </item><item>
+                   <title>Custom Token Exchange now available in Early Access</title>
+                   <pubDate>Thu, 06 Feb 2025 00:00:00 GMT</pubDate>
+                   <description>We are thrilled to announce the Early Access release of Custom Token Exchange. __Enterprise customers__ can now request access to use this feature.
+
+Token Exchange is an OAuth grant-type that enables the exchange of security tokens for other security tokens, typically access_tokens. Custom Token Exchange provides a flexible __solution using Actions that allows customers to provide their custom logic to control the exchange__ - i.e. effectively providing the means to implement custom authentication semantics using Actions.
+
+![Custom_Token_Exchange_EA_Action](https://cdn.auth0.com/blog/Custom_Token_Exchange_EA_Changelog.png)
+
+This __added flexibility__ can be used by customers to tackle __advanced integration use cases__, such as:
+- Seamlessly migrating users to Auth0
+- Integrating external IDPs
+- Exchanging Auth0 tokens for a different audience
+- ... and other use cases where regular federation and/or OIDC flows are not an option
+
+To learn more, read our [documentation](https://auth0.com/docs/custom-token-exchange-early-access).
+
+Reach out to you Auth0 contact to request access!</description>
+                   <guid>https://auth0.com/changelog#3vAOS1iFG0OAu7uRPmAvYd</guid>
                </item><item>
                    <title>New Private Cloud Region in India</title>
                    <pubDate>Mon, 03 Feb 2025 00:00:00 GMT</pubDate>
@@ -4602,6 +4616,13 @@ With Control Your Own Key, you can manage the lifecycle of the Tenant Master Key
 You can read more about this in our [product documentation](https://auth0.com/docs/secure/highly-regulated-identity/customer-managed-keys).</description>
                    <guid>https://auth0.com/changelog#166ZJIqF1s245oGxE0LbDX</guid>
                </item><item>
+                   <title>New Batch Check API Endpoint for Okta FGA</title>
+                   <pubDate>Tue, 10 Dec 2024 00:00:00 GMT</pubDate>
+                   <description>We’ve introduced a new Batch Check endpoint to the Okta FGA API, allowing clients to batch multiple authorization checks into a single request. This enhancement reduces the network latency associated with previously needing to performing multiple Check API requests in parallel, resulting in faster and more efficient requests for applications with high authorization demands.
+
+For more details, refer to the [Okta FGA Batch Check documentation](https://docs.fga.dev/integration/perform-check#03-calling-batch-check-api).</description>
+                   <guid>https://auth0.com/changelog#4x71B72kxmb8KKeF7oBtHt</guid>
+               </item><item>
                    <title>New API command within Password Reset / PostChallenge Action Trigger</title>
                    <pubDate>Tue, 10 Dec 2024 00:00:00 GMT</pubDate>
                    <description>We added a new API command available in the Password Reset / PostChallenge trigger.  This API allows Tenant Developers to specify the url to redirect a user to upon the completion of a password reset on Universal Login.  
@@ -4614,13 +4635,6 @@ Here is an example of using the command to redirect the user to a sample url aft
 
 You can learn more in our [reference documentation.](https://auth0.com/docs/customize/actions/explore-triggers/password-reset-triggers/post-challenge-trigger/post-challenge-api-object)</description>
                    <guid>https://auth0.com/changelog#C6DchsoFTLQF1kDyuyKnD</guid>
-               </item><item>
-                   <title>New Batch Check API Endpoint for Okta FGA</title>
-                   <pubDate>Tue, 10 Dec 2024 00:00:00 GMT</pubDate>
-                   <description>We’ve introduced a new Batch Check endpoint to the Okta FGA API, allowing clients to batch multiple authorization checks into a single request. This enhancement reduces the network latency associated with previously needing to performing multiple Check API requests in parallel, resulting in faster and more efficient requests for applications with high authorization demands.
-
-For more details, refer to the [Okta FGA Batch Check documentation](https://docs.fga.dev/integration/perform-check#03-calling-batch-check-api).</description>
-                   <guid>https://auth0.com/changelog#4x71B72kxmb8KKeF7oBtHt</guid>
                </item><item>
                    <title>Bot Detection Enhanced with Additional Tenant-Level Signals</title>
                    <pubDate>Mon, 09 Dec 2024 00:00:00 GMT</pubDate>
@@ -4694,6 +4708,17 @@ Happy coding! 🚀
 — The Auth0 DX SDK Team</description>
                    <guid>https://auth0.com/changelog#2o4tKtDIj8rkVTLtPFVnMP</guid>
                </item><item>
+                   <title>Bot Detection Now Upgraded with User-Agent Signals</title>
+                   <pubDate>Thu, 14 Nov 2024 00:00:00 GMT</pubDate>
+                   <description>We are excited to announce that our fourth-generation Bot Detection has been upgraded with user-agent signals, and is now integrated into our proprietary machine learning model. This enhancement improves our capability to detect and thwart bot activity, further strengthening protection against malicious traffic without adding any additional friction for legitimate users.
+
+This security feature is available to all Enterprise customers with the Attack Protection add-on. We are currently rolling out this enhancement and expect to complete the process within the next few weeks, aligned with your individual release schedules.
+
+For activation details or further information, please check our [documentation](https://auth0.com/docs/secure/attack-protection/bot-detection) or reach out to your account team. We’re here to support you in safeguarding your systems against evolving threats.
+
+Thank you for trusting us with your security needs.</description>
+                   <guid>https://auth0.com/changelog#2kb02dZ0aUVSeiXFCWh94l</guid>
+               </item><item>
                    <title>Self-Service SSO: Exciting Updates</title>
                    <pubDate>Thu, 14 Nov 2024 00:00:00 GMT</pubDate>
                    <description>Auth0 is excited to announce the following updates to Self-Service SSO:
@@ -4706,17 +4731,6 @@ Happy coding! 🚀
 
 To learn more, see the [Self-Service SSO documentation](https://auth0.com/docs/authenticate/enterprise-connections/self-service-SSO).</description>
                    <guid>https://auth0.com/changelog#fIOOykW0Bo8oGnweYsrpT</guid>
-               </item><item>
-                   <title>Bot Detection Now Upgraded with User-Agent Signals</title>
-                   <pubDate>Thu, 14 Nov 2024 00:00:00 GMT</pubDate>
-                   <description>We are excited to announce that our fourth-generation Bot Detection has been upgraded with user-agent signals, and is now integrated into our proprietary machine learning model. This enhancement improves our capability to detect and thwart bot activity, further strengthening protection against malicious traffic without adding any additional friction for legitimate users.
-
-This security feature is available to all Enterprise customers with the Attack Protection add-on. We are currently rolling out this enhancement and expect to complete the process within the next few weeks, aligned with your individual release schedules.
-
-For activation details or further information, please check our [documentation](https://auth0.com/docs/secure/attack-protection/bot-detection) or reach out to your account team. We’re here to support you in safeguarding your systems against evolving threats.
-
-Thank you for trusting us with your security needs.</description>
-                   <guid>https://auth0.com/changelog#2kb02dZ0aUVSeiXFCWh94l</guid>
                </item><item>
                    <title>Additional SAML methods available via Actions</title>
                    <pubDate>Wed, 13 Nov 2024 00:00:00 GMT</pubDate>
@@ -4790,11 +4804,6 @@ To learn more, see the [Self-Service SSO documentation](https://auth0.com/docs/a
 </description>
                    <guid>https://auth0.com/changelog#3algyxnXQC2c5IaV1BEjuL</guid>
                </item><item>
-                   <title>Support Center Closed Tickets Older than 24 Months to be Deleted</title>
-                   <pubDate>Wed, 02 Oct 2024 00:00:00 GMT</pubDate>
-                   <description>In our continuing effort to improve our security posture, Auth0 will no longer retain closed support tickets older than 24 months. Closed support tickets older than 24 months will be deleted on October 16. To view your support tickets, you can navigate to [https://support.auth0.com/tickets](https://support.auth0.com/tickets) . For questions or issues on this change, please reach out to [Support](https://support.auth0.com/).</description>
-                   <guid>https://auth0.com/changelog#26FQraKOkaff8RNS9KGsyN</guid>
-               </item><item>
                    <title>Custom Phone Providers in Early Access!</title>
                    <pubDate>Wed, 02 Oct 2024 00:00:00 GMT</pubDate>
                    <description>We’re excited to announce that __Custom Phone Providers__ in is now in __Early Access__.
@@ -4809,6 +4818,11 @@ We encourage you to get started with Custom Phone Providers today by checking ou
 </description>
                    <guid>https://auth0.com/changelog#2ZTFNd9CQxFZEGuPcNBAvy</guid>
                </item><item>
+                   <title>Support Center Closed Tickets Older than 24 Months to be Deleted</title>
+                   <pubDate>Wed, 02 Oct 2024 00:00:00 GMT</pubDate>
+                   <description>In our continuing effort to improve our security posture, Auth0 will no longer retain closed support tickets older than 24 months. Closed support tickets older than 24 months will be deleted on October 16. To view your support tickets, you can navigate to [https://support.auth0.com/tickets](https://support.auth0.com/tickets) . For questions or issues on this change, please reach out to [Support](https://support.auth0.com/).</description>
+                   <guid>https://auth0.com/changelog#26FQraKOkaff8RNS9KGsyN</guid>
+               </item><item>
                    <title>New Private Cloud Region in United Arab Emirates (UAE)</title>
                    <pubDate>Mon, 30 Sep 2024 00:00:00 GMT</pubDate>
                    <description>Auth0 is delighted to introduce the __United Arab Emirates (UAE)__ as the latest __AWS region for Private Cloud__ deployments. 
@@ -4816,6 +4830,31 @@ We encourage you to get started with Custom Phone Providers today by checking ou
 We are committed to enhancing our presence in the Middle East. The UAE joins Bahrain as the second AWS region for Auth0 Private Cloud in this part of the world. This expansion opens up new possibilities in the UAE, where Private Cloud deployment is already supported on Azure.
 </description>
                    <guid>https://auth0.com/changelog#RwR20l4xOR2jB3pb0tEgq</guid>
+               </item><item>
+                   <title>Update to Session Termination Behavior when Adding Identifiers</title>
+                   <pubDate>Fri, 27 Sep 2024 00:00:00 GMT</pubDate>
+                   <description>**What’s Changing:**
+
+We are improving the user experience when adding or updating identifiers (email, phone number, or username) in profiles.
+
+**Key Updates:**
+
+1. **New Identifier**: When a new identifier type (email, phone, or username) is added to a user profile where one **does not already exist**, the user’s session **will not be terminated**. This allows for a smoother **progressive profiling** experience, where users can add new identifiers without disruption.  
+2. **Changing Existing Identifier**: When an existing identifier is modified, the user’s session **will terminate**, and the user will have to re-authenticate. This ensures security best practices are followed when updating key account information.
+
+**Why This Matters:** Previously, any update to an identifier (whether adding or changing it) would terminate the user’s session. This could lead to a poor experience, especially during progressive profiling, where users are expected to update or add information without being logged out. With this update, customers can offer a seamless experience for users adding new identifiers while maintaining strict security for changes to existing identifiers.
+
+**Rollout Timing:** This change will be rolled out progressively over the next 1-4 weeks. Customers can expect to see the updated session handling behavior in their environments during this period.
+
+**Action Required:** No immediate action is required from customers, but it is recommended to review any user flows that involve the addition or modification of identifiers to ensure they align with this change.</description>
+                   <guid>https://auth0.com/changelog#tKdrsqdxsu6VXwxjtgAJv</guid>
+               </item><item>
+                   <title>EN 301 549 Compliance for Universal Login</title>
+                   <pubDate>Fri, 27 Sep 2024 00:00:00 GMT</pubDate>
+                   <description>Okta CIC is excited to announce that Universal Login now satisfies out of the box or provide configurability to satisfy the guidelines for the [EN 301 549](https://www.etsi.org/human-factors-accessibility/en-301-549-v3-the-harmonized-european-standard-for-ict-accessibility) standard. We have updated our VPAT to include this information and it is available on [Okta.com](https://www.okta.com/accessibility/). By ensuring that Universal Login is accessible to all users, we enable our customers to confidently secure their applications with accessible authentication. 
+
+See our [online documentation](https://auth0.com/docs/authenticate/login/auth0-universal-login#accessibility) for more details. </description>
+                   <guid>https://auth0.com/changelog#3usfvu6YBZi85bkZKDxCJ0</guid>
                </item><item>
                    <title>Email OTP Verification (Early Access)</title>
                    <pubDate>Fri, 27 Sep 2024 00:00:00 GMT</pubDate>
@@ -4839,31 +4878,6 @@ To enable this feature, navigate to the __Attributes__ tab on any connection and
 
 ![Email OTP Verification](https://cdn.auth0.com/blog/email_otp_verification.png)</description>
                    <guid>https://auth0.com/changelog#59iYsCKQa7DzLBhXbrkW3F</guid>
-               </item><item>
-                   <title>EN 301 549 Compliance for Universal Login</title>
-                   <pubDate>Fri, 27 Sep 2024 00:00:00 GMT</pubDate>
-                   <description>Okta CIC is excited to announce that Universal Login now satisfies out of the box or provide configurability to satisfy the guidelines for the [EN 301 549](https://www.etsi.org/human-factors-accessibility/en-301-549-v3-the-harmonized-european-standard-for-ict-accessibility) standard. We have updated our VPAT to include this information and it is available on [Okta.com](https://www.okta.com/accessibility/). By ensuring that Universal Login is accessible to all users, we enable our customers to confidently secure their applications with accessible authentication. 
-
-See our [online documentation](https://auth0.com/docs/authenticate/login/auth0-universal-login#accessibility) for more details. </description>
-                   <guid>https://auth0.com/changelog#3usfvu6YBZi85bkZKDxCJ0</guid>
-               </item><item>
-                   <title>Update to Session Termination Behavior when Adding Identifiers</title>
-                   <pubDate>Fri, 27 Sep 2024 00:00:00 GMT</pubDate>
-                   <description>**What’s Changing:**
-
-We are improving the user experience when adding or updating identifiers (email, phone number, or username) in profiles.
-
-**Key Updates:**
-
-1. **New Identifier**: When a new identifier type (email, phone, or username) is added to a user profile where one **does not already exist**, the user’s session **will not be terminated**. This allows for a smoother **progressive profiling** experience, where users can add new identifiers without disruption.  
-2. **Changing Existing Identifier**: When an existing identifier is modified, the user’s session **will terminate**, and the user will have to re-authenticate. This ensures security best practices are followed when updating key account information.
-
-**Why This Matters:** Previously, any update to an identifier (whether adding or changing it) would terminate the user’s session. This could lead to a poor experience, especially during progressive profiling, where users are expected to update or add information without being logged out. With this update, customers can offer a seamless experience for users adding new identifiers while maintaining strict security for changes to existing identifiers.
-
-**Rollout Timing:** This change will be rolled out progressively over the next 1-4 weeks. Customers can expect to see the updated session handling behavior in their environments during this period.
-
-**Action Required:** No immediate action is required from customers, but it is recommended to review any user flows that involve the addition or modification of identifiers to ensure they align with this change.</description>
-                   <guid>https://auth0.com/changelog#tKdrsqdxsu6VXwxjtgAJv</guid>
                </item><item>
                    <title>New endpoints on the Session Management APIs</title>
                    <pubDate>Wed, 25 Sep 2024 00:00:00 GMT</pubDate>
