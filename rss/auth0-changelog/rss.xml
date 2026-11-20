@@ -5,7 +5,7 @@
            <link>https://auth0.com/changelog/rss.xml</link>
            <description>Auth0 Changelog</description>
            <language>en-US</language>
-           <lastBuildDate>Fri, 20 Nov 2026 05:36:42 GMT</lastBuildDate>
+           <lastBuildDate>Fri, 20 Nov 2026 14:37:36 GMT</lastBuildDate>
            <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
            <image>
                <title>Auth0 Changelog</title>
@@ -14,6 +14,20 @@
            </image>
            <atom:link href="https://auth0.com/changelog/rss.xml" rel="self" type="application/rss+xml"/>
            <item>
+                   <title>Pushed Authorization Requests (PAR) and JWT-Secured Encryption (JWE) for Okta and Enterprise OIDC Connections (BETA)</title>
+                   <pubDate>Thu, 19 Nov 2026 00:00:00 GMT</pubDate>
+                   <description>Enterprise OIDC and Okta connections now support Pushed Authorization Requests (PAR) and encrypted ID tokens (JWE). Together, they help meet the security profile that some government and open-banking identity providers require.
+
+**What&amp;apos;s new**
+- **PAR:** Auth0 sends its authorization request to upstream identity provider over a server-to-server connection, and gets back a reference. The request details never appear in the browser address bar. 
+- **JWE:** the upstream identity provider can encrypt the ID token, so only Auth0 can read its claims. Auth0 decrypts the token, validates its signature and claims, and maps them to a user. 
+
+**Who can use it**
+- Enterprise customers can request it for their non-production tenants through their Auth0 account team.
+
+By using PAR/JWE, you agree to the applicable Free Trial terms in Okta&amp;apos;s Master Subscription Agreement and Okta&amp;apos;s Privacy Policy during use of the beta feature. The Free Trial terms can be found within the Master Subscription Agreement at https://www.okta.com/agreements. </description>
+                   <guid>https://auth0.com/changelog#2GV1CS4tk0oooesEB3FJfW</guid>
+               </item><item>
                    <title>Auth0 Security Agent is now in Early Access</title>
                    <pubDate>Thu, 19 Nov 2026 00:00:00 GMT</pubDate>
                    <description>The Auth0 Security Agent is now in Early Access. Early Access adds detection and response for credential stuffing attacks. The agent computes traffic baselines specific to your tenant and sends an anomaly alert to your security team in Slack when failed logins deviate from that normal for a sustained period, prompting you to investigate. This includes attacks that stay under rate limits. From there, the agent triages the attack, recommends Attack Protection and Tenant ACL changes based on your configuration, and lets an Auth0 tenant administrator review each one and apply it after authenticating. You can re-run triage afterward to check the attack status.
@@ -28,20 +42,6 @@ Learn More:
 [Documentation](https://auth0.com/docs/secure/security-agent &amp;quot;Auth0 Security Agent - Auth0 Docs&amp;quot;)
 [Blog Post](https://auth0.com/blog/auth0-security-agent-early-access/ &amp;quot;Protecting Your Brand Starts with Auth0 Security Agent&amp;quot;)</description>
                    <guid>https://auth0.com/changelog#2LRdGI9GscNz60OMPImFSj</guid>
-               </item><item>
-                   <title>Pushed Authorization Requests (PAR) and JWT-Secured Encryption (JWE) for Okta and Enterprise OIDC Connections (BETA)</title>
-                   <pubDate>Thu, 19 Nov 2026 00:00:00 GMT</pubDate>
-                   <description>Enterprise OIDC and Okta connections now support Pushed Authorization Requests (PAR) and encrypted ID tokens (JWE). Together, they help meet the security profile that some government and open-banking identity providers require.
-
-**What&amp;apos;s new**
-- **PAR:** Auth0 sends its authorization request to upstream identity provider over a server-to-server connection, and gets back a reference. The request details never appear in the browser address bar. 
-- **JWE:** the upstream identity provider can encrypt the ID token, so only Auth0 can read its claims. Auth0 decrypts the token, validates its signature and claims, and maps them to a user. 
-
-**Who can use it**
-- Enterprise customers can request it for their non-production tenants through their Auth0 account team.
-
-By using PAR/JWE, you agree to the applicable Free Trial terms in Okta&amp;apos;s Master Subscription Agreement and Okta&amp;apos;s Privacy Policy during use of the beta feature. The Free Trial terms can be found within the Master Subscription Agreement at https://www.okta.com/agreements. </description>
-                   <guid>https://auth0.com/changelog#2GV1CS4tk0oooesEB3FJfW</guid>
                </item><item>
                    <title>OpenID Connect for Third-Party Apps is now Generally Available</title>
                    <pubDate>Wed, 18 Nov 2026 00:00:00 GMT</pubDate>
