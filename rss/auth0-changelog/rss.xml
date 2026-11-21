@@ -5,7 +5,7 @@
            <link>https://auth0.com/changelog/rss.xml</link>
            <description>Auth0 Changelog</description>
            <language>en-US</language>
-           <lastBuildDate>Fri, 20 Nov 2026 21:39:42 GMT</lastBuildDate>
+           <lastBuildDate>Sat, 21 Nov 2026 03:40:30 GMT</lastBuildDate>
            <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
            <image>
                <title>Auth0 Changelog</title>
@@ -14,19 +14,24 @@
            </image>
            <atom:link href="https://auth0.com/changelog/rss.xml" rel="self" type="application/rss+xml"/>
            <item>
-                   <title>Pushed Authorization Requests (PAR) and JWT-Secured Encryption (JWE) for Okta and Enterprise OIDC Connections (BETA)</title>
-                   <pubDate>Thu, 19 Nov 2026 00:00:00 GMT</pubDate>
-                   <description>Enterprise OIDC and Okta connections now support Pushed Authorization Requests (PAR) and encrypted ID tokens (JWE). Together, they help meet the security profile that some government and open-banking identity providers require.
+                   <title>Cross-App Access Requesting App now supports SAML in Early Access</title>
+                   <pubDate>Fri, 20 Nov 2026 00:00:00 GMT</pubDate>
+                   <description>Auth0 can now act as a requesting application in Cross-App Access (XAA) flows for users who sign in through SAML enterprise connections, now in Early Access. This extends Requesting App support, released for OIDC and Okta Workforce connections on August 31.
 
-**What&amp;apos;s new**
-- **PAR:** Auth0 sends its authorization request to upstream identity provider over a server-to-server connection, and gets back a reference. The request details never appear in the browser address bar. 
-- **JWE:** the upstream identity provider can encrypt the ID token, so only Auth0 can read its claims. Auth0 decrypts the token, validates its signature and claims, and maps them to a user. 
+Today, every user has to click &amp;quot;Connect your account&amp;quot; for every integration, in every app, one at a time. Cross-App Access Requesting App removes it: apps that authenticate enterprise users can fetch a third-party API token for that user without asking them to manually connect the account first. With this release, that includes users who authenticate through SAML.
 
-**Who can use it**
-- Enterprise customers can request it for their non-production tenants through their Auth0 account team.
+Key highlights:
+- __Built on Token Vault,__ which uses the ID-JAG (Identity Assertion Authorization Grant) protocol to resolve tokens.
+- __SAML sign-in__, OAuth token exchange: users sign in with SAML, and Token Vault then calls your IdP&amp;apos;s OAuth 2.0 token endpoint, which Auth0 finds in the IdP&amp;apos;s OpenID Connect metadata. Your IdP must be able to exchange a SAML assertion for a refresh token and issue ID-JAGs.
+- __Organization-aware__: in multi-org tenants, connection resolution respects org_id, rejecting the request if the enterprise connection or target resource app isn&amp;apos;t enabled for that organization, or if the org context is ambiguous.
+-__Configure it in the Dashboard or with the Management API__: enable the Requesting Application role on the SAML connection, set the issuer or discovery URL and the client ID Auth0 uses with your IdP, and authenticate with Private Key JWT or a client secret.
+- __Currently supported on SAML, OIDC, and Okta Workforce connections.__
 
-By using PAR/JWE, you agree to the applicable Free Trial terms in Okta&amp;apos;s Master Subscription Agreement and Okta&amp;apos;s Privacy Policy during use of the beta feature. The Free Trial terms can be found within the Master Subscription Agreement at https://www.okta.com/agreements. </description>
-                   <guid>https://auth0.com/changelog#2GV1CS4tk0oooesEB3FJfW</guid>
+To learn more, read the [Cross-App Access Requesting App documentation](https://auth0.com/docs/secure/call-apis-on-users-behalf/token-vault/xaa-with-token-vault#use-token-vault-with-a-saml-idp).  
+
+Cross-App Access Requesting App is in Early Access. By using this feature, you agree to the applicable Free Trial terms in Okta&amp;apos;s Master Subscription Agreement and Privacy Policy (https://www.okta.com/agreements/).
+</description>
+                   <guid>https://auth0.com/changelog#F3uhJgNKQwtm2LJETMkcM</guid>
                </item><item>
                    <title>Auth0 Security Agent is now in Early Access</title>
                    <pubDate>Thu, 19 Nov 2026 00:00:00 GMT</pubDate>
@@ -42,6 +47,20 @@ Learn More:
 [Documentation](https://auth0.com/docs/secure/security-agent &amp;quot;Auth0 Security Agent - Auth0 Docs&amp;quot;)
 [Blog Post](https://auth0.com/blog/auth0-security-agent-early-access/ &amp;quot;Protecting Your Brand Starts with Auth0 Security Agent&amp;quot;)</description>
                    <guid>https://auth0.com/changelog#2LRdGI9GscNz60OMPImFSj</guid>
+               </item><item>
+                   <title>Pushed Authorization Requests (PAR) and JWT-Secured Encryption (JWE) for Okta and Enterprise OIDC Connections (BETA)</title>
+                   <pubDate>Thu, 19 Nov 2026 00:00:00 GMT</pubDate>
+                   <description>Enterprise OIDC and Okta connections now support Pushed Authorization Requests (PAR) and encrypted ID tokens (JWE). Together, they help meet the security profile that some government and open-banking identity providers require.
+
+**What&amp;apos;s new**
+- **PAR:** Auth0 sends its authorization request to upstream identity provider over a server-to-server connection, and gets back a reference. The request details never appear in the browser address bar. 
+- **JWE:** the upstream identity provider can encrypt the ID token, so only Auth0 can read its claims. Auth0 decrypts the token, validates its signature and claims, and maps them to a user. 
+
+**Who can use it**
+- Enterprise customers can request it for their non-production tenants through their Auth0 account team.
+
+By using PAR/JWE, you agree to the applicable Free Trial terms in Okta&amp;apos;s Master Subscription Agreement and Okta&amp;apos;s Privacy Policy during use of the beta feature. The Free Trial terms can be found within the Master Subscription Agreement at https://www.okta.com/agreements. </description>
+                   <guid>https://auth0.com/changelog#2GV1CS4tk0oooesEB3FJfW</guid>
                </item><item>
                    <title>OpenID Connect for Third-Party Apps is now Generally Available</title>
                    <pubDate>Wed, 18 Nov 2026 00:00:00 GMT</pubDate>
@@ -3612,26 +3631,6 @@ What’s New?
 </description>
                    <guid>https://auth0.com/changelog#46knYejnHFSYMc59ijmGjz</guid>
                </item><item>
-                   <title>Real-time Webtasks Logs Extension Deprecation</title>
-                   <pubDate>Wed, 18 Jun 2025 00:00:00 GMT</pubDate>
-                   <description>#### What is changing?
-We are deprecating the Real-time Webtask Logs extension with a planned end-of-life after (EOL) **September 16, 2025**. 
-
-As a replacement, we have published the [Actions Real-time Logs](https://auth0.com/docs/customize/actions/actions-real-time-logs) feature integrated within the Auth0 Dashboard. The extension will cease to be available for new installations, but tenants with the extension already installed will maintain access until the planned EOL.
-
-#### Why are we making this change?
-The transition to the dashboard will improve the security posture and maintainability of the functionality, while simplifying future enhancements.
-
-#### How are you affected?
-For active users of the Real-time Webtask Logs extension, its scheduled removal will affect you, as the transition from extension to a direct dashboard capability inherently implies some user experience differences.
-
-#### What action do you need to take?
-You can start using the [Actions Real-time Logs](https://auth0.com/docs/customize/actions/actions-real-time-logs#how-to-use) feature by navigating to **Auth0 Dashboard** &amp;gt; **Monitoring** &amp;gt; **Actions Logs**. 
-
-We recommend that extension users familiarize themselves with the new user interface to avoid disruption once the extension becomes unavailable.
-</description>
-                   <guid>https://auth0.com/changelog#4PbsaXwpuayYFHiuPXr1SS</guid>
-               </item><item>
                    <title>Removal of Access to Specific Event Request Properties in Actions</title>
                    <pubDate>Wed, 18 Jun 2025 00:00:00 GMT</pubDate>
                    <description>#### What is changing?
@@ -3663,6 +3662,26 @@ The exact implementation changes you may need to perform will depend on your ove
 
 For example, for scenarios related to reusing secret information previously available from the request, the support for [secret management](https://auth0.com/docs/customize/actions/write-your-first-action#add-a-secret) (`event.secrets`) as part of actions may provide a potential alternative. If the requests include restricted property names, but the information sent within them is not considered sensitive, you may consider using a different parameter name in the request, or ideally, consider using [custom parameters](https://auth0.com/docs/get-started/authentication-and-authorization-flow/authorization-code-flow/authorization-code-flow-with-par#supported-parameters) as part of [pushed authorization requests](https://auth0.com/docs/get-started/applications/configure-par) to avoid disclosing/interception of the data by end-users in browser-based flows. If the data is static per client or connection, consider storing it as part of client or connection metadata.</description>
                    <guid>https://auth0.com/changelog#3FKFF7m36s3iNW64RA9xSP</guid>
+               </item><item>
+                   <title>Real-time Webtasks Logs Extension Deprecation</title>
+                   <pubDate>Wed, 18 Jun 2025 00:00:00 GMT</pubDate>
+                   <description>#### What is changing?
+We are deprecating the Real-time Webtask Logs extension with a planned end-of-life after (EOL) **September 16, 2025**. 
+
+As a replacement, we have published the [Actions Real-time Logs](https://auth0.com/docs/customize/actions/actions-real-time-logs) feature integrated within the Auth0 Dashboard. The extension will cease to be available for new installations, but tenants with the extension already installed will maintain access until the planned EOL.
+
+#### Why are we making this change?
+The transition to the dashboard will improve the security posture and maintainability of the functionality, while simplifying future enhancements.
+
+#### How are you affected?
+For active users of the Real-time Webtask Logs extension, its scheduled removal will affect you, as the transition from extension to a direct dashboard capability inherently implies some user experience differences.
+
+#### What action do you need to take?
+You can start using the [Actions Real-time Logs](https://auth0.com/docs/customize/actions/actions-real-time-logs#how-to-use) feature by navigating to **Auth0 Dashboard** &amp;gt; **Monitoring** &amp;gt; **Actions Logs**. 
+
+We recommend that extension users familiarize themselves with the new user interface to avoid disruption once the extension becomes unavailable.
+</description>
+                   <guid>https://auth0.com/changelog#4PbsaXwpuayYFHiuPXr1SS</guid>
                </item><item>
                    <title>Canadian French Language Support Added to Auth0 Dashboard and Docs</title>
                    <pubDate>Wed, 18 Jun 2025 00:00:00 GMT</pubDate>
@@ -6117,6 +6136,13 @@ This will allow you to show your customers&amp;apos; administrators a list of th
 [Click here to learn more](https://auth0.com/docs/manage-users/organizations/organizations-overview) about how Organizations can help with authentication and authorization for your B2B &amp;amp; SaaS applications.</description>
                    <guid>https://auth0.com/changelog#78X6urpiHJK6SY0fUw4zyh</guid>
                </item><item>
+                   <title>Private Cloud Quota Reports Updated</title>
+                   <pubDate>Fri, 22 Sep 2023 00:00:00 GMT</pubDate>
+                   <description>We have updated [Quota Utilization Reports](https://auth0.com/docs/troubleshoot/customer-support/manage-subscriptions/monitor-subscription-usage#quota-utilization) to include the Private Cloud Environment name within the &amp;apos;Environment&amp;apos; column of these reports instead of the previously inferred values of &amp;quot;Production or Development&amp;quot;.
+
+Now you can leverage the actual names for the Private Cloud environment to have a better understanding of your subscription usage.</description>
+                   <guid>https://auth0.com/changelog#49VX9RVprIV8rKkhmxZZSI</guid>
+               </item><item>
                    <title>Auth0 Terraform Provider V1 - GA</title>
                    <pubDate>Fri, 22 Sep 2023 00:00:00 GMT</pubDate>
                    <description>Announcing the general availability release of Auth0 Terraform Provider v1! This milestone release introduces a plethora of new features, enhancements, and bug fixes that make managing your Auth0 infrastructure with Terraform more efficient and reliable than ever.
@@ -6129,13 +6155,6 @@ __What&amp;apos;s New in v1:__
 
 To get started with Auth0 Terraform Provider v1, visit the official [Terraform Registry](https://registry.terraform.io/providers/auth0/auth0/latest). If you&amp;apos;re migrating from a previous v0 build, please consult the [migration guide](https://github.com/auth0/terraform-provider-auth0/blob/main/MIGRATION_GUIDE.md) as this release includes breaking changes.</description>
                    <guid>https://auth0.com/changelog#515sGCwZW2u6bD06rzS1uC</guid>
-               </item><item>
-                   <title>Private Cloud Quota Reports Updated</title>
-                   <pubDate>Fri, 22 Sep 2023 00:00:00 GMT</pubDate>
-                   <description>We have updated [Quota Utilization Reports](https://auth0.com/docs/troubleshoot/customer-support/manage-subscriptions/monitor-subscription-usage#quota-utilization) to include the Private Cloud Environment name within the &amp;apos;Environment&amp;apos; column of these reports instead of the previously inferred values of &amp;quot;Production or Development&amp;quot;.
-
-Now you can leverage the actual names for the Private Cloud environment to have a better understanding of your subscription usage.</description>
-                   <guid>https://auth0.com/changelog#49VX9RVprIV8rKkhmxZZSI</guid>
                </item><item>
                    <title>Teams: Updates to Auth0 Teams Login</title>
                    <pubDate>Fri, 15 Sep 2023 00:00:00 GMT</pubDate>
